@@ -1,3 +1,7 @@
+---
+sidebar_position: 4
+---
+
 # How to move PSP games to your Android device
 
 First, make sure you have your games as ISO files. See [How to get games](how-to-get-games) and [How to dump games](dumping-games).

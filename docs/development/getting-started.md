@@ -8,16 +8,16 @@ PPSSPP can thus run on quite low-spec hardware, including stronger **ARM-based p
 
 ## Code and commit access
 
-PPSSPP is an open source project, licensed under the GPL 2.0 (or later). Anyone is welcome to contribute their improvements to the code. The code is hosted at [the Github page for PPSSPP](https://www.github.com/hrydgard/ppsspp), using the [Git](https://git-scm.com/) source control system.
+PPSSPP is an open source project, licensed under the GPL 2.0 (or later). Anyone is welcome to contribute their improvements to the code. The code is hosted at [the Github page for PPSSPP](https://github.com/hrydgard/ppsspp), using the [Git](https://git-scm.com/) source control system.
 
 Following the [Dolphin](https://www.dolphin-emu.org) tradition, the PPSSPP project is very open. Anyone can participate directly in the development by making pull requests, and if you make substantial contributions you may be given rights to commit directly.
 
 ## Convenient Links
 
-- [PPSSPP on Github](https://www.github.com/hrydgard/ppsspp)
+- [PPSSPP on Github](https://github.com/hrydgard/ppsspp)
 - [Commits](https://github.com/hrydgard/ppsspp/commits/master)
-- [View open issues](https://www.github.com/hrydgard/ppsspp/issues)
-- [View pull requests](https://www.github.com/hrydgard/ppsspp/pulls)
+- [View open issues](https://github.com/hrydgard/ppsspp/issues)
+- [View pull requests](https://github.com/hrydgard/ppsspp/pulls)
 
 ## Building
 
@@ -41,6 +41,6 @@ Since this emulator implements most of the PSP OS in order to run games, testing
 
 ### Contributing
 
-Pick from the list of tasks below, go look at the [open issues on GitHub](https://www.github.com/hrydgard/ppsspp/issues), or just implement whatever missing feature you feel like. Send your code as a pull request on Github. If you send a couple of good pull requests, you'll be added as a contributor and get your own commit access.
+Pick from the list of tasks below, go look at the [open issues on GitHub](https://github.com/hrydgard/ppsspp/issues), or just implement whatever missing feature you feel like. Send your code as a pull request on Github. If you send a couple of good pull requests, you'll be added as a contributor and get your own commit access.
 
-The PPSSPP coding style is similar to the [Google C++ coding style](https://google-styleguide.googlecode.com/svn/trunk/cppguide.xml).
+The PPSSPP coding style is similar to the [Google C++ coding style](https://google.github.io/styleguide/cppguide.html).

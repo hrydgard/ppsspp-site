@@ -4,6 +4,10 @@
 # Production
 /build
 
+# Config
+env.js
+env.prod.js
+
 # Generated files
 .docusaurus
 .cache-loader

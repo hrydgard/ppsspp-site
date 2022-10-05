@@ -8,6 +8,7 @@
   text-align: center;
   position: relative;
   overflow: hidden;
+  color: #FFFFFF;
 }
 
 @media screen and (max-width: 996px) {
@@ -19,5 +20,5 @@
 .buttons {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
 }

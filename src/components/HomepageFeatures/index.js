@@ -2,20 +2,24 @@ import React from 'react';
 import clsx from 'clsx';
 import styles from './styles.module.css';
 
+// Gold is a smaller list, faster to parse, and enough to compute the newest version.
+// We should probably hardcode it somewhere, generate it offline...
+import goldFiles from '../../../static/downloads_gold.json'
+
+
+
 const FeatureList = [
   {
     title: 'Play your PSP games in HD!',
-//    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
           PPSSPP can run your PSP games on your PC in full HD resolution, and play them on Android too. It can even upscale textures that would otherwise be too blurry as they were made for the small screen of the original PSP.
-          Even on modern Android phones and tablets, you can often run at double the original resolution.
+          On modern Android phones and tablets, you can run at double the original resolution or more.
       </>
     ),
   },
   {
     title: 'Enhance your experience!',
-//    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
           <ul>
@@ -31,16 +35,15 @@ const FeatureList = [
   },
   {
     title: 'Free & Open Source',
-//    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-          <p>PPSSPP is an open source project, licensed under the GPL 2.0 (or later). 
+          <p>PPSSPP is an open source project, licensed under the GPL 2.0 (or later).
           Anyone is welcome to contribute improvements to the code.
           Thanks to many such contributions, PPSSPP's compatibility is steadily increasing,
           letting us all play our PSP games on the devices of our choice.</p>
-          <p><a class="btn" href="/doc/development">Development &raquo;</a>
+          <p><a className="btn" href="/doc/development">Development &raquo;</a>
           <br></br>
-          <a class="btn" href="https://www.github.com/hrydgard/ppsspp">GitHub &raquo;</a></p>
+          <a className="btn" href="https://github.com/hrydgard/ppsspp">GitHub &raquo;</a></p>
        </>
     ),
   },
@@ -49,9 +52,9 @@ const FeatureList = [
 function Feature({Svg, title, description}) {
   return (
     <div className={clsx('col col--4')}>
-      <div className="text--left padding-horiz--md">
+      <div className="text--left padding-horiz--md padding-vert--md">
         <h3>{title}</h3>
-        <p>{description}</p>
+        {description}
       </div>
     </div>
   );

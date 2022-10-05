@@ -1,17 +1,19 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
+const env = require('./env.js');
+
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'PPSSPP',
-  tagline: 'PSP emulator',
-  url: 'https://www.ppsspp.org',
+  tagline: 'A PSP emulator',
+  url: env.url,
   baseUrl: '/',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenMarkdownLinks: 'throw',  //was: warn
   favicon: 'img/favicon.ico',
 
   // Even if you don't use internalization, you can use this field to set useful
@@ -36,10 +38,8 @@ const config = {
         },
         blog: {
           showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/hrydgard/ppsspp-site/',
+          blogSidebarCount: 'ALL',
+          postsPerPage: 'ALL',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -48,12 +48,46 @@ const config = {
     ],
   ],
 
+  plugins: [
+    './plugins/fastspring',  // TODO: This is only needed on /buygold, can we filter it out?
+    './plugins/google-adsense',
+
+    [
+      '@docusaurus/plugin-content-blog',
+      {
+        // Required for any multi-instance plugin
+        id: 'news-blog',
+        // URL route for the blog section of your site. *DO NOT* include a trailing slash.
+        routeBasePath: 'news',
+        // Path to data on filesystem relative to site dir.
+        path: './news',
+
+        blogSidebarCount: 'ALL',
+        postsPerPage: 'ALL',
+      },
+    ],
+
+    './plugins/webpack-proxy',
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
+    {
+      metadata: [{name: 'keywords', content: 'ppsspp, psp, emulator'}],
       colorMode: {
         defaultMode: 'dark',
       },
+
+      /*
+      announcementBar: {
+        id: 'site_update',
+        content: 'The website is currently being updated to a new design - please forgive any broken functionality, just try again soon',
+        backgroundColor: "var(--ifm-color-primary)",
+        textColor: "var(--ifm-color-primary-lightest)",
+        isCloseable: false,
+      },
+      */
+
       navbar: {
         title: 'PPSSPP',
         logo: {
@@ -62,21 +96,26 @@ const config = {
         },
         items: [
           {to: '/download', label: 'Downloads', position: "left"},
-          {to: '/media', label: 'Screenshots and video', position: "left"},
+          {to: '/news', label: 'News', position: 'left'},
+          {to: '/blog', label: 'Blog', position: 'left'},
           {
             type: 'doc',
             docId: 'intro',
             position: 'left',
             label: 'Guides & Help',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+          {to: '/media', label: 'Screenshots & Video', position: "left"},
+          {to: '/contact', label: 'Contact', position: "left"},
+          {
+            href: 'https://forums.ppsspp.org/',
+            label: 'Forums',
+            position: "left"
+          },
           {
             href: 'https://github.com/hrydgard/ppsspp',
             label: 'GitHub',
-            position: 'right',
+            position: 'left',
           },
-          {to: 'https://forums.ppsspp.org/', label: 'Forums', position: "left"},
-          {to: '/contact', label: 'Contact', position: "left"},
         ],
       },
       footer: {
@@ -86,9 +125,13 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
+                label: 'Guides & Help',
                 to: '/docs/intro',
               },
+              {
+                label: 'Getting started',
+                to: '/docs/category/getting-started',
+              }
             ],
           },
           {
@@ -115,16 +158,23 @@ const config = {
                 label: 'GitHub',
                 href: 'https://github.com/hrydgard/ppsspp',
               },
+              {
+                label: 'Login',
+                to: '/login',
+              }
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} PPSSPP Project. Built with Docusaurus. <a href="/privacy">Privacy Policy</a>`,
+        copyright: `Copyright © ${new Date().getFullYear()} PPSSPP Project. <a href="/privacy">Privacy Policy</a>`,
       },
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
-    }),
+      googleAdsense: env.adsense ? {
+        dataAdClient: env.adsense,
+      } : null,
+    },
 };
 
 module.exports = config;

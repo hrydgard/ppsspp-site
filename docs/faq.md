@@ -2,49 +2,47 @@
 sidebar_position: 2
 ---
 
-# Frequently Asked Questions
+# FAQ - Frequently Asked Questions
 
 Quick answers to questions that are frequently asked.
 
-## How can I run my PSP games in PPSSPP?
+## How can I run my real PSP games in PPSSPP?
 
-You need to have your PSP games as .CSO or .ISO files. I do not have the right to distribute those with the app, so you'll have to provide them on your own. To convert your real PSP games for use with PPSSPP, you need to install a "Custom Firmware" on your PSP. Google for that. Then follow these steps:
+You need to have your PSP games as .CSO or .ISO files. I do not have the right to distribute those with the app, so you'll have to provide them on your own.
 
-* Insert the UMD into your PSP.
-* Connect your PSP to your PC with a USB cable.
-* At the PSP main menu, press Select. In the menu that pops up (only on Custom Firmware), choose to UMD as USB Device.
-* Still in the PSP menu, choose USB Connection in the Settings menu (to the left).
-* On your PC, a folder will pop up, containing a virtual ISO file. To copy the game to your PC, simply drag this to somewhere on your harddrive and the copy will start. Done!
-
-There are tools to turn ISO files into CSO (compressed ISO) files to save space, such as maxcso by [Unknown].
-
-If you have digital downloads on your real PSP, they can be used directly on PPSSPP. Just copy the EBOOT.PBP over. Note that this has not been tested as much as ISO loading so there may still be issues with some games.
+To convert your real PSP games for use with PPSSPP, see [this article](docs/getting-started/dumping-games.md).
 
 ## PPSSPP is awesome! How do I donate to the project?
 
-Buy [PPSSPP Gold](https://central.ppsspp.org/buygold)! Available for Android and PC. It's the same as the regular version functionally (see [Why Gold?](https://central.ppsspp.org/whygold)), but by buying it you support the development of PPSSPP.
+Buy [PPSSPP Gold](/buygold)! Available for Android and PC. It's the same as the regular version functionally (see [Why Gold?](/docs/reference/whygold)), but by buying it you support the development of PPSSPP.
+
+## Why is the emulator called PPSSPP?
+
+Why not? The domain name ppsspp.org was available, unlike the corresponding domains for many other alternatives I considered. Today I probably would have named it something different and more pronounceable.
 
 ## Where can I get PPSSPP for iOS?
 
-PPSSPP can run on most modern iOS versions. On some versions, the JIT works. See the [Downloads page](/downloads.html) for more info.
+PPSSPP can run on most modern iOS versions. On some versions, the JIT works. See the [Downloads page](/download) for more info.
+
+<a name="vita"></a>
+
+## Will PPSSPP be able to emulate the PS Vita in the future?
+
+No. PS Vita is a completely different machine, much more powerful than the PSP and with different security technologies. I don't have neither the information needed nor the time.
+
+Do look into the [Vita3K](https://vita3k.org/) project though! They are making good progress, although game compatibility is still quite low.
 
 ## How do I install game DLC?
 
 Install it exactly the same way as you would on a PSP, that is, copy the files to PSP/GAME or PSP/SAVEDATA (depending on the DLC) on the memory stick. In the Android version of PPSSPP, the memory stick is simply the SD card or USB storage of your phone, PPSSPP will create a PSP folder in the root of that. On Windows without installer, the memory stick is the "memstick" subdirectory in the PPSSPP folder. On iOS, it's in /User/Documents/PSP/ . On Mac and Linux, it's in ~/.config/PPSSPP.
 
-<a name="vita"></a>
+## Do I need a BIOS file to run PPSSPP, like with PSX/PS1 and PS2 emulators?
 
-## Will PPSSPP be able to emulate the PSP Vita in the future?
+No. PPSSPP simulates the BIOS and the entire internal operating system. It does not currently emulate enough of the hardware for the actual PSP operating system to run inside of PPSSPP, so even if you have a copy of it, PPSSPP can't run it.
 
-No. PSP Vita is a completely different machine, far more powerful than the PSP and with different security technologies. I don't have neither the information needed nor the time.
+This is also why PPSSPP will not show the cross media bar interface of the real PSP, it won't run.
 
-## Do I need a BIOS file to run PPSSPP, like with PSX and PS2 emulators?
-
-No. PPSSPP simulates the BIOS and the internal OS. It does not currently emulate enough of the hardware for the actual PSP operating system to run, so even if you have a copy of it, PPSSPP can't run it.
-
-## Why is the emulator called PPSSPP?
-
-Why not? The domain name ppsspp.org was available, unlike the corresponding domains for many other alternatives I considered. Today I probably would have named it something different and more memorable.
+<a name="gold"></a>
 
 ## If I buy PPSSPP Gold for Android, can I also download PPSSPP Gold for PC? Or vice versa?
 
@@ -52,8 +50,16 @@ Contact me at hrydgard+ppssppgold@gmail.com and I'll set you up.
 
 ## Can I use my gamepad to control PPSSPP?
 
-Yes, PPSSPP has built-in XInput and DirectInput support on Windows so it will "just work" with any Xbox 360 pad and most other pads that you plug into your PC.  
+Yes, PPSSPP has built-in XInput and DirectInput support on Windows so it will "just work" with any Xbox 360 pad and most other pads that you plug into your PC.
 On Android, many Bluetooth gamepads like iPega Red Knight work just fine, sometimes with a few limitations.
+
+## My XBox or PlayStation joystick doesn't work on Android
+
+Apparently, some accessibility options can interfere with joystick functionality. Try turning any accessibility settings off in Android settings. This behavior has been seen on Google Pixel phones.
+
+It seems like apps like Quick Cursor that draw over other apps can also cause this, by seemingly taking over joystick input.
+
+The bug has been reported to Google, still no fix: [issue report](https://issuetracker.google.com/issues/163120692?pli=1)
 
 ## Can I play adhoc multiplayer locally with two instances of PPSSPP?
 
@@ -62,6 +68,10 @@ Yes, although it's not a super smooth experience. Follow this:
 * Set "Pro adhoc server IP address" to localhost
 * Enable "Built-in proadhocserver"
 * Start a second instance (File -> Open New Instance on Windows).
+
+## Can PPSSPP play UMD video discs?
+
+No. On the real hardware, the player app for these is built into the PPSSPP firmware, and since PPSSPP is a HLE emulator, we don't run the firwmare so we'd have to write our own player. There's a scripting language for menus and stuff, it's pretty complicated. So it has not been a priority to figure out, especially as UMD Video is today an outdated, low-definition format and there are better ways to watch movies. If you really want to play UMD video, use a real PSP.
 
 ## Savestates seem slower in 1.12+. What can I do?
 
@@ -75,31 +85,31 @@ If you have PPSSPP 1.12 or later and are on desktop, you can open it directly fr
 
 Where it is depends on the platform:
 
-*   Windows: Either in the directory "memstick" in PPSSPP, or in your documents directory. There's also an additional shortcut, just choose "File->Open Memstick Folder..." to find it.
-*   Mac/Linux: Look in .config/PPSSPP in your home directory. Some distros may have it in other places.
-*   Android: In older versions it was always in the /PSP directory at the root of your shared storage. In Android 11 and later with PPSSPP 1.12 or later, it's configurable.
+* Windows: Either in the directory "memstick" in PPSSPP, or in your documents directory. There's also an additional shortcut, just choose "File->Open Memstick Folder..." to find it.
+* Mac/Linux: Look in .config/PPSSPP in your home directory. Some distros may have it in other places.
+* Android: In older versions it was always in the /PSP directory at the root of your shared storage. In Android 11 and later with PPSSPP 1.12 or later, it's configurable.
 
 Sharing controls between the two instances can be an issue though..
 
 ## What are the PC CPU and GPU requirements?
 
-Any reasonably modern CPU will be just fine, and any GPU that can handle OpenGL 2.0 should have no issues. You should make sure to install the latest graphics drivers available though. Windows Vista or later is required, Windows 7 or higher is recommended. Vulkan will likely help performance where available, also try D3D9 or D3D11 if OpenGL is slow by changing the backend in settings. On some older computers, you may need to use the D3D9 backend.
+Any reasonably modern CPU will be just fine, and any GPU that can handle OpenGL 3.0 should have no issue. You should make sure to install the latest graphics drivers available though. Windows Vista or later is required, Windows 7 or higher is recommended. Vulkan will likely help performance where available, also try D3D9 or D3D11 if OpenGL is slow by changing the backend in settings. On some older computers, you may need to use the D3D9 backend, but it should be a last resort as it's slightly less compatible than the others.
 
 ## Where are the "git" versions people are talking about?
 
-[Here](/downloads.html#devbuilds).
+[Here](/download#devbuilds).
 
 ## What are CSO files?
 
-CSO are compressed ISO files that can be played directly, decompressing on the fly. Very useful to save space on your Android device, for example. [MaxCSO](https://www.github.com/unknownbrackets/maxcso/releases) is a great program to create CSO files. Of course, there are others around the web, too.
+CSO are compressed ISO files that can be played directly, decompressing on the fly. Very useful to save space on your Android device, for example. [MaxCSO](https://github.com/unknownbrackets/maxcso/releases) is a great program to create CSO files. Of course, there are others around the web, too.
 
 ## I've managed to fix a bug, how do I get the fix into PPSSPP?
 
-If you know GitHub, you know the drill - just make a pull request with the changes, in a clone of the [PPSSPP repository](development.html). If you don't know Git(Hub), feel free to [ask for help](contact.html).
+If you know GitHub, you know the drill - just make a pull request with the changes, in a clone of the [PPSSPP repository](https://github.com/hrydgard/ppsspp). If you don't know Git(Hub), feel free to [ask for help](/contact).
 
 ## My favorite game doesn't work in PPSSPP. What can I do?
 
-You can either [help out with fixing it](development.html), or wait until someone does.
+You can either [help out with fixing it](/docs/category/development), or wait until someone does.
 
 ## What is the JIT and why can't we use it on iOS?
 
@@ -117,18 +127,10 @@ First, make sure you have charged it to the max once. If you don't, the normal A
 
 Then, just flip the power switch to on, and press Home+X to start it in Android mode. After that, things should just work! You may want to tweak the controls a little bit in Control Mapping but the defaults are mostly okay.
 
-## My XBOX or PlaySTation joystick doesn't work on Android!
-
-Apparently, accessibility options can interfere with joystick functionality. Try turning any accessibility settings off in Android settings. This behavior has been seen on Google Pixel phones.
-
-It seems like apps like Quick Cursor that draw over other apps can also cause this, by seemingly taking over joystick input.
-
-The bug has been reported to Google, still no fix: [issue report](https://issuetracker.google.com/issues/163120692?pli=1)
-
 ## My app is on the PPSSPP Homebrew Store and I do not approve!
 
 Shoot me an e-mail (hrydgard at gmail dot com) and I'll remove it.
 
 ## Where can I find the privacy policy?
 
-Here: [The PPSSPP privacy policy](/privacy.html)
+Here: [The PPSSPP privacy policy](/privacy)

@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 6
 ---
 
 # Recommended hardware for PPSSPP
@@ -10,17 +10,18 @@ PPSSPP is compatible with almost any recent Android phone, and almost any reason
 
 Nearly any recent phone will work just fine.
 
-Shield TV is still the best Android TV machine.
+Shield TV is still the best Android TV machine (yes, in 2022).
 
 ## Controllers for Android
 
-- Moga Controllers - Bluetooth controllers that connect to Android phones, for proper gaming controls.
-- Any bluetooths controllers, including XBox One/X/S and Playstation 4/5 controllers
+- Basically any bluetooth controllers, including iPega, XBox One/X/S and Playstation 4/5 controllers
+- Moga controlles work.
 
 ## Controllers for Windows
 
 - Any controller that is usable on Windows will work, those that support XInput will autoconfigure, too.
-- Xbox 360 controller
+- Xbox 360 USB controller
+- Xbox One/Series S/X controller
 - Razer Onza
 - Razer Onza Tournament Edition
 - Razer Sabertooth

@@ -1,3 +1,7 @@
+---
+title: Privacy policy - PPSSPP
+---
+
 <!-- markdownlint-disable MD024 -->
 
 # PPSSPP Privacy Policy

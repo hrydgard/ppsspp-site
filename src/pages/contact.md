@@ -1,4 +1,6 @@
-# Contact
+---
+title: Contact
+---
 
 ## Forums
 
@@ -7,7 +9,7 @@
 
 ## E-mail
 
-*NOTE* Before e-mailing, please refer to the [FAQ](/docs/pages/faq).
+*NOTE* Before e-mailing, please refer to the [FAQ](/docs/faq).
 
 Henrik, the project founder, can be reached on [hrydgard+ppsspp@gmail.com](mailto:hrydgard+ppsspp@gmail.com)
 
@@ -20,6 +22,8 @@ Henrik, the project founder, can be reached on [hrydgard+ppsspp@gmail.com](mailt
 Henrik's own company is [Millionth Line AB](https://www.millionthline.com).
 He used to work at [Embark Studios](https://www.embark-studios.com/) until recently.
 Before that he worked at NVIDIA, and previously [Soundtrack Your Brand](https://www.soundtrackyourbrand.com/)
+
+This website was built with [Docusaurus](https://docusaurus.io/) (with <a href="https://github.com/hrydgard/ppsspp-site/">some modifications</a>).
 
 ## Twitter
 

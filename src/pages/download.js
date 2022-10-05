@@ -1,19 +1,20 @@
 import React from 'react';
-import clsx from 'clsx';
-import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import DownloadList from '@site/src/components/DownloadList';
-
-import styles from './index.module.css';
+import { useUserData } from '@site/src/theme/Root';
+import AdResponsive from '../components/AdSense';
 
 export default function Home() {
   const {siteConfig} = useDocusaurusContext();
+  const {userData, setUserData} = useUserData();
+
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
-      <DownloadList />
+      title={`Downloads`}
+      description="Downloads for PC, Android, Mac, Linux, iPhone, iPad, iOS">
+      <AdResponsive />
+      <DownloadList userData={userData} />
     </Layout>
   );
 }

@@ -1,11 +1,13 @@
-.features {
+.download {
   display: flex;
-  align-items: center;
+  align-items: left;
   padding: 2rem 0;
   width: 100%;
 }
 
-.featureSvg {
-  height: 200px;
-  width: 200px;
+.downloadList {
+  display: flex;
+  align-items: left;
+  padding: 2rem 0;
+  width: 100%;
 }
