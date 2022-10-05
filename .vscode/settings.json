@@ -1,0 +1,7 @@
+{
+    "search.exclude": {
+        "**/.docusaurus": true,
+        "package-lock.json": true,
+        
+    }
+}
