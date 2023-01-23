@@ -1,9 +1,5 @@
 # Glossary
 
-## HLE
-
-High Level Emulation. Instead of emulating the entire hardware and running the PSP operating system on it, we
-
 ## Allegrex
 
 The PSP's main CPU. It's a 333MHz MIPS processor with a whole bunch of custom extensions, including a SIMD vector instruction set, and a few very convenient bit manipulation instructions. Most games run it at 222MHz to save power, but some make full use of it.
