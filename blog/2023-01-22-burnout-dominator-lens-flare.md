@@ -1,11 +1,7 @@
 ---
 slug: lens-flare-burnout-dominator
 title: The lens flare in Burnout
-authors:
-  name: Henrik Rydgård
-  title: PPSSPP Founder
-  url: https://github.com/hrydgard
-  image_url: https://github.com/hrydgard.png
+authors: hrydgard
 tags: [rendering-tricks]
 ---
 

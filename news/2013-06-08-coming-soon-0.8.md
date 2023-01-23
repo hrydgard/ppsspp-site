@@ -1,11 +1,7 @@
 ---
 slug: coming-soon-0.9
 title: Yes, 0.8 is coming soon
-authors:
-  name: Henrik Rydgård
-  title: PPSSPP Founder
-  url: https://github.com/hrydgard
-  image_url: https://github.com/hrydgard.png
+authors: hrydgard
 tags: [news]
 ---
 

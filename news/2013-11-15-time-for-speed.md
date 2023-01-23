@@ -1,11 +1,7 @@
 ---
 slug: time-for-speed
 title: Plans for the next release - it's time for speed!
-authors:
-  name: Henrik Rydgård
-  title: PPSSPP Founder
-  url: https://github.com/hrydgard
-  image_url: https://github.com/hrydgard.png
+authors: hrydgard
 tags: [news]
 ---
 

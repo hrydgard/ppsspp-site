@@ -1,11 +1,7 @@
 ---
 slug: new-web-site
 title: Welcome to the new site!
-authors:
-  name: Henrik Rydgård
-  title: PPSSPP Founder
-  url: https://github.com/hrydgard
-  image_url: https://github.com/hrydgard.png
+authors: hrydgard
 tags: [ppsspp]
 ---
 

@@ -1,11 +1,7 @@
 ---
 slug: gone-from-play-store-2018
 title: PPSSPP temporarily gone from Play Store
-authors:
-  name: Henrik Rydgård
-  title: PPSSPP Founder
-  url: https://github.com/hrydgard
-  image_url: https://github.com/hrydgard.png
+authors: hrydgard
 tags: [news]
 ---
 

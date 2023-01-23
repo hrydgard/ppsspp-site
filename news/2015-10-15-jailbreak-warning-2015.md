@@ -1,11 +1,7 @@
 ---
 slug: note-ios-jailbreak-users
 title: Note for iOS jailbreak users
-authors:
-  name: Henrik Rydgård
-  title: PPSSPP Founder
-  url: https://github.com/hrydgard
-  image_url: https://github.com/hrydgard.png
+authors: hrydgard
 tags: [news]
 ---
 
