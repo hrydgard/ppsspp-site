@@ -54,7 +54,6 @@ module.exports = function (context, opts) {
     name: 'google-adsense',
 
     injectHtmlTags({content}) {
-      console.log(content);
       return {
         headTags: [
           {

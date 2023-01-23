@@ -28,17 +28,13 @@ function HomepageHeader() {
         <div className="col col--3">
           <h1 className="hero__title">{siteConfig.title}</h1>
           <p className="hero__subtitle">{siteConfig.tagline}</p>
-          <a href={"/download"}>
-            <button className="button button--block button--primary margin-bottom--md hero-button"
-              style={{display: "flex", flexDirection: "row", alignItems: "center" }}>
-               <img src={normalIcon} width="26px" height="26px"/>&nbsp;&nbsp;Download
-            </button>
+          <a href={"/download"} className="button button--block button--primary margin-bottom--md hero-button"
+            style={{display: "flex", flexDirection: "row", alignItems: "center" }}>
+              <img src={normalIcon} width="26px" height="26px"/>&nbsp;&nbsp;Download
           </a>
-          <a href={"/buygold"}>
-            <button className="button button--block button--primary margin-bottom--md hero-button"
-              style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-               <img src={goldIcon} width="26px" height="26px"/>&nbsp;&nbsp;Buy PPSSPP Gold
-            </button>
+          <a href={"/buygold"} className="button button--block button--primary margin-bottom--md hero-button"
+            style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
+              <img src={goldIcon} width="26px" height="26px"/>&nbsp;&nbsp;Buy PPSSPP Gold
           </a>
 
         </div>
