@@ -236,7 +236,7 @@ function Download({url, text, icon, gold_color}) {
 
   return (
     <>
-    <a className={clsx("button", "button--block", "margin-bottom--md", gold_color && "button--warning" || "button--primary")}
+    <a href={url} className={clsx("button", "button--block", "margin-bottom--md", gold_color && "button--warning" || "button--primary")}
         style={{display: "flex", flexDirection: "row", alignItems: "center"}}
         >{icon_html}{text}
     </a>
