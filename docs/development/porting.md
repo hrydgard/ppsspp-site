@@ -1,8 +1,8 @@
 # Porting PPSSPP
 
-You are encouraged to port PPSSPP to new platforms.
+It's great to see PPSSPP ported to new platforms, feel free to give it a go.
 
-One of the next main porting-related tasks will be to implement a JIT compiler for RISC-V processors, as they are expected to become popular in devices in the near future.
+One of the next interesting main porting-related tasks will be to implement a JIT compiler for RISC-V processors, as they are expected to become popular in devices in the relatively near future.
 
 ## Platforms
 

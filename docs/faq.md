@@ -16,9 +16,13 @@ To convert your real PSP games for use with PPSSPP, see [this article](docs/gett
 
 Buy [PPSSPP Gold](/buygold)! Available for Android and PC. It's the same as the regular version functionally (see [Why Gold?](/docs/reference/whygold)), but by buying it you support the development of PPSSPP.
 
+## If I buy PPSSPP Gold for Android, can I also download PPSSPP Gold for PC? Or vice versa?
+
+See the [Cross Licensing](/requestgold) page!
+
 ## Why is the emulator called PPSSPP?
 
-Why not? The domain name ppsspp.org was available, unlike the corresponding domains for many other alternatives I considered. Today I probably would have named it something different and more pronounceable.
+Why not? The domain name ppsspp.org was available, unlike the corresponding domains for many other alternatives I considered. Today I probably would have named it something different and more pronounceable. At least it's kinda fun watching various YouTube personalities try to pronounce it - sorry!
 
 ## Where can I get PPSSPP for iOS?
 
@@ -28,7 +32,7 @@ PPSSPP can run on most modern iOS versions. On some versions, the JIT works. See
 
 ## Will PPSSPP be able to emulate the PS Vita in the future?
 
-No. PS Vita is a completely different machine, much more powerful than the PSP and with different security technologies. I don't have neither the information needed nor the time.
+No. PS Vita has a completely different machine architecture, much more powerful than the PSP and with different security technologies. I don't have either the information needed nor the time.
 
 Do look into the [Vita3K](https://vita3k.org/) project though! They are making good progress, although game compatibility is still quite low.
 
@@ -36,17 +40,13 @@ Do look into the [Vita3K](https://vita3k.org/) project though! They are making g
 
 Install it exactly the same way as you would on a PSP, that is, copy the files to PSP/GAME or PSP/SAVEDATA (depending on the DLC) on the memory stick. In the Android version of PPSSPP, the memory stick is simply the SD card or USB storage of your phone, PPSSPP will create a PSP folder in the root of that. On Windows without installer, the memory stick is the "memstick" subdirectory in the PPSSPP folder. On iOS, it's in /User/Documents/PSP/ . On Mac and Linux, it's in ~/.config/PPSSPP.
 
-## Do I need a BIOS file to run PPSSPP, like with PSX/PS1 and PS2 emulators?
+## Do I need a BIOS file to run PPSSPP, like I would with PSX/PS1 and PS2 emulators?
 
 No. PPSSPP simulates the BIOS and the entire internal operating system. It does not currently emulate enough of the hardware for the actual PSP operating system to run inside of PPSSPP, so even if you have a copy of it, PPSSPP can't run it.
 
 This is also why PPSSPP will not show the cross media bar interface of the real PSP, it won't run.
 
 <a name="gold"></a>
-
-## If I buy PPSSPP Gold for Android, can I also download PPSSPP Gold for PC? Or vice versa?
-
-See the [Cross Licensing](/requestgold) page!
 
 ## Can I use my gamepad to control PPSSPP?
 
@@ -134,3 +134,7 @@ Shoot me an e-mail (hrydgard at gmail dot com) and I'll remove it.
 ## Where can I find the privacy policy?
 
 Here: [The PPSSPP privacy policy](/privacy)
+
+## Can PPSSPP play GTA 5?
+
+No, it can't. Silly youtubers.

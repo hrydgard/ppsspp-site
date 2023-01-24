@@ -442,7 +442,8 @@ export default function DownloadList({userData}) {
       <div className="container">
         <div className="row">
           <div className={clsx("col col--12")}>
-            <p><a href="/docs/reference/whygold">Why buy the Gold version?</a></p>
+            {userData.goldUser || <p><a href="/docs/reference/whygold">Why buy the Gold version?</a></p>}
+            {userData.goldUser && <p><a href="/requestgold">You have Gold - get PPSSPP Gold for Android for free!</a></p>}
             <br/>
             <h2>Development builds</h2>
             <p>Download fresh development builds from <a href="https://buildbot.orphis.net/ppsspp/index.php">Orphis' Buildbot, also included below.</a>.

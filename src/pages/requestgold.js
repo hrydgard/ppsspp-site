@@ -47,7 +47,7 @@ function RequestGooglePlayForm({userData}) {
     <h1>Request Google Play promo code</h1>
     <p>
       Since you already have PPSSPP Gold for Windows, you are eligible to request one Google Play promo code, which
-      can be redeemed PPSSPP Gold for Android free on any Google Play account.
+      can be redeemed for PPSSPP Gold for Android free on any Google Play account.
     </p>
     <div className="alert alert--warning" role="alert">IMPORTANT! Only request one if you are going to use it!</div>
     <br/>
