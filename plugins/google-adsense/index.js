@@ -52,7 +52,6 @@ module.exports = function (context, opts) {
 
   return {
     name: 'google-adsense',
-
     injectHtmlTags({content}) {
       return {
         headTags: [
@@ -63,10 +62,6 @@ module.exports = function (context, opts) {
               src: `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${dataAdClient}`,
               crossorigin: 'anonymous',
             },
-          },
-          {
-            tagName: 'script',
-            innerHTML: `(adsbygoogle = window.adsbygoogle || []).push({google_ad_client: "${dataAdClient}", enable_page_level_ads: true});`
           },
         ],
       };

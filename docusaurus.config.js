@@ -49,8 +49,8 @@ const config = {
   ],
 
   plugins: [
-    './plugins/fastspring',  // TODO: This is only needed on /buygold, can we filter it out?
     './plugins/google-adsense',
+    './plugins/fastspring',  // TODO: This is only needed on /buygold, can we filter it out?
 
     [
       '@docusaurus/plugin-content-blog',
