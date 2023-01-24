@@ -73,7 +73,7 @@ export default function Home() {
 
   if (!userData.goldUser) {
     return (
-      <Layout title={`Recover password`} description="Recover password">
+      <Layout title={`Cross licensing`} description="Cross licensing">
       <div className="container">
         <div className={clsx("row simple-center")}>
           <div className={clsx("col col--8")}>
@@ -90,7 +90,7 @@ export default function Home() {
   }
 
   return (
-    <Layout title={`Recover password`} description="Recover password">
+    <Layout title={`Request Google Play code`} description="Request Google Play code">
     <br/>
       <div className="container">
         <div className={clsx("row simple-center")}>
