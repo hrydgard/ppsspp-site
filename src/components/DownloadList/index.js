@@ -114,7 +114,8 @@ const platformList = [
     platform_key: 'linux',
     downloads: [
       {
-        name: "Flatpak",
+        name: "PPSSPP Flatpak package",
+        icon: 'ppsspp-icon.png',
         url: "https://flathub.org/apps/details/org.ppsspp.PPSSPP",
       }
     ]
@@ -228,6 +229,18 @@ function GooglePlayBadge({ icon, appUrl, name, gold_color }) {
   )
 }
 
+function FlathubBadge({ icon, appUrl, name, gold_color }) {
+  return (
+    <a href={appUrl} className={clsx("button", "button--block", "margin-bottom--md", gold_color && "button--warning" || "button--primary")}>
+      <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+        <img src={"/img/platform/" + icon} width="48px" />
+        <span style={{ paddingLeft: "10px" }}>{name}</span>
+      </div>
+      <img alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png' width='180' />
+    </a>
+  )
+}
+
 function Download({url, text, icon, gold_color}) {
   var icon_html = <></>;
   if (icon) {
@@ -259,8 +272,10 @@ function DownloadsForFilename(props) {
   var title_html = title ? <h3>{title}</h3> : <></>;
 
   if (url) {
-    if (url.startsWith("https://play.google.com")) {
+    if (url.startsWith("https://play.google.com/")) {
       return <GooglePlayBadge icon={icon} name={name} appUrl={url} gold_color={gold_color}/>;
+    } else if (url.startsWith("https://flathub.org/")) {
+      return <FlathubBadge icon={icon} name={name} appUrl={url} gold_color={gold_color}/>;
     }
     var icon_html = icon ? <img src={"/img/platform/" + icon} width="32px" style={{marginRight: "10px"}} /> : <></>;
     return (
