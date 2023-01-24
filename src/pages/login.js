@@ -359,6 +359,7 @@ export default function Home() {
             <div className="card__body">
               <p>Logged in. {userData.goldUser ? "Has PPSSPP Gold." : ""}</p>
               <p><a href="/changepassword">Change password</a></p>
+              <p><a href="/requestgold">Request Gold for Android</a></p>
               <p><a href="/download">Downloads</a></p>
               <p>
                 <button className="button button--primary margin-top--md" type="submit" onClick={() => logoutUser(userData, setUserData)}>Log out</button>
@@ -390,7 +391,7 @@ export default function Home() {
                 <br/>
                 <h3>Important!</h3>
                 <p>Login above to access PPSSPP Gold for Windows, if you have already bought it. If not, you can <a href="/buygold">buy it here</a>.</p>
-                <p>If you already have PPSSPP Gold for Android, and want an account to download it for Windows, contact <a href="mailto:hrydgard+ppssppgold@gmail.com">hrydgard+ppssppgold@gmail.com</a>.</p>
+                <p>If you already have PPSSPP Gold for Android, and want an account to download it for Windows, <a href="/requestgold">click here</a> for information.</p>
               </div>
             </div>
           </div>

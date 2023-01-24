@@ -42,6 +42,7 @@ function RecoverPasswordForm() {
     var result = await recoverPassword({ email: email });
     if (result) {
       setRecoverSucceeded(true);
+      setRecoverFailed(false);
     } else {
       setRecoverFailed(true);
     }

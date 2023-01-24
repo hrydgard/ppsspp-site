@@ -151,12 +151,12 @@ const config = {
             title: 'More',
             items: [
               {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
                 label: 'GitHub',
                 href: 'https://github.com/hrydgard/ppsspp',
+              },
+              {
+                label: 'Website Github',
+                href: 'https://github.com/hrydgard/ppsspp-site',
               },
               {
                 label: 'Login',
