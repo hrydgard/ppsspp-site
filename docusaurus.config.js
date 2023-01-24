@@ -34,7 +34,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/hrydgard/ppsspp-site/',
+            'https://github.com/hrydgard/ppsspp-site/tree/main/',
         },
         blog: {
           showReadingTime: true,
