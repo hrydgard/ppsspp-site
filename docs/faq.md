@@ -46,7 +46,7 @@ This is also why PPSSPP will not show the cross media bar interface of the real 
 
 ## If I buy PPSSPP Gold for Android, can I also download PPSSPP Gold for PC? Or vice versa?
 
-Contact me at hrydgard+ppssppgold@gmail.com and I'll set you up.
+See the [Cross Licensing](/requestgold) page!
 
 ## Can I use my gamepad to control PPSSPP?
 

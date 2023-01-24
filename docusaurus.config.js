@@ -102,9 +102,9 @@ const config = {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Guides & Help',
+            label: 'Docs & Help',
           },
-          {to: '/media', label: 'Screenshots & Video', position: "left"},
+          {to: '/media', label: 'Media', position: "left"},
           {to: '/contact', label: 'Contact', position: "left"},
           {
             href: 'https://forums.ppsspp.org/',
@@ -125,7 +125,7 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Guides & Help',
+                label: 'Docs & Help',
                 to: '/docs/intro',
               },
               {

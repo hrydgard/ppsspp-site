@@ -9,8 +9,8 @@ export default function Home() {
     const {siteConfig} = useDocusaurusContext();
     return (
       <Layout
-        title={`Screenshots & Video`}
-        description="Screenshots & Video">
+        title={`Media`}
+        description="Media">
         <AdResponsive />
         <section>
           <div className="container">
