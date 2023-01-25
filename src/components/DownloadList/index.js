@@ -5,6 +5,7 @@ import { compareVersions } from 'compare-versions';
 import files from '../../../static/downloads.json'
 import goldFiles from '../../../static/downloads_gold.json'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Link from '@docusaurus/Link';
 
 const urlBase = "https://www.ppsspp.org/files/";
 
@@ -219,25 +220,25 @@ const latestVersion = determineLatestVersion(binariesPerVersion);
 
 function GooglePlayBadge({ icon, appUrl, name, gold_color }) {
   return (
-    <a href={appUrl} className={clsx("button", "button--block", "margin-bottom--md", gold_color && "button--warning" || "button--primary")}>
+    <Link to={appUrl} className={clsx("button", "button--block", "margin-bottom--md", gold_color && "button--warning" || "button--primary")}>
       <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
         <img src={"/img/platform/" + icon} width="48px" />
         <span style={{ paddingLeft: "10px" }}>{name}</span>
       </div>
       <img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="200" />
-    </a>
+    </Link>
   )
 }
 
 function FlathubBadge({ icon, appUrl, name, gold_color }) {
   return (
-    <a href={appUrl} className={clsx("button", "button--block", "margin-bottom--md", gold_color && "button--warning" || "button--primary")}>
+    <Link to={appUrl} className={clsx("button", "button--block", "margin-bottom--md", gold_color && "button--warning" || "button--primary")}>
       <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
         <img src={"/img/platform/" + icon} width="48px" />
         <span style={{ paddingLeft: "10px" }}>{name}</span>
       </div>
       <img alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png' width='180' />
-    </a>
+    </Link>
   )
 }
 
@@ -248,12 +249,10 @@ function Download({url, text, icon, gold_color}) {
   }
 
   return (
-    <>
-    <a href={url} className={clsx("button", "button--block", "margin-bottom--md", gold_color && "button--warning" || "button--primary")}
+    <Link to={url} className={clsx("button", "button--block", "margin-bottom--md", gold_color && "button--warning" || "button--primary")}
         style={{display: "flex", flexDirection: "row", alignItems: "center"}}
         >{icon_html}{text}
-    </a>
-    </>
+    </Link>
   );
 }
 
@@ -266,7 +265,7 @@ function DownloadsForFilename(props) {
 
   var logged_out_link = <></>;
   if (login_prompt && !logged_in) {
-    logged_out_link = <p>Already bought? <a href="/login?Forward=download">Log in</a></p>;
+    logged_out_link = <p>Already bought? <Link to="/login?Forward=download">Log in</Link></p>;
   }
 
   var title_html = title ? <h3>{title}</h3> : <></>;
@@ -281,9 +280,9 @@ function DownloadsForFilename(props) {
     return (
       <>
         {title_html}
-        <a href={url} className={clsx("button", "button--block", "margin-bottom--md", gold_color && "button--warning" || "button--primary")}
+        <Link to={url} className={clsx("button", "button--block", "margin-bottom--md", gold_color && "button--warning" || "button--primary")}
             style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-            {icon_html}{name}</a>
+            {icon_html}{name}</Link>
         {logged_out_link}
       </>);
   }
@@ -339,7 +338,7 @@ function DownloadsForPlatform({title, platform_badge, downloads, logged_in, show
 }
 
 function PlatformDownload({href, short_name}) {
-  return <><a href={href}>{short_name}</a><span>&nbsp;|&nbsp;</span></>;
+  return <><Link to={href}>{short_name}</Link><span>&nbsp;|&nbsp;</span></>;
 }
 
 function PlatformForVersion({version, platform, showGold, urlBase, goldUrlBase}) {
@@ -425,8 +424,8 @@ export default function DownloadList({userData}) {
           <div className={clsx("col col--12")}>
             <h2>Download PPSSPP {latestVersion}</h2>
             <p>
-              For information about what's new in PPSSPP {latestVersion}, see the <a href="/news">news</a>.
-              The source code can be downloaded from <a href="https://github.com/hrydgard/ppsspp">Github</a>.
+              For information about what's new in PPSSPP {latestVersion}, see the <Link to="/news">news</Link>.
+              The source code can be downloaded from <Link to="https://github.com/hrydgard/ppsspp">Github</Link>.
             </p>
             {goldBanner}
           </div>
@@ -442,15 +441,15 @@ export default function DownloadList({userData}) {
       <div className="container">
         <div className="row">
           <div className={clsx("col col--12")}>
-            {userData.goldUser || <p><a href="/docs/reference/whygold">Why buy the Gold version?</a></p>}
-            {userData.goldUser && <p><a href="/requestgold">You have Gold - get PPSSPP Gold for Android for free!</a></p>}
+            {userData.goldUser || <p><Link to="/docs/reference/whygold">Why buy the Gold version?</Link></p>}
+            {userData.goldUser && <p><Link to="/requestgold">You have Gold - get PPSSPP Gold for Android for free!</Link></p>}
             <br/>
             <h2>Development builds</h2>
-            <p>Download fresh development builds from <a href="https://buildbot.orphis.net/ppsspp/index.php">Orphis' Buildbot, also included below.</a>.
+            <p>Download fresh development builds from <Link to="https://buildbot.orphis.net/ppsspp/index.php">Orphis' Buildbot</Link>, also included below.
               <br/>Please note that these development builds can be unstable - if one doesn't work, try an earlier one. And backup your save games!
             </p>
             <h2>Legacy and esoteric builds</h2>
-            <p><a href="/legacybuilds">Page where you can download</a> builds for Switch, Blackberry, Meego and other esoteric or old platforms.</p>
+            <p><Link to="/legacybuilds">Page where you can download</Link> builds for Switch, Blackberry, Meego and other esoteric or old platforms.</p>
             <br/>
             <h2>Previous releases</h2>
             <PreviousReleases showGold={showGold}/>
@@ -460,7 +459,7 @@ export default function DownloadList({userData}) {
     </section>
     <br/>
     <a name="devbuilds"></a>
-    <a href="https://buildbot.orphis.net/ppsspp/index.php?m=fulllist">All builds</a>
+    <Link to="https://buildbot.orphis.net/ppsspp/index.php?m=fulllist">All builds</Link>
     <iframe seamless={true} src="https://buildbot.orphis.net/ppsspp/" style={{borderWidth: "0px", backgroundColor: "transparent", padding: "0px", overflow: "hidden", width: "100%", height: "2000px"}}/>
     </>
   );

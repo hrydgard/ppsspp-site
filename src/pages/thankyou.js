@@ -2,6 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import { useState, useEffect, useRef } from 'react';
 import Layout from '@theme/Layout';
+import Link from '@docusaurus/Link';
 
 import { useUserData, defaultUserContext } from '@site/src/theme/Root';
 
@@ -88,7 +89,7 @@ export default function Home() {
 
   var goldAlready = <>
     <p>You already have PPSSPP Gold and are logged in, so you're all set!</p>
-    <a href="/download">Go to downloads</a>
+    <Link to="/download">Go to downloads</Link>
   </>
 
   var report = <></>;
@@ -101,7 +102,7 @@ export default function Home() {
       <br/>
       <p>Your login link:<br/>
       <input type="text" readOnly value={orderStatus.magicLink} id="magicLink"/>&nbsp;<button onClick={() => copyMagicLink()}>Copy</button></p>
-      <a href={orderStatus.magicLink}>Login and download now!</a><br/>
+      <Link to={orderStatus.magicLink}>Login and download now!</Link><br/>
       </>;
     } else {
       // This shouldn't really happen, we don't log failed purchases, and we shouldn't have gotten

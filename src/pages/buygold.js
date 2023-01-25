@@ -92,9 +92,9 @@ function BuyGoldPage({goldUser}) {
             <div className={clsx("col col--8")}>
               <h3>Links and information</h3>
               <ul>
-              <li><Link href="/docs/reference/whygold">Why buy PPSSPP Gold? What's the difference?</Link></li>
-              <li><a href="https://play.google.com/store/apps/details?id=org.ppsspp.ppssppgold">PPSSPP Gold for Android</a></li>
-              <li><Link href="/docs/reference/goldplatforms">PPSSPP Gold for other platforms</Link></li>
+              <li><Link to="/docs/reference/whygold">Why buy PPSSPP Gold? What's the difference?</Link></li>
+              <li><Link to="https://play.google.com/store/apps/details?id=org.ppsspp.ppssppgold">PPSSPP Gold for Android</Link></li>
+              <li><Link to="/docs/reference/goldplatforms">PPSSPP Gold for other platforms</Link></li>
               </ul>
             </div>
           </div>

@@ -1,7 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
-import { useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom'
+
+import { useState } from 'react';
+import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 
@@ -71,7 +72,7 @@ export default function Home() {
     return (
       <Layout title="Change password" description="Change password">
         <p>Not logged in - can't change password.</p>
-        <p><a href="/login">Login</a></p>
+        <p><Link to="/login">Login</Link></p>
       </Layout>
     )
   }

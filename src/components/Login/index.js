@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useUserData } from '@site/src/theme/Root';
+import Link from '@docusaurus/Link';
 
 export default function LoginCorner() {
   const { userData, setUserData } = useUserData();
@@ -19,12 +20,12 @@ export default function LoginCorner() {
       <>
         <img src={iconName} width="22px" height="22px"/>
         &nbsp;
-        <a href="/login">{userData["name"]}</a>
+        <Link to="/login">{userData["name"]}</Link>
       </>
     )
   } else {
     return (
-      <a href="/login">Login</a>
+      <Link to="/login">Login</Link>
     );
   }
 }

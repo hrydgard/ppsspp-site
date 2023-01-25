@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
+import Link from '@docusaurus/Link';
 
 import { useUserData, defaultUserContext } from '@site/src/theme/Root';
 
@@ -131,7 +132,7 @@ function LoginForm({ setLoginData, forward }) {
             <div>Password</div>
             <span><input type="password" size="38" onChange={e => setPassword(e.target.value)} /></span>
           </label>
-          <div><a href="/recoverpassword">Forgot your password?</a></div>
+          <div><Link to="/recoverpassword">Forgot your password?</Link></div>
           <div>
             <button className="button button--primary margin-top--md" type="submit">Login</button>
           </div>
@@ -358,9 +359,9 @@ export default function Home() {
             </div>
             <div className="card__body">
               <p>Logged in. {userData.goldUser ? "Has PPSSPP Gold." : ""}</p>
-              <p><a href="/changepassword">Change password</a></p>
-              <p><a href="/requestgold">Request Gold for Android</a></p>
-              <p><a href="/download">Downloads</a></p>
+              <p><Link to="/changepassword">Change password</Link></p>
+              <p><Link to="/requestgold">Request Gold for Android</Link></p>
+              <p><Link to="/download">Downloads</Link></p>
               <p>
                 <button className="button button--primary margin-top--md" type="submit" onClick={() => logoutUser(userData, setUserData)}>Log out</button>
               </p>
@@ -390,8 +391,8 @@ export default function Home() {
                 <LoginForm setLoginData={setLoginData} forward={forward} />
                 <br/>
                 <h3>Important!</h3>
-                <p>Login above to access PPSSPP Gold for Windows, if you have already bought it. If not, you can <a href="/buygold">buy it here</a>.</p>
-                <p>If you already have PPSSPP Gold for Android, and want an account to download it for Windows, <a href="/requestgold">click here</a> for information.</p>
+                <p>Login above to access PPSSPP Gold for Windows, if you have already bought it. If not, you can <Link to="/buygold">buy it here</Link>.</p>
+                <p>If you already have PPSSPP Gold for Android, and want an account to download it for Windows, <Link to="/requestgold">click here</Link> for information.</p>
               </div>
             </div>
           </div>

@@ -177,6 +177,19 @@ form span {
   padding-bottom: 20px;
 }
 
+/* Front page */
+.features {
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.featureSvg {
+  height: 200px;
+  width: 200px;
+}
+
 /* Silly CSS from https://alvarotrigo.com/blog/animated-backgrounds-css/ */
 /* TODO: Move to a separate file */
 

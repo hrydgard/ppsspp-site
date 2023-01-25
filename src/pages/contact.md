@@ -23,7 +23,7 @@ Henrik's own company is [Millionth Line AB](https://www.millionthline.com).
 He used to work at [Embark Studios](https://www.embark-studios.com/) until recently.
 Before that he worked at NVIDIA, and previously [Soundtrack Your Brand](https://www.soundtrackyourbrand.com/)
 
-This website was built with [Docusaurus](https://docusaurus.io/) (with <a href="https://github.com/hrydgard/ppsspp-site/">some modifications</a>).
+This website was built with [Docusaurus](https://docusaurus.io/) (with [https://github.com/hrydgard/ppsspp-site/](some modifications)).
 
 ## Twitter
 

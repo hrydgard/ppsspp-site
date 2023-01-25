@@ -2,6 +2,7 @@ import React from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import AdResponsive from '../components/AdSense';
+import Link from '@docusaurus/Link';
 
 // This is the landing page from the "How to get games" button in PPSSPP.
 // I feel it's better to have a custom page for this than to link directly into the guide.
@@ -23,7 +24,7 @@ export default function Home() {
                    They are normally sold as either small plastic discs or as downloadable content.
                    To use them with PPSSPP, we must turn them into files. An "ISO file" is a raw copy
                    of a disc, which can be compressed into a "CSO", or compressed iso.
-                   For instructions on how to do this yourself, see the <a href="/docs/getting-started/dumping-games">instructions on dumping games</a>.
+                   For instructions on how to do this yourself, see the <Link to="/docs/getting-started/dumping-games">instructions on dumping games</Link>.
                 </p>
 
                 <p>PSP games that have been downloaded from PSN onto a real PSP can be copied off the PSP and played directly.</p>

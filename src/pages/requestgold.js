@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
+import Link from '@docusaurus/Link';
 
 import { useUserData, defaultUserContext } from '@site/src/theme/Root';
 
@@ -63,7 +64,7 @@ function RequestGooglePlayForm({userData}) {
     </form>
     }
     <br/>
-    <p><a href="https://support.google.com/googleplay/answer/3422659?hl=en">How to redeem Google Play promo codes</a></p>
+    <p><Link to="https://support.google.com/googleplay/answer/3422659?hl=en">How to redeem Google Play promo codes</Link></p>
   </>);
 }
 
@@ -81,7 +82,7 @@ export default function Home() {
             <h3>You have PPSSPP Gold for Android, but want it for Windows?</h3>
             <p>In this case, e-mail me on <a href="hrydgard+ppssppgold@gmail.com">hrydgard+ppssppgold@gmail.com</a>!</p>
             <h3>You have PPSSPP Gold for Windows, but want it for Android?</h3>
-            <p>If so, just <a href="/login?Forward=requestgold">login here!</a></p>
+            <p>If so, just <Link to="/login?Forward=requestgold">login here!</Link></p>
           </div>
         </div>
       </div>
