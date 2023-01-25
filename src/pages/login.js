@@ -358,7 +358,7 @@ export default function Home() {
               <h3>{userData.name}</h3>
             </div>
             <div className="card__body">
-              <p>Logged in. {userData.goldUser ? "Has PPSSPP Gold." : ""}</p>
+              <p>Logged in: {userData.email}. {userData.goldUser ? "Has PPSSPP Gold." : ""}</p>
               <p><Link to="/changepassword">Change password</Link></p>
               <p><Link to="/requestgold">Request Gold for Android</Link></p>
               <p><Link to="/download">Downloads</Link></p>
