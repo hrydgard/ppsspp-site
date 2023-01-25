@@ -43,7 +43,7 @@ function HomepageHeader() {
   );
 
   // Needs a different background. should be below the buttons.
-  // <p style={{"text-align": "left"}}><a href="/docs/intro">Getting started</a></p>
+  // <p style={{"text-align": "left"}}><Link to="/docs/intro">Getting started</Link></p>
 }
 
 const FeatureList = [
@@ -79,9 +79,9 @@ const FeatureList = [
           Anyone is welcome to contribute improvements to the code.
           Thanks to many such contributions, PPSSPP's compatibility is steadily increasing,
           letting us all play our PSP games on the devices of our choice.</p>
-          <p><a className="btn" href="/doc/development">Development &raquo;</a>
+          <p><Link className="btn" to="/doc/development">Development &raquo;</Link>
           <br></br>
-          <a className="btn" href="https://github.com/hrydgard/ppsspp">GitHub &raquo;</a></p>
+          <Link className="btn" to="https://github.com/hrydgard/ppsspp">GitHub &raquo;</Link></p>
        </>
     ),
   },

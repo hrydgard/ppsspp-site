@@ -48,9 +48,9 @@ function BuyGoldPage({goldUser}) {
     var androidGold = <>
       <h3>Buy PPSSPP Gold for Android</h3>
       <p>
-        <a className={clsx("btn btn-warning btn-large")} href="https://play.google.com/store/apps/details?id=org.ppsspp.ppssppgold">
+        <Link className={clsx("btn btn-warning btn-large")} to="https://play.google.com/store/apps/details?id=org.ppsspp.ppssppgold">
           <img alt="PPSSPP Gold on Google Play" src="https://developer.android.com/images/brand/en_generic_rgb_wo_60.png" />
-        </a>
+        </Link>
       </p>
 
     </>;
