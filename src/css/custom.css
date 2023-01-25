@@ -128,13 +128,8 @@ h4 {
   padding: 2rem;
 }
 
-.centering-container {
-  align-items: center;
-  background-color: var(--ifm-color-black-alpha-05);
-  border-radius: var(--ifm-global-radius);
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
+.centering-row {
+  justify-content: center;
 }
 
 .hero__title {

@@ -85,36 +85,34 @@ function LoginForm({ setLoginData, forward }) {
     const handleSubmit = async e => {
       e.preventDefault();  // Prevents an automatic refresh from the submit.
 
-      if (!email || !password) {
+      var userEmail = email.trim();
+
+      if (!userEmail || !password) {
         setLoginFailed(true);
         setErrorMessage("You must provide both email and password.");
         return;
       }
-      if (!email.includes("@") || !email.includes(".")) {
+      if (!userEmail.includes("@") || !userEmail.includes(".")) {
         setLoginFailed(true);
         setErrorMessage("An email address must have a @ and a dot.");
         return;
       }
 
       var credentials = {
-        'email': email,
+        'email': userEmail,
         'password': password,
         'key': "",
       };
       const loginData = await loginUser(credentials);
       if (loginData) {
-        console.log("Loginform submitted");
         console.log(loginData);
         setLoginData(loginData);
         setLoginFailed(false);
         if (forward) {
           console.log("Forwarding to " + forward);
           window.location.href = "/" + forward;
-        } else {
-          console.log("No forward given, not navigating");
         }
       } else {
-        console.log("No login data");
         setLoginFailed(true);
         setErrorMessage("Email/Password didn't match.");
       }
@@ -151,15 +149,46 @@ function GiveFreeGoldForm() {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    if (!name || !email) {
+    var userName = name;
+    var userEmail = email;
+
+    if (!userName) {
       setFailedAlert(true);
       setSuccessAlert(false);
       return;
     }
 
+    if (userEmail) {
+      userEmail = userEmail.trim();
+    }
+    if (userName) {
+      userName = userName.trim();
+    }
+
+    if (userName && !userEmail) {
+      // See if we can auto-reformat from this format: Mr User <mruser@gmail.com>
+      if (userName.includes(" <")) {
+        console.log("splitting " + userName);
+        var offset = userName.indexOf(" <");
+        if (offset != -1) {
+          userEmail = userName.substr(offset + 2, userName.length - offset - 2 - 1);
+          userName = userName.substr(0, offset);
+        } else {
+          console.log("not splitting, separator not found");
+        }
+      }
+
+      // For now, return.
+      console.log(userName + " '" + userEmail + "'");
+    }
+
+    if (!userEmail) {
+      return;
+    }
+
     var freeGoldUser = {
-      'name': name,
-      'email': email,
+      'name': userName,
+      'email': userEmail,
     };
     const response = await giveFreeGold(freeGoldUser);
     if (response) {
@@ -175,7 +204,6 @@ function GiveFreeGoldForm() {
   }
 
   return (<>
-    <h3>Give Free Gold</h3>
     <form onSubmit={handleSubmit}>
       {failedAlert ? <div className="alert alert--warning" role="alert">Failed giving free gold.</div> : <></>}
       {successAlert ? <div className="alert alert--success" role="alert">Free gold given to {name}!</div> : <></>}
@@ -202,14 +230,15 @@ function GetMagicLinkForm() {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    var userEmail = email.trim();
 
-    if (!email) {
+    if (!userEmail) {
       setUserNotFound(true);
       return;
     }
 
     var existingGoldUser = {
-      'email': email,
+      'email': userEmail,
     };
     var magicLink = await getMagicLink(existingGoldUser);
     if (magicLink) {
@@ -224,7 +253,6 @@ function GetMagicLinkForm() {
   }
 
   return (<>
-    <h3>Get Magic Link</h3>
     <form onSubmit={handleSubmit}>
       {userNotFound ? <div className="alert alert--warning" role="alert">User not found.</div> : <></>}
       <label>
@@ -239,20 +267,27 @@ function GetMagicLinkForm() {
   </>);
 }
 
+function AdminCard({title, contents}) {
+  return <div className="card">
+      <div className="card__header">
+        <h3>Admin: {title}</h3>
+      </div>
+      <div className="card__body">
+        {contents()}
+      </div>
+    </div>;
+}
+
+
 function AdminTools(userData) {
   if (!userData.admin) {
     return (<></>);
   }
   return (
     <>
-      <div className="card">
-        <div className="card__header">
-          <h3>Admin Tools</h3>
-          <p>Login type: {userData.loginType}</p>
-          <GiveFreeGoldForm/>
-          <br/>
-          <GetMagicLinkForm/>
-        </div>
+      <div className={clsx("col col--3")}>
+        <AdminCard title="Free Gold" contents={GiveFreeGoldForm}/>
+        <AdminCard title="Get Magic Link" contents={GetMagicLinkForm}/>
       </div>
     </>
   )
@@ -352,23 +387,27 @@ export default function Home() {
     return (
       <Layout title={`Logged in`} description="Logged in">
         <br/>
-        <div className="centering-container">
-          <div className="card">
-            <div className="card__header">
-              <h3>{userData.name}</h3>
+        <div className="container">
+          <div className="row centering-row">
+            <div className="col col--3">
+              <div className="card">
+                <div className="card__header">
+                  <h3>{userData.name}</h3>
+                </div>
+                <div className="card__body">
+                  <p><strong>{userData.email}</strong></p>
+                  {userData.goldUser && <p>Has PPSSPP Gold.</p>} {userData.admin && <p>Has admin rights.</p>}
+                  <p><Link to="/changepassword">Change password</Link></p>
+                  <p><Link to="/requestgold">Request Gold for Android</Link></p>
+                  <p><Link to="/download">Downloads</Link></p>
+                  <p>
+                    <button className="button button--primary margin-top--md" type="submit" onClick={() => logoutUser(userData, setUserData)}>Log out</button>
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="card__body">
-              <p>Logged in: {userData.email}. {userData.goldUser ? "Has PPSSPP Gold." : ""}</p>
-              <p><Link to="/changepassword">Change password</Link></p>
-              <p><Link to="/requestgold">Request Gold for Android</Link></p>
-              <p><Link to="/download">Downloads</Link></p>
-              <p>
-                <button className="button button--primary margin-top--md" type="submit" onClick={() => logoutUser(userData, setUserData)}>Log out</button>
-              </p>
-            </div>
+            {AdminTools(userData)}
           </div>
-          <br/>
-          {AdminTools(userData)}
         </div>
       </Layout>
     )
@@ -381,8 +420,8 @@ export default function Home() {
     <Layout title={`${siteConfig.title} Login`} description="Login">
       <br/>
       <div className="container">
-        <div className={clsx("row simple-center")}>
-          <div className={clsx("col col--6")}>
+        <div className={clsx("row centering-row")}>
+          <div className="col col--4">
             <div className="card">
               <div className="card__header">
                 <h1 style={{paddingTop: "10px"}}>Login</h1>
