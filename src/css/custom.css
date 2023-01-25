@@ -190,6 +190,22 @@ form span {
   width: 200px;
 }
 
+/* Downloads */
+.download {
+  display: flex;
+  align-items: left;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.downloadList {
+  display: flex;
+  align-items: left;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+
 /* Silly CSS from https://alvarotrigo.com/blog/animated-backgrounds-css/ */
 /* TODO: Move to a separate file */
 
