@@ -50,10 +50,10 @@ const config = {
           ignorePatterns: ['/tags/**'],
           filename: 'sitemap.xml',
         },
-        googleAnalytics: env.analytics ? {
+        googleAnalytics: {
           trackingID: env.analytics,
           anonymizeIP: true,
-        } : null,
+        },
       }),
     ],
   ],
