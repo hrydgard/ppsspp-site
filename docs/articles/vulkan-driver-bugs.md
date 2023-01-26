@@ -4,6 +4,8 @@ A few years ago, I meant to start a website called Real World Vulkan that docume
 
 Never got around to it, but I did some writing for it, which I've collected here.
 
+I've updated it slightly but there's more to be done.
+
 ## Introduction
 
 Vulkan is the present and future of graphics, at least on some platforms. But closing in on seven years old at time of writing, it has a past - early drivers for a new API often have crippling bugs, and Vulkan is no exception. Worse, drivers for mobile devices often stick around a long time in consumer devices due to the lack of updates on Android. This page is an incomplete attempt to collect information about driver bugs and performance advice for the whole ecosystem of Vulkan-enabled devices.
@@ -142,7 +144,7 @@ ARM Mali before R22 (Midgard) and R10 (Bifrost)
 Current status
 Fixed.
 
-### VK_REMAINING_* enums broken
+### `VK_REMAINING_*` enums broken
 
 #### Description
 

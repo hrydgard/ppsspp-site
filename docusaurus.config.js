@@ -26,7 +26,7 @@ const config = {
 
   presets: [
     [
-      'classic',
+      '@docusaurus/preset-classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
@@ -50,6 +50,10 @@ const config = {
           ignorePatterns: ['/tags/**'],
           filename: 'sitemap.xml',
         },
+        googleAnalytics: env.analytics ? {
+          trackingID: env.analytics,
+          anonymizeIP: true,
+        } : null,
       }),
     ],
   ],

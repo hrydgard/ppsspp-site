@@ -7,3 +7,4 @@ const url = 'https://dev.ppsspp.org';
 exports.mode = mode;
 exports.url = url;
 exports.adsense = null;
+exports.analytics = null;
