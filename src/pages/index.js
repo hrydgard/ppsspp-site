@@ -51,8 +51,10 @@ const FeatureList = [
     title: 'Play your PSP games in HD!',
     description: (
       <>
-          PPSSPP can run your PSP games on your PC in full HD resolution, and play them on Android too. It can even upscale textures that would otherwise be too blurry as they were made for the small screen of the original PSP.
-          On modern Android phones and tablets, you can run at double the original resolution or more.
+        <p>PPSSPP can run your PSP games on your PC or Android phone in full HD resolution or even higher.
+        It can also upscale textures to make them sharper, and you can enable post-processing shaders
+        to adjust color and brightness the way you like, and other effects.
+        </p>
       </>
     ),
   },
@@ -60,14 +62,13 @@ const FeatureList = [
     title: 'Enhance your experience!',
     description: (
       <>
-          <ul>
-            <li>Play in HD resolutions and more</li>
-            <li>Play on a tablet for big-screen mobile gaming</li>
-            <li>Customize on-screen touch controls or use an external controller or keyboard</li>
-            <li>Save and restore game state anywhere, anytime</li>
-            <li>Crank up the anisotropic filtering and texture scaling</li>
-            <li>Continue where you left off by transferring saves from your real PSP</li>
-          </ul>
+        <ul>
+          <li>Save and restore game state anywhere, anytime</li>
+          <li>Play in HD resolutions and more</li>
+          <li>Customize on-screen touch controls or use an external controller or keyboard</li>
+          <li>Improve the graphics with anisotropic filtering and texture scaling</li>
+          <li>Continue where you left off by transferring saves from your real PSP</li>
+        </ul>
       </>
     ),
   },
@@ -78,10 +79,12 @@ const FeatureList = [
           <p>PPSSPP is an open source project, licensed under the GPL 2.0 (or later).
           Anyone is welcome to contribute improvements to the code.
           Thanks to many such contributions, PPSSPP's compatibility is steadily increasing,
-          letting us all play our PSP games on the devices of our choice.</p>
+          letting us all play our PSP games on devices of our choice.
+          </p>
           <p><Link className="btn" to="/doc/development">Development &raquo;</Link>
           <br></br>
-          <Link className="btn" to="https://github.com/hrydgard/ppsspp">GitHub &raquo;</Link></p>
+          <Link className="btn" to="https://github.com/hrydgard/ppsspp">GitHub &raquo;</Link>
+          </p>
        </>
     ),
   },

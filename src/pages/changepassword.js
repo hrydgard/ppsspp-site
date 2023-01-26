@@ -7,25 +7,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 
 import { useUserData, defaultUserContext } from '@site/src/theme/Root';
-
-// data has two fields only, the rest comes from the server cookie.
-// oldPassword and newPassword
-async function changePassword(data) {
-  return fetch('/api/changepassword', {
-    method: 'POST',
-    header: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  }).then(data => {
-    if (data.status == 200) {
-      console.log("success");
-      return true
-    } else {
-      return false;
-    }
-  })
-}
+import { jsonFetch, jsonPost } from '../util/json_fetch';
 
 function ChangePasswordForm({userData}) {
   const [oldPassword, setOldPassword] = useState();
@@ -35,7 +17,7 @@ function ChangePasswordForm({userData}) {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    var result = await changePassword({ oldPassword: oldPassword, newPassword: newPassword });
+    var result = await jsonPost("changepassword", { oldPassword: oldPassword, newPassword: newPassword });
     if (result) {
       window.location.href = "/login";
     } else {

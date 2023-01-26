@@ -8,72 +8,18 @@ import Link from '@docusaurus/Link';
 
 import { useUserData, defaultUserContext } from '@site/src/theme/Root';
 
+import { jsonFetch, jsonPost } from '../util/json_fetch';
+
 // API call wrappers, separated from UI concerns
 // Generally return a false-y value on failure and true-y values (or useful json) on success.
 
-async function loginUser(credentials) {
-  return fetch('/api/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(credentials)
-  }).then(data => {
-    if (data.status == 200) {
-      return data.json();
-    } else {
-      return null;
-    }
-  });
-}
-
-async function logoutUser(userData, setUserData) {
+async function logoutUser(setUserData) {
   // Reset user data immediately
   setUserData(defaultUserContext);
   // Reset the local cookie so we don't auto-login on the next load.
   localStorage.removeItem('ppsspp-auth');
   // Reset the server cookie
-  return fetch('/api/logout', {
-    method: 'POST',
-    header: {
-      'Content-Type': 'application/json'
-    },
-  }).then(data => {
-    console.log("Logged out.");
-  });
-}
-
-async function giveFreeGold(goldUserData) {
-  return fetch('/api/freegold', {
-    method: 'POST',
-    header: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(goldUserData)
-  }).then(data => {
-    if (data.status == 200) {
-      return data.json();
-    } else {
-      return null;
-    }
-  });
-}
-
-// email field is enough for this one.
-async function getMagicLink(goldUserData) {
-  return fetch('/api/getmagiclink', {
-    method: 'POST',
-    header: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(goldUserData)
-  }).then(data => {
-    if (data.status == 200) {
-      return data.json();
-    } else {
-      return null;
-    }
-  })
+  jsonPost("logout");
 }
 
 function LoginForm({ setLoginData, forward }) {
@@ -92,9 +38,9 @@ function LoginForm({ setLoginData, forward }) {
         setErrorMessage("You must provide both email and password.");
         return;
       }
-      if (!userEmail.includes("@") || !userEmail.includes(".")) {
+      if (!userEmail.includes("@") || !userEmail.includes(".") || userEmail.includes(" ")) {
         setLoginFailed(true);
-        setErrorMessage("An email address must have a @ and a dot.");
+        setErrorMessage("An email address must have a @ and a dot, and can't have spaces.");
         return;
       }
 
@@ -103,7 +49,9 @@ function LoginForm({ setLoginData, forward }) {
         'password': password,
         'key': "",
       };
-      const loginData = await loginUser(credentials);
+      console.log(credentials);
+      const loginData = await jsonFetch("login", credentials);
+      console.log(loginData);
       if (loginData) {
         console.log(loginData);
         setLoginData(loginData);
@@ -190,7 +138,7 @@ function GiveFreeGoldForm() {
       'name': userName,
       'email': userEmail,
     };
-    const response = await giveFreeGold(freeGoldUser);
+    const response = await jsonPost("freegold", freeGoldUser);
     if (response) {
       console.log("success");
       setSuccessAlert(true);
@@ -240,7 +188,7 @@ function GetMagicLinkForm() {
     var existingGoldUser = {
       'email': userEmail,
     };
-    var magicLink = await getMagicLink(existingGoldUser);
+    var magicLink = await jsonFetch("getmagiclink", existingGoldUser);
     if (magicLink) {
       console.log("success: " + magicLink);
       setMagicLink(magicLink.link);
@@ -267,15 +215,39 @@ function GetMagicLinkForm() {
   </>);
 }
 
+function GooglePlayCodeForm() {
+  const [codesUsed, setCodesUsed] = useState();
+  const [codesLeft, setCodesLeft] = useState();
+
+  useEffect(async () => {
+    var data = await jsonFetch("googleplaycodeadmin", {});
+    console.log(data);
+    if (data) {
+      setCodesUsed(data.codesUsed);
+      setCodesLeft(data.codesLeft);
+    } else {
+      console.log("got no data");
+    }
+  });
+
+  return <>
+    {codesLeft > 0 && codesLeft < 10 && <div className="alert alert--warning" role="alert">Nearly out of codes!</div>}
+    {codesLeft == 0 && <div className="alert alert--error" role="alert">Out of codes!</div>}
+    <p>Codes used: {codesUsed}</p>
+    <p>Codes left: {codesLeft}</p>
+  </>;
+}
+
 function AdminCard({title, contents}) {
-  return <div className="card">
+  return (
+    <div className="card margin-bottom--md">
       <div className="card__header">
         <h3>Admin: {title}</h3>
       </div>
       <div className="card__body">
         {contents()}
       </div>
-    </div>;
+    </div>);
 }
 
 
@@ -287,7 +259,12 @@ function AdminTools(userData) {
     <>
       <div className={clsx("col col--3")}>
         <AdminCard title="Free Gold" contents={GiveFreeGoldForm}/>
+      </div>
+      <div className={clsx("col col--3")}>
         <AdminCard title="Get Magic Link" contents={GetMagicLinkForm}/>
+      </div>
+      <div className={clsx("col col--3")}>
+        <AdminCard title="Google Play Codes" contents={GooglePlayCodeForm}/>
       </div>
     </>
   )
@@ -401,7 +378,7 @@ export default function Home() {
                   <p><Link to="/requestgold">Request Gold for Android</Link></p>
                   <p><Link to="/download">Downloads</Link></p>
                   <p>
-                    <button className="button button--primary margin-top--md" type="submit" onClick={() => logoutUser(userData, setUserData)}>Log out</button>
+                    <button className="button button--primary margin-top--md" type="submit" onClick={() => logoutUser(setUserData)}>Log out</button>
                   </p>
                 </div>
               </div>

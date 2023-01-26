@@ -393,10 +393,11 @@ function DownloadsForVersion({version, files, showGold}) {
 function PreviousReleases({showGold}) {
   const [expanded, setExpanded] = useState(false);
 
-  const maxCount = expanded ? 100 : 4;
+  const maxCount = expanded ? 100 : 0;
   var nVersions = binariesPerVersion.slice(0, maxCount);
   return (
     <>
+      {maxCount > 0 &&
       <table>
         <thead>
           <tr><th>Version</th><th>Downloads</th></tr>
@@ -407,7 +408,8 @@ function PreviousReleases({showGold}) {
           ))}
         </tbody>
       </table>
-      <button className="button button--primary" onClick={() => setExpanded(true)}>Show all</button>
+      }
+      {!expanded && <button className="button button--primary" onClick={() => setExpanded(true)}>Show list</button>}
     </>
   );
 }
@@ -428,7 +430,7 @@ function DownloadPage({userData}) {
           <div className={clsx("col col--12")}>
             <h2>Download PPSSPP {latestVersion}</h2>
             <p>
-              For information about what's new in PPSSPP {latestVersion}, see the <Link to="/news">news</Link>.
+              What's new in {latestVersion}? <Link to="/news">See the news</Link>!
               The source code can be downloaded from <Link to="https://github.com/hrydgard/ppsspp">Github</Link>.
             </p>
             {goldBanner}

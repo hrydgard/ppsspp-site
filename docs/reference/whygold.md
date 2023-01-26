@@ -2,9 +2,9 @@
 
 ## Why buy PPSSPP Gold?
 
-PPSSPP Gold is all the PSP emulation goodness of the free version:
+PPSSPP Gold has everything that the free version also has:
 
-* Faster emulation and more platforms than any other PSP emulator
+* Fast emulation and more platforms than any other PSP emulator
 * Save states
 * Enhanced high-resolution graphics with upscaled textures
 * Turbo button for those slow-to-play RPGs
