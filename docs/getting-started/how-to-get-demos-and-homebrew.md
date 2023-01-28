@@ -14,7 +14,7 @@ There's a new site though that has quite a few: [PlayDreamCreate](https://playdr
 
 ## Homebrew
 
-The PSP was released in 2005, and contained a number of bugs that made it easy to run your own code on the device. A large community of hackers emerged who figured out how it worked and wrote their own software for the devic. There's now a lot of little homemade games to run, and a free homebrew "SDK" (software development kit) to make your own.
+The PSP was released in 2005, and contained a number of bugs that made it easy to run your own code on the device. A large community of hackers emerged who figured out how it worked and wrote their own software for the device. There's now a lot of little homemade games to run, and a free homebrew "SDK" (software development kit) to make your own.
 
 ### Where can I find them?
 
