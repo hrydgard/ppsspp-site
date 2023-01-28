@@ -23,12 +23,12 @@ export default function LoginCorner() {
       <>
         <img src={iconName} width="22px" height="22px"/>
         &nbsp;
-        <a to="/login">{userData["name"]}</a>
+        <Link to="/login">{userData["name"]}</Link>
       </>
     )
   } else {
     return (
-      <a href="/login">Login</a>
+      <Link to="/login">Login</Link>
     );
   }
 }
