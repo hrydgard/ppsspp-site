@@ -138,14 +138,12 @@ function GiveFreeGoldForm() {
       'name': userName,
       'email': userEmail,
     };
-    const response = await jsonPost("freegold", freeGoldUser);
+    const response = await jsonFetch("freegold", freeGoldUser);
     if (response) {
-      console.log("success");
       setSuccessAlert(true);
       setFailedAlert(false);
       setMagicLink(response.magicLink)
     } else {
-      console.log("failure");
       setSuccessAlert(false);
       setFailedAlert(true);
     }
@@ -167,7 +165,22 @@ function GiveFreeGoldForm() {
         <button className="button button--primary margin-top--md" type="submit">Give free Gold!</button>
       </div>
     </form>
-    <p>{magicLink}</p>
+    <p>{magicLink &&
+      <div contentEditable="true" name="freeGoldText">
+        Certainly!
+        <br/>
+        <br/>
+        Here's your link to log in automatically, which will let you access PPSSPP Gold downloads for Windows:
+        <br/>
+        <br/>
+        {magicLink}
+        <br/>
+        <br/>
+        Enjoy,
+        <br/>
+        Henrik
+      </div> }
+    </p>
   </>);
 }
 
@@ -221,7 +234,6 @@ function GooglePlayCodeForm() {
 
   useEffect(async () => {
     var data = await jsonFetch("googleplaycodeadmin", {});
-    console.log(data);
     if (data) {
       setCodesUsed(data.codesUsed);
       setCodesLeft(data.codesLeft);
@@ -249,7 +261,6 @@ function AdminCard({title, contents}) {
       </div>
     </div>);
 }
-
 
 function AdminTools(userData) {
   if (!userData.admin) {
@@ -334,7 +345,7 @@ export default function Home() {
           'key': queryKey,
         };
         console.log("Trying to log in by key: " + credentials.email + " " + credentials.key);
-        const loginData = await loginUser(credentials);
+        const loginData = await jsonFetch("login", credentials);
         if (loginData) {
           setLoginData(loginData);
           // setLoginFailed(false);

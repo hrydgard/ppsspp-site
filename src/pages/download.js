@@ -454,8 +454,8 @@ function DownloadPage({userData}) {
             <p>Download fresh development builds from <Link to="https://buildbot.orphis.net/ppsspp/index.php">Orphis' Buildbot</Link>, also included below.
               <br/>Please note that these development builds can be unstable - if one doesn't work, try an earlier one. And backup your save games!
             </p>
-            <h2>Legacy and esoteric builds</h2>
-            <p><Link to="/legacybuilds">Page where you can download</Link> builds for Switch, Blackberry, Meego and other esoteric or old platforms.</p>
+            <h2>Legacy builds and other downloads</h2>
+            <p><Link to="/legacybuilds">Page where you can download</Link> cube.elf, and builds for Switch, Blackberry, Meego and other esoteric or old platforms.</p>
             <br/>
             <h2>Previous releases</h2>
             <PreviousReleases showGold={showGold}/>

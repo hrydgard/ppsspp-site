@@ -1,4 +1,12 @@
-# Legacy Builds
+# Legacy Builds and other downloads
+
+## Cube test program
+
+A simple PSP program that draws a spinning cube. For testing that the emu works on your device before you dump your UMDs.
+
+For this testing, these days you can also just use the homebrew store. Anyway, here it is:
+
+[Download](files/cube.elf)
 
 ## Blackberry
 
