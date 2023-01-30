@@ -1,6 +1,5 @@
 import React, { version } from 'react';
 
-// Note: Not using this anymore, only relying on auto mode.
 export default function AdResponsive() {
   return (
     <>
