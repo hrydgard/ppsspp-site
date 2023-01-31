@@ -46,7 +46,7 @@ None, unless you can get away with also writing depth.
 
 Checking for affected hardware and/or drivers on Adreno:
 
-```c++
+```cpp
 if (deviceProps.deviceID >= 0x05000000 && deviceProps.deviceID < 0x06000000) {
     if (deviceProps.driverVersion < 0x80180000) {
         // Affected by bug
@@ -56,7 +56,7 @@ if (deviceProps.deviceID >= 0x05000000 && deviceProps.deviceID < 0x06000000) {
 
 Checking for affected hardware and/or drivers on ARM Mali:
 
-```c++
+```cpp
 int majorVersion = VK_API_VERSION_MAJOR(deviceProps.driverVersion);
 if (majorVersion < 40) {
     // Affected by bug
@@ -68,8 +68,6 @@ if (majorVersion < 40) {
 Fixed in the latest Adreno drivers since some time, supposedly fixed by Mali (but not yet confirmed).
 
 ### Color mask not applied
-
-#### Description
 
 The color mask controls which channels of a color attachment are written. It's possible to write to only the depth buffer while still having both a color buffer and a depth buffer bound by setting the color mask to 0. Unfortunately, on Adreno 500, this does not produce the expected results.
 
@@ -88,8 +86,6 @@ Adreno 5xx generation, all drivers. No fix.
 if (deviceProps.deviceID >= 0x05000000 && deviceProps.deviceID < 0x06000000)
 
 ### Dual-source blending broken
-
-#### Description
 
 Dual source blending modes are not working on some drivers that claim to expose the feature.
 
@@ -112,8 +108,6 @@ one of the output vertices to NaN. This works on all PC GPUs and most mobile GPU
 Setting just the w coordinate to NaN on all other modern GPUs confuses the rasterizer enough to drop the triangle, but on Mali chips, you have to set all four coordinates (xyzw) to NaN to avoid getting garbage triangles everywhere on the screen.
 
 ### Inverse depth in viewport not functioning correctly
-
-#### Description
 
 If you set .minDepth to a larger value than .maxDepth when creating a VkViewport, depth is crushed to one of the values, or otherwise corrupted, resulting in bad or no rendering.
 
@@ -198,8 +192,6 @@ Fixed.
 
 ### Passing samplers as parameters to functions doesn't work.
 
-#### Description
-
 Passing samplers as parameters to functions doesn't work, and `textureQueryLod()` crashes the driver.
 
 ####  Workaround
@@ -218,8 +210,6 @@ Fixed.
 
 ### Swapchain broken if width not divisible by 32
 
-#### Description
-
 This is a bug only affecting older PowerVR Android drivers, which I'm really curious on how it got through
 any kind of testing. If the width of the swapchain is not divisible by 32, the display output will be heavily corrupted.
 
@@ -227,13 +217,11 @@ any kind of testing. If the width of the swapchain is not divisible by 32, the d
 
 Force swapchain width to be divisible by 32 (!)
 
-```c++
+```cpp
 swapChainExtent.width &= ~31;
 ```
 
 ### Rendering does not clip to viewport
-
-#### Description
 
 Rendered geometry is not clipped properly to the current viewport.
 
@@ -246,7 +234,7 @@ Affects Mali Midgard devices only, before driver version 15.
 Clip your scissor rectangle to the viewport rectangle.
 This applies both for dynamic state and preset scissor/viewport rectangles.
 
-```c++
+```cpp
 int majorVersion = VK_API_VERSION_MAJOR(deviceProps.driverVersion);
 if (majorVersion < 15) {
     // Affected by bug

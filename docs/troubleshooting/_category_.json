@@ -1,0 +1,8 @@
+{
+  "label": "Help",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Like the FAQ but expanded."
+  }
+}

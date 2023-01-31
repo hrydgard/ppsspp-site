@@ -179,6 +179,7 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+        additionalLanguages: ['cpp', 'ini', 'glsl'],
       },
       googleAdsense: env.adsense ? {
         dataAdClient: env.adsense,
