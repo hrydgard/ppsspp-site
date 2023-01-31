@@ -55,7 +55,7 @@ The setting to control this is called *Frameskipping*.
 
 ### Speedhacks
 
-These aresettings that can speed things up in games. The effect ranges from none to large, depending
+These are settings that can speed things up in games. The effect ranges from none to large, depending
 on which game you're trying to play, and the hardware you're trying to play it on.
 
 * Vertex caching
