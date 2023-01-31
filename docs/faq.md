@@ -73,6 +73,10 @@ Yes, although it's not a super smooth experience. Follow this:
 
 No. On the real hardware, the player app for these is built into the PPSSPP firmware, and since PPSSPP is a HLE emulator, we don't run the firwmare so we'd have to write our own player. There's a scripting language for menus and stuff, it's pretty complicated. So it has not been a priority to figure out, especially as UMD Video is today an outdated, low-definition format and there are better ways to watch movies. If you really want to play UMD video, use a real PSP.
 
+## Is it generally better to use stable or dev (git) builds?
+
+Usually, git builds are pretty stable and include all the recent fixes, but sometimes they have bugs that haven't been fixed yet and weren't there in the last stable version. So it's up to you. Beware that save states saved in dev builds may not be compatible with the stable builds.
+
 ## Savestates seem slower in 1.12+. What can I do?
 
 Disabling savestate backups will make save/load faster, but also disables save/load undo.
@@ -120,6 +124,12 @@ For a JIT to function, an app needs to have the ability to generate machine code
 ## Does PPSSPP work on Chromebooks?
 
 Chromebooks can run the Android version of PPSSPP. However it has not yet been adapted for keyboard input, so you'll want to use an external bluetooth controller for now.
+
+## How do I turn off buffered rendering in PPSSPP 1.14 or later?
+
+The option is still there, but now it's under "Speedhacks" and called "Skip buffer effects".
+
+Note that it may cause various rendering issues and missing graphics depending on the game, just like before.
 
 ## How do I get the IPEGA Red Knight (and similar IPEGA pads) to work with PPSSPP?
 

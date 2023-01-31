@@ -43,4 +43,4 @@ Since this emulator implements most of the PSP OS in order to run games, testing
 
 Pick from the list of tasks below, go look at the [open issues on GitHub](https://github.com/hrydgard/ppsspp/issues), or just implement whatever missing feature you feel like. Send your code as a pull request on Github. If you send a couple of good pull requests, you'll be added as a contributor and get your own commit access.
 
-The PPSSPP coding style is similar to the [Google C++ coding style](https://google.github.io/styleguide/cppguide.html).
+The PPSSPP coding style is fairly similar to the [Google C++ coding style](https://google.github.io/styleguide/cppguide.html), though there are parts of the code that are a bit off, especially with regards to braces and capitalization.

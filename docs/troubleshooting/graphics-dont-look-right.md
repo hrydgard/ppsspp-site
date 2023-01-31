@@ -44,4 +44,10 @@ PPSSPP does things most games don't, because it's trying to port old style game 
 
 ## Step 5: Try the latest version
 
-PPSSPP often gets fixes and updates.  Even if you're using the latest stable version, the [latest git build](http://ppsspp.org/downloads.html#devbuilds) may work even better, and may have already fixed any issue you're hitting.
+PPSSPP often gets fixes and updates.  Even if you're using the latest stable version, the [latest git build](/download#devbuilds) may work even better, and may have already fixed any issue you're hitting.
+
+## Step 6: Report an issue
+
+At this point, it seems that you're out of luck and it might be a bug in PPSSPP.
+
+Go to [PPSSPP on Github](https://github.com/hrydgard/ppsspp/issues) and search for the game you're playing. There might be some issue report already describing your problem - if not, get a github account if you don't have one already, then click New Issue and make a report. It will be looked at!

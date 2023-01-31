@@ -47,4 +47,4 @@ The safest option is to always overwrite or delete your save states whenever you
 
 ## Maybe it's a bug in PPSSPP?
 
-Saves work pretty well these days, but sometimes there are bugs.  Check the [PPSSPP forum](http://forums.ppsspp.org/) to see if other people have the same problem with that same game.
+Saves work pretty well these days, but sometimes there are bugs.  Check the [PPSSPP forum](https://forums.ppsspp.org/) to see if other people have the same problem with that same game.

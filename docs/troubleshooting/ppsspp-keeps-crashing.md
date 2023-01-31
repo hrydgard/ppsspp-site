@@ -28,7 +28,7 @@ If you had to turn off "Simulate block transfer effects", "Frameskipping", or "F
 
 ## Step 3: Check your disc file
 
-Check the CRC of your ISO, and make sure it's a good copy.  Sometimes files can become corrupt, and if you downloaded it, you may easily get a hacked/broken/partial disc.  See [the FAQ](http://ppsspp.org/faq.html) to learn how to get games that will work properly.
+Check the CRC of your ISO, and make sure it's a good copy.  Sometimes files can become corrupt, and if you downloaded it, you may easily get a hacked/broken/partial disc.  See [the FAQ](/docs/faq) to learn how to get games that will work properly.
 
 ## Step 4: Update your drivers (PC only)
 
@@ -40,11 +40,11 @@ Also, if you changed graphics cards - especially from an AMD or ATI card - you m
 
 ## Step 5: Try the latest version
 
-PPSSPP often gets fixes and updates.  Even if you're using the latest stable version, the [latest git build](http://ppsspp.org/downloads.html#devbuilds) may work even better, and may have already fixed any issue you're hitting.
+PPSSPP often gets fixes and updates.  Even if you're using the latest stable version, the [latest git build](/download#devbuilds) may work even better, and may have already fixed any issue you're hitting.
 
 ## Step 6: Check the forum and reports
 
-[PPSSPP's forum](http://forums.ppsspp.org/) has info on whether the game works for other people, and [PPSSPP's reporting section](http://report.ppsspp.org/games) logs reports people made from PPSSPP, along with their system details.
+[PPSSPP's forum](https://forums.ppsspp.org/) has info on whether the game works for other people, and [PPSSPP's reporting section](http://report.ppsspp.org/games) logs reports people made from PPSSPP, along with their system details.
 
 This can help you find if there's a certain version of PPSSPP that used to work, or a certain CRC that's known broken, or even if it just has never worked for anyone.
 
