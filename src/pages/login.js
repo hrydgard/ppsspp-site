@@ -229,10 +229,15 @@ function GetMagicLinkForm() {
 }
 
 function GooglePlayCodeForm() {
+  const [codesUpToDate, setCodesUpToDate] = useState(false);
   const [codesUsed, setCodesUsed] = useState();
   const [codesLeft, setCodesLeft] = useState();
+  const [pendingCodes, setPendingCodes] = useState();
 
   useEffect(async () => {
+    if (codesUpToDate) {
+      return;
+    }
     var data = await jsonFetch("googleplaycodeadmin", {});
     if (data) {
       setCodesUsed(data.codesUsed);
@@ -240,13 +245,51 @@ function GooglePlayCodeForm() {
     } else {
       console.log("got no data");
     }
+    setCodesUpToDate(true);
   });
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    var codeString = pendingCodes.trim();
+
+    if (!codeString) {
+      return;
+    }
+
+    // TODO: Validate contents better.
+    var codes = codeString.split(/\r?\n/).filter(x => x.length > 0).map(x => x.trim());
+    console.log(codes);
+    if (codes.length == 0) {
+      console.log("nothing to do");
+      return;
+    }
+
+    var request = {
+      'codes': codes,
+    };
+    var result = await jsonPost("googleplaycodeadmin", request);
+    if (result) {
+      console.log("success: " + magicLink);
+    } else {
+      console.log("failure");
+    }
+  }
 
   return <>
     {codesLeft > 0 && codesLeft < 10 && <div className="alert alert--warning" role="alert">Nearly out of codes!</div>}
     {codesLeft == 0 && <div className="alert alert--error" role="alert">Out of codes!</div>}
     <p>Codes used: {codesUsed}</p>
     <p>Codes left: {codesLeft}</p>
+
+    <form onSubmit={handleSubmit}>
+      <label>
+        <div>Codes to add:</div>
+        <textarea rows="20" cols="24" onChange={e => setPendingCodes(e.target.value)} />
+      </label>
+      <div>
+        <button className="button button--primary margin-top--md" type="submit">Add promo codes</button>
+      </div>
+    </form>
   </>;
 }
 

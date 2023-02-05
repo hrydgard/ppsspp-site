@@ -22,7 +22,7 @@ Prerequisites:
 * On Windows, you probably should use a WSL shell.
 
 * Node must be installed: `sudo apt npm install`
-  If you are using an ubuntu WSL, install npm from here: https://github.com/nodesource/distributions/blob/master/README.md
+  If you are using an ubuntu WSL, install npm [from here](https://github.com/nodesource/distributions/blob/master/README.md).
   Also it must be a Ubuntu 22, so if you have an older one, uninstall and reinstall your ubuntu WSL.
 
 Local testing:
