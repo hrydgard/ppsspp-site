@@ -81,7 +81,7 @@ const FeatureList = [
           Thanks to many such contributions, PPSSPP's compatibility is steadily increasing,
           letting us all play our PSP games on devices of our choice.
           </p>
-          <p><Link className="btn" to="/doc/development">Development &raquo;</Link>
+          <p><Link className="btn" to="/docs/category/development">Development &raquo;</Link>
           <br></br>
           <Link className="btn" to="https://github.com/hrydgard/ppsspp">GitHub &raquo;</Link>
           </p>
