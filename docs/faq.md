@@ -73,6 +73,10 @@ Yes, although it's not a super smooth experience. Follow this:
 
 No. On the real hardware, the player app for these is built into the PPSSPP firmware, and since PPSSPP is a HLE emulator, we don't run the firwmare so we'd have to write our own player. There's a scripting language for menus and stuff, it's pretty complicated. So it has not been a priority to figure out, especially as UMD Video is today an outdated, low-definition format and there are better ways to watch movies. If you really want to play UMD video, use a real PSP.
 
+## Why do cutscenes and videos look so blurry?
+
+The prerecorded video cutscenes on the PSP are of wildly varying quality, but the common denominator is that they were all judged to be "good enough" for the small low-resolution screen of the real actual PSP. They were never meant to be played on modern devices with large, bright screens, so quality is often just good enough to be passable on a real PSP screen, in order to save disk space for example, unfortunately. Not much that can be done.
+
 ## Is it generally better to use stable or dev (git) builds?
 
 Usually, git builds are pretty stable and include all the recent fixes, but sometimes they have bugs that haven't been fixed yet and weren't there in the last stable version. So it's up to you. Beware that save states saved in dev builds may not be compatible with the stable builds.
