@@ -24,17 +24,21 @@ Windows-only options:
 Sets the resolution to render at as a multiplier of the PSP's original resolution. Setting it to higher values
 than 1x can affect performance, depending on your hardware, but will create a much nicer and sharper image.
 
+4x is almost exactly equal to 1080p (1920x1288 vs 1920x1280), and if you have your monitor set to that, PPSSPP will automatically cut off 4 pixels at the top and bottom of the screen to make it fit.
+
+You might get a bit of extra antialiasing by setting the resolution higher than what your monitor can do, and letting the emulator downscale, there are also a few postprocessing filters that do a good job helping out with that. But it's better to use MSAA in Vulkan.
+
 Not all games work perfectly in higher resolution, as PSP games were made to run at exactly 480x272. The most common artifact is thin lines between elements in menus and HUD. This can sometimes be worked around by using texture upscaling, but is not always practically fixable.
 
 ### Software Rendering
 
 The software renderer is mostly more accurate, but runs a lot slower than using the GPU to render. It also
 doesn't allow higher resolutions. Can be useful for development, or a small number of games and homebrew apps
-that the hardware renderers can't handle.
+that the hardware renderers can't handle, or if you just like the look of authentic PSP rendering with dithering and so on.
 
 ### VSync
 
-The display of your device refreshes many times per second (usually 60 times per second). If this option is enabled, then PPSSPP will only draw during every refresh. This will cause animation to look a bit smoother in some circumstances, assuming your display is set to 60hz.
+Tries to avoid presenting a new image in the middle of your monitor's display refresh, by using whatever option is available to do so. This doesn't always make a difference at all, so if you don't see any issues with screen tearing, best to leave it off.
 
 ### Display layout and effects
 
@@ -59,7 +63,7 @@ Does what it says - if a game runs at 30hz, we'll still push 60 frames to the mo
 
 ### Buffer graphics
 
-How much latency is allowed between the CPU and GPU. A smaller value means that they might not be able to work in parallel as much, and you might get worse performance, but better latency.
+How much latency is allowed between the CPU and GPU. A smaller value means that they might not be able to work in parallel as much, and you might get worse performance, but better latency. This may help in music games, such as Project Diva or Patapon.
 
 ### Hardware transform
 
@@ -122,13 +126,15 @@ Types of Upscale algorithms:
 
 ### Texture Filtering
 
-* Anisotropic Filtering: Improves sharpness of textures at shallow angles. See [wikipedia](https://en.wikipedia.org/wiki/Anisotropic_filtering) for some example pictures.
+* Anisotropic Filtering: Improves sharpness of textures at shallow angles. See [wikipedia](https://en.wikipedia.org/wiki/Anisotropic_filtering) for some example pictures. There are generally no drawbacks to using it - PPSSPP's performance is rarely bottlenecked by texture sampling.
 
 * Texture Filtering - how textures are drawn on the screen
   * Auto - follows what the game sets
   * Nearest - pixellates textures like on the PS1
   * Linear - force all textures to be filtered smoothly
   * Auto Max Quality - Like auto, but will generate extra mipmaps where the game doesn't supply them. Can cause artifacts with things like fence textures, but will generally give you a smoother look in the distance in 3D games, especially combined with anisotropic filtering.
+
+For most games, max aniso + auto max quality will give you the best results. For a few games like Pursuit Force, switch back to just Auto. This may be made automatic in the future.
 
 ### Overlay Information
 
