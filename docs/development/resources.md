@@ -8,6 +8,7 @@
 - [forums.ps2dev.org](https://forums.ps2dev.org/) Also has PSP information.
 - [PSP Homebrew Community Discord](https://discord.gg/bePrj9W) (invite link)
 - [Minimalist PSP SDK for Windows](https://github.com/pmlopes/minpsp)
+- [PSP Archive](https://psp-archive.github.io/) - a website about emulation on the PSP
 
 ## Useful reporting links
 
