@@ -13,7 +13,7 @@ Here's an incomplete list of platforms that PPSSPP could or could not be ported 
 | Windows | Done | |
 | Android | Done | |
 | Linux | Done | |
-| macOS | Done | No native UI |
+| macOS | Done | Limited native UI |
 | iOS | Done | JIT works sometimes. Not allowed in Apple Store. Unmaintained |
 | Nintendo Switch | Done | by m4xw! |
 | Raspberry Pi | Done | R4+ recommended |

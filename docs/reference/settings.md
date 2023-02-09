@@ -53,6 +53,22 @@ can be improved by simply skipping the rendering process on every other frame, o
 is of course that the framerate will decrease, and in some cases there can be flickering issues.
 The setting to control this is called *Frameskipping*.
 
+### Render duplicate frames
+
+Does what it says - if a game runs at 30hz, we'll still push 60 frames to the monitor. A little more "work" for your device, but can improve timing on some (ie. reduce microstutter)
+
+### Buffer graphics
+
+How much latency is allowed between the CPU and GPU. A smaller value means that they might not be able to work in parallel as much, and you might get worse performance, but better latency.
+
+### Hardware transform
+
+Runs the transform pipeline (lighting, transform etc) on the GPU. This is what you want - turning this off is only useful for debugging.
+
+### Software skinning
+
+Runs "skinning" on the CPU instead of the GPU, which does sound like it would be slower but it means that draw calls from the game can more easily be combined, which often improves things, especially on older devices. However, in some games, hardware (vertex shader) skinning can be faster on some devices so we keep the option around.
+
 ### Speedhacks
 
 These are settings that can speed things up in games. The effect ranges from none to large, depending
@@ -109,10 +125,10 @@ Types of Upscale algorithms:
 * Anisotropic Filtering: Improves sharpness of textures at shallow angles. See [wikipedia](https://en.wikipedia.org/wiki/Anisotropic_filtering) for some example pictures.
 
 * Texture Filtering - how textures are drawn on the screen
-  * Auto - follows what the game desires
-  * Nearest - pixellate textures like on the PS1
+  * Auto - follows what the game sets
+  * Nearest - pixellates textures like on the PS1
   * Linear - force all textures to be filtered smoothly
-  * Auto Max Quality - Like auto, but will generate extra mipmaps where the game doesn't supply them, for a smoother look. Can cause artifacts with things like fence textures.
+  * Auto Max Quality - Like auto, but will generate extra mipmaps where the game doesn't supply them. Can cause artifacts with things like fence textures, but will generally give you a smoother look in the distance in 3D games, especially combined with anisotropic filtering.
 
 ### Overlay Information
 
