@@ -6,11 +6,17 @@ However, PPSSPP now supports plugins specifically made for the emulator.
 
 These will in the future be available to download and activate directly from the app, but for now, they're still a bit obscure both in discovery in usage.
 
-Important! Save states done without a plugin are not compatible with savestates done with a plugin. So be careful, and prefer using in-game saves whenever possible.
-
 ## Installing a plugin
 
 Copy it to PSP/PLUGINS in your memory stick directory.
+
+## Save States
+
+Plugins are compatible with save states, but updating/removing plugins will not affect the save state. While using plugins prefer using in-game saves whenever possible.
+
+## Dual Analog Support
+
+Some plugins might add second analog stick support, in order to fully take advantage of this feature, second analog stick needs to be configured in the controls menu.
 
 ## Available plugins
 
@@ -26,13 +32,13 @@ Multiple plugins are available here, for GTA, Splinter Cell and The Warriors. Th
 
 [Censorship plugin for Manhunt 2](https://ermaccer.github.io/posts/mh2censorshippatch/)
 
-[Debug plugin for Manhunt 2](https://ermaccer.github.io/posts/mh2menupsp/)
+[Debug/Cheats menu plugin for Manhunt 2](https://ermaccer.github.io/posts/mh2menupsp/)
 
-### ppsspp-GTARemastered
+### Freakler's Plugins 
 
-Plugin by Freakler that adds support for a second analog stick to the GTA games.
+[ppsspp-GTARemastered (second analog stick support for GTA games)](https://github.com/Freakler/ppsspp-GTARemastered)
 
-[Github link](https://github.com/Freakler/ppsspp-GTARemastered)
+[Cheat Device Remastered](http://cheatdeviceremastered.com/)
 
 ## Future plans
 
