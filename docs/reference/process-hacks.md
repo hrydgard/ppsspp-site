@@ -12,10 +12,10 @@ const UINT WM_USER_GET_BASE_POINTER = WM_APP + 0x3118;  // 0xB118
 
 You can send this message with the following values of lParam to the main window of PPSSPP, to get access to the following information:
 
-0 - Lower 32 bits of pointer to the base of emulated memory
-1 - Upper 32 bits of pointer to the base of emulated memory
-2 - Lower 32 bits of pointer to the pointer to the base of emulated memory
-3 - Upper 32 bits of pointer to the pointer to the base of emulated memory
+* `0` - Lower 32 bits of pointer to the base of emulated memory
+* `1` - Upper 32 bits of pointer to the base of emulated memory
+* `2` - Lower 32 bits of pointer to the pointer to the base of emulated memory
+* `3` - Upper 32 bits of pointer to the pointer to the base of emulated memory
 
 The point (hah) of the latter two is that that is stable across execution of multiple games, while the former is not, which may be useful in some cases.
 
