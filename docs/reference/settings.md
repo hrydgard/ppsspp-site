@@ -11,7 +11,7 @@ a bit, but there's still lots missing here.
 
 We have implemented rendering code for a few common graphics APIs.
 
-* Vulkan: The recommended backend on most devices, if available. On Mac, this will use MoltenVK.
+* Vulkan: The recommended backend on most devices, if available. On Mac, this will use MoltenVK if available.
 * OpenGL: The compatibility option on Android, and available on a lot of other devices too.
 
 Windows-only options:
@@ -28,7 +28,9 @@ than 1x can affect performance, depending on your hardware, but will create a mu
 
 You might get a bit of extra antialiasing by setting the resolution higher than what your monitor can do, and letting the emulator downscale, there are also a few postprocessing filters that do a good job helping out with that. But it's better to use MSAA in Vulkan.
 
-Not all games work perfectly in higher resolution, as PSP games were made to run at exactly 480x272. The most common artifact is thin lines between elements in menus and HUD. This can sometimes be worked around by using texture upscaling, but is not always practically fixable.
+Not all games work perfectly in higher resolution, as PSP games were made to run at exactly 480x272 and only tested at that resolution. The most common artifact is thin lines between elements in menus and HUD. This can sometimes be worked around by using texture upscaling, but is not always practically fixable, and might have other problems.
+
+Higher resolutions have obvious benefits for 3D games, but 2D games can benefit too, depending on their style. If it's mostly just pixel-aligned sprites art like in King of Fighters (typical of ports from 2D consoles) there won't be any benefits. If they scale and rotate stuff (think Patapon) or use vector graphics like loco roco, that will look better at higher rendering resolutions.
 
 ### Software Rendering
 
@@ -64,6 +66,10 @@ Does what it says - if a game runs at 30hz, we'll still push 60 frames to the mo
 ### Buffer graphics
 
 How much latency is allowed between the CPU and GPU. A smaller value means that they might not be able to work in parallel as much, and you might get worse performance, but better latency. This may help in music games, such as Project Diva or Patapon.
+
+### MSAA antialiasing
+
+This is the best quality antialiasing you can get in PPSSPP, but it's currently only implemented in the Vulkan backend, and only on desktop GPUs (this will change in the future). Use if if it's available, crank it up to 8x if your GPU can handle it for ultra smooth edges on things.
 
 ### Hardware transform
 
