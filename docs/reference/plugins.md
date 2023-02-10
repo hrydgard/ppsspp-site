@@ -12,7 +12,7 @@ Copy it to PSP/PLUGINS in your memory stick directory.
 
 ## Save States
 
-Plugins are compatible with save states, but updating/removing plugins will not affect the save state. While using plugins prefer using in-game saves whenever possible.
+Plugins are compatible with save states, but updating/removing plugins will not affect the save state. While using plugins, prefer using in-game saves whenever possible.
 
 ## Dual Analog Support
 
@@ -34,7 +34,7 @@ Multiple plugins are available here, for GTA, Splinter Cell and The Warriors. Th
 
 [Debug/Cheats menu plugin for Manhunt 2](https://ermaccer.github.io/posts/mh2menupsp/)
 
-### Freakler's Plugins 
+### Freakler's Plugins
 
 [ppsspp-GTARemastered (second analog stick support for GTA games)](https://github.com/Freakler/ppsspp-GTARemastered)
 
