@@ -19,4 +19,4 @@ You can send this message with the following values of lParam to the main window
 
 The point (hah) of the latter two is that that is stable across execution of multiple games, while the former is not, which may be useful in some cases.
 
-2 and 3 are only available in very new builds.
+2 and 3 are only available in builds starting from early February 2023.
