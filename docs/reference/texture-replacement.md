@@ -1,8 +1,10 @@
-# Texture replacement
+# Creating texture replacement packs
 
 You can create texture replacement packs in PPSSPP to replace textures.
 
 It's also possible to include a textures.ini file to customize them, but defaults are used if the file doesn't exist.
+
+If you're looking for information on how to use existing texture packs instead of how to create new ones, [click here](/docs/reference/use-texture-replacement).
 
 ## Basic structure
 

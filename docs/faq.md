@@ -77,6 +77,18 @@ No. On the real hardware, the player app for these is built into the PPSSPP firm
 
 The prerecorded video cutscenes on the PSP are of wildly varying quality, but the common denominator is that they were all judged to be "good enough" for the small low-resolution screen of the real actual PSP. They were never meant to be played on modern devices with large, bright screens, so quality is often just good enough to be passable on a real PSP screen, in order to save disk space for example, unfortunately. Not much that can be done.
 
+<a name="xmb"></a>
+
+## Can you get PPSSPP's menu to look like the real PSP?
+
+The "Cross media bar" is patented by Sony so the idea is iffy - and we'd have to write an
+imitation, rather than the real thing. PPSSPP doesn't use the original firmware of the PSP
+that contains the menu, and is missing a lot of functionality that only the menu, but not
+games, uses.
+
+Additionally, even if we wrote our own, it would be hard to use on touchscreens or with
+a mouse. PPSSPP tries to have the same UI everywhere for practical reasons.
+
 ## Is it generally better to use stable or dev (git) builds?
 
 Usually, git builds are pretty stable and include all the recent fixes, but sometimes they have bugs that haven't been fixed yet and weren't there in the last stable version. So it's up to you. Beware that save states saved in dev builds may not be compatible with the stable builds.
