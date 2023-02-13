@@ -26,7 +26,7 @@ Otherwise, some settings to keep in mind (under Graphics):
 
 * The settings under "Speed hacks", as mentioned above - turn them off.
 * Backend - try a different one if you can
-* Mode - anytehing but "Buffered rendering" draws things wrong, black screens or missing things, broken effects
+* Mode - anything but "Buffered rendering" draws things wrong, black screens or missing things, broken effects
 * Frameskipping - sometimes results in glitches or flicker
 * Rendering resolution - some games have weird lines above 1x PSP
 * Texture upscale level - sometimes causes glitches and weird lines

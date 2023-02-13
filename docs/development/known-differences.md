@@ -20,7 +20,7 @@ PPSSPP just pretends the caches are invisible, which they should be if games use
 
 ## VFPU math functions are not even nearly bit-accurate
 
-The VFPU is a vector co-processor that is controlled with the same instruction stream as the main CPU. It has a lot of very complex instructions like cosines, square roots and so forth, and we haven't figured out the exact formulas behind these so instead we use approximations that are quick to compute. Additionally, dot products use a cool mantissa-aligning optimization, causing quite different results from a naive series of muls and adds. This means however there are sometimes some accuracy issues, especially in replays (such as the Ridge Racer built-in replays) that can go out of sync, and various physical and graphical problems such as the legendary shaking feet in Tekken 6 (since fixed).
+The VFPU is a vector co-processor that is controlled with the same instruction stream as the main CPU. It has a lot of very complex instructions like cosines, square roots and so forth, and we haven't figured out the exact formulas behind these so instead we use approximations that are quick to compute. Additionally, dot products use a cool mantissa-aligning optimization, causing quite different results from a naive series of multiplications and adds. This means however there are sometimes some accuracy issues, especially in replays (such as the Ridge Racer built-in replays) that can go out of sync, and various physical and graphical problems such as the legendary shaking feet in Tekken 6 (since fixed).
 
 ## Media Engine (mpeg, atrac) is rough
 

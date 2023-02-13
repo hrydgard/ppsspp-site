@@ -4,8 +4,7 @@ sidebar_position: 5
 
 # Save data and storage on Android
 
-PSP save data storage on Android 11+ with PPSSPP 1.12+ is a bit more complicated than it used to be,
-due to the new Android restrictions that we have to obide by.
+PSP save data storage on Android 11+ with PPSSPP 1.12+ is a bit more complicated than it used to be, due to the new Android restrictions that we have to abide by.
 
 [Jump directly to setup instructions](#setup)
 
@@ -31,4 +30,8 @@ If you already have a PSP folder from an older installation of PPSSPP, just pick
 
 If not, follow the red markings in the below pictures.
 
-![](/img/guide_folder/step1.png) ![](/img/guide_folder/step2.png) ![](/img/guide_folder/step3.png)
+![](/img/guide_folder/step1.png)
+
+![](/img/guide_folder/step2.png)
+
+![](/img/guide_folder/step3.png)

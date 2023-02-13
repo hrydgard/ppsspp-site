@@ -71,7 +71,7 @@ Yes, although it's not a super smooth experience. Follow this:
 
 ## Can PPSSPP play UMD video discs?
 
-No. On the real hardware, the player app for these is built into the PPSSPP firmware, and since PPSSPP is a HLE emulator, we don't run the firwmare so we'd have to write our own player. There's a scripting language for menus and stuff, it's pretty complicated. So it has not been a priority to figure out, especially as UMD Video is today an outdated, low-definition format and there are better ways to watch movies. If you really want to play UMD video, use a real PSP.
+No. On the real hardware, the player app for these is built into the PPSSPP firmware, and since PPSSPP is a HLE emulator, we don't run the firmware so we'd have to write our own player. There's a scripting language for menus and stuff, it's pretty complicated. So it has not been a priority to figure out, especially as UMD Video is today an outdated, low-definition format and there are better ways to watch movies. If you really want to play UMD video, use a real PSP.
 
 ## Why do cutscenes and videos look so blurry?
 
@@ -106,7 +106,7 @@ If you have PPSSPP 1.12 or later and are on desktop, you can open it directly fr
 Where it is depends on the platform:
 
 * Windows: Either in the directory "memstick" in PPSSPP, or in your documents directory. There's also an additional shortcut, just choose "File->Open Memstick Folder..." to find it.
-* Mac/Linux: Look in .config/PPSSPP in your home directory. Some distros may have it in other places.
+* Mac/Linux: Look in .config/PPSSPP in your home directory. Some distributions may have it in other places.
 * Android: In older versions it was always in the /PSP directory at the root of your shared storage. In Android 11 and later with PPSSPP 1.12 or later, it's configurable.
 
 Sharing controls between the two instances can be an issue though..
@@ -163,4 +163,4 @@ Here: [The PPSSPP privacy policy](/privacy)
 
 ## Can PPSSPP play GTA 5?
 
-No, it can't. Silly youtubers.
+No, it can't. Silly Youtubers.

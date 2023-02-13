@@ -32,7 +32,7 @@ Corrupted save data can cause crashes or glitches, and may not load.  Some ways 
 
 * Attempting to hack the savedata (or downloading hacked savedata)
 * Cheats
-* Crash or powerloss while saving
+* Crash or power loss while saving
 * Bugs in PPSSPP (rare) or even games
 
 Note that sometimes games have bugs - some even delete your save data depending on how much free space you have.
