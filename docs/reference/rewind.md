@@ -16,13 +16,6 @@ If you make a mistake while playing, you can press the Rewind key, and the emula
 
 ## Memory usage
 
-The “(mem hog)” part of the option name is telling you that enabling this feature causes PPSSPP to use up a lot more memory than normal. For example, on my computer, PPSSPP goes from 100MB to 800MB of memory used. So set the rewind snapshot frequency back to 0 when you’re not using the rewind feature. And note that you will have to quit and relaunch the emulator to free the memory that was used when you enabled the feature.
+Enabling this feature causes PPSSPP to use up a lot more memory than normal, can be several hundred megabytes, depending on the game. So set the rewind snapshot interval back to 0 when you’re not using the rewind feature. And note that you will have to quit and relaunch the emulator to free the memory that was used when you enabled the feature.
 
-It’s not written anywhere in the interface or the documentation, but [according to PPSSPP’s code](https://github.com/hrydgard/ppsspp/blob/master/Core/SaveState.cpp#L212-L213), the number of rewindable states the emulator saves is 20:
-
-    // TODO: Should this be configurable?
-    static const int REWIND_NUM_STATES = 20;
-
-So at least the memory taken up while the feature is on won’t grow forever.
-
-That number means you can press Rewind up to 20 times in a row to go back. If you press Rewind a 21st time, it seems the emulator will just cycle back to the most recent save state.
+The number of rewindable states the emulator saves is currently 20. That number means you can press Rewind up to 20 times in a row to go back.
