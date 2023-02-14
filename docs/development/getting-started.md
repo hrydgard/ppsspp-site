@@ -37,7 +37,7 @@ PPSSPP is a HLE ("high level emulation") emulator, it simulates the PSP OS as se
 
 ### Automated Test Suite
 
-Since this emulator implements most of the PSP OS in order to run games, testing it against the real thing is critical. Some other PSP emulator authors have collaborated around creating a test suite called pspautotest, and we have picked that up and expanded it. There are two scripts: **test.py** and **gentest.py**. gentest.py uses psplink to run a test program on your real PSP and captures the text output and saves it as \[test\].expected. Then you can run the same test in PPSSPP by using test.py, which will automatically compare the output to the expected output.
+Since this emulator implements most of the PSP OS in order to run games, testing it against the real thing is critical. Some other PSP emulator authors have collaborated around creating a test suite called pspautotests, and we have picked that up and expanded it. There are two scripts: **test.py** and **gentest.py**. gentest.py uses psplink to run a test program on your real PSP and captures the text output and saves it as \[test\].expected. Then you can run the same test in PPSSPP by using test.py, which will automatically compare the output to the expected output.
 
 ### Contributing
 

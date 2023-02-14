@@ -18,7 +18,7 @@ To read a game disc into an ISO is called "dumping" for historical reasons - it'
 1. Connect your PSP to your PC with a USB cable.
 1. At the PSP main menu, press Select. In the menu that pops up (only on Custom Firmware), choose to UMD as USB Device.
 1. Still in the PSP menu, choose USB Connection in the Settings menu (to the left).
-1. On your PC, a folder will open automatically, containing a virtual ISO file representing the disc contents. To copy the game to your PC, simply drag this file to somewhere on your harddrive and the copy will start. When the copy is done, rename the file to the name of the game, and it's ready for use.
+1. On your PC, a folder will open automatically, containing a virtual ISO file representing the disc contents. To copy the game to your PC, simply drag this file to somewhere on your hard drive and the copy will start. When the copy is done, rename the file to the name of the game, and it's ready for use.
 
 There are tools to turn ISO files into CSO (compressed ISO) files to save space, such as [maxcso](https://github.com/unknownbrackets/maxcso/releases) by \[Unknown\].
 

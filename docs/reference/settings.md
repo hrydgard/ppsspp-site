@@ -86,13 +86,13 @@ on which game you're trying to play, and the hardware you're trying to play it o
 
 * Vertex caching
 
-  Saves some CPU work every frame translating vertex from the PSP's formats to PC-compatible format. Usually around a 5% speed bost at most. Most games are fine with this but there's a small number where it can cause glitches.
+  Saves some CPU work every frame translating vertex from the PSP's formats to PC-compatible format. Usually around a 5% speed boost at most. Most games are fine with this but there's a small number where it can cause glitches.
 
 * Skip buffer effects
 
   The PSP can render to any location in its VRAM and use as either the scanout buffer (what you see on the screen) or textures. Many games use this to implement various special effects. We simulate this by representing each detected PSP framebuffer with a native framebuffer image.
 
-Disabling it, and thus skipping rendering of everything that's not rendering directly to the backbuffer, is a speed hack, that may or may not speed up some games, and may cause severe graphical artefacts and/or screen flickering.
+Disabling it, and thus skipping rendering of everything that's not rendering directly to the backbuffer, is a speed hack, that may or may not speed up some games, and may cause severe graphical artifacts and/or screen flickering.
 
 #### Alternative speed
 
@@ -140,7 +140,7 @@ Types of Upscale algorithms:
   * Linear - force all textures to be filtered smoothly
   * Auto Max Quality - Like auto, but will generate extra mipmaps where the game doesn't supply them. Can cause artifacts with things like fence textures, but will generally give you a smoother look in the distance in 3D games, especially combined with anisotropic filtering.
 
-For most games, max aniso + auto max quality will give you the best results. For a few games like Pursuit Force, switch back to just Auto. This may be made automatic in the future.
+For most games, max anisotropic + auto max quality will give you the best results. For a few games like Pursuit Force, switch back to just Auto. This may be made automatic in the future.
 
 ### Overlay Information
 

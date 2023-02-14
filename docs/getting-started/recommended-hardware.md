@@ -15,7 +15,7 @@ Shield TV is still the best Android TV machine (yes, in 2022).
 ## Controllers for Android
 
 - Basically any bluetooth controllers, including iPega, XBox One/X/S and Playstation 4/5 controllers
-- Moga controlles work.
+- Moga controllers work.
 
 ## Controllers for Windows
 

@@ -355,7 +355,7 @@ export default function Home() {
       'loginType': loginData.loginType,
     };
 
-    console.log("Setting userdata: ");
+    console.log("Setting user data: ");
     console.log(userData);
 
     setUserData(userData);
@@ -364,7 +364,7 @@ export default function Home() {
     localStorage.setItem('ppsspp-auth', JSON.stringify(userData));
   }
 
-  console.log("Userdata at load of login.js:");
+  console.log("User data at load of login.js:");
   console.log(userData);
 
   // Get query parameters, in the format of the old gold URLs.
