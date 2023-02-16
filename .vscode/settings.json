@@ -36,6 +36,7 @@
         "netplay",
         "Patapon",
         "Pega",
+        "pico",
         "pixellates",
         "ppssppgold",
         "proadhocserver",
@@ -61,12 +62,21 @@
         "WLAN"
     ],
     "cSpell.ignoreWords": [
+        "Flathub",
+        "Freakler's",
+        "Kombat",
         "changepassword",
         "clsx",
+        "devbuilds",
+        "ermaccer's",
         "freegold",
         "getmagiclink",
         "googleplaycodeadmin",
+        "legacybuilds",
+        "prxshot",
         "recoverpassword",
-        "requestgold"
+        "requestgold",
+        "subchild",
+        "whygold"
     ]
 }

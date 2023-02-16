@@ -98,7 +98,8 @@ const platformList = [
         name: "Download ZIP file for ARM64",
         short_name: 'ZIP (ARM64)',
         icon: 'ppsspp-icon.png',
-        filename: 'PPSSPPWindowsARM64.zip'
+        filename: 'PPSSPPWindowsARM64.zip',
+        whats_this: '/docs/faq#arm64win',
       }
     ]
   },
@@ -246,22 +247,30 @@ function FlathubBadge({ icon, appUrl, name, gold_color }) {
   )
 }
 
-function Download({url, text, icon, gold_color}) {
+function Download({url, text, icon, gold_color, whats_this}) {
   var icon_html = <></>;
   if (icon) {
     icon_html = <img src={"/img/platform/" + icon} width="32px" style={{marginRight: "10px"}} />;
   }
 
+  var whats_this_link = <></>;
+  if (whats_this) {
+    whats_this_link = <p align="right" style={{marginTop: "0px"}}><a href={whats_this}>What's this?</a></p>;
+  }
+
   return (
+    <>
     <Link to={url} className={clsx("button", "button--block", "margin-bottom--md", gold_color && "button--warning" || "button--primary")}
         style={{display: "flex", flexDirection: "row", alignItems: "center"}}
         >{icon_html}{text}
     </Link>
+    {whats_this_link}
+    </>
   );
 }
 
 function DownloadsForFilename(props) {
-  const {name, filename, url, title, icon, login_prompt, logged_in, gold_file, gold_color, showGold} = props;
+  const {name, filename, url, title, icon, login_prompt, logged_in, gold_file, gold_color, showGold, whats_this} = props;
 
   if (gold_file && !showGold) {
     return <></>;
@@ -309,7 +318,9 @@ function DownloadsForFilename(props) {
       url={fileUrlBase + p.version.replaceAll('.', '_') + "/" + p.filename}
       text={name}
       icon={icon}
-      gold_color={gold} />);
+      gold_color={gold}
+      whats_this={whats_this}
+      />);
     }
   );
 
@@ -325,6 +336,7 @@ function DownloadsForFilename(props) {
 }
 
 function DownloadsForPlatform({title, platform_badge, downloads, logged_in, showGold}) {
+  console.log(downloads);
   return (
     <div className={clsx('col col--4')}>
       <div className={clsx('card margin--sm shadow--tl')}>

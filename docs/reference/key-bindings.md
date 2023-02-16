@@ -1,12 +1,8 @@
----
-sidebar_position: 8
----
-
 # What are those weird key binds like NOTE?
 
 ## Hold
 
-[Link to post](https://github.com/hrydgard/ppsspp/pull/16293#issuecomment-1295237338)
+From [the forums](https://github.com/hrydgard/ppsspp/pull/16293#issuecomment-1295237338):
 
 On the PSP, the power switch had three positions: you pulled it upward to turn the device on or put it to sleep, and otherwise it sat in the middle. You could pull it downward to activate "hold" (it would stay in this position until moved out of hold.)
 
@@ -20,7 +16,7 @@ I'm not aware of any games that actually use "hold", but sometimes it was used t
 
 This is the little Note button that sits below the screen on the real PSP, and can be used for muting audio by holding it down for a few seconds.
 
-It doesn't do anything in most games, although they are free to listen to it. It's mostly used for controlling plugins like prxshot, though such plugins don't run in PPSSPP. So it's mostly pointless to bind, still, we want to have the ability.
+It doesn't do anything in most games, although they are free to listen to it. It's mostly used for controlling plugins like `prxshot`, though such plugins don't run in PPSSPP. So it's mostly pointless to bind, still, we want to have the ability.
 
 ## Screen
 

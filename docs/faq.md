@@ -89,13 +89,21 @@ games, uses.
 Additionally, even if we wrote our own, it would be hard to use on touchscreens or with
 a mouse. PPSSPP tries to have the same UI everywhere for practical reasons.
 
+<a name="arm64win"></a>
+
+## What is PPSSPP Windows for ARM64?
+
+Since a few years, Windows is not only available for x86 and x86-64 compatible PCs, but also for so-called "Windows on ARM" laptops, such as the Surface Pro 9 with 5G, or the Lenovo ThinkPad X13s. These can run x86 apps but since they have to be runtime-translated, this has a performance penalty.
+
+PPSSPP Windows for ARM64 is a native build of PPSSPP for these devices, enabling utilizing their full performance potential.
+
 ## Is it generally better to use stable or dev (git) builds?
 
 Usually, git builds are pretty stable and include all the recent fixes, but sometimes they have bugs that haven't been fixed yet and weren't there in the last stable version. So it's up to you. Beware that save states saved in dev builds may not be compatible with the stable builds.
 
-## Savestates seem slower in 1.12+. What can I do?
+## Save states seem slower in 1.12+. What can I do?
 
-Disabling savestate backups will make save/load faster, but also disables save/load undo.
+Disabling save state backups will make save/load faster, but also disables save/load undo.
 
 <a name="memstick"></a>
 
