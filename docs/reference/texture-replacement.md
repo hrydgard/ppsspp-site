@@ -62,6 +62,17 @@ Filenames are the tricky part here.  Specifically:
 
 If you follow those guidelines, even more people will be able to appreciate your hard work.
 
+## Image formats
+
+Currently two image formats are supported: png and zim. Zim is a fast-loading simplified image format,
+custom to PPSSPP. It loads considerably faster than png.
+
+The ZIM format converter will be available for download soon. In the meantime, here's instructions to build and use the tool: [link](https://github.com/hrydgard/ppsspp/issues/12332#issuecomment-846764577).
+
+Alternatively, using pngquant / pngyu to reduce the size of PNGs will also make them load faster. See [this post](https://github.com/hrydgard/ppsspp/issues/12059#issuecomment-1436104606) for reference.
+
+In the future, support may be added for block-compressed GPU-friendly image formats.
+
 ## Texture sizes on the PSP
 
 TL;DR: Some things are hard for robots, and easy for humans.  Unfortunately this makes replacing textures harder and more annoying.
