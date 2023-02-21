@@ -1,7 +1,6 @@
 # Settings documentation
 
-Work-in-progress, incomplete. Started with the old outdated /help documentation and filled it out
-a bit, but there's still lots missing here.
+(Some settings are not yet documnented here. Stay tuned.)
 
 <a name="graphics"></a>
 

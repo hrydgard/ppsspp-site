@@ -19,7 +19,7 @@ In root.js, we wrap everything in `<BrowserOnly>` so that we can have dynamic co
 
 Prerequisites:
 
-* On Windows, you probably should use a WSL shell.
+* On Windows, you probably should use a WSL shell. IF you've checked out in a /mnt directory, you'll want to be using WSL 1. You can change version with `wsl --set-version Ubuntu 1` or similar in PowerShell, if you're on v2.
 
 * Node must be installed: `sudo apt npm install`
   If you are using an ubuntu WSL, install npm [from here](https://github.com/nodesource/distributions/blob/master/README.md).
