@@ -1,30 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
 import { useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 
-import { useUserData, defaultUserContext } from '@site/src/theme/Root';
-
-// data has two fields only, the rest comes from the server cookie.
-// oldPassword and newPassword
-async function jsonRequest(apiname, jsonData) {
-  return fetch('/api/' + apiname, {
-    method: 'POST',
-    header: {
-      'Content-Type': 'application/json'
-    },
-    body: jsonData ? JSON.stringify(jsonData) : null
-  }).then(returnedData => {
-    if (returnedData.status == 200) {
-      return returnedData.json();
-    } else {
-      return null;
-    }
-  })
-}
+import { useUserData } from '@site/src/theme/Root';
+import { jsonFetch, jsonPost } from '../util/json_fetch';
 
 function RequestGooglePlayForm({userData}) {
   const [promoCode, setPromoCode] = useState();
@@ -33,7 +15,7 @@ function RequestGooglePlayForm({userData}) {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    var result = await jsonRequest("getgoogleplaycode", null);
+    var result = await jsonFetch("getgoogleplaycode", null);
     if (result) {
       setPromoCode(result.code)
       setSucceeded(true);
@@ -50,7 +32,7 @@ function RequestGooglePlayForm({userData}) {
       Since you already have PPSSPP Gold for Windows, you are eligible to request one Google Play promo code, which
       can be redeemed for PPSSPP Gold for Android free on any Google Play account.
     </p>
-    <div className="alert alert--warning" role="alert">IMPORTANT! Only request one if you are going to use it!</div>
+    <div className="alert alert--info" role="alert">IMPORTANT! Only request one if you are going to use it!</div>
     <br/>
     <p>Note: If you have requested a code before, you'll get the same one again, which might thus already be spent.</p>
     { succeeded &&
@@ -68,6 +50,55 @@ function RequestGooglePlayForm({userData}) {
   </>);
 }
 
+function RequestGoldForm() {
+  const [succeeded, setSucceeded] = useState();
+  const [failed, setFailed] = useState();
+  const [email, setEmail] = useState();
+  const [name, setName] = useState();
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    if (!email || !name) {
+      setFailed(true);
+      setSucceeded(false);
+      // TODO: Explain error.
+      return;
+    }
+    var credentials = { email: email, name: name };
+    var result = await jsonPost("makegoldrequest", credentials);
+    if (result) {
+      setSucceeded(true);
+      setFailed(false);
+    } else {
+      setSucceeded(false);
+      setFailed(true);
+    }
+  };
+
+  return (<>
+    {failed ? <div className="alert alert--warning" role="alert">Failed to request link, try again.</div> : <></>}
+
+    <div className="alert alert--info" role="alert">IMPORTANT! Only make a request if you are going to use it!</div>
+    <br/>
+    <form onSubmit={handleSubmit}>
+      <label>
+        <div>Name</div>
+        <span><input type="text" size="38" onChange={e => setName(e.target.value)} /></span>
+      </label>
+      <label>
+        <div>E-mail address</div>
+        <span><input type="text" size="38" onChange={e => setEmail(e.target.value)} /></span>
+      </label>
+      <p>Note that the e-mail address must match your Google Play account.</p>
+      <button className="button button--primary margin-top--md" type="submit">
+        Request PPSSPP Gold for Windows
+      </button>
+    </form>
+    <br/>
+    {succeeded ? <div className="alert alert--success" role="alert">Request sent!</div> : <></>}
+  </>);
+}
+
 export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   const {userData, setUserData} = useUserData();
@@ -79,10 +110,12 @@ export default function Home() {
         <div className={clsx("row simple-center")}>
           <div className={clsx("col col--8")}>
             <h1>PPSSPP Gold - Cross License</h1>
-            <h3>You have PPSSPP Gold for Android, but want it for Windows?</h3>
-            <p>In this case, e-mail me on <a href="hrydgard+ppssppgold@gmail.com">hrydgard+ppssppgold@gmail.com</a>!</p>
-            <h3>You have PPSSPP Gold for Windows, but want it for Android?</h3>
+            <h3>Do you have PPSSPP Gold for Windows, but want it for Android?</h3>
             <p>If so, just <Link to="/login?Forward=requestgold">login here!</Link></p>
+            <h3>Do you have PPSSPP Gold for Android, but want it for Windows?</h3>
+            <p>Then use this form to request an account:</p>
+            <RequestGoldForm/>
+            <p>In this case, e-mail me on <a href="hrydgard+ppssppgold@gmail.com">hrydgard+ppssppgold@gmail.com</a>!</p>
           </div>
         </div>
       </div>

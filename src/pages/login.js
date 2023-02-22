@@ -293,6 +293,33 @@ function GooglePlayCodeForm() {
   </>;
 }
 
+function GoldRequestsForm() {
+  const [pendingRequests, setPendingRequests] = useState();
+  const [requestsUpToDate, setRequestsUpToDate] = useState(false);
+
+  useEffect(async () => {
+    if (requestsUpToDate) {
+      return;
+    }
+    var data = await jsonFetch("getpendinggoldrequests", {});
+    if (data) {
+      setPendingRequests(data.requests);
+      setRequestsUpToDate(true);
+    } else {
+      console.log("got no data");
+    }
+  });
+
+  return (<>
+    <ul>
+      {pendingRequests ? pendingRequests.map((request) => {
+        return <li>{request.email} {request.name}</li>
+      }) : <b>Failed to fetch requests</b>}
+    </ul>
+  </>);
+}
+
+
 function AdminCard({title, contents}) {
   return (
     <div className="card margin-bottom--md">
@@ -319,6 +346,9 @@ function AdminTools(userData) {
       </div>
       <div className={clsx("col col--3")}>
         <AdminCard title="Google Play Codes" contents={GooglePlayCodeForm}/>
+      </div>
+      <div className={clsx("col col--6")}>
+        <AdminCard title="Gold Requests" contents={GoldRequestsForm}/>
       </div>
     </>
   )
