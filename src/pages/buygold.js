@@ -156,6 +156,13 @@ function BuyGoldPage({goldUser, devMode}) {
         </div>
       </div>
 
+      <h3>Buy PPSSPP Gold for Android</h3>
+      <p>
+        <Link className={clsx("btn btn-warning btn-large")} to="https://play.google.com/store/apps/details?id=org.ppsspp.ppssppgold">
+          <img alt="PPSSPP Gold on Google Play" src="https://developer.android.com/images/brand/en_generic_rgb_wo_60.png" />
+        </Link>
+      </p>
+
       {devMode && <p>DEV MODE</p>}
 
       <h3>Buy PPSSPP Gold for Windows</h3>
@@ -177,22 +184,17 @@ function BuyGoldPage({goldUser, devMode}) {
         <CategoryCard title="Grandmaster" description="You totally rock!" productId="ppsspp-gold-l6" items={items}/>
       </div>
 
+      <br/>
+
+      <p>Do you have PPSSPP Gold for Android already? <Link href="/requestgold">Request PPSSPP Gold for Windows here.</Link></p>
+
       <hr/>
-
-      <h3>Buy PPSSPP Gold for Android</h3>
-      <p>
-        <Link className={clsx("btn btn-warning btn-large")} to="https://play.google.com/store/apps/details?id=org.ppsspp.ppssppgold">
-          <img alt="PPSSPP Gold on Google Play" src="https://developer.android.com/images/brand/en_generic_rgb_wo_60.png" />
-        </Link>
-      </p>
-
 
       <div className="row">
         <div className={clsx("col col--8")}>
           <h3>Links and information</h3>
           <ul>
           <li><Link to="/docs/reference/whygold">Why buy PPSSPP Gold? What's the difference?</Link></li>
-          <li><Link to="/docs/reference/goldplatforms">PPSSPP Gold for other platforms</Link></li>
           </ul>
         </div>
       </div>

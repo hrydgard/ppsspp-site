@@ -122,8 +122,9 @@ export default function Home() {
           <div className={clsx("col col--8")}>
             <h1>PPSSPP Gold - Cross License</h1>
             <h3>Do you have PPSSPP Gold for Windows, but want it for Android?</h3>
-            <p>If so, just <Link to="/login?Forward=requestgold">login here!</Link></p>
+            <p>If so, just <Link to="/login?Forward=requestgold">login here</Link> and follow the instructions!</p>
             <h3>Do you have PPSSPP Gold for Android, but want it for Windows?</h3>
+            <p>Then you can make a request using the form below.</p>
             <RequestGoldForm/>
           </div>
         </div>
