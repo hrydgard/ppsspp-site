@@ -26,7 +26,6 @@ async function getOrderStatus(data) {
   })
 }
 
-
 // Custom hook from https://overreacted.io/making-setinterval-declarative-with-react-hooks/
 
 function useInterval(callback, delay) {

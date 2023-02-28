@@ -54,17 +54,24 @@ function RequestGoldForm() {
   const [succeeded, setSucceeded] = useState();
   const [failed, setFailed] = useState();
   const [email, setEmail] = useState();
+  const [playEmail, setPlayEmail] = useState();
   const [name, setName] = useState();
 
   const handleSubmit = async e => {
     e.preventDefault();
-    if (!email || !name) {
+    if ((!email && !playEmail) || !name) {
       setFailed(true);
       setSucceeded(false);
       // TODO: Explain error.
       return;
     }
-    var credentials = { email: email, name: name };
+    if (!playEmail) {
+      setPlayEmail(email);
+    }
+    if (!email) {
+      setEmail(playEmail);
+    }
+    var credentials = { email: email, name: name, playEmail: playEmail };
     var result = await jsonPost("makegoldrequest", credentials);
     if (result) {
       setSucceeded(true);
@@ -86,14 +93,18 @@ function RequestGoldForm() {
         <span><input type="text" size="38" onChange={e => setName(e.target.value)} /></span>
       </label>
       <label>
-        <div>E-mail address</div>
+        <div>Google Play account</div>
+        <span><input type="text" size="38" onChange={e => setPlayEmail(e.target.value)} /></span>
+      </label>
+      <label>
+        <div>E-mail address (if different from Google Play account)</div>
         <span><input type="text" size="38" onChange={e => setEmail(e.target.value)} /></span>
       </label>
-      <p>Note that the e-mail address must match your Google Play account.</p>
-      <button className="button button--primary margin-top--md" type="submit">
+      <button className="button button--primary margin-bottom--md margin-top--md" type="submit">
         Request PPSSPP Gold for Windows
       </button>
     </form>
+
     <br/>
     {succeeded ? <div className="alert alert--success" role="alert">Request sent!</div> : <></>}
   </>);
@@ -113,9 +124,7 @@ export default function Home() {
             <h3>Do you have PPSSPP Gold for Windows, but want it for Android?</h3>
             <p>If so, just <Link to="/login?Forward=requestgold">login here!</Link></p>
             <h3>Do you have PPSSPP Gold for Android, but want it for Windows?</h3>
-            <p>Then use this form to request an account:</p>
             <RequestGoldForm/>
-            <p>In this case, e-mail me on <a href="hrydgard+ppssppgold@gmail.com">hrydgard+ppssppgold@gmail.com</a>!</p>
           </div>
         </div>
       </div>

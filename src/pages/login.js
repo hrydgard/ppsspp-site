@@ -284,13 +284,58 @@ function GooglePlayCodeForm() {
     <form onSubmit={handleSubmit}>
       <label>
         <div>Codes to add:</div>
-        <textarea rows="20" cols="24" onChange={e => setPendingCodes(e.target.value)} />
+        <textarea rows="10" cols="24" onChange={e => setPendingCodes(e.target.value)} />
       </label>
       <div>
         <button className="button button--primary margin-top--md" type="submit">Add promo codes</button>
       </div>
     </form>
   </>;
+}
+
+function GoldRequestRow({request}) {
+  const [done, setDone] = useState(false);
+  if (done) {
+    return <></>
+  }
+
+  const onAccept = async (requestId) => {
+    var request = {
+      'requestId': requestId,
+      'newStatus': "ACCEPTED",
+    };
+    var result = await jsonPost("updategoldrequest", request);
+    if (result) {
+      setDone(true);
+      console.log("accept");
+    } else {
+      console.log("Failed to accept request!");
+    }
+  }
+
+  const onReject = async (requestId) => {
+    var request = {
+      'requestId': requestId,
+      'newStatus': "REJECTED",
+    };
+    var result = await jsonPost("updategoldrequest", request);
+    if (result) {
+      setDone(true);
+      console.log("reject");
+    } else {
+      console.log("Failed to reject request!");
+    }
+  }
+
+  return <><tr>
+    <td>{request.name} ({request.requestId})</td>
+    <td>{request.playEmail}</td>
+    <td>{request.email}</td>
+    <td>
+      <button className="button button--success" onClick={() => onAccept(request.requestId)}>Accept</button>&nbsp;
+      <button className="button button--danger" onClick={() => onReject(request.requestId)}>Reject</button>
+    </td>
+  </tr></>
 }
 
 function GoldRequestsForm() {
@@ -303,6 +348,7 @@ function GoldRequestsForm() {
     }
     var data = await jsonFetch("getpendinggoldrequests", {});
     if (data) {
+      console.log(data);
       setPendingRequests(data.requests);
       setRequestsUpToDate(true);
     } else {
@@ -310,13 +356,24 @@ function GoldRequestsForm() {
     }
   });
 
-  return (<>
-    <ul>
-      {pendingRequests ? pendingRequests.map((request) => {
-        return <li>{request.email} {request.name}</li>
-      }) : <b>Failed to fetch requests</b>}
-    </ul>
-  </>);
+  if (pendingRequests) {
+    return (<>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th><th>Play Account</th><th>Email</th><th></th>
+          </tr>
+        </thead>
+        <tbody>
+        {pendingRequests.map((request) => {
+          return <GoldRequestRow request={request} key={request.email} />
+        })}
+        </tbody>
+      </table>
+    </>);
+  } else {
+    return <b>Failed to fetch requests</b>
+  }
 }
 
 
