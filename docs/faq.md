@@ -44,7 +44,7 @@ Install it exactly the same way as you would on a PSP, that is, copy the files t
 
 No. PPSSPP simulates the BIOS and the entire internal operating system. It does not currently emulate enough of the hardware for the actual PSP operating system to run inside of PPSSPP, so even if you have a copy of it, PPSSPP can't run it.
 
-This is also why PPSSPP will not show the cross media bar interface of the real PSP, it won't run.
+This is also why PPSSPP will not show the cross media bar (XMB) interface of the real PSP, it won't run.
 
 <a name="gold"></a>
 
@@ -81,8 +81,8 @@ The prerecorded video cutscenes on the PSP are of wildly varying quality, but th
 
 ## Can you get PPSSPP's menu to look like the real PSP?
 
-The "Cross media bar" is patented by Sony so the idea is iffy - and we'd have to write an
-imitation, rather than the real thing. PPSSPP doesn't use the original firmware of the PSP
+The "Cross media bar" (XMB) is patented by Sony so the idea is iffy - and we'd have to write an
+imitation, rather than the real thing, since PPSSPP doesn't use the original firmware of the PSP
 that contains the menu, and is missing a lot of functionality that only the menu, but not
 games, uses.
 
@@ -172,3 +172,7 @@ Here: [The PPSSPP privacy policy](/privacy)
 ## Can PPSSPP play GTA 5?
 
 No, it can't. Silly Youtubers.
+
+## Does PPSSPP work on Chromecast?
+
+This is not currently actively supported. In theory it should work, but many people have reported problems with folder selection and file permissions.

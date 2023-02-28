@@ -186,7 +186,8 @@ function BuyGoldPage({goldUser, devMode}) {
 
       <br/>
 
-      <p>Do you have PPSSPP Gold for Android already? <Link href="/requestgold">Request PPSSPP Gold for Windows here.</Link></p>
+      {!goldUser &&
+      <p>Do you have PPSSPP Gold for Android already? <Link href="/requestgold">Request PPSSPP Gold for Windows here.</Link></p> }
 
       <hr/>
 

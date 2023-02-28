@@ -50,7 +50,12 @@ function RequestGooglePlayForm({userData}) {
   </>);
 }
 
+function ValidateEmail(mail) {
+  return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail));
+}
+
 function RequestGoldForm() {
+  const [errorMessage, setErrorMessage] = useState("");
   const [succeeded, setSucceeded] = useState();
   const [failed, setFailed] = useState();
   const [email, setEmail] = useState();
@@ -59,33 +64,52 @@ function RequestGoldForm() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    if ((!email && !playEmail) || !name) {
+
+    var submitEmail = email;
+    var submitPlayEmail = playEmail;
+
+    if ((!submitEmail && !submitPlayEmail) || !name) {
+      setErrorMessage("Missing information");
       setFailed(true);
       setSucceeded(false);
       // TODO: Explain error.
       return;
     }
-    if (!playEmail) {
-      setPlayEmail(email);
+    if (!submitPlayEmail) {
+      submitPlayEmail = submitEmail;
     }
-    if (!email) {
-      setEmail(playEmail);
+    if (!submitEmail) {
+      submitEmail = submitPlayEmail;
     }
-    var credentials = { email: email, name: name, playEmail: playEmail };
+    if (!ValidateEmail(submitPlayEmail)) {
+      setErrorMessage("Invalid email address " + submitPlayEmail)
+      setFailed(true);
+      setSucceeded(false);
+      return;
+    }
+    if (!ValidateEmail(submitEmail)) {
+      setErrorMessage("Invalid email address " + submitEmail)
+      setFailed(true);
+      setSucceeded(false);
+      return;
+    }
+
+    var credentials = { email: submitEmail, name: name, playEmail: submitPlayEmail };
+    console.log(credentials);
     var result = await jsonPost("makegoldrequest", credentials);
     if (result) {
       setSucceeded(true);
       setFailed(false);
     } else {
+      setErrorMessage("Failed to make request - duplicate?");
       setSucceeded(false);
       setFailed(true);
     }
   };
 
   return (<>
-    {failed ? <div className="alert alert--warning" role="alert">Failed to request link, try again.</div> : <></>}
-
     <div className="alert alert--info" role="alert">IMPORTANT! Only make a request if you are going to use it!</div>
+    {failed ? <div className="alert alert--warning" role="alert">Failed to request link: {errorMessage}</div> : <></>}
     <br/>
     <form onSubmit={handleSubmit}>
       <label>
