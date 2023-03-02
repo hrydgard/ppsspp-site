@@ -176,3 +176,9 @@ No, it can't. Silly Youtubers.
 ## Does PPSSPP work on Chromecast?
 
 This is not currently actively supported. In theory it should work, but many people have reported problems with folder selection and file permissions.
+
+## My SD card won't work for loading games after upgrading to Android 13!
+
+I've had a couple of reports of this, and one customer reported being able to solve the problem by reformatting the SD card from scratch, and copying back the stuff on it. Still unclear what was going on.
+
+In general, SD cards are a bit iffy on the more recent Android versions and can have some really strange problems, unfortunately.
