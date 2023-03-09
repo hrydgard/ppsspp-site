@@ -304,9 +304,9 @@ function GoldRequestRow({request}) {
       'requestId': requestId,
       'newStatus': "ACCEPTED",
     };
+    setDone(true);
     var result = await jsonPost("updategoldrequest", request);
     if (result) {
-      setDone(true);
       console.log("accept");
     } else {
       console.log("Failed to accept request!");
@@ -318,12 +318,26 @@ function GoldRequestRow({request}) {
       'requestId': requestId,
       'newStatus': "REJECTED",
     };
+    setDone(true);
     var result = await jsonPost("updategoldrequest", request);
     if (result) {
-      setDone(true);
       console.log("reject");
     } else {
       console.log("Failed to reject request!");
+    }
+  }
+
+  const onIgnore = async (requestId) => {
+    var request = {
+      'requestId': requestId,
+      'newStatus': "IGNORED",
+    };
+    setDone(true);
+    var result = await jsonPost("updategoldrequest", request);
+    if (result) {
+      console.log("ignored");
+    } else {
+      console.log("Failed to ignore request!");
     }
   }
 
@@ -333,7 +347,8 @@ function GoldRequestRow({request}) {
     <td>{request.email}</td>
     <td>
       <button className="button button--success" onClick={() => onAccept(request.requestId)}>Accept</button>&nbsp;
-      <button className="button button--danger" onClick={() => onReject(request.requestId)}>Reject</button>
+      <button className="button button--danger" onClick={() => onReject(request.requestId)}>Reject</button>&nbsp;
+      <button className="button button--warning" onClick={() => onIgnore(request.requestId)}>Ignore</button>
     </td>
   </tr></>
 }
@@ -404,7 +419,7 @@ function AdminTools(userData) {
       <div className={clsx("col col--3")}>
         <AdminCard title="Google Play Codes" contents={GooglePlayCodeForm}/>
       </div>
-      <div className={clsx("col col--6")}>
+      <div className={clsx("col col--12")}>
         <AdminCard title="Gold Requests" contents={GoldRequestsForm}/>
       </div>
     </>

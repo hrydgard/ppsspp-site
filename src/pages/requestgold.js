@@ -108,7 +108,7 @@ function RequestGoldForm() {
   };
 
   return (<>
-    <div className="alert alert--info" role="alert">IMPORTANT! Only make a request if you are going to use it!</div>
+    <div className="alert alert--info" role="alert">IMPORTANT! <strong>You must already own PPSSPP Gold on your Play account to use this form.</strong><br/>Also, only request if you actually plan to use the PC version!</div>
     {failed ? <div className="alert alert--warning" role="alert">Failed to request link: {errorMessage}</div> : <></>}
     <br/>
     <form onSubmit={handleSubmit}>
