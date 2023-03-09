@@ -258,6 +258,7 @@ function GooglePlayCodeForm() {
 
     // TODO: Validate contents better.
     var codes = codeString.split(/\r?\n/).filter(x => x.length > 0).map(x => x.trim());
+
     console.log(codes);
     if (codes.length == 0) {
       console.log("nothing to do");
@@ -265,11 +266,11 @@ function GooglePlayCodeForm() {
     }
 
     var request = {
-      'codes': codes,
+      'addCodes': codes,
     };
     var result = await jsonPost("googleplaycodeadmin", request);
     if (result) {
-      console.log("success: " + magicLink);
+      console.log("success");
     } else {
       console.log("failure");
     }
