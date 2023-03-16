@@ -7,11 +7,11 @@ easy, just open your game, press ESC and go into settings, tools, developer tool
 
 If you're looking for information on how to use existing texture packs instead of how to create new ones, [click here](/docs/reference/use-texture-replacement).
 
-## Supportaed image file formats
+## Supported image file formats
 
 When saving textures, they'll be written to disk in png format. While png is okay, it's not the fastest to load, plus it decompresses to full RGBA8888 format in video memory, which is a little wasteful.
 
-PPSSPP also supports ".zim" which is a custom format consisting of a short header detailing format and dimensions, followed by the raw image compressed with zstd. It loads a lot faster than png, but keep reading, from 1.15 there will be better alternatives.
+PPSSPP also supports ".zim" which is a custom format consisting of a short header detailing format and dimensions, followed by the raw image compressed with Zstd. It loads a lot faster than png, but keep reading, from 1.15 there will be better alternatives.
 
 The ZIM format converter might be made available for download soon. In the meantime, here's instructions to build and use the tool: [link](https://github.com/hrydgard/ppsspp/issues/12332#issuecomment-846764577).
 
@@ -48,7 +48,7 @@ basisu -uastc -mipmap -ktx2 my_transparent_or_hq_image.png
 basisu -mipmap -ktx2 my_solid_lower_quality_image.png
 ```
 
-Then just refer to the .ktx2 files instead of the pngs files in the ini. You can delete the png files after compressing, or keep them around if you want, but you don't have to ship them in your pack if you ship the ktx2 files.
+Then just refer to the .ktx2 files instead of .png files in the ini. You can delete the png files after compressing to ktx2, or keep them around if you want, but you don't have to ship them in your pack if you ship the ktx2 files. Note that both these formats are somewhat lossy so if you plan further editing, keep the .png files around somewhere.
 
 ## Basic structure
 
@@ -71,10 +71,10 @@ hash = quick
 09a47a0000000909 =
 09ad024000000909 =
 # Water animation.
-099c0db096c0500ecd2f3e6e = water/frame1.png
-099c2db0d26dc9a7966195cf = water/frame2.png
-099c4db0fa2cbcfec0bd3e0f = water/frame3.png
-099c6db0d17d9a67c7591d4f = water/frame4.png
+099c0db096c0500ecd2f3e6e = water/frame1.ktx2
+099c2db0d26dc9a7966195cf = water/frame2.ktx2
+099c4db0fa2cbcfec0bd3e0f = water/frame3.ktx2
+099c6db0d17d9a67c7591d4f = water/frame4.ktx2
 # This texture is loaded at two addresses.  The content is the same.
 094b89907dcca1a5ee284131 = 094b5a707dcca1a5ee284131.png
 # Alias the extra mip level too.
@@ -143,7 +143,7 @@ It's possible to ignore some of these parts, but if you do, don't use `hash = qu
 000000007dcca1a5ee284131 = very/organized/things/texture3.ktx2
 
 # The same address / data with any CLUT:
-094b899000000000ee284131 = very/organized/things/texture4.ktx2
+094b899000000000ee284131 = very/organized/things/texture4.dds
 
 # The same data at any address (collisions might happen):
 0000000000000000ee284131 = very/organized/things/texture3.ktx2

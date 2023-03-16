@@ -8,9 +8,11 @@
         "Adreno",
         "Allegrex",
         "antialiasing",
+        "ASTC",
         "Atrac",
         "autoconfigure",
         "backbuffer",
+        "basisu",
         "Bezier",
         "bottlenecked",
         "Buildbot",
@@ -59,6 +61,7 @@
         "pspautotests",
         "psplink",
         "recompiler",
+        "RGBA",
         "savedata",
         "Scanlines",
         "scanout",
@@ -69,6 +72,7 @@
         "swapchain",
         "Symbian",
         "Tekken",
+        "UASTC",
         "ubershader",
         "ULUS",
         "upscaled",
@@ -76,7 +80,8 @@
         "VRAM",
         "Vulkan",
         "WASAPI",
-        "WLAN"
+        "WLAN",
+        "Zstd"
     ],
     "cSpell.ignoreWords": [
         "Flathub",
