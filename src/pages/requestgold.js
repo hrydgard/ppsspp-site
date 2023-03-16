@@ -108,7 +108,7 @@ function RequestGoldForm() {
   };
 
   return (<>
-    <div className="alert alert--info" role="alert">IMPORTANT! <strong>You must already own PPSSPP Gold on your Play account to use this form.</strong><br/>Also, only request if you actually plan to use the PC version!</div>
+    <div className="alert alert--info" role="alert">IMPORTANT! <strong>You MUST already own PPSSPP Gold on your Play account</strong> to use this form.<br/>Also, only request if you actually plan to use the PC version!<br/>Your request may take up to 72 hours to process.</div>
     {failed ? <div className="alert alert--warning" role="alert">Failed to request link: {errorMessage}</div> : <></>}
     <br/>
     <form onSubmit={handleSubmit}>

@@ -22,15 +22,16 @@ From 1.15, PPSSPP will support multiple efficient GPU-native [texture compressio
 * .KTX2 file format: Basis and UASTC universal compression formats, only!
 * .DDS file format: BC1, BC2, BC3, BC7 (BC1-3 is equivalent to DXT1, DXT3, DXT5). These formats don't work on mobile!
 
-Basis and UASTC are "intermediate" texture formats that can be efficiently encoded to
-commonly supported native formats. The main advantage is of course that the same texture pack can work on both mobile and desktop with this technology.
+Basis and UASTC are "intermediate" formats that can be efficiently transcoded to
+commonly supported native formats (BC1 and ETC2 in case of Basis, BC7 and ASTC 4x4 in case of UASTC). The main advantage is of course that the same texture pack can work on both mobile and desktop with this technology.
 
-### Limitations
+### Limitations and properties of compressed texture formats
 
 * These formats are supported in PPSSPP 1.15 or later only.
-* Basis is RGB-only (but consumes half the memory - just 0.5 bytes per pixel). It also generally doesn't look very good, so avoid if you can.
+* Basis is RGB-only, no alpha (but consumes half the memory - just 0.5 bytes per pixel). It also generally doesn't look very good, so only use on textures where you don't need the best quality.
 * UASTC supports full RGBA at excellent quality, not far from native BC7 or ASTC. The data size is bigger than basis though at 1 byte per pixel. Still a huge win over raw RGBA with 4 bytes per pixel...
 * DDS will load marginally faster than KTX2 since no transcoding is needed, but these formats are generally not supported on mobile. So there's a tradeoff.
+* UASTC is not natively supported on D3D9 or OpenGL ES 2.0, it will be transcoded to raw RGBA, eating up the benefits (still usable though).
 
 ### Texture compression tools and recommendations
 

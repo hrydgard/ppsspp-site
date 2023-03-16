@@ -2,9 +2,10 @@
 
 If you want to search the memory of the emulated PSP using external tools by attaching to the PPSSPP process' memory space in Windows, you're gonna need a pointer to the base address.
 
-PPSSPP has a safe way to get it: A custom window message to query the pointer.
+To get it, you can either use `Debug -> Copy PSP Memory Base Pointer` in the window menu (in 1.15+),
+read it from the log, or get it programmatically, by sending a custom window message to query the pointer.
 
-It's defined as:
+That message is defined as:
 
 ```cpp
 const UINT WM_USER_GET_BASE_POINTER = WM_APP + 0x3118;  // 0xB118
