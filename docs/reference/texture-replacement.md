@@ -7,11 +7,17 @@ easy, just open your game, press ESC and go into settings, tools, developer tool
 
 If you're looking for information on how to use existing texture packs instead of how to create new ones, [click here](/docs/reference/use-texture-replacement).
 
-## Compressed texture image file formats
+## Supportaed image file formats
 
 When saving textures, they'll be written to disk in png format. While png is okay, it's not the fastest to load, plus it decompresses to full RGBA8888 format in video memory, which is a little wasteful.
 
-Instead, from 1.15, PPSSPP supports multiple GPU texture compression formats. Here's the current list:
+PPSSPP also supports ".zim" which is a custom format consisting of a short header detailing format and dimensions, followed by the raw image compressed with zstd. It loads a lot faster than png, but keep reading, from 1.15 there will be better alternatives.
+
+The ZIM format converter might be made available for download soon. In the meantime, here's instructions to build and use the tool: [link](https://github.com/hrydgard/ppsspp/issues/12332#issuecomment-846764577).
+
+Using pngquant / pngyu to reduce the size of PNGs will also make PNG files load faster. See [this post](https://github.com/hrydgard/ppsspp/issues/12059#issuecomment-1436104606) for reference.
+
+From 1.15, PPSSPP will support multiple efficient GPU-native [texture compression formats](https://en.wikipedia.org/wiki/Texture_compression). Here's the current list:
 
 * .KTX2 file format: Basis and UASTC universal compression formats, only!
 * .DDS file format: BC1, BC2, BC3, BC7 (BC1-3 is equivalent to DXT1, DXT3, DXT5). These formats don't work on mobile!
@@ -98,17 +104,6 @@ Filenames are the tricky part here.  Specifically:
 * Avoid special characters: Windows doesn't support a bunch, and they can cause problems for others too.
 
 If you follow those guidelines, even more people will be able to appreciate your hard work.
-
-## Image formats
-
-Currently two image formats are supported: png and zim. Zim is a fast-loading simplified image format,
-custom to PPSSPP. It loads considerably faster than png.
-
-The ZIM format converter will be available for download soon. In the meantime, here's instructions to build and use the tool: [link](https://github.com/hrydgard/ppsspp/issues/12332#issuecomment-846764577).
-
-Alternatively, using pngquant / pngyu to reduce the size of PNGs will also make them load faster. See [this post](https://github.com/hrydgard/ppsspp/issues/12059#issuecomment-1436104606) for reference.
-
-In the future, support may be added for block-compressed GPU-friendly image formats.
 
 ## Texture sizes on the PSP
 
