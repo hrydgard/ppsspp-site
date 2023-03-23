@@ -48,6 +48,8 @@ basisu -uastc -mipmap -ktx2 my_transparent_or_hq_image.png
 basisu -mipmap -ktx2 my_solid_lower_quality_image.png
 ```
 
+`basisu` is rather strict when reading png files, see [this issue](https://github.com/BinomialLLC/basis_universal/issues/270). If your png files won't convert, could try to rewrite them using imagemagick, pngopt, XnConvert or any other image processing software.
+
 Then just refer to the .ktx2 files instead of .png files in the ini. You can delete the png files after compressing to ktx2, or keep them around if you want, but you don't have to ship them in your pack if you ship the ktx2 files. Note that both these formats are somewhat lossy so if you plan further editing, keep the .png files around somewhere.
 
 ## Basic structure
