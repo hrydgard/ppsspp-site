@@ -48,7 +48,16 @@ basisu -uastc -mipmap -ktx2 my_transparent_or_hq_image.png
 basisu -mipmap -ktx2 my_solid_lower_quality_image.png
 ```
 
+Quick Windows command to convert a directory recursively (put `basisu.exe` in your path) by [LunaMoo](https://github.com/hrydgard/ppsspp/issues/12059#issuecomment-1474975884):
+
+```bash
+for /r %%v in (*.png) do basisu "%%v" -ktx2 -uastc -mipmap -output_path %%~dpv
+pause
+```
+
 `basisu` is rather strict when reading png files, see [this issue](https://github.com/BinomialLLC/basis_universal/issues/270). If your png files won't convert, could try to rewrite them using imagemagick, pngopt, XnConvert or any other image processing software.
+
+For textures that are not supposed to wrap around (like title screens, menu pieces and stuff), also pass the flag `-mip_clamp` for optimal results. basisu has a large number of set of parameters that can be experimented with.
 
 Then just refer to the .ktx2 files instead of .png files in the ini. You can delete the png files after compressing to ktx2, or keep them around if you want, but you don't have to ship them in your pack if you ship the ktx2 files. Note that both these formats are somewhat lossy so if you plan further editing, keep the .png files around somewhere.
 
@@ -117,8 +126,6 @@ The PSP hardware limited textures to power-of-two sizes, so games always use tho
 When a game wants to show a full screen image (480x272), it has to use a texture that's 512x512, because the PSP hardware just can't process a texture actually 480x272 in size.  And the extra space that isn't used?  The game doesn't care - it usually has garbage.
 
 Unfortunately, this means that hashes may be different even though any human (sorta like a captcha) could obviously tell they are identical.  It's often very difficult for PPSSPP to detect this: sometimes 512x512 images are sprite sheets, fonts, or just scaled down.  And it happens with smaller images (even 32x64) too.
-
-If you solve this without making PPSSPP slow, please send a pull request.
 
 Workaround: you can add `reduceHash = True` under `[options]` (this cannot be used with `hash = quick`.  This will just ASSUME that only the top half of any texture is important.  If a game draws text a letter at a time into a texture or ever changes the bottom half, this will definitely break drawing in those cases.  And if you run into this... your only option will be to start over from scratch (with `reduceHash` off), or live with the brokenness.  You've been warned.
 

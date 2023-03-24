@@ -1,4 +1,16 @@
-# Legacy Builds and other downloads
+# Ports, legacy Builds and other downloads
+
+## PPSSPP for Switch (switch homebrew)
+
+Ported to the Nintendo Switch by m4xw! See [m4xw's Patreon](https://www.patreon.com/m4xwdev).
+
+You'll need a Switch enabled for homebrew to run this (and a 7z unpacker). You won't find an explanation about that here :)
+
+NOTE: This is an old builds, newer versions are coming.
+
+[Download PPSSPP 1.9.3+ for Switch](/files/Switch/20200311_Release_PPSSPP_Standalone.7z)
+
+[Download PPSSPP 1.9 for Switch](files/1_9_0/ppsspp_switch.7z)
 
 ## Cube test program
 
