@@ -141,6 +141,14 @@ Types of Upscale algorithms:
 
 For most games, max anisotropic + auto max quality will give you the best results. For a few games like Pursuit Force, switch back to just Auto. This may be made automatic in the future.
 
+### Lower resolution for effects
+
+Sometimes games will draw effects that are meant to blur the screen in various ways, such as light bloom effects. PSP games are all designed for 480x272 though, so when it does the blurring, it basically just resizes the things it wants to blur down by a certain %. Now, enter PPSSPP: let's say we renders at 4x or even 8x the original resolution. That means that the "blurred" version is actually still pretty sharp and detailed. So then the supposedly blurred image is applied to the screen and... it kinda looks like a strange outline, after image or ghosting.
+
+Lower resolution for effects forces images other than the main render targets to render at low resolution just like on the real PSP, working around the problem pretty well.
+
+The different levels just represents a series of checks we add to identify this situation, with varying confidence.
+
 ### Overlay Information
 
 * Show FPS Counter - shows FPS at the top right corner in-game.
