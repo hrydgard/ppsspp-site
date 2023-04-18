@@ -148,7 +148,7 @@ export default function Home() {
             <h3>Do you have PPSSPP Gold for Windows, but want it for Android?</h3>
             <p>If so, just <Link to="/login?Forward=requestgold">login here</Link> and follow the instructions!</p>
             <h3>Do you have PPSSPP Gold for Android, but want it for Windows?</h3>
-            <p>Then please send an e-mail to hrydgard+ppssppgold@gmail.com , attaching your Google Play receipt. Your request will be handled within 72h.</p>
+            <p>Then please send an e-mail to hrydgard+ppssppgold@gmail.com , attaching your Google Play receipt. Your request will be handled within 72 hours.</p>
             <p>(There used to be a convenient form here, but it got completely overloaded with 95% bogus requests).</p>
           </div>
         </div>
