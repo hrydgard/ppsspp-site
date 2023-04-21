@@ -1,6 +1,6 @@
-# Ports, legacy Builds and other downloads
+# Ports, legacy builds and other downloads
 
-## PPSSPP for Switch (switch homebrew)
+## PPSSPP for Switch (homebrew)
 
 Ported to the Nintendo Switch by m4xw! See [m4xw's Patreon](https://www.patreon.com/m4xwdev).
 

@@ -48,6 +48,10 @@ This is also why PPSSPP will not show the cross media bar (XMB) interface of the
 
 <a name="gold"></a>
 
+## Can PPSSPP play PSX/PS2/PS3 games?
+
+No.
+
 ## Can I use my gamepad to control PPSSPP?
 
 Yes, PPSSPP has built-in XInput and DirectInput support on Windows so it will "just work" with any Xbox 360 pad and most other pads that you plug into your PC.
@@ -72,6 +76,10 @@ Yes, although it's not a super smooth experience. Follow this:
 ## Can PPSSPP play UMD video discs?
 
 No. On the real hardware, the player app for these is built into the PPSSPP firmware, and since PPSSPP is a HLE emulator, we don't run the firmware so we'd have to write our own player. There's a scripting language for menus and stuff, it's pretty complicated. So it has not been a priority to figure out, especially as UMD Video is today an outdated, low-definition format and there are better ways to watch movies. If you really want to play UMD video, use a real PSP.
+
+## Why are many of the graphics settings disabled?
+
+Uncheck "Software rendering". When that's active, many settings are not relevant (they don't do anything when the software renderer is on) and are thus disabled.
 
 ## Why do cutscenes and videos look so blurry?
 
@@ -145,10 +153,6 @@ To emulate advanced systems like the PSP fast, the emulator needs to translate t
 
 For a JIT to function, an app needs to have the ability to generate machine code at runtime. This is allowed on Windows, Mac, Linux and Android, while it is disallowed on many versions of iOS.
 
-## Does PPSSPP work on Chromebooks?
-
-Chromebooks can run the Android version of PPSSPP. However it has not yet been adapted for keyboard input, so you'll want to use an external bluetooth controller for now.
-
 ## How do I turn off buffered rendering in PPSSPP 1.14 or later?
 
 The option is still there, but now it's under "Speedhacks" and called "Skip buffer effects".
@@ -171,11 +175,15 @@ Here: [The PPSSPP privacy policy](/privacy)
 
 ## Can PPSSPP play GTA 5?
 
-No, it can't. Silly Youtubers.
+No, it can't.
 
 ## Does PPSSPP work on Chromecast?
 
 This is not currently actively supported. In theory it should work, but many people have reported problems with folder selection and file permissions.
+
+## Does PPSSPP work on Chromebooks?
+
+Chromebooks can run the Android version of PPSSPP. However it's not tested very actively, it has not yet been adapted for keyboard input, so you'll want to use an external bluetooth controller for now.
 
 ## My SD card won't work for loading games after upgrading to Android 13!
 
