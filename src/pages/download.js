@@ -114,6 +114,8 @@ const platformList = [
         name: "Download PPSSPP .dmg",
         icon: 'ppsspp-icon.png',
         filename: 'PPSSPP_macOS.dmg',
+        whats_this: '/docs/reference/mac',
+        whats_this_text: 'Mac information',
       },
       {
         name: "Download from Github CI",
@@ -254,15 +256,19 @@ function FlathubBadge({ icon, appUrl, name, gold_color }) {
   )
 }
 
-function Download({url, text, icon, gold_color, whats_this}) {
+function Download({url, text, icon, gold_color, whats_this, whats_this_text}) {
   var icon_html = <></>;
   if (icon) {
     icon_html = <img src={"/img/platform/" + icon} width="32px" style={{marginRight: "10px"}} />;
   }
 
   var whats_this_link = <></>;
+  var whats_this_label = "What's this?";
+  if (whats_this_text) {
+    whats_this_label = whats_this_text;
+  }
   if (whats_this) {
-    whats_this_link = <p align="right" style={{marginTop: "0px"}}><a href={whats_this}>What's this?</a></p>;
+    whats_this_link = <p align="right" style={{marginTop: "0px"}}><a href={whats_this}>{whats_this_label}</a></p>;
   }
 
   return (
@@ -277,7 +283,7 @@ function Download({url, text, icon, gold_color, whats_this}) {
 }
 
 function DownloadsForFilename(props) {
-  const {name, filename, url, title, icon, login_prompt, logged_in, gold_file, gold_color, showGold, whats_this} = props;
+  const {name, filename, url, title, icon, login_prompt, logged_in, gold_file, gold_color, showGold, whats_this, whats_this_text} = props;
 
   if (gold_file && !showGold) {
     return <></>;
@@ -327,6 +333,7 @@ function DownloadsForFilename(props) {
       icon={icon}
       gold_color={gold}
       whats_this={whats_this}
+      whats_this_text={whats_this_text}
       />);
     }
   );
