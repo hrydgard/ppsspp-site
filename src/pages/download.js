@@ -109,9 +109,16 @@ const platformList = [
     platform_key: 'macos',
     downloads: [
       {
+        title: "PPSSPP Free",
+        short_name: 'Installer',
+        name: "Download PPSSPP .dmg",
+        icon: 'ppsspp-icon.png',
+        filename: 'PPSSPP_macOS.dmg',
+      },
+      {
         name: "Download from Github CI",
         url: 'https://github.com/hrydgard/ppsspp/releases/latest',
-      }
+      },
     ]
   },
   {

@@ -1361,6 +1361,10 @@
           "is_dir": false
         },
         {
+          "name": "PPSSPP_macOS.dmg",
+          "is_dir": false
+        },
+        {
           "name": "PPSSPPWindowsARM64.zip",
           "is_dir": false
         },
