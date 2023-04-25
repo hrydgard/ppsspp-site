@@ -73,6 +73,8 @@ Yes, although it's not a super smooth experience. Follow this:
 * Enable "Built-in proadhocserver"
 * Start a second instance (File -> Open New Instance on Windows).
 
+Sharing controls between the two instances can be an issue though..
+
 ## Can PPSSPP play UMD video discs?
 
 No. On the real hardware, the player app for these is built into the PPSSPP firmware, and since PPSSPP is a HLE emulator, we don't run the firmware so we'd have to write our own player. There's a scripting language for menus and stuff, it's pretty complicated. So it has not been a priority to figure out, especially as UMD Video is today an outdated, low-definition format and there are better ways to watch movies. If you really want to play UMD video, use a real PSP.
@@ -115,17 +117,17 @@ Disabling save state backups will make save/load faster, but also disables save/
 
 <a name="memstick"></a>
 
-## Where is the memory stick folder?
+## Where is the memory stick folder with my save data?
+
+The real PSP stored save data on a memory stick, similar to today's SD cards. PPSSPP simulates the memory stick with a folder. Inside, you'll find a PSP directory, and within there's SAVEDATA (for real PSP saves) and PPSSPP_STATE (save states), for example.
 
 If you have PPSSPP 1.12 or later and are on desktop, you can open it directly from within the emulator. Just go to Settings/System and choose Open Memstick Folder.
 
 Where it is depends on the platform:
 
 * Windows: Either in the directory "memstick" in PPSSPP, or in your documents directory. There's also an additional shortcut, just choose "File->Open Memstick Folder..." to find it.
-* Mac/Linux: Look in .config/PPSSPP in your home directory. Some distributions may have it in other places.
-* Android: In older versions it was always in the /PSP directory at the root of your shared storage. In Android 11 and later with PPSSPP 1.12 or later, it's configurable.
-
-Sharing controls between the two instances can be an issue though..
+* Mac/Linux: Look in .config/ppsspp in your home directory. Some distributions may have it in other places.
+* Android: In older versions it was always in the /PSP directory at the root of your shared storage. In Android 11 and later with PPSSPP 1.12 or later, it's configurable. [More information here](/docs/getting-started/save-data-and-storage.md).
 
 ## What are the PC CPU and GPU requirements?
 
