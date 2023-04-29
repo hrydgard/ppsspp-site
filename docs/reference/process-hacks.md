@@ -21,3 +21,21 @@ You can send this message with the following values of lParam to the main window
 The point (hah) of the latter two is that that is stable across execution of multiple games, while the former is not, which may be useful in some cases.
 
 2 and 3 are only available in builds starting from early February 2023.
+
+## CheatEngine tips and tricks by NABN00B
+
+Visual explanation of working with memory addresses in Cheat Engine (Windows x64):
+
+<img src="/img/process-hacking/PPSSPP_CE.png" />
+
+Scripting example (use Copy PSP Memory Base Address to fill in the base pointer):
+
+<img src="/img/process-hacking/PPSSPP_CE_Pointer_Lua.png" />
+
+### Terminology
+
+* PSP Memory Base Address: the address in process memory where the emulated PSP's memory starts from (0x0 in PSP memory). Commonly something like `0x0000_01??_????_????` or `0x0000_02??_????_????` but that cannot be relied upon.
+* PSP Memory Base Pointer: the pointer to PSP Memory Base Address. The address whose value is the address in Windows memory where the emulated PSP's memory starts from. Its value is the PSP Memory Base Address. Its address is higher than `0x0000_7ff?_????_????`.
+* PSP User Memory Address: the address `0x0880_0000` in the emulated PSP's memory where game data starts from (mind the different characters!). The addresses of game variables (offset1 in our pointer paths) are higher than this (already contain `0x0880_0000`).
+* PPSSPP Process Base Address: the address in Windows memory where the memory of a PPSSPPWindows64.exe process starts from. Referred to as PPSSPPWindows64.exe. Usually something like `0x0000_7ff?_????_????`.
+* PPSSPP Base Offset (to PSP Memory Base Pointer): the offset in Windows memory, such that PPSSPP Process Base Address + PPSSPP Process Base Offset == address of PSP Memory Base Pointer. Higher than `0x00A0_0000`. A constant that is usually different for each build.
