@@ -49,7 +49,7 @@ So, we now have the coverage as a byte value. We could now treat this value as a
 
 But Burnout gets fancier, and uses a nice lens flare texture. We are now faced with the challenge of how to use this arbitrary value sitting in an image, to influence the brightness of the lens flare texture, using only the PSP GPU. We do not want to use the CPU to copy the brightness value to some vertex colors, for example, as that would require expensive synchronization, instead we need to coax the GPU to do the work directly.
 
-If we had multitexturing with combiners, or even shaders, we’d just sample this texel and multiply the lens flare texture by it, but we don’t have that. However, the PSP has some others features we can use - or misuse. Games on the PSP mostly use paletted textures, 4-bit or 8-bit indexed color. Palettes can be loaded from RAM or VRAM. And that opens up for a cute trick: Since on the PSP, memory is just memory, the game can actually overlay a render target on top of the palette memory belonging to the lens flare texture in memory, and render into the alpha channel of this render target, while texturing from a 1x1 texture carefully defined to overlap the brightness value from the previous coverage computation in memory! Then it can finally draw the lens flare using a texture with that modified CLUT loaded, which now has the correct alpha value in all colors, matching the coverage.
+If we had multitexturing with combiners, or even shaders, we’d just sample this texel and multiply the lens flare texture by it, but we don’t have that. However, the PSP has some others features we can use - or misuse. Games on the PSP mostly use palletted textures, 4-bit or 8-bit indexed color. Palettes can be loaded from RAM or VRAM. And that opens up for a cute trick: Since on the PSP, memory is just memory, the game can actually overlay a render target on top of the palette memory belonging to the lens flare texture in memory, and render into the alpha channel of this render target, while texturing from a 1x1 texture carefully defined to overlap the brightness value from the previous coverage computation in memory! Then it can finally draw the lens flare using a texture with that modified CLUT loaded, which now has the correct alpha value in all colors, matching the coverage.
 
 ## A problem with a deep solution
 
@@ -59,7 +59,7 @@ This is where we get to the next level of trickery. When the game renders to the
 
 The same 32 bits in memory (each letter represents is 1 bit):
 
-```
+```text
 AAAAAAAA BBBBBBBB GGGGGGGG RRRRRRRR (one 32-bit color value)
 bbbbbggg gggrrrrr bbbbbggg gggrrrrr (two 16-bit color values)
 11111111 00000000 11111111 00000000 (bitmask for writing, see below)
