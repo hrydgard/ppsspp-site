@@ -1,21 +1,19 @@
 # Vulkan Driver Bugs
 
-A few years ago, I meant to start a website called Real World Vulkan that documented Vulkan driver bugs.
-
-Never got around to it, but I did some writing for it, which I've collected here.
+A few years ago, I meant to start a website that documented Vulkan driver bugs. Never got around to it, but I did some writing for it, which I've collected here.
 
 I've updated it slightly but there's more to be done.
 
 ## Introduction
 
-Vulkan is the present and future of graphics, at least on some platforms. But closing in on seven years old at time of writing, it has a past - early drivers for a new API often have crippling bugs, and Vulkan is no exception. Worse, drivers for mobile devices often stick around a long time in consumer devices due to the lack of updates on Android. This page is an incomplete attempt to collect information about driver bugs and performance advice for the whole ecosystem of Vulkan-enabled devices.
+Vulkan is the present and future of graphics, at least on some platforms. But closing in on seven years old at time of writing, it also has a past - early drivers for a new API often have crippling bugs, and Vulkan is no exception. Worse, drivers for mobile devices often stick around a long time in consumer devices due to the lack of updates on Android. This page is an incomplete attempt to collect information about driver bugs and performance advice for the whole ecosystem of Vulkan-enabled devices.
 
 In the spirit of Vulkan, this site is meant to receive contributions from the community. If you have a bug that is not listed on this site,
 feel free to open a pull request against this website [here](https://github.com/hrydgard/ppsspp-site/).
 
 ## Bugs
 
-### Discard broken when stencil test on, depth off
+### Fragment discard broken when stencil test on, depth off
 
 If you draw using a fragment shader that conditionally does a discard; operation, while having a pipeline bound that sets `pDepthStencilState->depthTestEnabled` to `false` and `stencilTestEnabled` to `true`, the discard operation will be ignored when the rasterizer writes to the stencil buffer on Adreno 500, a very common GPU in modern Android phones, and also multiple ARM Mali GPUs (though the condition is a bit more complex there).
 
@@ -220,6 +218,8 @@ Force swapchain width to be divisible by 32 (!)
 ```cpp
 swapChainExtent.width &= ~31;
 ```
+
+This has some unfortunate consequences, like the scissor rectangle and viewport being off by a few pixels, leading to minor UI bugs. Better than crashing though!
 
 ### Rendering does not clip to viewport
 

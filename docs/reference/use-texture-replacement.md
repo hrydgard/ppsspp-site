@@ -2,6 +2,10 @@
 
 If you're looking for information on how to create texture replacement packs, [see here](/docs/reference/texture-replacement).
 
+## Finding texture replacement packs for your game
+
+The best place to find packs is currently [Texture Replacement Packs](https://forums.ppsspp.org/forumdisplay.php?fid=36) forum in the PPSSPP forums.
+
 ## Installing
 
 To install a texture replacement pack, just open the zip file directly in PPSSPP, as if it was a game. PPSSPP will take care of installing it in the correct location, and unpacking it if necessary (PPSSPP now supports reading from zip files directly, if textures.ini is exactly in the root of the zip).
