@@ -75,6 +75,10 @@ Yes, although it's not a super smooth experience. Follow this:
 
 Sharing controls between the two instances can be an issue though..
 
+## Can I access and login to the Playstation Store from within PPSSPP?
+
+No, this is unfortunately not possible.
+
 ## Can PPSSPP play UMD video discs?
 
 No. On the real hardware, the player app for these is built into the PPSSPP firmware, and since PPSSPP is a HLE emulator, we don't run the firmware so we'd have to write our own player. There's a scripting language for menus and stuff, it's pretty complicated. So it has not been a priority to figure out, especially as UMD Video is today an outdated, low-definition format and there are better ways to watch movies. If you really want to play UMD video, use a real PSP.
