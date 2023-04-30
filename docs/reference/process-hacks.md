@@ -2,7 +2,7 @@
 
 If you want to search the memory of the emulated PSP using external tools by attaching to the PPSSPP process' memory space in Windows, you're gonna need a pointer to the base address.
 
-To get it, you can either use `Debug -> Copy PSP Memory Base Pointer` in the window menu (in 1.15+),
+To get it, you can either use `Debug -> Copy PSP memory base address` in the window menu (in 1.15+),
 read it from the log, or get it programmatically, by sending a custom window message to query the pointer.
 
 That message is defined as:
@@ -28,7 +28,7 @@ Visual explanation of working with memory addresses in Cheat Engine (Windows x64
 
 <img src="/img/process-hacking/PPSSPP_CE.png" />
 
-Scripting example (use Copy PSP Memory Base Address to fill in the base pointer):
+Scripting example (use Copy PSP memory base address to fill in the base pointer):
 
 <img src="/img/process-hacking/PPSSPP_CE_Pointer_Lua.png" />
 
