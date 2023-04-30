@@ -1,6 +1,6 @@
 # Settings documentation
 
-(Some settings are not yet documnented here. Stay tuned.)
+(Some settings are not yet documented here. Stay tuned.)
 
 <a name="graphics"></a>
 

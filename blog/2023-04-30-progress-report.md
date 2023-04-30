@@ -43,17 +43,13 @@ Additionally, a bug has been fixed where temporary buffers during applications o
 
 * Fixed a slowdown in Naruto Heroes: [#16733](https://github.com/hrydgard/ppsspp/issues/16733). This is a very typical case of unnecessary readbacks. The PSP has a "block copy" command to copy around arbitrary GPU memory between RAM and VRAM. PPSSPP designates areas in VRAM as framebuffers if they have been previously rendered to, and copies between two framebuffers can be simply converted to a GPU copy on the host. However, if data is copied to "new" VRAM or to RAM, by default we assume that the game will try to read the copied data with the CPU. This means we have to do a very costly readback. Often it actually doesn't need the data on the CPU, though, so we added a per-game compatibility option where we automatically create framebuffers covering the destination area of memory. If the game later simply textures from it, this becomes much, more more efficient than a readback from the GPU. We enabled this for Naruto Heroes.
 
-### Control fixes
-
-You can now match c
-
-#### The curious case of skewed input
+### The curious case of skewed input
 
 It was noticed that Daxter and the two God of War games (all three from the studio Ready At Dawn) both rotate the analog stick input by 15 degrees before passing it to the game's internal control system. This makes the analog stick feel better aligned on the real PSP and likely good for ergonomics, but is not appropriate for an emulator that takes many kinds of different inputs, so automatic pre-rotation in the other direction was added to compensate. Daxter now walks correctly along the cardinal directions as expected, and Kratos does too in the God of War games. See [#17020](https://github.com/hrydgard/ppsspp/issues/17020).
 
-#### Tilt input fixed
+### Tilt control has been improved
 
-The Android-only tilt (accelerometer) input option has not been maintained nor tested for a long time, so it was simply time to go through it and fix it up, which is now done. The new behavior works much better and is more intuitive to configure, thanks to an updated configuration dialog.
+The Android-only tilt (accelerometer) input feature has not been maintained nor tested for a long time, so it was simply time to go through it and fix it up, which is now done. The new behavior works much better and is more intuitive to configure, thanks to an updated configuration dialog.
 
 ## Regressions fixed
 
@@ -72,7 +68,7 @@ The Android-only tilt (accelerometer) input option has not been maintained nor t
 * Several large code cleanups and refactors have been performed across the code base, to make future changes easier.
 * The RISC-V JIT compiler has been improved by \[Unknown\]. Future-proofs the emulator a bit!
 * New app icon (#11996), assorted bugfixes (#16988, #17017, more)
-* And many more.
+* And much more!
 
 ## Go get it!
 
