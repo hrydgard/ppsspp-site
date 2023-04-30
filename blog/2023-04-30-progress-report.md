@@ -66,7 +66,7 @@ The Android-only tilt (accelerometer) input option has not been maintained nor t
 * Depth readback added, fixing lens flares in Syphon Filter (at a perf cost.. turn off GPU readbacks for the old behavior) ([#16907], [#16905])
 * Enabling rewind savestates (automatic savestates every N seconds) no longer slow down gameplay noticeably.
 * Software renderer is even more playable, after another round of optimizations and fixes by \[Unknown\]
-* fp64 has worked on [VFPU](/docs/psp-hardware/cpu/allegrex-overview.md) accuracy. It's not yet all enabled, though.
+* fp64 has worked on [VFPU](/docs/psp-hardware/cpu/allegrex-overview) accuracy. It's not yet all enabled, though.
 * Multiple fixes for various depth clipping issues ([#17055](https://github.com/hrydgard/ppsspp/issues/17020), more)
 * VR has gained some new features (top-down perspective), new control options, and various fixes, thanks Lubos!
 * Several large code cleanups and refactors have been performed across the code base, to make future changes easier.

@@ -152,7 +152,19 @@ const platformList = [
     ]
   },
   {
-    title: 'Standalone VR APKs',
+    title: 'VR APKs for Quest and Pico',
+    platform_key: 'vr',
+    downloads: [
+      {
+        name: "PPSSPP VR",
+        icon: 'ppsspp-icon.png',
+        short_name: 'APK',
+        filename: 'ppsspp_vr.apk'
+      },
+    ]
+  },
+  {
+    title: 'Headset-specific VR APKs (old)',
     platform_key: 'vr',
     downloads: [
       {
@@ -168,7 +180,7 @@ const platformList = [
         filename: 'ppsspp_vr_pico.apk'
       }
     ]
-  }
+  },
 ];
 
 // Takes a dictionary produced by dirtree-json, and makes something more sensible out of it.
