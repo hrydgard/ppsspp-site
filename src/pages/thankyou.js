@@ -122,7 +122,7 @@ export default function Home() {
           <div className={clsx("col col--6")}>
             <div className="card">
               <div className="card__header">
-                <h1>Thanks for buying PPSSPP Gold for Windows!</h1>
+                <h1>Thanks for buying PPSSPP Gold for Windows/macOS!</h1>
               </div>
               <div className="card__body">
               <img src="/img/platform/ppsspp-icon-gold.png" width="48px" />

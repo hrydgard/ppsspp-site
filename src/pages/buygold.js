@@ -141,7 +141,7 @@ function BuyGoldPage({goldUser, devMode}) {
     goldAlready =
       <div className="row">
         <div className={clsx("col col--8")}>
-          <p>You already have PPSSPP Gold for Windows! Of course, if you want to support the project a little extra, feel free!</p>
+          <p>You already have PPSSPP Gold for Windows and macOS! Of course, if you want to support the project a little extra, feel free!</p>
         </div>
       </div>;
   }
@@ -165,7 +165,7 @@ function BuyGoldPage({goldUser, devMode}) {
 
       {devMode && <p>DEV MODE</p>}
 
-      <h3>Buy PPSSPP Gold for Windows</h3>
+      <h3>Buy PPSSPP Gold for Windows/macOS</h3>
       {goldAlready}
 
       <p>Choose your level:</p>
@@ -187,7 +187,7 @@ function BuyGoldPage({goldUser, devMode}) {
       <br/>
 
       {!goldUser &&
-      <p>Do you have PPSSPP Gold for Android already? <Link href="/requestgold">Request PPSSPP Gold for Windows here.</Link></p> }
+      <p>Do you have PPSSPP Gold for Android already? <Link href="/requestgold">Request PPSSPP Gold for Windows/macOS here.</Link></p> }
 
       <hr/>
 

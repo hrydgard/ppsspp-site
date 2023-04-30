@@ -109,6 +109,21 @@ const platformList = [
     platform_key: 'macos',
     downloads: [
       {
+        title: "PPSSPP Gold",
+        name: "Buy PPSSPP Gold",
+        icon: 'ppsspp-icon-gold.png',
+        url: '/buygold',
+        gold_color: true,
+        login_prompt: true,
+      },
+      {
+        short_name: 'Installer',
+        name: "Download PPSSPP Gold.dmg",
+        icon: 'ppsspp-icon-gold.png',
+        filename: 'PPSSPPGold_macOS.dmg',
+        gold_file: true,
+      },
+      {
         title: "PPSSPP Free",
         short_name: 'Installer',
         name: "Download PPSSPP .dmg",
@@ -152,7 +167,7 @@ const platformList = [
     ]
   },
   {
-    title: 'VR APKs for Quest and Pico',
+    title: 'VR APK for Quest and Pico',
     platform_key: 'vr',
     downloads: [
       {
@@ -163,6 +178,7 @@ const platformList = [
       },
     ]
   },
+  /*
   {
     title: 'Headset-specific VR APKs (old)',
     platform_key: 'vr',
@@ -180,7 +196,7 @@ const platformList = [
         filename: 'ppsspp_vr_pico.apk'
       }
     ]
-  },
+  },*/
 ];
 
 // Takes a dictionary produced by dirtree-json, and makes something more sensible out of it.
@@ -456,7 +472,7 @@ function DownloadPage({userData}) {
   var goldBanner = <></>;
   var showGold = false;
   if (userData.loggedIn && userData.goldUser) {
-    goldBanner = <div className="alert alert--warning" role="alert">You've got PPSSPP Gold for Windows! Downloads are now available below.</div>;
+    goldBanner = <div className="alert alert--warning" role="alert">You've got PPSSPP Gold for Windows/macOS! Downloads are now available below.</div>;
     showGold = true;
   }
 

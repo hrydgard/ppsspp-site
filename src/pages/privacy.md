@@ -34,7 +34,7 @@ Cookies are used only to manage log-ins.
 
 #### Purchase Data
 
-PPSSPP Gold for Windows can be purchased here. All purchase data is handled by Fastspring.com.
+PPSSPP Gold for Windows/macOS can be purchased here. All purchase data is handled by Fastspring.com.
 Username and email are stored too, for the purposes of allowing log-ins and download of new
 versions of PPSSPP Gold in the future. Your e-mail address is kept private and will never be
 exposed in any way or used for any kind of marketing.

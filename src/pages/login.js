@@ -564,8 +564,8 @@ export default function Home() {
                 <LoginForm setLoginData={setLoginData} forward={forward} />
                 <br/>
                 <h3>Important!</h3>
-                <p>Login above to access PPSSPP Gold for Windows, if you have already bought it. If not, you can <Link to="/buygold">buy it here</Link>.</p>
-                <p>If you already have PPSSPP Gold for Android, and want an account to download it for Windows, <Link to="/requestgold">click here</Link> for information.</p>
+                <p>Login above to access PPSSPP Gold for Windows/macos, if you have already bought it. If not, you can <Link to="/buygold">buy it here</Link>.</p>
+                <p>If you already have PPSSPP Gold for Android, and want an account to download it for Windows or macOS, <Link to="/requestgold">click here</Link> for information.</p>
               </div>
             </div>
           </div>

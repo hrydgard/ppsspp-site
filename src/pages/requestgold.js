@@ -29,7 +29,7 @@ function RequestGooglePlayForm({userData}) {
 
     <h1>Request Google Play promo code</h1>
     <p>
-      Since you already have PPSSPP Gold for Windows, you are eligible to request one Google Play promo code, which
+      Since you already have PPSSPP Gold for Windows and macOS, you are eligible to request one Google Play promo code, which
       can be redeemed for PPSSPP Gold for Android free on any Google Play account.
     </p>
     <div className="alert alert--info" role="alert">IMPORTANT! Only request one if you are going to use it!</div>
@@ -125,7 +125,7 @@ function RequestGoldForm() {
         <span><input type="text" size="38" onChange={e => setEmail(e.target.value)} /></span>
       </label>
       <button className="button button--primary margin-bottom--md margin-top--md" type="submit">
-        Request PPSSPP Gold for Windows
+        Request PPSSPP Gold for Windows and macOS
       </button>
     </form>
 
@@ -145,7 +145,7 @@ export default function Home() {
         <div className={clsx("row simple-center")}>
           <div className={clsx("col col--8")}>
             <h1>PPSSPP Gold - Cross License</h1>
-            <h3>Do you have PPSSPP Gold for Windows, but want it for Android?</h3>
+            <h3>Do you have PPSSPP Gold for Windows/macOS, but want it for Android?</h3>
             <p>If so, just <Link to="/login?Forward=requestgold">login here</Link> and follow the instructions!</p>
             <h3>Do you have PPSSPP Gold for Android, but want it for Windows?</h3>
             <p>Then please send an e-mail to hrydgard+ppssppgold@gmail.com , attaching your Google Play receipt. Your request will be handled within 72 hours.</p>
