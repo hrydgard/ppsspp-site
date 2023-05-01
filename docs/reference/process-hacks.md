@@ -32,6 +32,8 @@ Scripting example (use Copy PSP memory base address to fill in the base pointer)
 
 <img src="/img/process-hacking/PPSSPP_CE_Pointer_Lua.png" />
 
+[An AutoHotkey script](https://github.com/NABN00B/AutoHotkey.PPSSPP).
+
 ### Terminology
 
 * PSP Memory Base Address: the address in process memory where the emulated PSP's memory starts from (0x0 in PSP memory). Commonly something like `0x0000_01??_????_????` or `0x0000_02??_????_????` but that cannot be relied upon.
