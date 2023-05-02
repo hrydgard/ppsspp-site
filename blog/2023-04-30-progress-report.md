@@ -1,15 +1,19 @@
 ---
-slug: new-web-site
-title: PPSSPP Progress Report - spring 2023
+slug: progress-report-spring-2023
+title: Progress Report - spring 2023
 authors: hrydgard
 tags: [ppsspp]
 ---
 
 ## PPSSPP Progress Report - Spring 2023
 
-Welcome to the very first official Progress Report! I'm not going to pretend that these will be monthly or anything like that going forward, but either way, here it is! More likely, like this one, these will come out only along with new official releases. Essentially, these will be longer form versions of the [release notes](/news/).
+Welcome to the first official Progress Report! I've long enjoyed reading Dolphin's progress reports, but it turns out to take quite the effort to write one. So, it's not likely that these will be monthly going forward, but either way, here's the first one. More likely these will accompany each official new official release. Essentially, these will be longer form versions of the [release notes](/news/).
 
-PPSSPP has been an ongoing project for over 11 years now, but work never ends! The new version, 1.15, is another pretty big upgrade. The main themes are stutter fixes and quality-of-life improvements, and obviously some regular performance improvements and compatibility fixes as always. Additionally, macOS is now an officially supported platform, and support has been improved substantially.
+PPSSPP has been an ongoing project for over 11 years now, but work never ends! The new version, 1.15, is another pretty good upgrade. The main themes are stutter fixes and quality-of-life improvements, and obviously some compatibility fixes and performance improvements as usual. Additionally, macOS is now an officially supported platform, and support has been improved substantially.
+
+So go [Download PPSSPP 1.15](/download/)! New: There's now an official Mac build!
+
+Please note that the Android version on Google Play will as usual roll out slowly over multiple days in order to catch any bad crashes early, so you may have to wait a few days before you receive the update.
 
 ## 1.15 - top improvements
 
@@ -68,7 +72,7 @@ The Android-only tilt (accelerometer) input feature has not been maintained nor 
 * Several large code cleanups and refactors have been performed across the code base, to make future changes easier.
 * The RISC-V JIT compiler has been improved by \[Unknown\]. Future-proofs the emulator a bit!
 * New app icon (#11996), assorted bugfixes (#16988, #17017, more)
-* And much more!
+* And [much more](/news/2023-04-30-ppsspp-1.15)!
 
 ## Go get it!
 
