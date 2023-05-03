@@ -171,6 +171,12 @@ First, make sure you have charged it to the max once. If you don't, the normal A
 
 Then, just flip the power switch to on, and press Home+X to start it in Android mode. After that, things should just work! You may want to tweak the controls a little bit in Control Mapping but the defaults are mostly okay.
 
+## My Android TV says "you don't have an app that can do this"
+
+This means that your Android TV is missing a file browser app. These should normally be included with the OS.
+
+It may work to install this app: [AnExplorer on Google Play](https://play.google.com/store/apps/details?id=com.tooltorule.filemanager.pro&hl=en&gl=US). Thanks to AMoose84 for the tip.
+
 ## My app is on the PPSSPP Homebrew Store and I do not approve!
 
 Shoot me an e-mail (hrydgard at gmail dot com) and I'll remove it.
