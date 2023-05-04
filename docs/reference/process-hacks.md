@@ -32,7 +32,35 @@ Scripting example (use Copy PSP memory base address to fill in the base pointer)
 
 <img src="/img/process-hacking/PPSSPP_CE_Pointer_Lua.png" />
 
-[An AutoHotkey script](https://github.com/NABN00B/AutoHotkey.PPSSPP).
+### CheatEngine script for getting the base address
+
+```lua
+-- By "25094" on GitHub
+function GetEmuBase()
+local command = 0xB118
+local emuHWND = findWindow("PPSSPPWnd")
+
+local pointer = {}
+
+local result = sendMessage(emuHWND, command, 0, 0)
+pointer[1] = tonumber(result)
+
+result = sendMessage(emuHWND, command, 0, 1)
+pointer[2] = tonumber(result)
+
+local lower = pointer[1]
+local upper = pointer[2]
+local combinedPointer = (upper * 0x100000000) + lower
+
+return tonumber(combinedPointer)
+end
+```
+
+You can add this inside of any auto assembler script at the start or inside the enable part and it should run fine if you remember to add {$lua} before adding the code.
+
+### AutoHotKey script
+
+[An AutoHotkey script](https://github.com/NABN00B/AutoHotkey.PPSSPP) to do the same.
 
 ### Terminology
 
