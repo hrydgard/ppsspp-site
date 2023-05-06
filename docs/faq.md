@@ -65,6 +65,17 @@ It seems like apps like Quick Cursor that draw over other apps can also cause th
 
 The bug has been reported to Google, still no fix: [issue report](https://issuetracker.google.com/issues/163120692?pli=1)
 
+## What's the use for the second analog stick?
+
+No variant of the PSP itself ever had a second analog stick, but there are patches for a few games that allow it to be used for camera control. This is not something that can be done generically, of course.
+
+Also, there are a few "HD Version" PSP remasters that were released on the PS3 by including a PSP emulator made by Sony. These can inherently use the second stick. There are 4 of these games, all Japanese:
+
+* MONSTER HUNTER PORTABLE 3rd HD Ver.
+* K-ON Houkago Live HD Ver.
+* Shin Sangoku Musou Multi Raid 2 HD Ver.
+* Eiyuu Densetsu Sora no Kiseki (3 editions: FC Kai, SC Kai, 3rd Kai) HD Edition.
+
 ## Can I play adhoc multiplayer locally with two instances of PPSSPP?
 
 Yes, although it's not a super smooth experience. Follow this:
