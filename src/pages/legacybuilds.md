@@ -8,9 +8,9 @@ You'll need a Switch enabled for homebrew to run this (and a 7z unpacker). You w
 
 NOTE: This is an old builds, newer versions are coming.
 
-[Download PPSSPP 1.9.3+ for Switch](/files/Switch/20200311_Release_PPSSPP_Standalone.7z)
+[Download PPSSPP 1.9.3+ for Switch](https://www.ppsspp.org/files/Switch/20200311_Release_PPSSPP_Standalone.7z)
 
-[Download PPSSPP 1.9 for Switch](files/1_9_0/ppsspp_switch.7z)
+[Download PPSSPP 1.9 for Switch](https://www.ppsspp.org/files/1_9_0/ppsspp_switch.7z)
 
 ## Cube test program
 
