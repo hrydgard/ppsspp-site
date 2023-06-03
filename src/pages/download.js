@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
@@ -6,6 +6,7 @@ import { useUserData } from '@site/src/theme/Root';
 import AdResponsive from '../components/AdSense';
 import { compareVersions } from 'compare-versions';
 import Link from '@docusaurus/Link';
+import { jsonPost } from '../util/json_fetch';
 
 // Data
 import files from '../../static/downloads.json'
@@ -468,13 +469,21 @@ function PreviousReleases({showGold}) {
   );
 }
 
-function DownloadPage({userData}) {
+function DownloadPage() {
+  const {userData, setUserData} = useUserData();
+
   var goldBanner = <></>;
   var showGold = false;
   if (userData.loggedIn && userData.goldUser) {
     goldBanner = <div className="alert alert--warning" role="alert">You've got PPSSPP Gold for Windows/macOS! Downloads are now available below.</div>;
     showGold = true;
   }
+
+  useEffect(async () => {
+    // Check that we're logged in
+    var result = await jsonPost("testValidated", {}, setUserData);
+    console.log(result)
+  });
 
   return (
     <>
@@ -527,14 +536,13 @@ function DownloadPage({userData}) {
 
 export default function Home() {
   const {siteConfig} = useDocusaurusContext();
-  const {userData, setUserData} = useUserData();
 
   return (
     <Layout
       title={`Downloads`}
       description="Downloads for PC, Android, Mac, Linux, iPhone, iPad, iOS">
       <AdResponsive />
-      <DownloadPage userData={userData} />
+      <DownloadPage />
     </Layout>
   );
 }

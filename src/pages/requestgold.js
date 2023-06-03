@@ -8,14 +8,15 @@ import Link from '@docusaurus/Link';
 import { useUserData } from '@site/src/theme/Root';
 import { jsonFetch, jsonPost } from '../util/json_fetch';
 
-function RequestGooglePlayForm({userData}) {
+function RequestGooglePlayForm() {
   const [promoCode, setPromoCode] = useState();
   const [succeeded, setSucceeded] = useState();
   const [failed, setFailed] = useState();
+  const {userData, setUserData} = useUserData();
 
   const handleSubmit = async e => {
     e.preventDefault();
-    var result = await jsonFetch("getgoogleplaycode", null);
+    var result = await jsonFetch("getgoogleplaycode", null, setUserData);
     if (result) {
       setPromoCode(result.code)
       setSucceeded(true);
@@ -96,7 +97,7 @@ function RequestGoldForm() {
 
     var credentials = { email: submitEmail, name: name, playEmail: submitPlayEmail };
     console.log(credentials);
-    var result = await jsonPost("makegoldrequest", credentials);
+    var result = await jsonPost("makegoldrequest", credentials, null);
     if (result) {
       setSucceeded(true);
       setFailed(false);
@@ -165,7 +166,7 @@ export default function Home() {
       <div className="container">
         <div className={clsx("row simple-center")}>
           <div className={clsx("col col--6")}>
-            <RequestGooglePlayForm userData={userData}/>
+            <RequestGooglePlayForm/>
           </div>
         </div>
       </div>

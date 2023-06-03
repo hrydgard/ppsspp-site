@@ -9,7 +9,9 @@ import Layout from '@theme/Layout';
 import { useUserData, defaultUserContext } from '@site/src/theme/Root';
 import { jsonFetch, jsonPost } from '../util/json_fetch';
 
-function ChangePasswordForm({userData}) {
+function ChangePasswordForm() {
+  const {userData, setUserData} = useUserData();
+
   const [oldPassword, setOldPassword] = useState();
   const [newPassword, setNewPassword] = useState();
 
@@ -17,7 +19,7 @@ function ChangePasswordForm({userData}) {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    var result = await jsonPost("changepassword", { oldPassword: oldPassword, newPassword: newPassword });
+    var result = await jsonPost("changepassword", { oldPassword: oldPassword, newPassword: newPassword }, setUserData);
     if (result) {
       window.location.href = "/login";
     } else {
@@ -70,7 +72,7 @@ export default function Home() {
                 <h1 style={{paddingTop: "10px"}}>Change your password</h1>
               </div>
               <div className="card__body">
-                <ChangePasswordForm userData={userData}/>
+                <ChangePasswordForm/>
               </div>
             </div>
           </div>

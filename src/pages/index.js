@@ -4,10 +4,11 @@ import AdResponsive from '../components/AdSense';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
-
 import styles from './index.module.css';
 
-function HomepageHeader() {
+const env = require('../../env');
+
+function HomepageHeader({cfgName}) {
   const {siteConfig} = useDocusaurusContext();
 
   var normalIcon = "/img/platform/ppsspp-icon.png";
@@ -26,7 +27,7 @@ function HomepageHeader() {
       <div className='light x9'></div>
       <div className="container">
         <div className="col col--3">
-          <h1 className="hero__title">{siteConfig.title}</h1>
+          <h1 className="hero__title">{siteConfig.title + cfgName}</h1>
           <p className="hero__subtitle">{siteConfig.tagline}</p>
           <Link to={"/download"} className="button button--block button--primary margin-bottom--md hero-button"
             style={{display: "flex", flexDirection: "row", alignItems: "center" }}>
@@ -123,11 +124,12 @@ function RecentNews() {
 
 export default function Home() {
   const {siteConfig} = useDocusaurusContext();
+  const cfgName = env.mode != "prod" ? " " + env.mode : "";
   return (
     <Layout
-      title={siteConfig.title + " - PSP emulator for Android, Windows, Linux, iOS, macOS"}
+      title={siteConfig.title + cfgName + " - PSP emulator for Android, Windows, Linux, iOS, macOS"}
       description="PSP emulator for Android, Windows, Linux, iOS, macOS">
-      <HomepageHeader />
+      <HomepageHeader cfgName={cfgName} />
       <main>
         <HomepageFeatures />
       </main>

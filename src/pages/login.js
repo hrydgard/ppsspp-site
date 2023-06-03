@@ -19,7 +19,14 @@ async function logoutUser(setUserData) {
   // Reset the local cookie so we don't auto-login on the next load.
   localStorage.removeItem('ppsspp-auth');
   // Reset the server cookie
-  jsonPost("logout");
+  jsonPost("logout", null);
+}
+
+// Simply makes an API call that always fails with 401 Unauthorized.
+// This should cause a logout automatically.
+async function testUnauthorized(setUserData) {
+  const response = await jsonFetch("httperror", null, setUserData);
+  console.log("Unauthorized response: " + response)
 }
 
 function LoginForm({ setLoginData, forward }) {
@@ -50,7 +57,7 @@ function LoginForm({ setLoginData, forward }) {
         'key': "",
       };
       console.log(credentials);
-      const loginData = await jsonFetch("login", credentials);
+      const loginData = await jsonFetch("login", credentials, null);
       console.log(loginData);
       if (loginData) {
         console.log(loginData);
@@ -93,6 +100,7 @@ function GiveFreeGoldForm() {
   const [successAlert, setSuccessAlert] = useState();
   const [failedAlert, setFailedAlert] = useState();
   const [magicLink, setMagicLink] = useState("");
+  const {userData, setUserData} = useUserData();
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -138,7 +146,7 @@ function GiveFreeGoldForm() {
       'name': userName,
       'email': userEmail,
     };
-    const response = await jsonFetch("freegold", freeGoldUser);
+    const response = await jsonFetch("freegold", freeGoldUser, setUserData);
     if (response) {
       setSuccessAlert(true);
       setFailedAlert(false);
@@ -188,6 +196,7 @@ function GetMagicLinkForm() {
   const [email, setEmail] = useState();
   const [magicLink, setMagicLink] = useState();
   const [userNotFound, setUserNotFound] = useState();
+  const {userData, setUserData} = useUserData();
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -201,7 +210,7 @@ function GetMagicLinkForm() {
     var existingGoldUser = {
       'email': userEmail,
     };
-    var magicLink = await jsonFetch("getmagiclink", existingGoldUser);
+    var magicLink = await jsonFetch("getmagiclink", existingGoldUser, setUserData);
     if (magicLink) {
       console.log("success: " + magicLink);
       setMagicLink(magicLink.link);
@@ -233,12 +242,13 @@ function GooglePlayCodeForm() {
   const [codesUsed, setCodesUsed] = useState();
   const [codesLeft, setCodesLeft] = useState();
   const [pendingCodes, setPendingCodes] = useState();
+  const {userData, setUserData} = useUserData();
 
   useEffect(async () => {
     if (codesUpToDate) {
       return;
     }
-    var data = await jsonFetch("googleplaycodeadmin", {});
+    var data = await jsonFetch("googleplaycodeadmin", {}, setUserData);
     if (data) {
       setCodesUsed(data.codesUsed);
       setCodesLeft(data.codesLeft);
@@ -268,7 +278,7 @@ function GooglePlayCodeForm() {
     var request = {
       'addCodes': codes,
     };
-    var result = await jsonPost("googleplaycodeadmin", request);
+    var result = await jsonPost("googleplaycodeadmin", request, setUserData);
     if (result) {
       console.log("success");
     } else {
@@ -296,6 +306,7 @@ function GooglePlayCodeForm() {
 
 function GoldRequestRow({request}) {
   const [done, setDone] = useState(false);
+
   if (done) {
     return <></>
   }
@@ -306,7 +317,7 @@ function GoldRequestRow({request}) {
       'newStatus': "ACCEPTED",
     };
     setDone(true);
-    var result = await jsonPost("updategoldrequest", request);
+    var result = await jsonPost("updategoldrequest", request, null);
     if (result) {
       console.log("accept");
     } else {
@@ -320,7 +331,7 @@ function GoldRequestRow({request}) {
       'newStatus': "REJECTED",
     };
     setDone(true);
-    var result = await jsonPost("updategoldrequest", request);
+    var result = await jsonPost("updategoldrequest", request, null);
     if (result) {
       console.log("reject");
     } else {
@@ -334,7 +345,7 @@ function GoldRequestRow({request}) {
       'newStatus': "IGNORED",
     };
     setDone(true);
-    var result = await jsonPost("updategoldrequest", request);
+    var result = await jsonPost("updategoldrequest", request, null);
     if (result) {
       console.log("ignored");
     } else {
@@ -357,12 +368,13 @@ function GoldRequestRow({request}) {
 function GoldRequestsForm() {
   const [pendingRequests, setPendingRequests] = useState();
   const [requestsUpToDate, setRequestsUpToDate] = useState(false);
+  const {userData, setUserData} = useUserData();
 
   useEffect(async () => {
     if (requestsUpToDate) {
       return;
     }
-    var data = await jsonFetch("getpendinggoldrequests", {});
+    var data = await jsonFetch("getpendinggoldrequests", {}, setUserData);
     if (data) {
       console.log(data);
       setPendingRequests(data.requests);
@@ -420,11 +432,13 @@ function AdminTools(userData) {
       <div className={clsx("col col--3")}>
         <AdminCard title="Google Play Codes" contents={GooglePlayCodeForm}/>
       </div>
+    </>
+  )
+  /*
       <div className={clsx("col col--12")}>
         <AdminCard title="Gold Requests" contents={GoldRequestsForm}/>
       </div>
-    </>
-  )
+  */
 }
 
 function translateForward(forward, reason) {
@@ -491,7 +505,7 @@ export default function Home() {
           'key': queryKey,
         };
         console.log("Trying to log in by key: " + credentials.email + " " + credentials.key);
-        const loginData = await jsonFetch("login", credentials);
+        const loginData = await jsonFetch("login", credentials, null);
         if (loginData) {
           setLoginData(loginData);
           // setLoginFailed(false);
@@ -534,6 +548,9 @@ export default function Home() {
                   <p><Link to="/changepassword">Change password</Link></p>
                   <p><Link to="/requestgold">Request Gold for Android</Link></p>
                   <p><Link to="/download">Downloads</Link></p>
+                  <p>
+                    <button className="button button--primary margin-top--md" type="submit" onClick={() => testUnauthorized(setUserData)}>Unauthorize</button>
+                  </p>
                   <p>
                     <button className="button button--primary margin-top--md" type="submit" onClick={() => logoutUser(setUserData)}>Log out</button>
                   </p>

@@ -6,7 +6,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 
 import { useUserData, defaultUserContext } from '@site/src/theme/Root';
-import { jsonFetch, jsonPost } from '../util/json_fetch';
+import { jsonFetch } from '../util/json_fetch';
 
 function RecoverPasswordForm() {
   const [email, setEmail] = useState();
@@ -21,7 +21,7 @@ function RecoverPasswordForm() {
       return;
     }
     console.log("email: " + email)
-    var result = await jsonFetch('recoverpassword', { email: email });
+    var result = await jsonFetch('recoverpassword', { email: email }, null, null);
     if (result) {
       setRecoverSucceeded(true);
       setRecoverFailed(false);
