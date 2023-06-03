@@ -61,6 +61,10 @@ For textures that are not supposed to wrap around (like title screens, menu piec
 
 Then just refer to the .ktx2 files instead of .png files in the ini. You can delete the png files after compressing to ktx2, or keep them around if you want, but you don't have to ship them in your pack if you ship the ktx2 files. Note that both these formats are somewhat lossy so if you plan further editing, keep the .png files around somewhere.
 
+#### Thumbnails in Windows Explorer
+
+If you want to see thumbnails for KTX2 textures in Explorer, try the [Kram thumbnailer](https://github.com/alecazam/kram/tree/main/kram-thumb-win). (note: I have not tested this yet)
+
 ## Basic structure
 
 ```ini title="textures.ini"
