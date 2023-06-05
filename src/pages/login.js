@@ -38,7 +38,8 @@ function LoginForm({ setLoginData, forward }) {
     const handleSubmit = async e => {
       e.preventDefault();  // Prevents an automatic refresh from the submit.
 
-      var userEmail = email.trim();
+      // if userEmail exists, trim it, if not, return null for further validation and handling
+      var userEmail = email ? email.trim() : null;
 
       if (!userEmail || !password) {
         setLoginFailed(true);
