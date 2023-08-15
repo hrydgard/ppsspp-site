@@ -40,6 +40,47 @@ Multiple plugins are available here, for GTA, Splinter Cell and The Warriors. Th
 
 [Cheat Device Remastered](http://cheatdeviceremastered.com/)
 
+
+## Creating plugins
+
+These instructions are from the [original pull request](https://github.com/hrydgard/ppsspp/pull/13335) by [Unknown].
+
+### Basic setup
+
+1. Create a plugin directory inside `PSP/PLUGINS/`, i.e. `PSP/PLUGINS/mycrisiscoretranslation/`.
+2. Add an ini file, such as:
+```ini
+[options]
+version = 1
+type = prx
+filename = patch.prx
+
+; Always specify games to indicate what games are supported.
+[games]
+; Normal usage: specify game IDs that are supported.
+ULJM05275 = true
+; Advanced usage: specify another ini to use a separate prx for a certain game ID.
+; (in most cases, you won't use this.)
+ULES01048 = spanish.ini
+; General plugins for any game: use ALL to indicate all game IDs.
+ALL = true
+
+; Optional, specify ini for another prx for specific user interface languages.
+; (in most cases, you won't use this.)
+[lang]
+hr_HR = croatian.ini
+```
+
+Create and compile your plugin, in this case named `patch.prx` using the pspsdk, and it'll be loaded. However, you cannot use many kernel or HEN functions, since they don't work in PPSSPP. The internal architecture is different. You can however call the same functions games can call, update RAM, etc.
+
+### Additional ini options
+
+You can use memory = 64 under [options] to allocate more RAM, up to 93 MB due to memory map limitations. Beware this gives the game overall more RAM, and may affect cheats and memory management in the game.
+
+Under [games], you can use ULJM05275 = foo.ini to allow your plugin to use a different prx for different game IDs, i.e. multidisc games. true is the same as using plugin.ini, in other words use [options] in the same file. `ALL = true` or `ALL = otherfile.ini` can also be used to apply to all games. seplugins won't work, because HEN/kernel funcs are not supported.
+
+You can also add [lang] and put something like se_SE = swedish.ini. This allows you to load a prx just for a user's specific language. This can be in addition to, or instead of, a main plugin.
+
 ## Future plans
 
 * More plugins will be listed here
