@@ -234,3 +234,14 @@ Used to enable or disable cheats in PPSSPP.
 ### System Information
 
 Shows device-related information such as the system specifications, OpenGL extensions and OpenGL ES extensions.
+
+## Hidden settings
+
+You can manually edit `PSP/SYSTEM/ppsspp.ini` in your memstick directory to set these.
+
+Nice copy-paste-able lines below:
+
+```ini
+[Recent]
+MaxRecent = 0   # will remove the Recent tab
+```

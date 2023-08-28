@@ -17,7 +17,7 @@ The ZIM format converter might be made available for download soon. In the meant
 
 Using pngquant / pngyu to reduce the size of PNGs will also make PNG files load faster. See [this post](https://github.com/hrydgard/ppsspp/issues/12059#issuecomment-1436104606) for reference.
 
-From 1.15, PPSSPP will support multiple efficient GPU-native [texture compression formats](https://en.wikipedia.org/wiki/Texture_compression). Here's the current list:
+From 1.15, PPSSPP supports multiple efficient GPU-native [texture compression formats](https://en.wikipedia.org/wiki/Texture_compression). Here's the current list:
 
 * .KTX2 file format: Basis and UASTC universal compression formats, only!
 * .DDS file format: BC1, BC2, BC3, BC7 (BC1-3 is equivalent to DXT1, DXT3, DXT5). These formats don't work on mobile!
