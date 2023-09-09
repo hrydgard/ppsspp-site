@@ -43,7 +43,11 @@ Multiple plugins are available here, for GTA, Splinter Cell and The Warriors. Th
 
 ## Creating plugins
 
+There are no official instructions, but the below resource can help.
+
 These instructions are from the [original pull request](https://github.com/hrydgard/ppsspp/pull/13335) by [Unknown].
+
+[PSPModeBase](https://github.com/xan1242/PSPModBase) is a code base for making plugins.
 
 ### Basic setup
 
