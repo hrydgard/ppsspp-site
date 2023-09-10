@@ -32,7 +32,7 @@ Unfortunately, it's often the case that only one or two regions of a game are su
 
 ## My achievement unlocked at the wrong time!
 
-All existing achievements were created for the PPSSPP core in RetroArch. Unfortunately, due to deficiencies in libretro's design, achievement checks don't run at the correct time in RetroArch - so if your achievement works correctly in RetroArch and not in PPSSPP standalone, the achievement is broken.
+All existing achievements were created for the PPSSPP core in [RALibRetro](https://github.com/RetroAchievements/RALibretro), which has the same timing and plugins as RetroArch. Unfortunately, due to deficiencies in libretro's design, achievement checks don't run at the correct time in RALibRetro or RetroArch - so if your achievement works correctly in RetroArch and not in PPSSPP standalone, the achievement is broken.
 
 ## Developing achievements for PPSSPP
 
