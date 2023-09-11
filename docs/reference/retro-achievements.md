@@ -6,15 +6,19 @@ Not only achievements are supported, but also global leaderboards in games that 
 
 RetroAchievements are supported from [PPSSPP version 1.16](1-16-release-announcement). The feature is not supported in 1.15.4 and older.
 
+From 1.16.1, you can find RetroAchievements under Tools in settings, previously it was under System.
+
 ## Settings documentation
 
 ### Challenge Mode
 
-This is also known as Hardcore Mode, but due to the various associations of the word, and how restrictive the Play Store reviewers can be, we've renamed it to Challenge Mode, much like DuckStation or PCSX2.
+In Challenge Mode, a number of the emulator's features that are particularly prone to cheating are disabled, such as save states and slowing down time. Speeding up time is still allowed.
+
+Challenge Mode is known as Hardcore Mode in some other emulators and on the website, but due to the various associations of the word, and how restrictive the Play Store reviewers can be, we've renamed it to Challenge Mode, much like DuckStation or PCSX2.
 
 ### Encore Mode
 
-Lets you unlock achievements again. Note that this does not affect the real unlock status - you'll just get the notification again if you fulfill the conditions, such as completing a level or whatever it was.
+Lets you unlock achievements again. Note that this does not affect the real unlock status - you'll just get the notification again if you fulfill the conditions, such as completing a level or whatever it was. This is mainly useful for development - for regular gameplay, it gets confusing.
 
 ### Unofficial achievements
 
@@ -36,9 +40,7 @@ All existing achievements were created for the PPSSPP core in [RALibRetro](https
 
 ## Developing achievements for PPSSPP
 
-Achievements are best developed with emulators supporting so-called RAIntegration. PPSSPP does not yet do that, unfortunately, so your best bet is still RetroArch.
-
-RAIntegration support may be added to PPSSPP in the future.
+Achievements are best developed with emulators supporting something called [RAIntegration](https://github.com/RetroAchievements/RAIntegration). PPSSPP does not yet do that, unfortunately, so your best bet is still RetroArch. RAIntegration support will be added to PPSSPP in the future, but I can't give a timeframe - things are in flux with regards to RAIntegration vs rcheevos, and I don't want to implement a solution that will become outdated.
 
 ## How do I register?
 
