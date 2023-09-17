@@ -26,7 +26,9 @@ These platforms were supported once, but aren't anymore due to lack of maintaine
 | Blackberry 10 | Worked | JIT for ARM |
 | Symbian | Worked | JIT for ARM |
 | Pandora | Worked | |
+| DragonBox Pyra | Worked | |
 | Meego | Worked | |
+| Wii U | Proof-of-concept | |
 | Xbox 360 | Proof-of-concept | Hacked consoles only |
 
 These are ports that never happened or are deemed impossible:
