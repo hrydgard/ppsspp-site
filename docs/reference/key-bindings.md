@@ -1,4 +1,20 @@
-# What are those weird key binds like NOTE?
+# What are all those key binds?
+
+## Analog limiter
+
+Bind this if you want to control the analog stick with a digital controller like a keyboard, and you want to be able to move the stick only halfway out from the middle. Pressing this button does that.
+
+## Rapid Fire
+
+Holding this button will repeat all the normal PSP button inputs (Cross, Circle, etc) during the hold. This is useful for quickly skipping lots of dialog while fast-forwarding, for example.
+
+## Fast-forward
+
+Runs emulation as fast as possible. This is useful to quickly get past unskippable cutscenes, for example. Can even shorten load times in many cases.
+
+## AxisSwap
+
+Lets you temporarily switch the function of the analog stick and the d-pad. This is useful for controllers with a limited amount of sticks or buttons.
 
 ## Hold
 

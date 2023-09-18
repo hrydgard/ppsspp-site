@@ -8,6 +8,12 @@ RetroAchievements are supported from [PPSSPP version 1.16](1-16-release-announce
 
 From 1.16.1, you can find RetroAchievements under Tools in settings, previously it was under System.
 
+## How to use
+
+First, create an account on the RetroAchievements website. Then, in PPSSPP's RetroAchievements settings, enter the same username and password.
+
+After that, simply run games, and if they have achievement sets made for them, they'll be activated. Also, you might want to enable Challenge Mode, see below.
+
 ## Settings documentation
 
 ### Challenge Mode
@@ -40,7 +46,7 @@ All existing achievements were created for the PPSSPP core in [RALibRetro](https
 
 ## Developing achievements for PPSSPP
 
-Achievements are best developed with emulators supporting something called [RAIntegration](https://github.com/RetroAchievements/RAIntegration). PPSSPP does not yet do that, unfortunately, so your best bet is still RetroArch. RAIntegration support will be added to PPSSPP in the future, but I can't give a timeframe - things are in flux with regards to RAIntegration vs rcheevos, and I don't want to implement a solution that will become outdated.
+Achievements are best developed with emulators supporting something called [RAIntegration](https://github.com/RetroAchievements/RAIntegration). PPSSPP does not yet do that, unfortunately, so your best bet is still RALibRetro. RAIntegration support will be added to PPSSPP in the future, but I can't give a time frame - things are in flux with regards to RAIntegration vs rcheevos, and I don't want to implement a solution that will become outdated.
 
 ## How do I register?
 
