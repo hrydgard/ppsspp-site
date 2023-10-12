@@ -78,6 +78,12 @@ Runs the transform pipeline (lighting, transform etc) on the GPU. This is what y
 
 Runs "skinning" on the CPU instead of the GPU, which does sound like it would be slower but it means that draw calls from the game can more easily be combined, which often improves things, especially on older devices. However, in some games, hardware (vertex shader) skinning can be faster on some devices so we keep the option around.
 
+### Geometry shader culling
+
+The PSP has some rather different behavior than PC GPUs about at what depth and in which positions triangles get "culled" (removed) and clipped.
+
+Modern PC GPUs lets us emulate these behaviors efficiently if they support clip and cull planes, but not all GPUs do. For those that don't, we have added this option to use "geometry shaders" to get the same behavior. Unfortunately these have some performance overhead, so we offer the option to turn them off - most games don't in fact need this, though some do - if weird geometry is obscuring the camera, you're going to want to enable this.
+
 ### Speedhacks
 
 These are settings that can speed things up in games. The effect ranges from none to large, depending

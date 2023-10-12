@@ -16,7 +16,9 @@ To convert your real PSP games for use with PPSSPP, see [this article](docs/gett
 
 Buy [PPSSPP Gold](/buygold)! Available for Android and PC. It's the same as the regular version functionally (see [Why Gold?](/docs/reference/whygold)), but by buying it you support the development of PPSSPP.
 
-## If I buy PPSSPP Gold for Android, can I also download PPSSPP Gold for PC? Or vice versa?
+Note that PPSSPP Gold is only available for Android, Windows, macOS, but you can of course buy it even if it doesn't support your favorite platform as a way to support the project.
+
+## If I buy PPSSPP Gold for Android, can I also download PPSSPP Gold for PC/Mac? Or vice versa?
 
 See the [Cross Licensing](/requestgold) page!
 

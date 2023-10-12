@@ -21,11 +21,13 @@ PPSSPP Gold also:
 
 ## What platforms is PPSSPP Gold available for?
 
-PPSSPP Gold is currently available for Android and Windows.
+PPSSPP Gold is currently available for Android, Windows and macOS.
+
+It is not currently available for Linux or iOS.
 
 More platforms are planned to be added in the future, but as these are by far the most popular two, they got done first.
 
-Whether you own PPSSPP Gold for one of those platforms or not, feel free to use the free versions on any platforms you have, as much as you want.
+Whether you own PPSSPP Gold for one of those platforms or not, feel free to use the free version on any platforms you have, as much as you want.
 
 ## Why do I need to enter my phone number when making a purchase?
 
