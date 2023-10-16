@@ -411,6 +411,10 @@
           "is_dir": false
         },
         {
+          "name": "PPSSPPGold_macOS.dmg",
+          "is_dir": false
+        },
+        {
           "name": "PPSSPPGoldSetup.exe",
           "is_dir": false
         }
