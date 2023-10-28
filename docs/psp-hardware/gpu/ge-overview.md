@@ -16,7 +16,7 @@ However, it does differ from modern GPUs on modern OSs in a number of ways, some
 
 * The extra blend modes are somewhat tricky to emulate - 2xSRC, 2xDST, and the special blend op ABSDIFF.
 
-* A game has full control over video memory, and can alias/cast the various image formats on top of each other - so you can render to a R5G6B5 target for example, and texture from is as if it was a paletted texture, even though it isn't. As we will see, this allows for some really cool tricks, like [Burnout's lens flare](/blog/lens-flare-burnout-dominator). More information in [the page about image formats](/docs/psp-hardware/image-formats).
+* A game has full control over video memory, and can alias/cast the various image formats on top of each other - so you can render to a R5G6B5 target for example, and texture from is as if it was a paletted texture, even though it isn't. As we will see, this allows for some really cool tricks, like [Burnout's lens flare](/blog/lens-flare-burnout-dominator). More information in [the page about image formats](/docs/psp-hardware/gpu/image-formats).
 
 * It's got a bezier/spline curve drawing unit! It can draw rectangular bezier patches and b-spline patches with knots, with some limitations. It's underused by games, mainly used by games with large landscape things like some snowboarding games, Test Drive, Pursuit Force and a few others. There are also some early games that use it for drawing simple 2D rectangles, for no good reason, like Puzzle Bobble.
 
