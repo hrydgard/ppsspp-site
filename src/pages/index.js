@@ -127,8 +127,8 @@ export default function Home() {
   const cfgName = env.mode != "prod" ? " " + env.mode : "";
   return (
     <Layout
-      title={siteConfig.title + cfgName + " - PSP emulator for Android, Windows, Linux, iOS, macOS"}
-      description="PSP emulator for Android, Windows, Linux, iOS, macOS">
+      title={siteConfig.title + cfgName + " - PSP emulator for Android, Windows, Linux, macOS, iOS"}
+      description="PSP emulator for Android, Windows, Linux, macOS, iOS">
       <HomepageHeader cfgName={cfgName} />
       <main>
         <HomepageFeatures />

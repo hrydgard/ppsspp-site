@@ -1,4 +1,4 @@
-# Plugin support
+# Plugins in PPSSPP
 
 PPSSPP doesn't support traditional PSP plugins, because those often have a far too tight relationship to the PSP OS kernel to work in an emulator that only pretends the kernel is there.
 
