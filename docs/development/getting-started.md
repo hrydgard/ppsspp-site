@@ -39,6 +39,14 @@ PPSSPP is a HLE ("high level emulation") emulator, it simulates the PSP OS as se
 
 Since this emulator implements most of the PSP OS in order to run games, testing it against the real thing is critical. Some other PSP emulator authors have collaborated around creating a test suite called pspautotests, and we have picked that up and expanded it. There are two scripts: **test.py** and **gentest.py**. gentest.py uses psplink to run a test program on your real PSP and captures the text output and saves it as \[test\].expected. Then you can run the same test in PPSSPP by using test.py, which will automatically compare the output to the expected output.
 
+### Profiling
+
+PPSSPP can be hard to profile with traditional tools, since it generates a lot of code at runtime (JIT compilation) that won't have proper symbols.
+
+To this end, \[Unknown\] has modified a convenient little profiler called Very Sleepy with a feature where it can query symbols from the running executable. [Source code branch here](https://github.com/unknownbrackets/verysleepy/tree/jit-support). [Download binary here](/unofficial/sleepy.zip).
+
+To find the integration in PPSSPP's source code, search for `VERYSLEEPY_WPARAM_GETADDRINFO`.
+
 ### Contributing
 
 Pick from the list of tasks below, go look at the [open issues on GitHub](https://github.com/hrydgard/ppsspp/issues), or just implement whatever missing feature you feel like. Send your code as a pull request on Github. If you send a couple of good pull requests, you'll be added as a contributor and get your own commit access.
