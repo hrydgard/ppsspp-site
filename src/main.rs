@@ -24,7 +24,6 @@ use anyhow::Context;
 pub use config::Config;
 
 extern crate serde;
-use serde::{Deserialize, Serialize};
 
 use document::*;
 
@@ -33,7 +32,11 @@ fn generate_docnav_html(root: &document::Category, focused_doc_path: &Path) -> S
     str
 }
 
-fn generate_doctree(config: &Config, folder: &str) -> anyhow::Result<()> {
+fn generate_doctree(
+    config: &Config,
+    folder: &str,
+    handlebars: &mut handlebars::Handlebars,
+) -> anyhow::Result<()> {
     // First, build the tree and convert all the markdown to html and metadata.
     let root_folder = config.indir.join(folder);
     let out_root_folder = config.outdir.clone();
@@ -48,12 +51,16 @@ fn generate_doctree(config: &Config, folder: &str) -> anyhow::Result<()> {
 
         util::create_folder_if_missing(&target_path)?;
 
+        // We apply the template right here.
+        let context = PageContext::new(Some(doc.meta.title), Some(doc.html));
+        let html = handlebars.render("doc", &context)?;
+
         println!("Writing {}", target_path.display());
         let mut file = std::fs::File::create(&target_path).context("create_file")?;
-        file.write_all(doc.html.as_bytes())?;
+        file.write_all(html.as_bytes())?;
     }
 
-    // MD documents get wrapped into our doc templat&e.
+    // MD documents get wrapped into our doc template.
     // println!("{:#?}", root_cat);
 
     Ok(())
@@ -68,7 +75,11 @@ fn generate_blog(config: &Config, folder: &str) -> anyhow::Result<()> {
     Ok(())
 }
 
-fn generate_pages(config: &Config, folder: &str) -> anyhow::Result<()> {
+fn generate_pages(
+    config: &Config,
+    folder: &str,
+    handlebars: &mut handlebars::Handlebars,
+) -> anyhow::Result<()> {
     let root_folder = config.indir.join(folder);
     // pages are generated directly into the root.
     let out_root_folder = &config.outdir;
@@ -83,12 +94,16 @@ fn generate_pages(config: &Config, folder: &str) -> anyhow::Result<()> {
             continue;
         };
         println!("considering {}", path.display());
-        let document = match os_str.to_str().unwrap() {
+        let (document, apply_doc_template) = match os_str.to_str().unwrap() {
             "md" => {
                 file_name.set_extension("html");
-                Document::from_md(&path, &config.markdown_options)?
+                (Document::from_md(&path, &config.markdown_options)?, true)
             }
-            "html" => Document::from_html(&path)?,
+            "html" => (Document::from_html(&path)?, true),
+            "hbs" => {
+                file_name.set_extension("html");
+                (Document::from_hbs(&path, handlebars)?, false)
+            }
             "js" => {
                 continue;
             }
@@ -97,10 +112,18 @@ fn generate_pages(config: &Config, folder: &str) -> anyhow::Result<()> {
                 continue;
             }
         };
+
+        let html = if apply_doc_template {
+            let context = PageContext::new(Some(document.meta.title), Some(document.html));
+            handlebars.render("doc", &context)?
+        } else {
+            document.html
+        };
+
         let target_path = out_root_folder.join(file_name);
         println!("Writing {}", target_path.display());
         let mut file = std::fs::File::create(&target_path).context("create_file")?;
-        file.write_all(document.html.as_bytes())?;
+        file.write_all(html.as_bytes())?;
     }
     Ok(())
 }
@@ -108,27 +131,42 @@ fn generate_pages(config: &Config, folder: &str) -> anyhow::Result<()> {
 fn run() -> anyhow::Result<()> {
     let mut handlebars = handlebars::Handlebars::new();
 
-    //handlebars.register_template_file("header", "template/common_header.hbs")?;
-    //handlebars.register_template_file("footer", "template/common_footer.hbs")?;
+    handlebars.register_template_file("common_header", "template/common_header.hbs")?;
+    handlebars.register_template_file("common_footer", "template/common_footer.hbs")?;
+    handlebars.register_template_file("doc", "template/doc.hbs");
 
     println!("Barebones website generator");
+
+    let mut markdown_options = markdown::Options::gfm();
+    println!("md: {:#?}", markdown_options);
+
+    markdown_options.compile.allow_dangerous_html = true;
 
     let config = Config {
         indir: PathBuf::from("."),
         outdir: PathBuf::from("build"),
-        markdown_options: markdown::Options::gfm(),
+        markdown_options,
     };
 
     if !config.outdir.exists() {
         std::fs::create_dir(&config.outdir).context("outdir")?;
     }
 
-    generate_pages(&config, "src/pages")?;
+    println!("Copying static files...");
+
+    util::copy_recursive(config.indir.join("static"), config.outdir.join("static"))?;
+    std::fs::copy(
+        config.indir.join("static/img/favicon.ico"),
+        config.outdir.join("favicon.ico"),
+    )?;
+
+    generate_pages(&config, "src/pages", &mut handlebars)?;
+
+    generate_doctree(&config, "docs", &mut handlebars)?;
 
     generate_blog(&config, "blog")?;
     generate_blog(&config, "news")?;
 
-    generate_doctree(&config, "docs")?;
     Ok(())
 }
 

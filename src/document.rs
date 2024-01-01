@@ -34,16 +34,34 @@ pub struct Document {
     pub meta: DocumentMeta,
 }
 
+// Used when rendering templates.
+#[derive(Serialize, Deserialize)]
+pub struct PageContext {
+    pub title: Option<String>,
+    pub contents: Option<String>,
+    pub year: i32,
+}
+
+impl PageContext {
+    pub fn new(title: Option<String>, contents: Option<String>) -> Self {
+        Self {
+            title,
+            contents,
+            year: 2024,
+        }
+    }
+}
+
 impl Document {
-    fn read_dash_meta(reader: &mut impl BufRead) -> DocumentMeta {
+    fn read_dash_meta(reader: &mut impl BufRead) -> anyhow::Result<DocumentMeta> {
         let mut meta = DocumentMeta::default();
         let mut buffer = String::new();
 
-        reader.read_line(&mut buffer);
+        reader.read_line(&mut buffer)?;
 
         if !buffer.starts_with("---") {
             // Won't be anything to read.
-            return meta;
+            return Ok(meta);
         }
 
         let mut found_end = false;
@@ -65,14 +83,14 @@ impl Document {
 
         // TODO: runtime error
         assert!(found_end);
-        return meta;
+        Ok(meta)
     }
 
-    pub fn from_md(md_path: &Path, options: &markdown::Options) -> anyhow::Result<Document> {
+    pub fn from_md(md_path: &Path, options: &markdown::Options) -> anyhow::Result<Self> {
         let md_file = std::fs::File::open(&md_path)?;
         let mut reader = BufReader::new(md_file);
 
-        let mut meta = Self::read_dash_meta(&mut reader);
+        let mut meta = Self::read_dash_meta(&mut reader)?;
         // If no dash-meta, grab the title string.
         if meta.title.is_empty() {
             meta.title = util::title_string(&mut reader); // TODO: Only open the file once. But who cares, really.
@@ -83,15 +101,33 @@ impl Document {
         reader.read_to_end(&mut buffer)?;
 
         let md = String::from_utf8(buffer)?;
-
         let html = markdown::to_html_with_options(&md, options).map_err(anyhow::Error::msg)?;
+
         Ok(Self {
             path: md_path.to_path_buf(),
             html,
             meta,
         })
     }
-    pub fn from_html(html_path: &Path) -> anyhow::Result<Document> {
+
+    // The document itself is the template so we apply it immediately. Used for pages.
+    pub fn from_hbs(
+        hbs_path: &Path,
+        handlebars: &mut handlebars::Handlebars,
+    ) -> anyhow::Result<Self> {
+        let hbs = std::fs::read_to_string(&hbs_path)?;
+        let context = PageContext::new(None, None);
+        let html = handlebars.render_template(&hbs, &context)?;
+
+        Ok(Self {
+            path: hbs_path.to_path_buf(),
+            meta: DocumentMeta::default(),
+            html,
+        })
+    }
+
+    // Applies the "doc" template.
+    pub fn from_html(html_path: &Path) -> anyhow::Result<Self> {
         let html = std::fs::read_to_string(&html_path)?;
         Ok(Self {
             path: html_path.to_path_buf(),

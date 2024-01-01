@@ -1,6 +1,21 @@
 use anyhow::Context;
+use std::fs;
 use std::io::BufRead;
 use std::path::Path;
+
+pub fn copy_recursive(src: impl AsRef<Path>, dst: impl AsRef<Path>) -> std::io::Result<()> {
+    fs::create_dir_all(&dst)?;
+    for entry in fs::read_dir(src)? {
+        let entry = entry?;
+        let ty = entry.file_type()?;
+        if ty.is_dir() {
+            copy_recursive(entry.path(), dst.as_ref().join(entry.file_name()))?;
+        } else {
+            fs::copy(entry.path(), dst.as_ref().join(entry.file_name()))?;
+        }
+    }
+    Ok(())
+}
 
 pub fn title_string(buffer: &mut impl BufRead) -> String {
     let mut first_line = String::new();
