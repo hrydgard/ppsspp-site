@@ -7,28 +7,29 @@ use std::{
 extern crate serde;
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Link {
     #[serde(rename = "type")]
     pub link_type: String,
     pub description: String,
 }
 
-#[derive(Debug, Deserialize, Serialize, Default)]
-pub struct CategoryMeta {
+#[derive(Debug, Deserialize, Serialize, Clone, Default)]
+pub struct DocumentMeta {
+    #[serde(default)]
+    pub position: u32,
     #[serde(rename = "label")]
     pub title: String,
-    pub position: u32,
-    pub link: Option<Link>,
-}
-
-#[derive(Debug, Clone, Default)]
-pub struct DocumentMeta {
-    pub title: String,
+    #[serde(default)]
     pub date: String,
+    #[serde(default)]
     pub slug: String,
+    #[serde(default)]
     pub author: String,
+    #[serde(default)]
     pub tags: Vec<String>,
+    #[serde(default)]
+    pub link: Option<Link>,
 }
 
 #[derive(Debug, Clone)]
@@ -43,6 +44,7 @@ pub struct Document {
 pub struct PageContext {
     pub title: Option<String>,
     pub contents: Option<String>,
+    pub sidebar: Option<String>,
     pub year: i32,
 }
 
@@ -51,6 +53,7 @@ impl PageContext {
         Self {
             title,
             contents,
+            sidebar: None,
             year: 2024,
         }
     }
@@ -65,6 +68,9 @@ impl Document {
 
         if !buffer.starts_with("---") {
             // Won't be anything to read.
+            if let Some(suffix) = buffer.strip_prefix("# ") {
+                meta.title = suffix.trim().to_string();
+            }
             return Ok(meta);
         }
 
@@ -98,8 +104,8 @@ impl Document {
     pub fn from_md(md_path: &Path, options: &markdown::Options) -> anyhow::Result<Self> {
         let md_file = std::fs::File::open(&md_path)?;
         let mut reader = BufReader::new(md_file);
-
         let mut meta = Self::read_dash_meta(&mut reader)?;
+
         let mut md = String::from("");
         // If no dash-meta, grab the title string.
         if meta.title.is_empty() {
@@ -113,7 +119,6 @@ impl Document {
 
         md += &String::from_utf8(buffer)?;
         let html = markdown::to_html_with_options(&md, options).map_err(anyhow::Error::msg)?;
-
         Ok(Self {
             path: md_path.to_path_buf(),
             html,
@@ -151,11 +156,12 @@ impl Document {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Category {
-    pub meta: CategoryMeta,
+    pub meta: DocumentMeta,
     pub documents: Vec<Document>,
     pub sub_categories: Vec<Category>,
+    pub path: PathBuf,
 }
 
 impl Category {
@@ -163,7 +169,7 @@ impl Category {
         let mut documents = vec![];
         let mut sub_categories = vec![];
         let listing = folder.read_dir()?;
-        let mut meta = CategoryMeta::default();
+        let mut meta = DocumentMeta::default();
         meta.title = "Untitled".to_string();
 
         for dir_entry in listing {
@@ -195,21 +201,26 @@ impl Category {
             meta,
             documents,
             sub_categories,
+            path: folder.to_path_buf(),
         })
     }
 
-    fn recurse(&self) -> Vec<Document> {
+    pub fn all_documents(&self) -> Vec<Document> {
         let mut all_docs = vec![];
         for doc in &self.documents {
             all_docs.push(doc.clone());
         }
         for cat in &self.sub_categories {
-            all_docs.extend(cat.recurse());
+            all_docs.extend(cat.all_documents());
         }
         all_docs
     }
 
-    pub fn all_documents(&self) -> Vec<Document> {
-        self.recurse()
+    pub fn all_categories(&self) -> Vec<Category> {
+        let mut all_cats = vec![];
+        for cat in &self.sub_categories {
+            all_cats.extend(cat.all_categories());
+        }
+        all_cats
     }
 }

@@ -14,7 +14,6 @@
 
 use std::{
     convert::TryInto,
-    io::Write,
     path::{Path, PathBuf},
 };
 
@@ -39,7 +38,13 @@ fn generate_docnav_html(root: &document::Category, focused_doc_path: &Path) -> S
     for cat in &root.sub_categories {
         str += &generate_docnav_html(cat, focused_doc_path);
     }
-    for doc in &root.documents {}
+    for doc in &root.documents {
+        str += &format!(
+            "<p><a href={}>{}</a></p>",
+            doc.path.display(),
+            doc.meta.title,
+        );
+    }
     str += "</div>";
 
     str
@@ -55,20 +60,25 @@ fn generate_doctree(
     let out_root_folder = config.outdir.clone();
     let root_cat = document::Category::from_folder_tree(&root_folder, &config.markdown_options)?;
 
-    // Write out all the files. Don't need recursion here so we can linearize.
+    // Write out all the docs. Don't need recursion here so we can linearize.
     let docs = root_cat.all_documents();
-
     for doc in docs {
         let target_path = out_root_folder.join(doc.path);
 
         util::create_folder_if_missing(&target_path)?;
 
         // We apply the template right here.
-        let context = PageContext::new(Some(doc.meta.title), Some(doc.html));
+        let mut context = PageContext::new(Some(doc.meta.title), Some(doc.html));
+        context.sidebar = Some(generate_docnav_html(&root_cat, &target_path));
         let html = handlebars.render("doc", &context)?;
 
         println!("Writing doc {}", target_path.display());
         write_file_as_folder_with_index(&target_path, html)?;
+    }
+
+    // Also write out all the categories themselves as index.html files.
+    for cat in root_cat.all_categories() {
+        let target_path = out_root_folder.join(cat.path);
     }
 
     // MD documents get wrapped into our doc template.
@@ -77,7 +87,11 @@ fn generate_doctree(
     Ok(())
 }
 
-fn generate_blog(config: &Config, folder: &str) -> anyhow::Result<()> {
+fn generate_blog(
+    config: &Config,
+    folder: &str,
+    handlebars: &mut handlebars::Handlebars,
+) -> anyhow::Result<()> {
     // For the blog
 
     let root_folder = config.indir.join(folder);
@@ -115,7 +129,14 @@ fn generate_blog(config: &Config, folder: &str) -> anyhow::Result<()> {
             );
             doc.meta.slug = remainder.to_string();
         }
-        // println!("{:?}", doc);
+        assert!(!doc.meta.slug.is_empty());
+
+        let context = PageContext::new(Some(doc.meta.title), Some(doc.html));
+        let html = handlebars.render("doc", &context)?;
+
+        let target_path = out_root_folder.join(doc.meta.slug);
+        println!("Writing blog post {}", target_path.display());
+        util::write_file_as_folder_with_index(&target_path, html)?;
     }
 
     Ok(())
@@ -208,8 +229,8 @@ fn run() -> anyhow::Result<()> {
 
     generate_doctree(&config, "docs", &mut handlebars)?;
 
-    generate_blog(&config, "blog")?;
-    generate_blog(&config, "news")?;
+    generate_blog(&config, "blog", &mut handlebars)?;
+    generate_blog(&config, "news", &mut handlebars)?;
 
     Ok(())
 }
