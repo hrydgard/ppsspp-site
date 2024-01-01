@@ -1,7 +1,6 @@
 ---
 sidebar_position: 6
 ---
-
 # Recommended hardware for PPSSPP
 
 PPSSPP is compatible with almost any recent Android phone, and almost any reasonably new controller for PC. This page lists some things that have been tested to work. More products will be added soon.

@@ -1,7 +1,6 @@
 ---
 sidebar_position: 1
 ---
-
 # How to get games for PPSSPP
 
 PSP games are games originally created for the Sony Playstation Portable, or PSP for short. They are normally sold as either small plastic "UMD" discs or as downloadable content. To use them with PPSSPP, we must turn them into files. An "ISO file" is a raw copy of a disc, which can optionally be compressed into a "CSO", or compressed ISO. For instructions on how to do this yourself, see the [instructions on dumping games](/docs/faq).

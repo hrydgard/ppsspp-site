@@ -56,11 +56,11 @@ function copyMagicLink() {
 }
 
 export default function Home() {
-  const {userData, setUserData} = useUserData();
+  const { userData, setUserData } = useUserData();
   const [orderStatus, setOrderStatus] = useState();
   const [attempts, setAttempts] = useState();
 
-  const queryParams  = new URLSearchParams(location.search);
+  const queryParams = new URLSearchParams(location.search);
   const reference = queryParams.get('orderId');
 
   useInterval(async () => {
@@ -68,22 +68,22 @@ export default function Home() {
     if (orderStatus || attempts > 50) {
       return;
     }
-    var status = await getOrderStatus({reference: reference});
+    var status = await getOrderStatus({ reference: reference });
     console.log(status);
     setOrderStatus(status);
   }, ORDER_REFRESH_INTERVAL);
 
   var progress = <p>Checking for confirmation...</p>;
   var explanation = (<>
-  <p>
-    NOTE: If no e-mail arrives within a few minutes, please check your spam box.
-    If it's not there or you want to use a different e-mail address for log-in,
-    then <a href="mailto:hrydgard+ppssppgold@gmail.com">e-mail me</a> and I'll sort it out.
-  </p>
-  <p>
-    Also, if you want access to the Android version of PPSSPP Gold, likewise, use the contact address above.
-  </p>
-  <p>Your order reference: <strong>{reference}</strong>.</p>
+    <p>
+      NOTE: If no e-mail arrives within a few minutes, please check your spam box.
+      If it's not there or you want to use a different e-mail address for log-in,
+      then <a href="mailto:hrydgard+ppssppgold@gmail.com">e-mail me</a> and I'll sort it out.
+    </p>
+    <p>
+      Also, if you want access to the Android version of PPSSPP Gold, likewise, use the contact address above.
+    </p>
+    <p>Your order reference: <strong>{reference}</strong>.</p>
   </>);
 
   var goldAlready = <>
@@ -97,11 +97,11 @@ export default function Home() {
     progress = <></>;
     if (orderStatus.paymentStatus == "completed") {
       report = <>
-      <div className="alert alert--success" role="alert">E-mail with login link sent to <strong>{orderStatus.email}</strong>!</div>
-      <br/>
-      <p>Your login link:<br/>
-      <input type="text" readOnly value={orderStatus.magicLink} id="magicLink"/>&nbsp;<button onClick={() => copyMagicLink()}>Copy</button></p>
-      <Link to={orderStatus.magicLink}>Login and download now!</Link><br/>
+        <div className="alert alert--success" role="alert">E-mail with login link sent to <strong>{orderStatus.email}</strong>!</div>
+        <br />
+        <p>Your login link:<br />
+          <input type="text" readOnly value={orderStatus.magicLink} id="magicLink" />&nbsp;<button onClick={() => copyMagicLink()}>Copy</button></p>
+        <Link to={orderStatus.magicLink}>Login and download now!</Link><br />
       </>;
     } else {
       // This shouldn't really happen, we don't log failed purchases, and we shouldn't have gotten
@@ -116,7 +116,7 @@ export default function Home() {
 
   return (
     <Layout title={`Thank you!`} description="Thank you!">
-    <br/>
+      <br />
       <div className="container">
         <div className={clsx("row simple-center")}>
           <div className={clsx("col col--6")}>
@@ -125,15 +125,15 @@ export default function Home() {
                 <h1>Thanks for buying PPSSPP Gold for Windows/macOS!</h1>
               </div>
               <div className="card__body">
-              <img src="/img/platform/ppsspp-icon-gold.png" width="48px" />
+                <img src="/static/img/" platform /ppsspp-icon-gold.png" width="48px" />
 
-              <p>Thank you for your purchase!</p>
+                <p>Thank you for your purchase!</p>
 
-              {progress}
+                {progress}
 
-              {report}
-              <br/>
-              {userData.loggedIn ? goldAlready : explanation}
+                {report}
+                <br />
+                {userData.loggedIn ? goldAlready : explanation}
               </div>
             </div>
           </div>

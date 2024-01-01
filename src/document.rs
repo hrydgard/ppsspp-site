@@ -60,7 +60,7 @@ impl PageContext {
 }
 
 impl Document {
-    fn read_dash_meta(reader: &mut impl BufRead) -> anyhow::Result<DocumentMeta> {
+    fn read_dash_meta(reader: &mut impl BufRead) -> anyhow::Result<(DocumentMeta, bool)> {
         let mut meta = DocumentMeta::default();
         let mut buffer = String::new();
 
@@ -68,10 +68,12 @@ impl Document {
 
         if !buffer.starts_with("---") {
             // Won't be anything to read.
-            if let Some(suffix) = buffer.strip_prefix("# ") {
+            return if let Some(suffix) = buffer.strip_prefix("# ") {
                 meta.title = suffix.trim().to_string();
-            }
-            return Ok(meta);
+                Ok((meta, true))
+            } else {
+                Ok((meta, false))
+            };
         }
 
         let mut found_end = false;
@@ -97,19 +99,26 @@ impl Document {
 
         // TODO: runtime error
         assert!(found_end);
-        Ok(meta)
+        Ok((meta, false))
     }
 
     // Handles page, blog posts, etc, including triple-dash docusaurus-style metadata.
     pub fn from_md(md_path: &Path, options: &markdown::Options) -> anyhow::Result<Self> {
         let md_file = std::fs::File::open(&md_path)?;
         let mut reader = BufReader::new(md_file);
-        let mut meta = Self::read_dash_meta(&mut reader)?;
+        let (mut meta, mut ate_title) = Self::read_dash_meta(&mut reader)?;
 
         let mut md = String::from("");
         // If no dash-meta, grab the title string.
         if meta.title.is_empty() {
-            meta.title = util::title_string(&mut reader); // TODO: Only open the file once. But who cares, really.
+            let mut buffer = String::new();
+            let _ = reader.read_line(&mut buffer);
+            if let Some(remaining) = buffer.strip_prefix("# ") {
+                meta.title = remaining.to_string(); // TODO: Only open the file once. But who cares, really.
+                ate_title = true;
+            }
+        }
+        if ate_title {
             md += &format!("# {}\n", meta.title);
         }
 
@@ -119,11 +128,9 @@ impl Document {
 
         md += &String::from_utf8(buffer)?;
         let html = markdown::to_html_with_options(&md, options).map_err(anyhow::Error::msg)?;
-        Ok(Self {
-            path: md_path.to_path_buf(),
-            html,
-            meta,
-        })
+        let mut path = md_path.to_path_buf();
+        path.set_extension("");
+        Ok(Self { path, html, meta })
     }
 
     // The document itself is the template so we apply it immediately. Used for pages.

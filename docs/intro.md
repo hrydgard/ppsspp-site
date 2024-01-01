@@ -1,7 +1,6 @@
 ---
 sidebar_position: 1
 ---
-
 # Documentation & Help
 
 [Getting Started](/docs/category/getting-started) - this is a good place to start!

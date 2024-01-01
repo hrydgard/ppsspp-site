@@ -12,7 +12,7 @@ const env = require('../../env');
 // It turned out a bit hacky, but it seems to work reliably now.
 // Note to future self - see private document "IT Infrastructure" for test purchase account details.
 
-function CategoryCard({title, description, productId, items}) {
+function CategoryCard({ title, description, productId, items }) {
   const item = items ? items[productId] : null;
   const price = item ? item.price : "...";
 
@@ -36,12 +36,12 @@ function CategoryCard({title, description, productId, items}) {
         <div className="card">
           <div className="card__header">
             <h3>{title}</h3>
-            <p>{description}<br/><span>{price}</span></p>
+            <p>{description}<br /><span>{price}</span></p>
           </div>
           <div className="card__body">
             <button className="button button--primary margin-bottom--md" onClick={buyProduct}>
               <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-                <img src="/img/platform/ppsspp-icon-gold.png" width="48px" />
+                <img src="/static/img/" platform /ppsspp-icon-gold.png" width="48px" />
                 <span style={{ paddingLeft: "10px" }}>Buy PPSSPP Gold</span>
               </div>
             </button>
@@ -52,7 +52,7 @@ function CategoryCard({title, description, productId, items}) {
   )
 }
 
-function BuyGoldPage({goldUser, devMode}) {
+function BuyGoldPage({ goldUser, devMode }) {
   const [items, setItems] = useState(null);
   const [country, setCountry] = useState("US");
 
@@ -93,7 +93,7 @@ function BuyGoldPage({goldUser, devMode}) {
         console.log(orderReference)
         fastspring.builder.reset();
         var url = "/thankyou?orderId=" + orderReference.reference;
-        try {window.location.replace(url);} catch(e) {window.location = url;}
+        try { window.location.replace(url); } catch (e) { window.location = url; }
       } else {
         console.log("no order ID - will not redirect to thankyou page");
       }
@@ -134,7 +134,7 @@ function BuyGoldPage({goldUser, devMode}) {
     addSBL();
   }, []);
 
-  const vcenterStyle = { display: 'flex', alignItems: 'center', width: '..', height: '..'}
+  const vcenterStyle = { display: 'flex', alignItems: 'center', width: '..', height: '..' }
 
   var goldAlready = <>{goldUser}</>;
   if (goldUser) {
@@ -148,66 +148,66 @@ function BuyGoldPage({goldUser, devMode}) {
 
   return (
     <>
-    <br/>
-    <div className="container">
-      <div className="row">
-        <div className={clsx("col col--8")}>
-          <h1 style={vcenterStyle}><img src="/img/platform/ppsspp-icon-gold.png"  width="64px" height="64px"/>&nbsp;PPSSPP Gold</h1>
+      <br />
+      <div className="container">
+        <div className="row">
+          <div className={clsx("col col--8")}>
+            <h1 style={vcenterStyle}><img src="/static/img/" platform /ppsspp-icon-gold.png"  width="64px" height="64px"/>&nbsp;PPSSPP Gold</h1>
+          </div>
+        </div>
+
+        <h3>Buy PPSSPP Gold for Android</h3>
+        <p>
+          <Link className={clsx("btn btn-warning btn-large")} to="https://play.google.com/store/apps/details?id=org.ppsspp.ppssppgold">
+            <img alt="PPSSPP Gold on Google Play" src="https://developer.android.com/images/brand/en_generic_rgb_wo_60.png" />
+          </Link>
+        </p>
+
+        {devMode && <p>DEV MODE</p>}
+
+        <h3>Buy PPSSPP Gold for Windows/macOS</h3>
+        {goldAlready}
+
+        <p>Choose your level:</p>
+
+        <div className="row">
+          <CategoryCard title="Hangaround" description="A show of support." productId="ppsspp-gold-l1" items={items} />
+          <CategoryCard title="Supporter" description="This will help!" productId="ppsspp-gold-l2" items={items} />
+          <CategoryCard title="Fan" description="A strong statement." productId="ppsspp-gold-l3" items={items} />
+        </div>
+
+        <br />
+
+        <div className="row">
+          <CategoryCard title="Gamer" description="A real contribution." productId="ppsspp-gold-l4" items={items} />
+          <CategoryCard title="Powergamer" description="A love of emulation." productId="ppsspp-gold-l5" items={items} />
+          <CategoryCard title="Grandmaster" description="You totally rock!" productId="ppsspp-gold-l6" items={items} />
+        </div>
+
+        <br />
+
+        {!goldUser &&
+          <p>Do you have PPSSPP Gold for Android already? <Link href="/requestgold">Request PPSSPP Gold for Windows/macOS here.</Link></p>}
+
+        <hr />
+
+        <div className="row">
+          <div className={clsx("col col--8")}>
+            <h3>Links and information</h3>
+            <ul>
+              <li><Link to="/docs/reference/whygold">Why buy PPSSPP Gold? What's the difference?</Link></li>
+            </ul>
+          </div>
         </div>
       </div>
-
-      <h3>Buy PPSSPP Gold for Android</h3>
-      <p>
-        <Link className={clsx("btn btn-warning btn-large")} to="https://play.google.com/store/apps/details?id=org.ppsspp.ppssppgold">
-          <img alt="PPSSPP Gold on Google Play" src="https://developer.android.com/images/brand/en_generic_rgb_wo_60.png" />
-        </Link>
-      </p>
-
-      {devMode && <p>DEV MODE</p>}
-
-      <h3>Buy PPSSPP Gold for Windows/macOS</h3>
-      {goldAlready}
-
-      <p>Choose your level:</p>
-
-      <div className="row">
-        <CategoryCard title="Hangaround" description="A show of support." productId="ppsspp-gold-l1" items={items}/>
-        <CategoryCard title="Supporter" description="This will help!" productId="ppsspp-gold-l2" items={items}/>
-        <CategoryCard title="Fan" description="A strong statement." productId="ppsspp-gold-l3" items={items}/>
-      </div>
-
-      <br/>
-
-      <div className="row">
-        <CategoryCard title="Gamer" description="A real contribution." productId="ppsspp-gold-l4" items={items}/>
-        <CategoryCard title="Powergamer" description="A love of emulation." productId="ppsspp-gold-l5" items={items}/>
-        <CategoryCard title="Grandmaster" description="You totally rock!" productId="ppsspp-gold-l6" items={items}/>
-      </div>
-
-      <br/>
-
-      {!goldUser &&
-      <p>Do you have PPSSPP Gold for Android already? <Link href="/requestgold">Request PPSSPP Gold for Windows/macOS here.</Link></p> }
-
-      <hr/>
-
-      <div className="row">
-        <div className={clsx("col col--8")}>
-          <h3>Links and information</h3>
-          <ul>
-          <li><Link to="/docs/reference/whygold">Why buy PPSSPP Gold? What's the difference?</Link></li>
-          </ul>
-        </div>
-      </div>
-    </div>
 
     </>
   )
 }
 
 export default function Home() {
-  const {siteConfig} = useDocusaurusContext();
-  const {userData, setUserData} = useUserData();
+  const { siteConfig } = useDocusaurusContext();
+  const { userData, setUserData } = useUserData();
 
   var devMode = env.mode !== "prod";
 

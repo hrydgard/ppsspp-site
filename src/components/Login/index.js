@@ -12,7 +12,7 @@ export default function LoginCorner() {
   } else {
     iconName = "ppsspp-icon.png";
   };
-  iconName = "/img/platform/" + iconName;
+  iconName = "/static/img/"platform / " + iconName;
 
   // NOTE: Intentionally using a here instead of Link because it forces a real load,
   // and if the user fell off https somehow, that will fix it.
@@ -21,7 +21,7 @@ export default function LoginCorner() {
     // TODO: Add a &Forward= attribute derived from the current page URI to the link?
     return (
       <>
-        <img src={iconName} width="22px" height="22px"/>
+        <img src={iconName} width="22px" height="22px" />
         &nbsp;
         <Link to="/login">{userData["name"]}</Link>
       </>

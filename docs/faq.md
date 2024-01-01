@@ -1,7 +1,6 @@
 ---
 sidebar_position: 2
 ---
-
 # FAQ - Frequently Asked Questions
 
 Quick answers to questions that are frequently asked.

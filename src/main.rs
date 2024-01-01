@@ -14,13 +14,16 @@
 
 use std::{
     convert::TryInto,
+    io::Write,
     path::{Path, PathBuf},
 };
 
 extern crate anyhow;
 mod config;
 mod document;
+mod server;
 mod util;
+
 use anyhow::Context;
 pub use config::Config;
 
@@ -28,19 +31,24 @@ extern crate serde;
 
 use document::*;
 
-use crate::util::write_file_as_folder_with_index;
+use crate::util::{filename_to_string, write_file_as_folder_with_index};
 
 // TODO: Involve templates here for easier modification?
 fn generate_docnav_html(root: &document::Category, focused_doc_path: &Path) -> String {
     let mut str = String::new();
     // For now, fully expanded. Will fix later.
+    str += &format!(
+        "<p><a href=/{}>{}</a></p>",
+        root.path.display(),
+        root.meta.title
+    );
     str += "<div>";
     for cat in &root.sub_categories {
         str += &generate_docnav_html(cat, focused_doc_path);
     }
     for doc in &root.documents {
         str += &format!(
-            "<p><a href={}>{}</a></p>",
+            "<p>- <a href=/{}>{}</a></p>",
             doc.path.display(),
             doc.meta.title,
         );
@@ -188,8 +196,17 @@ fn generate_pages(
         };
 
         let target_path = out_root_folder.join(file_name);
-        println!("Writing page {}", target_path.display());
-        util::write_file_as_folder_with_index(&target_path, html)?;
+        let fname = filename_to_string(&entry.file_name());
+        println!("Writing page {} ({fname})", target_path.display());
+        if fname == "index.hbs" {
+            println!("INDEX.HTML special case");
+            // Just write it plain.
+            let mut file = std::fs::File::create(&target_path).context("create_file_as_dir")?;
+            file.write_all(html.as_bytes())?;
+        } else {
+            // Otherwise, get rid of the extension by putting it in a subdirectory.
+            util::write_file_as_folder_with_index(&target_path, html)?;
+        }
     }
     Ok(())
 }
@@ -232,11 +249,16 @@ fn run() -> anyhow::Result<()> {
     generate_blog(&config, "blog", &mut handlebars)?;
     generate_blog(&config, "news", &mut handlebars)?;
 
+    // OK, we're done - just serve the results.
+    let port = 3000;
+    println!("Serving on localhost:{}", port);
+
     Ok(())
 }
 
-fn main() {
-    env_logger::init();
-
+#[tokio::main]
+async fn main() {
     run().unwrap();
+
+    server::run_server().await;
 }

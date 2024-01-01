@@ -3,7 +3,7 @@ import ImageGallery from 'react-image-gallery';
 import styles from './styles.module.css';
 import "react-image-gallery/styles/css/image-gallery.css";
 
-export function VideoGallery({}) {
+export function VideoGallery({ }) {
     return (
         <iframe src="//www.youtube.com/embed/x8LwVi2LrO4" frameborder="0" allowfullscreen></iframe>
     );
@@ -119,21 +119,21 @@ const images = [
 function genUrls(images) {
     return images.map((image) => {
         return {
-            original: "/img/screenshots/" + image.filename,
-            thumbnail: "/img/screenshots/thumbs/" + image.filename,
-            description: image.description,
+            original: "/static/img/"screenshots/ " + image.filename,
+        thumbnail: "/static/img/"screenshots / thumbs / " + image.filename,
+        description: image.description,
         };
-    });
+});
 }
 
-export default function ScreenshotGallery({}) {
+export default function ScreenshotGallery({ }) {
     return (
         <>
             <section>
                 <row>
                     <ImageGallery
-                    lazyLoad="true"
-                    items={genUrls(images)}
+                        lazyLoad="true"
+                        items={genUrls(images)}
                     />
                 </row>
             </section>

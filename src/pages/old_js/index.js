@@ -8,11 +8,11 @@ import styles from './index.module.css';
 
 const env = require('../../env');
 
-function HomepageHeader({cfgName}) {
-  const {siteConfig} = useDocusaurusContext();
+function HomepageHeader({ cfgName }) {
+  const { siteConfig } = useDocusaurusContext();
 
-  var normalIcon = "/img/platform/ppsspp-icon.png";
-  var goldIcon = "/img/platform/ppsspp-icon-gold.png";
+  var normalIcon = "/static/img/"platform/ppsspp-icon.png";
+  var goldIcon = "/static/img/"platform/ppsspp-icon-gold.png";
 
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
@@ -30,12 +30,12 @@ function HomepageHeader({cfgName}) {
           <h1 className="hero__title">{siteConfig.title + cfgName}</h1>
           <p className="hero__subtitle">{siteConfig.tagline}</p>
           <Link to={"/download"} className="button button--block button--primary margin-bottom--md hero-button"
-            style={{display: "flex", flexDirection: "row", alignItems: "center" }}>
-              <img src={normalIcon} width="26px" height="26px"/>&nbsp;&nbsp;Download
+            style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+            <img src={normalIcon} width="26px" height="26px" />&nbsp;&nbsp;Download
           </Link>
           <Link to={"/buygold"} className="button button--block button--primary margin-bottom--md hero-button"
-            style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-              <img src={goldIcon} width="26px" height="26px"/>&nbsp;&nbsp;Buy PPSSPP Gold
+            style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+            <img src={goldIcon} width="26px" height="26px" />&nbsp;&nbsp;Buy PPSSPP Gold
           </Link>
 
         </div>
@@ -53,8 +53,8 @@ const FeatureList = [
     description: (
       <>
         <p>PPSSPP can run your PSP games on your PC or Android phone in full HD resolution or even higher.
-        It can also upscale textures to make them sharper, and you can enable post-processing shaders
-        to adjust color and brightness the way you like, and other effects.
+          It can also upscale textures to make them sharper, and you can enable post-processing shaders
+          to adjust color and brightness the way you like, and other effects.
         </p>
       </>
     ),
@@ -77,21 +77,21 @@ const FeatureList = [
     title: 'Free & Open Source',
     description: (
       <>
-          <p>PPSSPP is an open source project, licensed under the GPL 2.0 (or later).
+        <p>PPSSPP is an open source project, licensed under the GPL 2.0 (or later).
           Anyone is welcome to contribute improvements to the code.
           Thanks to many such contributions, PPSSPP's compatibility is steadily increasing,
           letting us all play our PSP games on devices of our choice.
-          </p>
-          <p><Link className="btn" to="/docs/category/development">Development &raquo;</Link>
+        </p>
+        <p><Link className="btn" to="/docs/category/development">Development &raquo;</Link>
           <br></br>
           <Link className="btn" to="https://github.com/hrydgard/ppsspp">GitHub &raquo;</Link>
-          </p>
-       </>
+        </p>
+      </>
     ),
   },
 ];
 
-function Feature({Svg, title, description}) {
+function Feature({ Svg, title, description }) {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--left padding-horiz--md padding-vert--md">
@@ -123,7 +123,7 @@ function RecentNews() {
 }
 
 export default function Home() {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
   const cfgName = env.mode != "prod" ? " " + env.mode : "";
   return (
     <Layout

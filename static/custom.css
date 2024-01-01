@@ -17,6 +17,7 @@
   src: url("/static/fonts/droidsans/v18/SlGVmQWMvZQIdix7AFxXkHNSbQ.woff2") format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+
 /* latin */
 @font-face {
   font-family: 'Droid Sans';
@@ -36,8 +37,8 @@ https://github.com/facebookincubator/infima/blob/main/packages/core/styles/commo
 :root {
   --navbar-color: #FFFFFF;
   --footer-color: #2897bf;
-  --gold-color:  #d4a600;
-  --gold-color-border:  #271e00;
+  --gold-color: #d4a600;
+  --gold-color-border: #271e00;
   --ifm-color-warning: #b78600;
 
   --ifm-color-primary: #2897bf;
@@ -50,16 +51,16 @@ https://github.com/facebookincubator/infima/blob/main/packages/core/styles/commo
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
   --ifm-font-family-base: 'Droid Sans', system-ui, -apple-system, BlinkMacSystemFont,
-  'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
-  'Segoe UI Emoji', 'Segoe UI Symbol';
+    'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
   --navbar-color: #000000;
   --footer-color: #000000;
-  --gold-color:  #a78300;
-  --gold-color-border:  #ffc800;
+  --gold-color: #a78300;
+  --gold-color-border: #ffc800;
 
   --ifm-color-warning: #b78600;
 
@@ -88,14 +89,17 @@ h1 {
   font-size: 30px;
   line-height: 40px;
 }
+
 h2 {
   font-size: 25px;
   line-height: 25px;
 }
+
 h3 {
   font-size: 20px;
   line-height: 30px;
 }
+
 h4 {
   font-size: 18px;
   line-height: 30px;
@@ -135,24 +139,28 @@ h4 {
 .hero__title {
   text-align: left;
 }
+
 .hero__subtitle {
   text-align: left;
 }
 
 /* Form hack */
- input {
+input {
   width: 60%;
 }
 
-.image-gallery-slide-wrapper { min-height: 200px; }
+.image-gallery-slide-wrapper {
+  min-height: 200px;
+}
 
 form input {
-    width: 100%;
+  width: 100%;
 }
+
 form span {
-    display: block;
-    overflow: hidden;
-    padding: 0 5px 0 0;
+  display: block;
+  overflow: hidden;
+  padding: 0 5px 0 0;
 }
 
 /* For the YoutubeEmbed component. TODO: Find a better place. */
@@ -206,158 +214,219 @@ form span {
 
 .hero {
   background: #193858;
-  background-image: url("/img/front/gameroll.jpg");  /* This was made in photopea */
-  background-position: center right;
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: contain; /* Resize the background image to cover the entire container */
-}
+  background-image: url("/static/img/" front/gameroll.jpg");  /* This was made in photopea */
+ background-position: center right;
+      background-repeat: no-repeat;
+      /* Do not repeat the image */
+      background-size: contain;
+      /* Resize the background image to cover the entire container */
+  }
 
-.light {
-  position: absolute;
-  width: 0px;
-  opacity: .75;
-  background-color: white;
-  box-shadow: #e9f1f1 0px 0px 20px 2px;
-  opacity: 0;
-  top: 100vh;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  margin: auto;
-}
+  .light {
+    position: absolute;
+    width: 0px;
+    opacity: .75;
+    background-color: white;
+    box-shadow: #e9f1f1 0px 0px 20px 2px;
+    opacity: 0;
+    top: 100vh;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+  }
 
-.x1{
--webkit-animation: floatUp 4s infinite linear;
--moz-animation: floatUp 4s infinite linear;
--o-animation: floatUp 4s infinite linear;
-animation: floatUp 4s infinite linear;
- -webkit-transform: scale(1.0);
- -moz-transform: scale(1.0);
- -o-transform: scale(1.0);
-transform: scale(1.0);
-}
+  .x1 {
+    -webkit-animation: floatUp 4s infinite linear;
+    -moz-animation: floatUp 4s infinite linear;
+    -o-animation: floatUp 4s infinite linear;
+    animation: floatUp 4s infinite linear;
+    -webkit-transform: scale(1.0);
+    -moz-transform: scale(1.0);
+    -o-transform: scale(1.0);
+    transform: scale(1.0);
+  }
 
-.x2{
--webkit-animation: floatUp 7s infinite linear;
--moz-animation: floatUp 7s infinite linear;
--o-animation: floatUp 7s infinite linear;
-animation: floatUp 7s infinite linear;
--webkit-transform: scale(1.6);
--moz-transform: scale(1.6);
--o-transform: scale(1.6);
-transform: scale(1.6);
-left: 15%;
-}
+  .x2 {
+    -webkit-animation: floatUp 7s infinite linear;
+    -moz-animation: floatUp 7s infinite linear;
+    -o-animation: floatUp 7s infinite linear;
+    animation: floatUp 7s infinite linear;
+    -webkit-transform: scale(1.6);
+    -moz-transform: scale(1.6);
+    -o-transform: scale(1.6);
+    transform: scale(1.6);
+    left: 15%;
+  }
 
-.x3{
--webkit-animation: floatUp 2.5s infinite linear;
--moz-animation: floatUp 2.5s infinite linear;
--o-animation: floatUp 2.5s infinite linear;
-animation: floatUp 2.5s infinite linear;
--webkit-transform: scale(.5);
--moz-transform: scale(.5);
--o-transform: scale(.5);
-transform: scale(.5);
-left: -15%;
-}
+  .x3 {
+    -webkit-animation: floatUp 2.5s infinite linear;
+    -moz-animation: floatUp 2.5s infinite linear;
+    -o-animation: floatUp 2.5s infinite linear;
+    animation: floatUp 2.5s infinite linear;
+    -webkit-transform: scale(.5);
+    -moz-transform: scale(.5);
+    -o-transform: scale(.5);
+    transform: scale(.5);
+    left: -15%;
+  }
 
-.x4{
--webkit-animation: floatUp 4.5s infinite linear;
--moz-animation: floatUp 4.5s infinite linear;
--o-animation: floatUp 4.5s infinite linear;
-animation: floatUp 4.5s infinite linear;
--webkit-transform: scale(1.2);
--moz-transform: scale(1.2);
--o-transform: scale(1.2);
-transform: scale(1.2);
-left: -34%;
-}
+  .x4 {
+    -webkit-animation: floatUp 4.5s infinite linear;
+    -moz-animation: floatUp 4.5s infinite linear;
+    -o-animation: floatUp 4.5s infinite linear;
+    animation: floatUp 4.5s infinite linear;
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform: scale(1.2);
+    left: -34%;
+  }
 
-.x5{
--webkit-animation: floatUp 8s infinite linear;
--moz-animation: floatUp 8s infinite linear;
--o-animation: floatUp 8s infinite linear;
-animation: floatUp 8s infinite linear;
--webkit-transform: scale(2.2);
--moz-transform: scale(2.2);
--o-transform: scale(2.2);
-transform: scale(2.2);
-left: -57%;
-}
+  .x5 {
+    -webkit-animation: floatUp 8s infinite linear;
+    -moz-animation: floatUp 8s infinite linear;
+    -o-animation: floatUp 8s infinite linear;
+    animation: floatUp 8s infinite linear;
+    -webkit-transform: scale(2.2);
+    -moz-transform: scale(2.2);
+    -o-transform: scale(2.2);
+    transform: scale(2.2);
+    left: -57%;
+  }
 
-.x6{
--webkit-animation: floatUp 3s infinite linear;
--moz-animation: floatUp 3s infinite linear;
--o-animation: floatUp 3s infinite linear;
-animation: floatUp 3s infinite linear;
--webkit-transform: scale(.8);
--moz-transform: scale(.8);
--o-transform: scale(.8);
-transform: scale(.8);
-left: -81%;
-}
+  .x6 {
+    -webkit-animation: floatUp 3s infinite linear;
+    -moz-animation: floatUp 3s infinite linear;
+    -o-animation: floatUp 3s infinite linear;
+    animation: floatUp 3s infinite linear;
+    -webkit-transform: scale(.8);
+    -moz-transform: scale(.8);
+    -o-transform: scale(.8);
+    transform: scale(.8);
+    left: -81%;
+  }
 
-.x7{
--webkit-animation: floatUp 5.3s infinite linear;
--moz-animation: floatUp 5.3s infinite linear;
--o-animation: floatUp 5.3s infinite linear;
-animation: floatUp 5.3s infinite linear;
--webkit-transform: scale(3.2);
--moz-transform: scale(3.2);
--o-transform: scale(3.2);
-transform: scale(3.2);
-left: 37%;
-}
+  .x7 {
+    -webkit-animation: floatUp 5.3s infinite linear;
+    -moz-animation: floatUp 5.3s infinite linear;
+    -o-animation: floatUp 5.3s infinite linear;
+    animation: floatUp 5.3s infinite linear;
+    -webkit-transform: scale(3.2);
+    -moz-transform: scale(3.2);
+    -o-transform: scale(3.2);
+    transform: scale(3.2);
+    left: 37%;
+  }
 
-.x8{
--webkit-animation: floatUp 4.7s infinite linear;
--moz-animation: floatUp 4.7s infinite linear;
--o-animation: floatUp 4.7s infinite linear;
-animation: floatUp 4.7s infinite linear;
--webkit-transform: scale(1.7);
--moz-transform: scale(1.7);
--o-transform: scale(1.7);
-transform: scale(1.7);
-left: 62%;
-}
+  .x8 {
+    -webkit-animation: floatUp 4.7s infinite linear;
+    -moz-animation: floatUp 4.7s infinite linear;
+    -o-animation: floatUp 4.7s infinite linear;
+    animation: floatUp 4.7s infinite linear;
+    -webkit-transform: scale(1.7);
+    -moz-transform: scale(1.7);
+    -o-transform: scale(1.7);
+    transform: scale(1.7);
+    left: 62%;
+  }
 
-.x9{
--webkit-animation: floatUp 4.1s infinite linear;
--moz-animation: floatUp 4.1s infinite linear;
--o-animation: floatUp 4.1s infinite linear;
-animation: floatUp 4.1s infinite linear;
--webkit-transform: scale(0.9);
--moz-transform: scale(0.9);
--o-transform: scale(0.9);
-transform: scale(0.9);
-left: 85%;
-}
+  .x9 {
+    -webkit-animation: floatUp 4.1s infinite linear;
+    -moz-animation: floatUp 4.1s infinite linear;
+    -o-animation: floatUp 4.1s infinite linear;
+    animation: floatUp 4.1s infinite linear;
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -o-transform: scale(0.9);
+    transform: scale(0.9);
+    left: 85%;
+  }
 
-@-webkit-keyframes floatUp{
-  0%{top: 100vh; opacity: 0;}
-  25%{opacity: 1;}
-  50%{top: 0vh; opacity: .8;}
-  75%{opacity: 1;}
-  100%{top: -100vh; opacity: 0;}
-}
-@-moz-keyframes floatUp{
-  0%{top: 100vh; opacity: 0;}
-  25%{opacity: 1;}
-  50%{top: 0vh; opacity: .8;}
-  75%{opacity: 1;}
-  100%{top: -100vh; opacity: 0;}
-}
-@-o-keyframes floatUp{
-  0%{top: 100vh; opacity: 0;}
-  25%{opacity: 1;}
-  50%{top: 0vh; opacity: .8;}
-  75%{opacity: 1;}
-  100%{top: -100vh; opacity: 0;}
-}
-@keyframes floatUp{
-  0%{top: 100vh; opacity: 0;}
-  25%{opacity: 1;}
-  50%{top: 0vh; opacity: .8;}
-  75%{opacity: 1;}
-  100%{top: -100vh; opacity: 0;}
-}
+  @-webkit-keyframes floatUp {
+    0% {
+      top: 100vh; opacity: 0;
+    }
+
+    25% {
+      opacity: 1;
+    }
+
+    50% {
+      top: 0vh; opacity: .8;
+    }
+
+    75% {
+      opacity: 1;
+    }
+
+    100% {
+      top: -100vh; opacity: 0;
+    }
+  }
+
+  @-moz-keyframes floatUp {
+    0% {
+      top: 100vh; opacity: 0;
+    }
+
+    25% {
+      opacity: 1;
+    }
+
+    50% {
+      top: 0vh; opacity: .8;
+    }
+
+    75% {
+      opacity: 1;
+    }
+
+    100% {
+      top: -100vh; opacity: 0;
+    }
+  }
+
+  @-o-keyframes floatUp {
+    0% {
+      top: 100vh; opacity: 0;
+    }
+
+    25% {
+      opacity: 1;
+    }
+
+    50% {
+      top: 0vh; opacity: .8;
+    }
+
+    75% {
+      opacity: 1;
+    }
+
+    100% {
+      top: -100vh; opacity: 0;
+    }
+  }
+
+  @keyframes floatUp {
+    0% {
+      top: 100vh; opacity: 0;
+    }
+
+    25% {
+      opacity: 1;
+    }
+
+    50% {
+      top: 0vh; opacity: .8;
+    }
+
+    75% {
+      opacity: 1;
+    }
+
+    100% {
+      top: -100vh; opacity: 0;
+    }
+  }
