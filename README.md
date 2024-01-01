@@ -2,8 +2,7 @@
 
 This is the entire frontend for the official ppsspp.org website.
 
-It's built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator using React,
-with some rather heavy customizations here and there to add a login system.
+It's built using a super-minimal site generator written in Rust.
 
 ## Backend and authentication
 

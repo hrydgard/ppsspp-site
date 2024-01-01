@@ -1,0 +1,10 @@
+[package]
+name = "sgen"
+version = "0.0.1"
+authors = ["Henrik Rydgård"]
+
+[dependencies]
+markdown = "1.0.0-alpha.16"
+anyhow = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
