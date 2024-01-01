@@ -4,6 +4,8 @@
         "package-lock.json": true,
 
     },
+    "editor.formatOnSave": true,
+    "files.trimTrailingWhitespace": true,
     "cSpell.words": [
         "Adreno",
         "Allegrex",
