@@ -7,11 +7,13 @@
 // - [ ] News
 //
 // Features to add:
+// - folder-as-file
 // - templating
 // - choose css framework
 // - serve
 
 use std::{
+    convert::TryInto,
     io::Write,
     path::{Path, PathBuf},
 };
@@ -27,8 +29,19 @@ extern crate serde;
 
 use document::*;
 
+use crate::util::write_file_as_folder_with_index;
+
+// TODO: Involve templates here for easier modification?
 fn generate_docnav_html(root: &document::Category, focused_doc_path: &Path) -> String {
     let mut str = String::new();
+    // For now, fully expanded. Will fix later.
+    str += "<div>";
+    for cat in &root.sub_categories {
+        str += &generate_docnav_html(cat, focused_doc_path);
+    }
+    for doc in &root.documents {}
+    str += "</div>";
+
     str
 }
 
@@ -46,8 +59,7 @@ fn generate_doctree(
     let docs = root_cat.all_documents();
 
     for doc in docs {
-        let mut target_path = out_root_folder.join(doc.path);
-        target_path.set_extension("");
+        let target_path = out_root_folder.join(doc.path);
 
         util::create_folder_if_missing(&target_path)?;
 
@@ -55,9 +67,8 @@ fn generate_doctree(
         let context = PageContext::new(Some(doc.meta.title), Some(doc.html));
         let html = handlebars.render("doc", &context)?;
 
-        println!("Writing {}", target_path.display());
-        let mut file = std::fs::File::create(&target_path).context("create_file")?;
-        file.write_all(html.as_bytes())?;
+        println!("Writing doc {}", target_path.display());
+        write_file_as_folder_with_index(&target_path, html)?;
     }
 
     // MD documents get wrapped into our doc template.
@@ -69,8 +80,43 @@ fn generate_doctree(
 fn generate_blog(config: &Config, folder: &str) -> anyhow::Result<()> {
     // For the blog
 
-    let root = config.indir.join(folder);
-    let out_root = config.outdir.join(folder);
+    let root_folder = config.indir.join(folder);
+    let out_root_folder = config.outdir.join(folder);
+
+    util::create_folder_if_missing(&out_root_folder)?;
+
+    let listing = root_folder.read_dir()?;
+    for entry in listing {
+        let entry = entry?;
+        let file_name = PathBuf::from(entry.file_name());
+        let Some(os_str) = file_name.extension() else {
+            continue;
+        };
+        match os_str.to_str().unwrap() {
+            "md" => {}
+            _ => {
+                continue;
+            }
+        }
+        let name = util::filename_to_string(&entry.file_name());
+
+        let parts: [&str; 4] = name.splitn(4, '-').collect::<Vec<_>>().try_into().unwrap();
+        let mut doc = Document::from_md(
+            &root_folder.join(entry.file_name()),
+            &config.markdown_options,
+        )?;
+
+        let [year, month, day, remainder] = parts;
+        doc.meta.date = format!("{}-{}-{}", year, month, day);
+        if doc.meta.slug.is_empty() {
+            println!(
+                "Warning: Blog entry missing slug, autodetecting {}: {}",
+                name, remainder
+            );
+            doc.meta.slug = remainder.to_string();
+        }
+        // println!("{:?}", doc);
+    }
 
     Ok(())
 }
@@ -121,9 +167,8 @@ fn generate_pages(
         };
 
         let target_path = out_root_folder.join(file_name);
-        println!("Writing {}", target_path.display());
-        let mut file = std::fs::File::create(&target_path).context("create_file")?;
-        file.write_all(html.as_bytes())?;
+        println!("Writing page {}", target_path.display());
+        util::write_file_as_folder_with_index(&target_path, html)?;
     }
     Ok(())
 }
@@ -133,14 +178,13 @@ fn run() -> anyhow::Result<()> {
 
     handlebars.register_template_file("common_header", "template/common_header.hbs")?;
     handlebars.register_template_file("common_footer", "template/common_footer.hbs")?;
-    handlebars.register_template_file("doc", "template/doc.hbs");
+    handlebars.register_template_file("doc", "template/doc.hbs")?;
 
     println!("Barebones website generator");
 
     let mut markdown_options = markdown::Options::gfm();
-    println!("md: {:#?}", markdown_options);
-
     markdown_options.compile.allow_dangerous_html = true;
+    // println!("md: {:#?}", markdown_options);
 
     let config = Config {
         indir: PathBuf::from("."),

@@ -1,7 +1,13 @@
 use anyhow::Context;
+use std::ffi::OsStr;
 use std::fs;
-use std::io::BufRead;
+use std::io::{BufRead, Write};
 use std::path::Path;
+
+pub fn filename_to_string(name: &OsStr) -> String {
+    // name.to_str().unwrap().to_owned()
+    name.to_string_lossy().to_string()
+}
 
 pub fn copy_recursive(src: impl AsRef<Path>, dst: impl AsRef<Path>) -> std::io::Result<()> {
     fs::create_dir_all(&dst)?;
@@ -17,24 +23,26 @@ pub fn copy_recursive(src: impl AsRef<Path>, dst: impl AsRef<Path>) -> std::io::
     Ok(())
 }
 
+pub fn write_file_as_folder_with_index(path: &Path, contents: String) -> anyhow::Result<()> {
+    let mut extensionless = path.to_path_buf();
+    extensionless.set_extension("");
+
+    let _ = std::fs::create_dir_all(&extensionless);
+    let file_path = extensionless.join("index.html");
+    let mut file = std::fs::File::create(file_path).context("create_file_as_dir")?;
+    file.write_all(contents.as_bytes())?;
+    Ok(())
+}
+
 pub fn title_string(buffer: &mut impl BufRead) -> String {
     let mut first_line = String::new();
     let _ = buffer.read_line(&mut first_line);
 
-    // Where do the leading hashes stop?
-    let mut last_hash = 0;
-    for (idx, c) in first_line.chars().enumerate() {
-        if c != '#' {
-            last_hash = idx;
-            break;
-        }
+    if let Some(line) = first_line.strip_prefix("# ") {
+        return line.trim().to_string();
     }
 
-    // Trim the leading hashes and any whitespace
-    let first_line: String = first_line.drain(last_hash..).collect();
-    let first_line = String::from(first_line.trim());
-
-    first_line
+    return "".to_string();
 }
 
 pub fn create_folder_if_missing(path: &Path) -> anyhow::Result<()> {

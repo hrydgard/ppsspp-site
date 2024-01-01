@@ -25,6 +25,10 @@ pub struct CategoryMeta {
 #[derive(Debug, Clone, Default)]
 pub struct DocumentMeta {
     pub title: String,
+    pub date: String,
+    pub slug: String,
+    pub author: String,
+    pub tags: Vec<String>,
 }
 
 #[derive(Debug, Clone)]
@@ -72,8 +76,12 @@ impl Document {
                 break;
             }
             if let Some((key, value)) = buffer.split_once(':') {
+                let value = value.trim().to_owned();
                 match key {
-                    "title" => meta.title = value.to_owned(),
+                    "title" => meta.title = value,
+                    "slug" => meta.slug = value,
+                    "authors" => meta.author = value,
+                    "tags" => meta.tags = value.split(' ').map(str::to_owned).collect::<Vec<_>>(),
                     _ => {}
                 }
             }
@@ -86,21 +94,24 @@ impl Document {
         Ok(meta)
     }
 
+    // Handles page, blog posts, etc, including triple-dash docusaurus-style metadata.
     pub fn from_md(md_path: &Path, options: &markdown::Options) -> anyhow::Result<Self> {
         let md_file = std::fs::File::open(&md_path)?;
         let mut reader = BufReader::new(md_file);
 
         let mut meta = Self::read_dash_meta(&mut reader)?;
+        let mut md = String::from("");
         // If no dash-meta, grab the title string.
         if meta.title.is_empty() {
             meta.title = util::title_string(&mut reader); // TODO: Only open the file once. But who cares, really.
+            md += &format!("# {}\n", meta.title);
         }
 
         // OK, read the rest.
         let mut buffer = vec![];
         reader.read_to_end(&mut buffer)?;
 
-        let md = String::from_utf8(buffer)?;
+        md += &String::from_utf8(buffer)?;
         let html = markdown::to_html_with_options(&md, options).map_err(anyhow::Error::msg)?;
 
         Ok(Self {
@@ -134,6 +145,7 @@ impl Document {
             html,
             meta: DocumentMeta {
                 title: "untitled html".to_string(),
+                ..Default::default()
             },
         })
     }
@@ -157,7 +169,7 @@ impl Category {
         for dir_entry in listing {
             let entry = dir_entry?;
             let path = folder.join(entry.file_name());
-            let name = entry.file_name().to_str().unwrap().to_owned();
+            let name = util::filename_to_string(&entry.file_name());
             if entry.metadata()?.is_dir() {
                 sub_categories.push(Self::from_folder_tree(&path, options)?);
             } else if let Some(os_str) = path.extension() {
