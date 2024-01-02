@@ -27,6 +27,13 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+/* Override min-style stuff */
+.ms-menu .ms-menu-link ul li a {
+  padding: 0 5px;
+}
+
+
+
 /*
 Full set of Infima variables:
 https://github.com/facebookincubator/infima/blob/main/packages/core/styles/common/variables.pcss
@@ -34,6 +41,8 @@ https://github.com/facebookincubator/infima/blob/main/packages/core/styles/commo
 */
 
 /* You can override the default Infima variables here. */
+
+/*
 :root {
   --navbar-color: #FFFFFF;
   --footer-color: #2897bf;
@@ -55,7 +64,6 @@ https://github.com/facebookincubator/infima/blob/main/packages/core/styles/commo
     'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
   --navbar-color: #000000;
   --footer-color: #000000;
@@ -83,6 +91,7 @@ https://github.com/facebookincubator/infima/blob/main/packages/core/styles/commo
   border-color: var(--gold-color-border);
   border-width: 2px;
 }
+*/
 
 /* Restyle some stuff */
 h1 {
@@ -101,10 +110,81 @@ h3 {
 }
 
 h4 {
-  font-size: 18px;
+  font-size: 15px;
   line-height: 30px;
 }
 
+/* header menu */
+.ms-menu .ms-menu-link {
+  float: left;
+}
+
+
+/* The sidebar menu */
+.sidenav {
+  width: 260px;
+  /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1;
+  /* Stay at the top */
+  left: 0;
+  background-color: #111;
+  /* Black */
+  overflow-x: hidden;
+  /* Disable horizontal scroll */
+  padding: 10px 10px;
+  float: left;
+}
+
+/* The navigation menu links */
+.sidenav a {
+  text-decoration: none;
+  margin: 8px 0px;
+  padding: 0px 0px;
+  display: block;
+  color: #f1f1f1;
+}
+
+.sidenav a .selected {
+  background-color: #505050;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #87d1ff;
+}
+
+.sidenav .category {
+  padding-left: 10px;
+  margin: 4px 0px;
+}
+
+.category-link {
+  font-weight: bold;
+}
+
+/* Style page content */
+.main {
+  margin-left: 260px;
+  /* Same as the width of the sidebar */
+  padding: 0px 0px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {
+    visibility: collapse;
+  }
+
+  .sidenav a {
+    font-size: 18px;
+  }
+
+  .main {
+    margin-left: 10px;
+  }
+}
+
+/*
 .navbar {
   border-width: 0px 0px 3px 0px;
   border-style: none none solid none;
@@ -115,7 +195,6 @@ h4 {
 .footer {
   background-color: var(--footer-color);
 }
-
 
 .navbar__link--active {
   border-width: 0px 0px 3px 0px;
@@ -143,8 +222,9 @@ h4 {
 .hero__subtitle {
   text-align: left;
 }
+*/
 
-/* Form hack */
+/* Form hack
 input {
   width: 60%;
 }
@@ -162,8 +242,9 @@ form span {
   overflow: hidden;
   padding: 0 5px 0 0;
 }
+*/
 
-/* For the YoutubeEmbed component. TODO: Find a better place. */
+/* For the YoutubeEmbed component. TODO: Find a better place.
 .video-responsive {
   overflow: hidden;
   padding-bottom: 56.25%;
@@ -179,8 +260,9 @@ form span {
   position: absolute;
   padding-bottom: 20px;
 }
+ */
 
-/* Front page */
+/* Front page
 .features {
   display: flex;
   align-items: center;
@@ -192,8 +274,9 @@ form span {
   height: 200px;
   width: 200px;
 }
+*/
 
-/* Downloads */
+/* Downloads
 .download {
   display: flex;
   align-items: left;
@@ -207,226 +290,240 @@ form span {
   padding: 2rem 0;
   width: 100%;
 }
-
+*/
 
 /* Silly CSS from https://alvarotrigo.com/blog/animated-backgrounds-css/ */
 /* TODO: Move to a separate file */
 
 .hero {
   background: #193858;
-  background-image: url("/static/img/" front/gameroll.jpg");  /* This was made in photopea */
- background-position: center right;
-      background-repeat: no-repeat;
-      /* Do not repeat the image */
-      background-size: contain;
-      /* Resize the background image to cover the entire container */
-  }
+  background-image: url("/static/img/front/gameroll.jpg");
+  /* This was made in photopea */
+  background-position: center right;
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  background-size: contain;
+  /* Resize the background image to cover the entire container */
+  padding: 9rem 1.5rem;
+}
 
-  .light {
-    position: absolute;
-    width: 0px;
-    opacity: .75;
-    background-color: white;
-    box-shadow: #e9f1f1 0px 0px 20px 2px;
-    opacity: 0;
+.light {
+  position: absolute;
+  width: 0px;
+  opacity: .75;
+  background-color: white;
+  box-shadow: #e9f1f1 0px 0px 20px 2px;
+  opacity: 0;
+  top: 100vh;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+}
+
+.x1 {
+  -webkit-animation: floatUp 4s infinite linear;
+  -moz-animation: floatUp 4s infinite linear;
+  -o-animation: floatUp 4s infinite linear;
+  animation: floatUp 4s infinite linear;
+  -webkit-transform: scale(1.0);
+  -moz-transform: scale(1.0);
+  -o-transform: scale(1.0);
+  transform: scale(1.0);
+}
+
+.x2 {
+  -webkit-animation: floatUp 7s infinite linear;
+  -moz-animation: floatUp 7s infinite linear;
+  -o-animation: floatUp 7s infinite linear;
+  animation: floatUp 7s infinite linear;
+  -webkit-transform: scale(1.6);
+  -moz-transform: scale(1.6);
+  -o-transform: scale(1.6);
+  transform: scale(1.6);
+  left: 15%;
+}
+
+.x3 {
+  -webkit-animation: floatUp 2.5s infinite linear;
+  -moz-animation: floatUp 2.5s infinite linear;
+  -o-animation: floatUp 2.5s infinite linear;
+  animation: floatUp 2.5s infinite linear;
+  -webkit-transform: scale(.5);
+  -moz-transform: scale(.5);
+  -o-transform: scale(.5);
+  transform: scale(.5);
+  left: -15%;
+}
+
+.x4 {
+  -webkit-animation: floatUp 4.5s infinite linear;
+  -moz-animation: floatUp 4.5s infinite linear;
+  -o-animation: floatUp 4.5s infinite linear;
+  animation: floatUp 4.5s infinite linear;
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  transform: scale(1.2);
+  left: -34%;
+}
+
+.x5 {
+  -webkit-animation: floatUp 8s infinite linear;
+  -moz-animation: floatUp 8s infinite linear;
+  -o-animation: floatUp 8s infinite linear;
+  animation: floatUp 8s infinite linear;
+  -webkit-transform: scale(2.2);
+  -moz-transform: scale(2.2);
+  -o-transform: scale(2.2);
+  transform: scale(2.2);
+  left: -57%;
+}
+
+.x6 {
+  -webkit-animation: floatUp 3s infinite linear;
+  -moz-animation: floatUp 3s infinite linear;
+  -o-animation: floatUp 3s infinite linear;
+  animation: floatUp 3s infinite linear;
+  -webkit-transform: scale(.8);
+  -moz-transform: scale(.8);
+  -o-transform: scale(.8);
+  transform: scale(.8);
+  left: -81%;
+}
+
+.x7 {
+  -webkit-animation: floatUp 5.3s infinite linear;
+  -moz-animation: floatUp 5.3s infinite linear;
+  -o-animation: floatUp 5.3s infinite linear;
+  animation: floatUp 5.3s infinite linear;
+  -webkit-transform: scale(3.2);
+  -moz-transform: scale(3.2);
+  -o-transform: scale(3.2);
+  transform: scale(3.2);
+  left: 37%;
+}
+
+.x8 {
+  -webkit-animation: floatUp 4.7s infinite linear;
+  -moz-animation: floatUp 4.7s infinite linear;
+  -o-animation: floatUp 4.7s infinite linear;
+  animation: floatUp 4.7s infinite linear;
+  -webkit-transform: scale(1.7);
+  -moz-transform: scale(1.7);
+  -o-transform: scale(1.7);
+  transform: scale(1.7);
+  left: 62%;
+}
+
+.x9 {
+  -webkit-animation: floatUp 4.1s infinite linear;
+  -moz-animation: floatUp 4.1s infinite linear;
+  -o-animation: floatUp 4.1s infinite linear;
+  animation: floatUp 4.1s infinite linear;
+  -webkit-transform: scale(0.9);
+  -moz-transform: scale(0.9);
+  -o-transform: scale(0.9);
+  transform: scale(0.9);
+  left: 85%;
+}
+
+@-webkit-keyframes floatUp {
+  0% {
     top: 100vh;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    margin: auto;
+    opacity: 0;
   }
 
-  .x1 {
-    -webkit-animation: floatUp 4s infinite linear;
-    -moz-animation: floatUp 4s infinite linear;
-    -o-animation: floatUp 4s infinite linear;
-    animation: floatUp 4s infinite linear;
-    -webkit-transform: scale(1.0);
-    -moz-transform: scale(1.0);
-    -o-transform: scale(1.0);
-    transform: scale(1.0);
+  25% {
+    opacity: 1;
   }
 
-  .x2 {
-    -webkit-animation: floatUp 7s infinite linear;
-    -moz-animation: floatUp 7s infinite linear;
-    -o-animation: floatUp 7s infinite linear;
-    animation: floatUp 7s infinite linear;
-    -webkit-transform: scale(1.6);
-    -moz-transform: scale(1.6);
-    -o-transform: scale(1.6);
-    transform: scale(1.6);
-    left: 15%;
+  50% {
+    top: 0vh;
+    opacity: .8;
   }
 
-  .x3 {
-    -webkit-animation: floatUp 2.5s infinite linear;
-    -moz-animation: floatUp 2.5s infinite linear;
-    -o-animation: floatUp 2.5s infinite linear;
-    animation: floatUp 2.5s infinite linear;
-    -webkit-transform: scale(.5);
-    -moz-transform: scale(.5);
-    -o-transform: scale(.5);
-    transform: scale(.5);
-    left: -15%;
+  75% {
+    opacity: 1;
   }
 
-  .x4 {
-    -webkit-animation: floatUp 4.5s infinite linear;
-    -moz-animation: floatUp 4.5s infinite linear;
-    -o-animation: floatUp 4.5s infinite linear;
-    animation: floatUp 4.5s infinite linear;
-    -webkit-transform: scale(1.2);
-    -moz-transform: scale(1.2);
-    -o-transform: scale(1.2);
-    transform: scale(1.2);
-    left: -34%;
+  100% {
+    top: -100vh;
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes floatUp {
+  0% {
+    top: 100vh;
+    opacity: 0;
   }
 
-  .x5 {
-    -webkit-animation: floatUp 8s infinite linear;
-    -moz-animation: floatUp 8s infinite linear;
-    -o-animation: floatUp 8s infinite linear;
-    animation: floatUp 8s infinite linear;
-    -webkit-transform: scale(2.2);
-    -moz-transform: scale(2.2);
-    -o-transform: scale(2.2);
-    transform: scale(2.2);
-    left: -57%;
+  25% {
+    opacity: 1;
   }
 
-  .x6 {
-    -webkit-animation: floatUp 3s infinite linear;
-    -moz-animation: floatUp 3s infinite linear;
-    -o-animation: floatUp 3s infinite linear;
-    animation: floatUp 3s infinite linear;
-    -webkit-transform: scale(.8);
-    -moz-transform: scale(.8);
-    -o-transform: scale(.8);
-    transform: scale(.8);
-    left: -81%;
+  50% {
+    top: 0vh;
+    opacity: .8;
   }
 
-  .x7 {
-    -webkit-animation: floatUp 5.3s infinite linear;
-    -moz-animation: floatUp 5.3s infinite linear;
-    -o-animation: floatUp 5.3s infinite linear;
-    animation: floatUp 5.3s infinite linear;
-    -webkit-transform: scale(3.2);
-    -moz-transform: scale(3.2);
-    -o-transform: scale(3.2);
-    transform: scale(3.2);
-    left: 37%;
+  75% {
+    opacity: 1;
   }
 
-  .x8 {
-    -webkit-animation: floatUp 4.7s infinite linear;
-    -moz-animation: floatUp 4.7s infinite linear;
-    -o-animation: floatUp 4.7s infinite linear;
-    animation: floatUp 4.7s infinite linear;
-    -webkit-transform: scale(1.7);
-    -moz-transform: scale(1.7);
-    -o-transform: scale(1.7);
-    transform: scale(1.7);
-    left: 62%;
+  100% {
+    top: -100vh;
+    opacity: 0;
+  }
+}
+
+@-o-keyframes floatUp {
+  0% {
+    top: 100vh;
+    opacity: 0;
   }
 
-  .x9 {
-    -webkit-animation: floatUp 4.1s infinite linear;
-    -moz-animation: floatUp 4.1s infinite linear;
-    -o-animation: floatUp 4.1s infinite linear;
-    animation: floatUp 4.1s infinite linear;
-    -webkit-transform: scale(0.9);
-    -moz-transform: scale(0.9);
-    -o-transform: scale(0.9);
-    transform: scale(0.9);
-    left: 85%;
+  25% {
+    opacity: 1;
   }
 
-  @-webkit-keyframes floatUp {
-    0% {
-      top: 100vh; opacity: 0;
-    }
-
-    25% {
-      opacity: 1;
-    }
-
-    50% {
-      top: 0vh; opacity: .8;
-    }
-
-    75% {
-      opacity: 1;
-    }
-
-    100% {
-      top: -100vh; opacity: 0;
-    }
+  50% {
+    top: 0vh;
+    opacity: .8;
   }
 
-  @-moz-keyframes floatUp {
-    0% {
-      top: 100vh; opacity: 0;
-    }
-
-    25% {
-      opacity: 1;
-    }
-
-    50% {
-      top: 0vh; opacity: .8;
-    }
-
-    75% {
-      opacity: 1;
-    }
-
-    100% {
-      top: -100vh; opacity: 0;
-    }
+  75% {
+    opacity: 1;
   }
 
-  @-o-keyframes floatUp {
-    0% {
-      top: 100vh; opacity: 0;
-    }
+  100% {
+    top: -100vh;
+    opacity: 0;
+  }
+}
 
-    25% {
-      opacity: 1;
-    }
-
-    50% {
-      top: 0vh; opacity: .8;
-    }
-
-    75% {
-      opacity: 1;
-    }
-
-    100% {
-      top: -100vh; opacity: 0;
-    }
+@keyframes floatUp {
+  0% {
+    top: 100vh;
+    opacity: 0;
   }
 
-  @keyframes floatUp {
-    0% {
-      top: 100vh; opacity: 0;
-    }
-
-    25% {
-      opacity: 1;
-    }
-
-    50% {
-      top: 0vh; opacity: .8;
-    }
-
-    75% {
-      opacity: 1;
-    }
-
-    100% {
-      top: -100vh; opacity: 0;
-    }
+  25% {
+    opacity: 1;
   }
+
+  50% {
+    top: 0vh;
+    opacity: .8;
+  }
+
+  75% {
+    opacity: 1;
+  }
+
+  100% {
+    top: -100vh;
+    opacity: 0;
+  }
+}

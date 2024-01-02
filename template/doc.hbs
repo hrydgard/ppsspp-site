@@ -1,7 +1,22 @@
 {{> common_header this }}
 
-{{{ sidebar }}}
+<div class="sidenav">
 
-{{{ contents }}}
+    {{{ sidebar }}}
+
+</div>
+
+<div class="main">
+
+    {{{ breadcrumbs }}}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                {{{ contents }}}
+            </div>
+        </div>
+    </div>
+</div>
 
 {{> common_footer this }}

@@ -39,20 +39,17 @@ fn generate_docnav_html(root: &document::Category, focused_doc_path: &Path) -> S
     let mut str = String::new();
     // For now, fully expanded. Will fix later.
     str += &format!(
-        "<p><a href=/{}>{}</a></p>",
+        "<p><a href=/{} class=\"category-link\">{}</a></p>",
         root.path.display(),
         root.meta.title
     );
-    str += "<div>";
+    str += "<div class=\"category\">";
     for cat in &root.sub_categories {
         str += &generate_docnav_html(cat, focused_doc_path);
     }
     for doc in &root.documents {
-        str += &format!(
-            "<p>- <a href=/{}>{}</a></p>",
-            doc.path.display(),
-            doc.meta.title,
-        );
+        // TODO: these links don't match docusaurus!
+        str += &format!("<a href=/{}>{}</a>", doc.path.display(), doc.meta.title,);
     }
     str += "</div>";
 
@@ -70,7 +67,8 @@ fn generate_doctree(
     let root_cat = document::Category::from_folder_tree(&root_folder, &config.markdown_options)?;
 
     // Write out all the docs. Don't need recursion here so we can linearize.
-    let docs = root_cat.all_documents();
+    // Note that we also generate the categories as documents in `all_documents`.
+    let docs = root_cat.all_documents(handlebars)?;
     for doc in docs {
         let target_path = out_root_folder.join(doc.path);
 
@@ -83,11 +81,6 @@ fn generate_doctree(
 
         println!("Writing doc {}", target_path.display());
         write_file_as_folder_with_index(&target_path, html)?;
-    }
-
-    // Also write out all the categories themselves as index.html files.
-    for cat in root_cat.all_categories() {
-        let target_path = out_root_folder.join(cat.path);
     }
 
     // MD documents get wrapped into our doc template.
@@ -218,6 +211,8 @@ fn run() -> anyhow::Result<()> {
     handlebars.register_template_file("common_header", "template/common_header.hbs")?;
     handlebars.register_template_file("common_footer", "template/common_footer.hbs")?;
     handlebars.register_template_file("doc", "template/doc.hbs")?;
+    handlebars.register_template_file("link_icon", "template/icons/link.hbs")?;
+    handlebars.register_template_file("cat_contents", "template/cat_contents.hbs")?;
 
     println!("Barebones website generator");
 

@@ -1,29 +1,41 @@
 <!doctype html>
 
-<html data-theme="dark" lang="en" dir="ltr"
-    class="docs-wrapper docs-doc-page docs-version-current plugin-docs plugin-id-default docs-doc-id-getting-started/save-data-and-storage">
+<html lang="en" data-theme="dark">
 
 <head>
-    <meta name="generator" content="ppsspp-site-gen">
-    <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="PPSSPP RSS Feed">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/static/minstyle.io.css">
+    <link rel="stylesheet" type="text/css" href="/static/custom.css">
+    <!--<link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="PPSSPP RSS Feed">
     <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="PPSSPP Atom Feed">
-    <link rel="stylesheet" href="/static/styles.css">
+    -->
+    <script type="module" src="/static/script/account.js"></script>
     <title>{{ title }}</title>
 </head>
 
 <body>
-    <div id="__docusaurus">
-        <nav class="navbar navbar--fixed-top">
-            <div class="navbar__inner">
-                <!-- TODO: replace with data and a loop -->
-                <div><a href="/downloads">Downloads</a></div>
-                <div><a href="/news">News</a></div>
-                <div><a href="/blog">Blog</a></div>
-                <div><a href="/docs/intro">Docs &amp; Help</a></div>
-                <div><a href="/media">Media</a></div>
-                <div><a href="/contact">Contact</a></div>
-                <div><a href="https://forums.ppsspp.org/">Forums</a></div>
-                <div><a href="https://github.com/hrydgard/ppsspp">Github</a></div>
+    <div class="ms-menu">
+        <div class="container">
+            <div class="ms-menu-logo">
+                <a href="/"><img src="/static/img/platform/ppsspp-icon.png" /></a>
             </div>
-            <div role="presentation" class="navbar-sidebar__backdrop"></div>
-        </nav>
+            <nav class="ms-menu-link">
+                <input type="checkbox" id="ms-menu-toggle" />
+                <label for="ms-menu-toggle" class="ms-menu-icon"><i class="fa fa-bars"></i></label>
+                <ul>
+                    <li><a href="/downloads">Downloads</a></li>
+                    <li><a href="/news">News</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/docs/intro">Docs &amp; Help</a></li>
+                    <li><a href="/media">Media</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="https://forums.ppsspp.org/">Forums {{> link_icon }}</a></li>
+                    <li><a href="https://github.com/hrydgard/ppsspp">Github {{> link_icon }}</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/dark-mode-switcher@0.0.1/dist/dark.min.js"></script>
+    <script type="text/javascript" src="https://kit.fontawesome.com/d35975edad.js"></script>

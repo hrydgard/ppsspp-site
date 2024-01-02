@@ -14,6 +14,12 @@ pub struct Link {
     pub description: String,
 }
 
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct DocLink {
+    pub url: String,
+    pub title: String,
+}
+
 #[derive(Debug, Deserialize, Serialize, Clone, Default)]
 pub struct DocumentMeta {
     #[serde(default)]
@@ -45,6 +51,8 @@ pub struct PageContext {
     pub title: Option<String>,
     pub contents: Option<String>,
     pub sidebar: Option<String>,
+    pub prev: Option<DocLink>,
+    pub next: Option<DocLink>,
     pub year: i32,
 }
 
@@ -55,6 +63,8 @@ impl PageContext {
             contents,
             sidebar: None,
             year: 2024,
+            prev: None,
+            next: None,
         }
     }
 }
@@ -161,6 +171,23 @@ impl Document {
             },
         })
     }
+
+    // Category front pages.
+    pub fn from_category(
+        category: &Category,
+        handlebars: &mut handlebars::Handlebars,
+    ) -> anyhow::Result<Self> {
+        let context = PageContext::new(None, None);
+
+        // Add children document titles to the context here.
+
+        let html = handlebars.render("cat_contents", &context)?;
+        Ok(Self {
+            path: category.path.clone(),
+            html,
+            meta: category.meta.clone(),
+        })
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -177,7 +204,7 @@ impl Category {
         let mut sub_categories = vec![];
         let listing = folder.read_dir()?;
         let mut meta = DocumentMeta::default();
-        meta.title = "Untitled".to_string();
+        meta.title = "Documentation".to_string();
 
         for dir_entry in listing {
             let entry = dir_entry?;
@@ -212,15 +239,21 @@ impl Category {
         })
     }
 
-    pub fn all_documents(&self) -> Vec<Document> {
+    // Note: This also generates category documents.
+
+    pub fn all_documents(
+        &self,
+        handlebars: &mut handlebars::Handlebars,
+    ) -> anyhow::Result<Vec<Document>> {
         let mut all_docs = vec![];
+        all_docs.push(Document::from_category(self, handlebars)?);
         for doc in &self.documents {
             all_docs.push(doc.clone());
         }
         for cat in &self.sub_categories {
-            all_docs.extend(cat.all_documents());
+            all_docs.extend(cat.all_documents(handlebars)?);
         }
-        all_docs
+        Ok(all_docs)
     }
 
     pub fn all_categories(&self) -> Vec<Category> {
