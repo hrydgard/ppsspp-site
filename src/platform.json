@@ -1,0 +1,150 @@
+[
+    {
+        "title": "Android",
+        "platform_badge": "android-36.png",
+        "platform_key": "android",
+        "downloads": [
+            {
+                "name": "PPSSPP Gold for Android",
+                "icon": "ppsspp-icon-gold.png",
+                "url": "https://play.google.com/store/apps/details?id=org.ppsspp.ppssppgold",
+                "gold_color": true
+            },
+            {
+                "name": "PPSSPP for Android (free)",
+                "icon": "ppsspp-icon.png",
+                "url": "https://play.google.com/store/apps/details?id=org.ppsspp.ppsspp"
+            },
+            {
+                "name": "Download APK of PPSSPP Free",
+                "icon": "ppsspp-icon.png",
+                "filename": "ppsspp.apk",
+                "short_name": "APK"
+            }
+        ]
+    },
+    {
+        "title": "Windows",
+        "platform_badge": "windows-36-white.png",
+        "platform_key": "windows",
+        "downloads": [
+            {
+                "title": "PPSSPP Gold",
+                "name": "Buy PPSSPP Gold",
+                "icon": "ppsspp-icon-gold.png",
+                "url": "/buygold",
+                "gold_color": true,
+                "login_prompt": true
+            },
+            {
+                "name": "Download PPSSPP Gold (ZIP)",
+                "short_name": "Gold (ZIP)",
+                "icon": "ppsspp-icon-gold.png",
+                "filename": "PPSSPPWindowsGold.zip",
+                "gold_file": true
+            },
+            {
+                "name": "Download PPSSPP Gold (Installer)",
+                "short_name": "Gold (installer)",
+                "icon": "ppsspp-icon-gold.png",
+                "filename": "PPSSPPGoldSetup.exe",
+                "gold_file": true
+            },
+            {
+                "title": "PPSSPP Free",
+                "short_name": "Installer",
+                "name": "Download PPSSPP installer",
+                "icon": "ppsspp-icon.png",
+                "filename": "PPSSPPSetup.exe"
+            },
+            {
+                "name": "Download ZIP file (portable)",
+                "short_name": "ZIP",
+                "icon": "ppsspp-icon.png",
+                "filename": "ppsspp_win.zip"
+            },
+            {
+                "name": "Download ZIP file for ARM64",
+                "short_name": "ZIP (ARM64)",
+                "icon": "ppsspp-icon.png",
+                "filename": "PPSSPPWindowsARM64.zip",
+                "whats_this": "/docs/faq#arm64win"
+            }
+        ]
+    },
+    {
+        "title": "macOS",
+        "platform_badge": "apple-36.png",
+        "platform_key": "macos",
+        "downloads": [
+            {
+                "title": "PPSSPP Gold",
+                "name": "Buy PPSSPP Gold",
+                "icon": "ppsspp-icon-gold.png",
+                "url": "/buygold",
+                "gold_color": true,
+                "login_prompt": true
+            },
+            {
+                "short_name": "Installer",
+                "name": "Download PPSSPP Gold.dmg",
+                "icon": "ppsspp-icon-gold.png",
+                "filename": "PPSSPPGold_macOS.dmg",
+                "gold_file": true
+            },
+            {
+                "title": "PPSSPP Free",
+                "short_name": "Installer",
+                "name": "Download PPSSPP .dmg",
+                "icon": "ppsspp-icon.png",
+                "filename": "PPSSPP_macOS.dmg",
+                "whats_this": "/docs/reference/mac",
+                "whats_this_text": "Mac information"
+            },
+            {
+                "name": "Download from Github CI",
+                "url": "https://github.com/hrydgard/ppsspp/releases/latest"
+            }
+        ]
+    },
+    {
+        "title": "Linux",
+        "platform_badge": "linux-36.png",
+        "platform_key": "linux",
+        "downloads": [
+            {
+                "name": "PPSSPP Flatpak package",
+                "icon": "ppsspp-icon.png",
+                "url": "https://flathub.org/apps/details/org.ppsspp.PPSSPP"
+            }
+        ]
+    },
+    {
+        "title": "iOS",
+        "platform_badge": "apple-36.png",
+        "platform_key": "ios",
+        "description": "PPSSPP for iOS is not officially supported but working builds can be found.",
+        "downloads": [
+            {
+                "name": "W.MS' latest .IPA",
+                "url": "https://pbot.w-ms.cn/getipa?PPSSPPORG"
+            },
+            {
+                "name": "W.MS' latest .deb",
+                "url": "https://pbot.w-ms.cn/getdeb?PPSSPPORG"
+            }
+        ]
+    },
+    {
+        "title": "VR APK for Quest and Pico",
+        "platform_key": "vr",
+        "downloads": [
+            {
+                "name": "PPSSPP VR",
+                "icon": "ppsspp-icon.png",
+                "short_name": "APK",
+                "filename": "ppsspp_vr.apk"
+            }
+        ]
+    }
+]

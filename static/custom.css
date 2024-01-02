@@ -119,7 +119,6 @@ h4 {
   float: left;
 }
 
-
 /* The sidebar menu */
 .sidenav {
   width: 260px;
@@ -160,6 +159,14 @@ h4 {
 
 .category-link {
   font-weight: bold;
+}
+
+.ms-article .ms-article-text p {
+  margin: 13px 0px;
+}
+
+.ms-article .ms-article-text ul li {
+  margin: 13px 0px;
 }
 
 /* Style page content */

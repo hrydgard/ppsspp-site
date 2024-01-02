@@ -3,7 +3,7 @@ use std::net::SocketAddr;
 use tower_http::{services::ServeDir, trace::TraceLayer};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
-pub async fn run_server() {
+pub async fn run_server(port: u16) {
     tracing_subscriber::registry()
         .with(
             tracing_subscriber::EnvFilter::try_from_default_env()
@@ -12,7 +12,7 @@ pub async fn run_server() {
         .with(tracing_subscriber::fmt::layer())
         .init();
 
-    tokio::join!(serve(using_serve_dir(), 3000),);
+    tokio::join!(serve(using_serve_dir(), port),);
 }
 
 fn using_serve_dir() -> Router {

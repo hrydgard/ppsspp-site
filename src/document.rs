@@ -7,6 +7,8 @@ use std::{
 extern crate serde;
 use serde::{Deserialize, Serialize};
 
+use crate::config::GlobalMeta;
+
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Link {
     #[serde(rename = "type")]
@@ -21,6 +23,8 @@ pub struct DocLink {
     pub summary: Option<String>,
 }
 
+// This is passed into rendering of blog posts, for example,
+// as well as being used in the rust code.
 #[derive(Debug, Deserialize, Serialize, Clone, Default)]
 pub struct DocumentMeta {
     #[serde(default)]
@@ -35,18 +39,25 @@ pub struct DocumentMeta {
     pub author: String,
     #[serde(default)]
     pub tags: Vec<String>,
-    #[serde(default)]
     pub link: Option<Link>,
+    pub url: Option<String>,
 }
 
 #[derive(Debug, Clone)]
 pub struct Document {
-    pub path: PathBuf,
+    pub path: PathBuf, // written file, the link-to path is in meta
     pub html: String,
     pub meta: DocumentMeta,
 }
 
+#[derive(Debug, Serialize, Deserialize, Clone, Default)]
+pub struct SidebarContext {
+    pub links: Vec<DocLink>,
+}
+
 // Used when rendering templates.
+// Should probably split into multiple more focused ones .. but then again, not really necessary,
+// can just omit what we don't need.
 #[derive(Serialize, Deserialize)]
 pub struct PageContext {
     pub title: Option<String>,
@@ -55,7 +66,9 @@ pub struct PageContext {
     pub children: Vec<DocLink>,
     pub prev: Option<DocLink>,
     pub next: Option<DocLink>,
+    pub meta: Option<DocumentMeta>,
     pub year: i32,
+    pub globals: Option<GlobalMeta>,
 }
 
 impl PageContext {
@@ -68,6 +81,21 @@ impl PageContext {
             prev: None,
             next: None,
             children: vec![],
+            meta: None,
+            globals: None,
+        }
+    }
+    pub fn from_document(document: &Document) -> Self {
+        Self {
+            title: Some(document.meta.title.clone()),
+            contents: Some(document.html.clone()),
+            sidebar: None,
+            year: 2024,
+            prev: None,
+            next: None,
+            children: vec![],
+            meta: Some(document.meta.clone()),
+            globals: None,
         }
     }
 }
@@ -76,7 +104,7 @@ impl Document {
     pub fn to_doclink(&self) -> DocLink {
         DocLink {
             title: self.meta.title.clone(),
-            url: format!("/{}", self.path.display()),
+            url: self.meta.url.clone().unwrap_or("/".to_owned()),
             summary: None, // TODO
         }
     }
@@ -156,11 +184,13 @@ impl Document {
 
     // The document itself is the template so we apply it immediately. Used for pages.
     pub fn from_hbs(
+        globals: &GlobalMeta,
         hbs_path: &Path,
         handlebars: &mut handlebars::Handlebars,
     ) -> anyhow::Result<Self> {
         let hbs = std::fs::read_to_string(&hbs_path)?;
-        let context = PageContext::new(None, None);
+        let mut context = PageContext::new(None, None);
+        context.globals = Some(globals.clone());
         let html = handlebars.render_template(&hbs, &context)?;
 
         Ok(Self {
@@ -257,7 +287,6 @@ impl Category {
     }
 
     // Note: This also generates category documents.
-
     pub fn all_documents(
         &self,
         handlebars: &mut handlebars::Handlebars,
@@ -271,13 +300,5 @@ impl Category {
             all_docs.extend(cat.all_documents(handlebars)?);
         }
         Ok(all_docs)
-    }
-
-    pub fn all_categories(&self) -> Vec<Category> {
-        let mut all_cats = vec![];
-        for cat in &self.sub_categories {
-            all_cats.extend(cat.all_categories());
-        }
-        all_cats
     }
 }

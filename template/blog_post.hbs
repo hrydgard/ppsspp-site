@@ -1,0 +1,48 @@
+<div>
+    <div class="ms-article">
+        {{ #if picture_title }}
+        <div class="ms-article-picture">
+            <img src="https://www.zupimages.net/up/22/08/uitq.png" alt="background" />
+            <div class="ms-article-picture-overlay"></div>
+            <div class="ms-article-picture-title">
+                <a href="">{{ picture_title}}</a>
+            </div>
+        </div>
+        {{ /if }}
+        <div class="ms-article-infos">
+            <ul>
+                <li><i class="fas fa-user-circle"></i> <b>{{ meta.author }}</b></li>
+                <li><i class="fas fa-folder"></i> <b>{{ #each meta.tags }} {{this}} {{/each}} </b></li>
+                <li><i class="fas fa-clock"></i> <b>{{ meta.date }}</b></li>
+            </ul>
+        </div>
+        <div class="ms-list-label">
+            <ul>
+                <li>
+                    <div class="ms-label ms-primary ms-rounded"><a href="https://twitter.com/henrikrydgard"><i
+                                class="fab fa-twitter"></i></a></div>
+                    <div class="ms-label ms-rounded"><a href="https://www.github.com/hrydgard"><i
+                                class="fab fa-github-alt"></i></a></div>
+                </li>
+            </ul>
+        </div>
+        <div class="ms-article-title">
+            <h1>{{ title }}</h1>
+        </div>
+        <div class="ms-article-text">
+            {{{ contents }}}
+        </div>
+        <div class="ms-user ms-compact ms-borderless">
+            {{ #if author_image }}
+            <div class="ms-avatar">
+                <img class="ms-avatar-img" src=" {{ author_image }}" alt="..." />
+            </div>
+            {{ /if }}
+            <div class="ms-user-info">
+                <p>
+                    <b>{{ author }}</b><br />
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

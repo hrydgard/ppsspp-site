@@ -16,6 +16,19 @@
                 {{{ contents }}}
             </div>
         </div>
+
+        <div class="row">
+            {{ #if prev }}
+            <div class="col-md-4">
+                <a href="{{ prev.url }}">{{ prev.title }}</a>
+            </div>
+            {{ /if }}
+            {{ #if next }}
+            <div class="col-md-4">
+                <a href="{{ next.url }}">{{ next.title }}</a>
+            </div>
+            {{ /if }}
+        </div>
     </div>
 </div>
 

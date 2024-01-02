@@ -2,9 +2,9 @@
     "search.exclude": {
         "**/.docusaurus": true,
         "package-lock.json": true,
-
     },
     "editor.formatOnSave": true,
+    "rust-analyzer.checkOnSave.command": "clippy",
     "files.trimTrailingWhitespace": true,
     "cSpell.words": [
         "Adreno",

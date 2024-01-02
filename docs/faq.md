@@ -163,7 +163,7 @@ If you know GitHub, you know the drill - just make a pull request with the chang
 
 ## My favorite game doesn't work in PPSSPP. What can I do?
 
-You can either [help out with fixing it](/docs/category/development), or wait until someone does.
+You can either [help out with fixing it](/docs/development), or wait until someone does.
 
 ## What is the JIT and why can't we use it on iOS?
 
