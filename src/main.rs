@@ -1,17 +1,20 @@
 // Things to generate:
-// - [...] Docs
-// - [ ] Pages
+// - [x] Docs
+// - [x] Pages
 //   - [ ] Downloads
-//   - [ ] Regular static pages
-// - [ ] Blog
-// - [ ] News
-//
+//   - [x] Regular static pages
+// - [x] Blog
+// - [x] News
 // Features to add:
-// - folder-as-file
-// - templating
-// - choose css framework
-// - serve
-// - generate RSS/Atom feeds
+// - [x] serve, with proxy
+// - [x] templating
+// - [ ] choose css framework
+// - [ ] generate RSS/Atom feeds
+// - [ ] Javascript basics (log in, log out)
+// - [ ] Purchase flow
+// - [ ] Admin UI
+// - [ ] Blog tags, browse by
+// - [ ] Blog feed pagination
 
 use std::{
     cmp::Ordering,
@@ -40,6 +43,7 @@ use crate::{
 };
 
 // TODO: Involve templates here for easier modification?
+// Can handlebars templates recurse?
 fn generate_docnav_html(root: &document::Category, focused_doc_path: &Path) -> String {
     let mut str = String::new();
     // For now, fully expanded. Will fix later.
@@ -158,6 +162,16 @@ fn generate_blog(
         doc.meta.url = Some(format!("/{folder}/{}", &doc.meta.slug));
         doc.path = out_root_folder.join(&doc.meta.slug);
         documents.push(doc);
+    }
+
+    // Add next/forward links
+    // for [prev, cur, next] in documents.
+    for i in 1..documents.len() - 1 {
+        let prev = documents[i - 1].to_doclink();
+        let next = documents[i + 1].to_doclink();
+        let cur = &mut documents[i];
+        cur.meta.prev = Some(prev);
+        cur.meta.next = Some(next);
     }
 
     documents.sort_by(|a, b| {

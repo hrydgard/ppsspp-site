@@ -41,6 +41,8 @@ pub struct DocumentMeta {
     pub tags: Vec<String>,
     pub link: Option<Link>,
     pub url: Option<String>,
+    pub prev: Option<DocLink>,
+    pub next: Option<DocLink>,
 }
 
 #[derive(Debug, Clone)]
@@ -64,8 +66,6 @@ pub struct PageContext {
     pub contents: Option<String>,
     pub sidebar: Option<String>,
     pub children: Vec<DocLink>,
-    pub prev: Option<DocLink>,
-    pub next: Option<DocLink>,
     pub meta: Option<DocumentMeta>,
     pub year: i32,
     pub globals: Option<GlobalMeta>,
@@ -78,8 +78,6 @@ impl PageContext {
             contents,
             sidebar: None,
             year: 2024,
-            prev: None,
-            next: None,
             children: vec![],
             meta: None,
             globals: None,
@@ -91,8 +89,6 @@ impl PageContext {
             contents: Some(document.html.clone()),
             sidebar: None,
             year: 2024,
-            prev: None,
-            next: None,
             children: vec![],
             meta: Some(document.meta.clone()),
             globals: None,
@@ -158,6 +154,9 @@ impl Document {
         let (mut meta, mut ate_title) = Self::read_dash_meta(&mut reader)?;
 
         let mut md = String::from("");
+
+        let github_url = "https://github.com/hrydgard/ppsspp/issues/";
+
         // If no dash-meta, grab the title string.
         if meta.title.is_empty() {
             let mut buffer = String::new();
@@ -176,6 +175,15 @@ impl Document {
         reader.read_to_end(&mut buffer)?;
 
         md += &String::from_utf8(buffer)?;
+
+        let issue_regex = regex::Regex::new(r"\[#(\d+)\]").unwrap();
+        md = issue_regex
+            .replace_all(&md, |captures: &regex::Captures| {
+                let issue_number = captures.get(1).unwrap().as_str();
+                format!("[#{}]({}{})", issue_number, github_url, issue_number) // Construct the replacement with the GitHub URL
+            })
+            .to_string();
+
         let html = markdown::to_html_with_options(&md, options).map_err(anyhow::Error::msg)?;
         let mut path = md_path.to_path_buf();
         path.set_extension("");

@@ -18,14 +18,14 @@
         </div>
 
         <div class="row">
-            {{ #if prev }}
+            {{ #if meta.prev }}
             <div class="col-md-4">
-                <a href="{{ prev.url }}">{{ prev.title }}</a>
+                <a href="{{ meta.prev.url }}">{{ meta.prev.title }}</a>
             </div>
             {{ /if }}
             {{ #if next }}
             <div class="col-md-4">
-                <a href="{{ next.url }}">{{ next.title }}</a>
+                <a href="{{ meta.next.url }}">{{ meta.next.title }}</a>
             </div>
             {{ /if }}
         </div>

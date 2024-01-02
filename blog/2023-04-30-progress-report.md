@@ -29,7 +29,7 @@ Additionally, in Vulkan, we now do shader compilation (as in pipeline creation) 
 
 In PPSSPP, you can install "[texture replacement packs](/docs/reference/use-texture-replacement)", containing higher resolution textures for a game. PSP games were made for a low resolution screen.
 
-The texture replacement code has evolved over the years but had some lingering problems, like too much I/O on the main thread. It's now been substantially reorganized and partly rewritten, moving more work to background threads - which reduces stutters caused by loading new replacement textures by quite a bit. Additionally, support for efficient compressed texture formats has been added (KTX2 with Basis and UASTC, DDS with BC1-7), along with built-in mipmap support (#17134, #17092, #12059). Using these can further speed up loading and improve quality while also reducing the memory use.
+The texture replacement code has evolved over the years but had some lingering problems, like too much I/O on the main thread. It's now been substantially reorganized and partly rewritten, moving more work to background threads - which reduces stutters caused by loading new replacement textures by quite a bit. Additionally, support for efficient compressed texture formats has been added (KTX2 with Basis and UASTC, DDS with BC1-7), along with built-in mipmap support ([#17134], [#17092], [#12059]). Using these can further speed up loading and improve quality while also reducing the memory use.
 
 In connection with this, video memory use when loading large textures to VRAM has been optimized. This mainly helps when using texture replacement packs with very high-resolution textures, but will reduce the risk of running out of memory in general, which is one of the major remaining causes of reported crashes on Android.
 
@@ -57,9 +57,9 @@ The Android-only tilt (accelerometer) input feature has not been maintained nor 
 
 ## Regressions fixed
 
-* Thrillville rendering corrected (#17169)
-* A major performance regression in Dante's Inferno has been fixed (#17032)
-* Mipmaps are now actually used with texture replacement, if provided (#17144)
+* Thrillville rendering corrected ([#17169])
+* A major performance regression in Dante's Inferno has been fixed ([#17032])
+* Mipmaps are now actually used with texture replacement, if provided ([#17144])
 
 ## Other changes
 
@@ -71,7 +71,7 @@ The Android-only tilt (accelerometer) input feature has not been maintained nor 
 * VR has gained some new features (top-down perspective), new control options, and various fixes, thanks Lubos!
 * Several large code cleanups and refactors have been performed across the code base, to make future changes easier.
 * The RISC-V JIT compiler has been improved by \[Unknown\]. Future-proofs the emulator a bit!
-* New app icon (#11996), assorted bugfixes (#16988, #17017, more)
+* New app icon ([#11996]), assorted bugfixes ([#16988], [#17017], more)
 * And [much more](/news/2023-04-30-ppsspp-1.15)!
 
 ## Go get it!

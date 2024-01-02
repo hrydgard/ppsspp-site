@@ -977,6 +977,7 @@ dependencies = [
  "hyper",
  "hyper-util",
  "markdown",
+ "regex",
  "serde",
  "serde_json",
  "structopt",
