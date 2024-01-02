@@ -11,6 +11,7 @@
 // - templating
 // - choose css framework
 // - serve
+// - generate RSS/Atom feeds
 
 use std::{
     convert::TryInto,
