@@ -131,7 +131,7 @@ h4 {
   /* Black */
   overflow-x: hidden;
   /* Disable horizontal scroll */
-  padding: 10px 10px;
+  padding: 0px 10px;
   float: left;
 }
 

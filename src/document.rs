@@ -18,6 +18,7 @@ pub struct Link {
 pub struct DocLink {
     pub url: String,
     pub title: String,
+    pub summary: Option<String>,
 }
 
 #[derive(Debug, Deserialize, Serialize, Clone, Default)]
@@ -51,6 +52,7 @@ pub struct PageContext {
     pub title: Option<String>,
     pub contents: Option<String>,
     pub sidebar: Option<String>,
+    pub children: Vec<DocLink>,
     pub prev: Option<DocLink>,
     pub next: Option<DocLink>,
     pub year: i32,
@@ -65,11 +67,20 @@ impl PageContext {
             year: 2024,
             prev: None,
             next: None,
+            children: vec![],
         }
     }
 }
 
 impl Document {
+    pub fn to_doclink(&self) -> DocLink {
+        DocLink {
+            title: self.meta.title.clone(),
+            url: format!("/{}", self.path.display()),
+            summary: None, // TODO
+        }
+    }
+
     fn read_dash_meta(reader: &mut impl BufRead) -> anyhow::Result<(DocumentMeta, bool)> {
         let mut meta = DocumentMeta::default();
         let mut buffer = String::new();
@@ -177,7 +188,13 @@ impl Document {
         category: &Category,
         handlebars: &mut handlebars::Handlebars,
     ) -> anyhow::Result<Self> {
-        let context = PageContext::new(None, None);
+        let mut context = PageContext::new(None, None);
+
+        context.children = category
+            .documents
+            .iter()
+            .map(|doc| doc.to_doclink())
+            .collect::<Vec<_>>();
 
         // Add children document titles to the context here.
 

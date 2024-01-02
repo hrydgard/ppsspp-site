@@ -11,8 +11,8 @@ const env = require('../../env');
 function HomepageHeader({ cfgName }) {
   const { siteConfig } = useDocusaurusContext();
 
-  var normalIcon = "/static/img/"platform/ppsspp-icon.png";
-  var goldIcon = "/static/img/"platform/ppsspp-icon-gold.png";
+  var normalIcon = "/static/img/platform/ppsspp-icon.png";
+  var goldIcon = "/static/img/platform/ppsspp-icon-gold.png";
 
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
@@ -82,7 +82,7 @@ const FeatureList = [
           Thanks to many such contributions, PPSSPP's compatibility is steadily increasing,
           letting us all play our PSP games on devices of our choice.
         </p>
-        <p><Link className="btn" to="/docs/category/development">Development &raquo;</Link>
+        <p><Link className="btn" to="/docs/development">Development &raquo;</Link>
           <br></br>
           <Link className="btn" to="https://github.com/hrydgard/ppsspp">GitHub &raquo;</Link>
         </p>

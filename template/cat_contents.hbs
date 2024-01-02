@@ -1,1 +1,21 @@
-Category contents
+<h1>{{title}}</h1>
+
+{{ #each children }}
+
+<div class="ms-card ms-fill">
+    <div class="ms-card-title">
+        <h2>{{ title }}</h2>
+    </div>
+    {{ #if summary }}
+    <div class="ms-card-content">
+        <p>
+            {{ summary }}
+        </p>
+    </div>
+    {{ /if }}
+    <div class="ms-card-btn">
+        <a class="ms-btn ms-primary" href="{{ url }}">Read</a>
+    </div>
+</div>
+
+{{ /each }}
