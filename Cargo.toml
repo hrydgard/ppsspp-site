@@ -14,6 +14,8 @@ handlebars = "5.0"
 env_logger = "0.10"
 axum = "0.7.3"
 axum-extra = "0.9.1"
+hyper = { version = "1.0.0", features = ["full"] }
+hyper-util = { version = "0.1.1", features = ["client-legacy"] }
 structopt = "0.3.26"
 tokio = { version = "1.0", features = ["full"] }
 tower = { version = "0.4", features = ["util"] }
