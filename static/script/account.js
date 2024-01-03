@@ -79,6 +79,9 @@ function setDisplayMode(className, mode) {
 }
 
 // It's a little awkward that unlike handlebars, sqrl has these "it." everywhere.
+
+// TODO: See if we can find a better client-side templating solution. While it's nice to
+// avoid react, this does get a little awkward, vscode fails to syntax color this.
 const tmplUserInfo = `
 <div class="ms-card ms-fill">
 <p>{{it.name}}</p>
@@ -87,7 +90,7 @@ const tmplUserInfo = `
 </div>
 `;
 
-// Not really secret, even if you know this you can't do anything :P
+// Not really secret panel, even if you know what this can do you can't do anything :P
 const tmplAdminPanel = `
 <div class="ms-card ms-fill">
 <p>{{it.name}}.</p>
@@ -95,8 +98,8 @@ const tmplAdminPanel = `
 <p>Gold: {{it.goldUser}}.</p>
 <p>ADMIN STATUS</p>
 </div>
-<div class="ms-card ms-fill">
 
+<div class="ms-card ms-fill">
 <h2>Give free gold</h2>
 <form action="#" onSubmit="return handleGiveFreeGold(event)">
 <div class="alert alert--warning hidden" id="error_message" role="alert"></div>
@@ -110,7 +113,9 @@ const tmplAdminPanel = `
     <button className="button button--primary margin-top--md" type="submit">Give free gold</button>
 </div>
 </form>
+</div>
 
+<div class="ms-card ms-fill">
 <h2>Get magic link</h2>
 <form action="#" onSubmit="return handleGetMagicLink(event)">
 <div class="alert alert--warning hidden" id="error_message" role="alert"></div>
@@ -121,13 +126,34 @@ const tmplAdminPanel = `
 <div>
     <button className="button button--primary margin-top--md" type="submit">Get magic link!</button>
 </div>
-<div id="magic_link">
-...
+<div id="magic_link">...</div>
+</form>
+</div>
+
+<div class="ms-card ms-fill">
+<h2>Google Play Codes</h2>
+
+<div id="add_codes_result">...</div>
+
+<form action="#" onSubmit="return handleAddGooglePlayCodes(event)">
+<label>
+  <div>Codes to add:</div>
+  <textarea rows="10" cols="24" id="pending_codes"}></textarea>
+</label>
+<div>
+  <button className="button button--primary margin-top--md" type="submit">Add promo codes</button>
 </div>
 </form>
 
 </div>
+
+</div>
 `;
+
+const tmplPlayCodes = `
+<p>Codes used: {codesUsed}</p>
+<p>Codes left: {codesLeft}</p>
+`
 
 function applyDOMVisibility() {
     // Hides and shows stuff depending on your current login state.
@@ -227,6 +253,14 @@ async function handleGetMagicLink(event) {
             magicLinkDest.innerHTML = "";
         }
     }
+    return false;
+}
+
+async function handleAddGooglePlayCodes(event) {
+    event.preventDefault();
+    console.log("google play codes");
+
+
     return false;
 }
 
