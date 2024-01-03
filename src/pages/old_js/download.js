@@ -265,7 +265,7 @@ function GooglePlayBadge({ icon, appUrl, name, gold_color }) {
   return (
     <Link to={appUrl} className={clsx("button", "button--block", "margin-bottom--md", gold_color && "button--warning" || "button--primary")}>
       <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-        <img src={"/static/img/"platform /" + icon} width="48px" />
+        <img src={"/static/img/platform/" + icon} width="48px" />
         <span style={{ paddingLeft: "10px" }}>{name}</span>
       </div>
       <img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="200" />
@@ -277,7 +277,7 @@ function FlathubBadge({ icon, appUrl, name, gold_color }) {
   return (
     <Link to={appUrl} className={clsx("button", "button--block", "margin-bottom--md", gold_color && "button--warning" || "button--primary")}>
       <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-        <img src={"/static/img/"platform /" + icon} width="48px" />
+        <img src={"/static/img/platform/" + icon} width="48px" />
         <span style={{ paddingLeft: "10px" }}>{name}</span>
       </div>
       <img alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png' width='180' />
@@ -288,7 +288,7 @@ function FlathubBadge({ icon, appUrl, name, gold_color }) {
 function Download({ url, text, icon, gold_color, whats_this, whats_this_text }) {
   var icon_html = <></>;
   if (icon) {
-    icon_html = <img src={"/static/img/"platform /" + icon} width="32px" style={{marginRight: "10px"}} />;
+    icon_html = <img src={"/static/img/platform/" + icon} width="32px" style={{ marginRight: "10px" }} />;
   }
 
   var whats_this_link = <></>;
@@ -331,7 +331,7 @@ function DownloadsForFilename(props) {
     } else if (url.startsWith("https://flathub.org/")) {
       return <FlathubBadge icon={icon} name={name} appUrl={url} gold_color={gold_color} />;
     }
-    var icon_html = icon ? <img src={"/static/img/"platform /" + icon} width="32px" style={{marginRight: "10px"}} /> : <></>;
+    var icon_html = icon ? <img src={"/static/img/platform/" + icon} width="32px" style={{ marginRight: "10px" }} /> : <></>;
     return (
       <>
         {title_html}
@@ -402,7 +402,7 @@ function PlatformDownload({ href, short_name }) {
 
 function PlatformForVersion({ version, platform, showGold, urlBase, goldUrlBase }) {
   return (
-    <>{platform.platform_badge ? <><img src={"/static/img/"platform /" + platform.platform_badge} width="18px" height="18px" />&nbsp;</> : <></>}
+    <>{platform.platform_badge ? <><img src={"/static/img/platform/" + platform.platform_badge} width="18px" height="18px" />&nbsp;</> : <></>}
       {platform.downloads.filter((download) => { return showGold || !download.gold_file; }).map((download, idx) => {
         var fileUrlBase = download.gold_file ? goldUrlBase : urlBase;
         var href = fileUrlBase + version.replaceAll('.', '_') + "/" + download.filename;

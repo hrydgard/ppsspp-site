@@ -9,21 +9,33 @@ pub struct File {
     pub children: Vec<File>,
 }
 
-#[derive(Debug, Deserialize, Serialize, Default)]
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct DownloadInfo {
     name: String,
     icon: Option<String>,
     url: Option<String>,
+    download_url: Option<String>,
+    service_img: Option<String>,
+    service_alt: Option<String>,
+    whats_this: Option<String>,
+    whats_this_url: Option<String>,
     filename: Option<String>,
-    gold_color: Option<bool>,
+    #[serde(default)]
+    gold: bool,
 }
 
-#[derive(Debug, Deserialize, Serialize, Default)]
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct PlatformInfo {
     title: String,
     platform_badge: Option<String>,
-    platform_key: String,
+    platform_key: String, // we can ignore this, this was for react
     downloads: Vec<DownloadInfo>,
+}
+
+#[derive(Debug)]
+struct BinaryVersion {
+    version: String,
+    files: Vec<String>,
 }
 
 // This contains a bunch of stuff that various pages want to reference.
@@ -32,11 +44,30 @@ pub struct PlatformInfo {
 #[derive(Debug, Deserialize, Serialize, Clone, Default)]
 pub struct GlobalMeta {
     pub app_version: String,
+    pub platforms: Vec<PlatformInfo>,
     pub prod: bool,
 }
 
+fn download_path(url_base: &str, version: &str, filename: &str) -> String {
+    format!(
+        "{}/files/{}/{}",
+        url_base,
+        version.replace('.', "_"),
+        filename
+    )
+}
+
+fn gold_download_path(url_base: &str, version: &str, filename: &str) -> String {
+    format!(
+        "{}/api/goldfiles/{}/{}",
+        url_base,
+        version.replace('.', "_"),
+        filename
+    )
+}
+
 impl GlobalMeta {
-    pub fn new(production: bool) -> anyhow::Result<Self> {
+    pub fn new(production: bool, url_base: &str) -> anyhow::Result<Self> {
         // Parse the download path dump.
 
         let downloads_json = std::fs::read_to_string("src/downloads.json")?;
@@ -46,15 +77,32 @@ impl GlobalMeta {
         let downloads: File = serde_json::from_str(&downloads_json).unwrap();
         let downloads_gold: File = serde_json::from_str(&downloads_gold_json).unwrap();
 
-        let platforms: Vec<PlatformInfo> = serde_json::from_str(&platforms_json).unwrap();
+        let mut platforms: Vec<PlatformInfo> = serde_json::from_str(&platforms_json).unwrap();
 
-        let files = parse_files(downloads, downloads_gold);
+        let version_binaries = parse_files(downloads, downloads_gold);
 
-        let versions = pivot(&files);
+        let file_versions = pivot(&version_binaries);
 
+        // Update the platforms with URLs
+        for platform in &mut platforms {
+            for download in &mut platform.downloads {
+                if let Some(filename) = &download.filename {
+                    if let Some(version) = file_versions.get(filename) {
+                        if let Some(first) = version.first() {
+                            download.download_url = if download.gold {
+                                Some(gold_download_path(url_base, first, filename))
+                            } else {
+                                Some(download_path(url_base, first, filename))
+                            };
+                        }
+                    }
+                }
+            }
+        }
+
+        println!("{:#?}", version_binaries);
+        println!("{:#?}", file_versions);
         println!("{:#?}", platforms);
-        println!("{:#?}", files);
-        println!("{:#?}", versions);
 
         // println!("{:#?}", downloads);
         // println!("{:#?}", platforms);
@@ -62,20 +110,15 @@ impl GlobalMeta {
         // OK, here we need to preprocess the downloads together with the platform data.
 
         Ok(Self {
-            app_version: if let Some(file) = files.first() {
+            app_version: if let Some(file) = version_binaries.first() {
                 file.version.clone()
             } else {
                 "indeterminate".to_string()
             },
             prod: production,
+            platforms,
         })
     }
-}
-
-#[derive(Debug)]
-struct BinaryVersion {
-    version: String,
-    files: Vec<String>,
 }
 
 fn to_binaries_per_version(files: File) -> Vec<BinaryVersion> {
@@ -84,7 +127,7 @@ fn to_binaries_per_version(files: File) -> Vec<BinaryVersion> {
         .iter()
         .filter(|child| !child.children.is_empty() && child.name.find('_').is_some())
         .map(|child| BinaryVersion {
-            version: child.name.replace("_", "."),
+            version: child.name.replace('_', "."),
             files: child
                 .children
                 .iter()
@@ -123,10 +166,6 @@ fn pivot(binaries_per_version: &Vec<BinaryVersion>) -> HashMap<String, Vec<Strin
         }
     }
     hash
-}
-
-fn compute_gold_url_base(url_base: &str) -> String {
-    format!("{}/api/goldfiles/", url_base)
 }
 
 pub struct Config {

@@ -10,7 +10,7 @@
 // - [x] templating
 // - [ ] choose css framework
 // - [ ] generate RSS/Atom feeds
-// - [ ] Javascript basics (log in, log out)
+// - [x] Javascript basics (log in, log out)
 // - [ ] Purchase flow
 // - [ ] Admin UI
 // - [ ] Blog tags, browse by
@@ -46,7 +46,7 @@ use crate::{
 
 // TODO: Involve templates here for easier modification?
 // Can handlebars templates recurse?
-fn generate_docnav_html(root: &document::Category, focused_doc_path: &Path) -> String {
+fn generate_docnav_html(root: &document::Category, _focused_doc_path: &Path) -> String {
     let mut str = String::new();
     // For now, fully expanded. Will fix later.
     str += &format!(
@@ -56,7 +56,7 @@ fn generate_docnav_html(root: &document::Category, focused_doc_path: &Path) -> S
     );
     str += "<div class=\"category\">";
     for cat in &root.sub_categories {
-        str += &generate_docnav_html(cat, focused_doc_path);
+        str += &generate_docnav_html(cat, _focused_doc_path);
     }
     for doc in &root.documents {
         // TODO: these links don't match docusaurus!
@@ -307,17 +307,18 @@ fn build(prod: bool) -> anyhow::Result<()> {
     markdown_options.compile.allow_dangerous_html = true;
     // println!("md: {:#?}", markdown_options);
 
+    let url_base = if prod {
+        "https://www.ppsspp.org"
+    } else {
+        "https://dev.ppsspp.org"
+    }
+    .to_string();
     let config = Config {
-        url_base: if prod {
-            "https://www.ppsspp.org/"
-        } else {
-            "https://dev.ppsspp.org/"
-        }
-        .to_string(),
+        url_base: url_base.clone(),
         indir: PathBuf::from("."),
         outdir: PathBuf::from("build"),
         markdown_options,
-        global_meta: GlobalMeta::new(prod)?,
+        global_meta: GlobalMeta::new(prod, &url_base)?,
     };
 
     if !config.outdir.exists() {

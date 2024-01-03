@@ -8,10 +8,38 @@
     <!-- TODO: You've got GOLD banner here -->
 
     <div class="row">
-        <!-- Loop over the platforms -->
-        <div class="col-md-4">
+        <!-- We now over the platforms -->
+        {{ #each globals.platforms }}
+        <div class="col-md-4 ms-card ms-fill">
+            <div class="ms-card-title">
+                {{ #if platform_badge }}
+                <img src="/static/img/platform/{{platform_badge}}">
+                {{ /if}}
+                {{ title }}
+            </div>
+            <div class="ms-card-content">
+                {{ #each downloads }}
 
+                {{ #if icon }}
+                <img src="/static/img/platform/{{icon}}" width="24px" height="24px">
+                {{ /if }}
+
+                {{ #if url }}
+                <a href="{{url}}">{{name}}</a><br />
+                {{ /if }}
+
+                {{ #if download_url }}
+                <a href="{{download_url}}">{{filename}}</a><br />
+                {{ /if }}
+
+                {{ #if whats_this_url }}
+                <a href="{{whats_this_url}}">{{whats_this}}</a><br />
+                {{ /if }}
+
+                {{ /each }}
+            </div>
         </div>
+        {{ /each }}
     </div>
 
     <p class="gold-only">You have Gold - get PPSSPP Gold for Android for free!</p>
