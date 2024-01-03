@@ -1,6 +1,5 @@
-use std::{fmt::Binary, path::PathBuf};
-
 use serde::{Deserialize, Serialize};
+use std::{collections::HashMap, path::PathBuf};
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct File {
@@ -51,8 +50,11 @@ impl GlobalMeta {
 
         let files = parse_files(downloads, downloads_gold);
 
-        println!("{:#?}", files);
+        let versions = pivot(&files);
+
         println!("{:#?}", platforms);
+        println!("{:#?}", files);
+        println!("{:#?}", versions);
 
         // println!("{:#?}", downloads);
         // println!("{:#?}", platforms);
@@ -104,6 +106,18 @@ fn parse_files(files: File, gold_files: File) -> Vec<BinaryVersion> {
     }
 
     binaries_per_version
+}
+
+fn pivot(binaries_per_version: &Vec<BinaryVersion>) -> HashMap<String, Vec<String>> {
+    let mut hash = HashMap::<String, Vec<String>>::new();
+    for entry in binaries_per_version {
+        for name in &entry.files {
+            hash.entry(name.clone())
+                .or_default()
+                .push(entry.version.clone());
+        }
+    }
+    hash
 }
 
 fn compute_gold_url_base(url_base: &str) -> String {
