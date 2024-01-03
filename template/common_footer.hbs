@@ -1,7 +1,13 @@
+<div class="container">
+    {{ #unless prod }}
+    <p>DEVELOPMENT MODE</p>
+    {{ /unless }}
+</div>
+
 <footer class="ms-footer">
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col-md-4">
                 <div class="footer__title">Documentation</div>
                 <ul class="footer__items clean-list">
                     <li class="footer__item"><a class="footer__link-item" href="/docs/intro">Docs &amp; Help</a></li>

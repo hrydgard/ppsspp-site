@@ -170,5 +170,5 @@
         "usescript",
         "whygold"
     ],
-    "html.format.wrapLineLength": 0
+    "html.format.wrapLineLength": 120
 }

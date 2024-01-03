@@ -289,7 +289,7 @@ fn generate_pages(
     Ok(())
 }
 
-fn build(production: bool) -> anyhow::Result<()> {
+fn build(prod: bool) -> anyhow::Result<()> {
     let mut handlebars = handlebars::Handlebars::new();
 
     handlebars.register_template_file("common_header", "template/common_header.hbs")?;
@@ -308,10 +308,16 @@ fn build(production: bool) -> anyhow::Result<()> {
     // println!("md: {:#?}", markdown_options);
 
     let config = Config {
+        url_base: if prod {
+            "https://www.ppsspp.org/"
+        } else {
+            "https://dev.ppsspp.org/"
+        }
+        .to_string(),
         indir: PathBuf::from("."),
         outdir: PathBuf::from("build"),
         markdown_options,
-        global_meta: GlobalMeta::new(production)?,
+        global_meta: GlobalMeta::new(prod)?,
     };
 
     if !config.outdir.exists() {

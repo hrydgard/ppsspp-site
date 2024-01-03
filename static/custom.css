@@ -176,8 +176,30 @@ h4 {
   padding: 0px 0px;
 }
 
+/* Styles for hiding and showing UI depending on login state
+Note that any actual secrets are of course fetched by API.*/
 .gold-only {
   display: none;
+}
+
+.no-gold-only {
+  display: block;
+}
+
+.logged-in-only {
+  display: none;
+}
+
+.not-logged-in-only {
+  display: block;
+}
+
+.logged-in-only-inline {
+  display: none;
+}
+
+.not-logged-in-only-inline {
+  display: inline;
 }
 
 .magenta {

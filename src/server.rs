@@ -3,7 +3,7 @@ use axum::{
     extract::{Request, State},
     http::{uri::Uri, HeaderValue},
     response::{IntoResponse, Response},
-    routing::get,
+    routing::{on, MethodFilter},
     Router,
 };
 use hyper::StatusCode;
@@ -33,7 +33,13 @@ async fn server(port: u16) {
 
     let app = Router::new().nest_service("/", ServeDir::new("build"));
     let app = app
-        .route("/api", get(reverse_proxy_handler))
+        .route(
+            "/api/*path",
+            on(
+                MethodFilter::GET.or(MethodFilter::POST),
+                reverse_proxy_handler,
+            ),
+        )
         .with_state(client);
 
     let addr = SocketAddr::from(([127, 0, 0, 1], port));

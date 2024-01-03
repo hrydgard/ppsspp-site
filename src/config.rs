@@ -1,4 +1,4 @@
-use std::path::PathBuf;
+use std::{fmt::Binary, path::PathBuf};
 
 use serde::{Deserialize, Serialize};
 
@@ -49,6 +49,11 @@ impl GlobalMeta {
 
         let platforms: Vec<PlatformInfo> = serde_json::from_str(&platforms_json).unwrap();
 
+        let files = parse_files(downloads, downloads_gold);
+
+        println!("{:#?}", files);
+        println!("{:#?}", platforms);
+
         // println!("{:#?}", downloads);
         // println!("{:#?}", platforms);
 
@@ -61,7 +66,52 @@ impl GlobalMeta {
     }
 }
 
+#[derive(Debug)]
+struct BinaryVersion {
+    version: String,
+    files: Vec<String>,
+}
+
+fn to_binaries_per_version(files: File) -> Vec<BinaryVersion> {
+    files
+        .children
+        .iter()
+        .filter(|child| !child.children.is_empty() && child.name.find('_').is_some())
+        .map(|child| BinaryVersion {
+            version: child.name.replace("_", "."),
+            files: child
+                .children
+                .iter()
+                .map(|subchild| subchild.name.clone())
+                .collect::<Vec<_>>(),
+        })
+        .collect::<Vec<_>>()
+}
+
+fn parse_files(files: File, gold_files: File) -> Vec<BinaryVersion> {
+    let mut binaries_per_version = to_binaries_per_version(files);
+
+    binaries_per_version.sort_by(|a, b| natord::compare(&a.version, &b.version));
+
+    let mut binaries_per_version_gold = to_binaries_per_version(gold_files);
+
+    for b in &mut binaries_per_version {
+        for g in &mut binaries_per_version_gold {
+            if g.version == b.version {
+                b.files.append(&mut g.files);
+            }
+        }
+    }
+
+    binaries_per_version
+}
+
+fn compute_gold_url_base(url_base: &str) -> String {
+    format!("{}/api/goldfiles/", url_base)
+}
+
 pub struct Config {
+    pub url_base: String,
     pub indir: PathBuf,
     pub outdir: PathBuf,
     pub markdown_options: markdown::Options,
