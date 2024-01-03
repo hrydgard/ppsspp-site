@@ -14,7 +14,31 @@
     <script type="module" src="/static/script/account.js"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3281131109267988"
         crossorigin="anonymous"></script>
-    <title>{{ title }}</title>
+
+    {{ #if fastspring }}
+    <script>
+        function onFSPopupClosed(orderReference) {
+            if (orderReference) {
+                console.log("Order completed - redirecting!");
+                console.log(orderReference.reference);
+                fastspring.builder.reset();
+                var url = "/thankyou?orderId=" + orderReference.reference;
+                try { window.location.replace(url); }
+                catch (e) { window.location = url; }
+            } else {
+                console.log("no order ID - won't redirect to thankyou page");
+            }
+        }
+    </script>
+    <script id="fsc-api" src="https://d1f8f9xcsvx3ha.cloudfront.net/sbl/0.7.4/fastspring-builder.min.js"
+        type="text/javascript" {{ #if prod }} data-storefront="ppsspp.onfastspring.com/popup-gold" {{ else }}
+        data-storefront="ppsspp.test.onfastspring.com/popup-gold" {{ /if }} data-popup-closed="onFSPopupClosed"
+        data-debug=true>
+        </script>
+    {{ /if }}
+</head>
+
+<title>{{ title }}</title>
 </head>
 
 <body>
@@ -39,5 +63,6 @@
             </nav>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/dark-mode-switcher@0.0.1/dist/dark.min.js"></script>
     <script type="text/javascript" src="https://kit.fontawesome.com/d35975edad.js"></script>

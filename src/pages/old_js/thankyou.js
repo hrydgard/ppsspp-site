@@ -125,7 +125,7 @@ export default function Home() {
                 <h1>Thanks for buying PPSSPP Gold for Windows/macOS!</h1>
               </div>
               <div className="card__body">
-                <img src="/static/img/" platform /ppsspp-icon-gold.png" width="48px" />
+                <img src="/static/img/platform/ppsspp-icon-gold.png" width="48px" />
 
                 <p>Thank you for your purchase!</p>
 

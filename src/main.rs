@@ -21,6 +21,7 @@ use std::{
     convert::TryInto,
     io::Write,
     path::{Path, PathBuf},
+    sync::mpsc,
 };
 
 extern crate anyhow;
@@ -31,6 +32,7 @@ mod util;
 
 use anyhow::Context;
 pub use config::Config;
+use notify::Watcher;
 use structopt::StructOpt;
 
 extern crate serde;
@@ -88,19 +90,20 @@ fn generate_doctree(
         context.sidebar = Some(generate_docnav_html(&root_cat, &target_path));
         let html = handlebars.render("doc", &context)?;
 
-        println!("Writing doc {}", target_path.display());
         write_file_as_folder_with_index(&target_path, html, true)?;
     }
 
     // MD documents get wrapped into our doc template.
     // println!("{:#?}", root_cat);
 
+    println!("Wrote doctree {}", folder);
+
     Ok(())
 }
 
 // Posts should be passed-in in reverse time order.
 fn generate_blog_sidebar(
-    all_posts: &Vec<Document>,
+    all_posts: &[Document],
     handlebars: &mut handlebars::Handlebars,
 ) -> anyhow::Result<String> {
     let context = SidebarContext {
@@ -183,7 +186,7 @@ fn generate_blog(
     });
 
     for doc in &documents {
-        let mut context = PageContext::from_document(&doc);
+        let mut context = PageContext::from_document(doc);
 
         // First, render the blog post itself, without the surrounding chrome. This is so that we can add on
         // more blog posts underneath later for a more continuous experience.
@@ -196,13 +199,12 @@ fn generate_blog(
         let html = handlebars.render("doc", &context)?;
 
         let target_path = &doc.path;
-        println!("Writing blog post {}", target_path.display());
-        util::write_file_as_folder_with_index(&target_path, html, false)?;
+        util::write_file_as_folder_with_index(target_path, html, false)?;
     }
 
     // Generate the root blog post.
-    if let Some(doc) = documents.get(0) {
-        let mut context = PageContext::from_document(&doc);
+    if let Some(doc) = documents.first() {
+        let mut context = PageContext::from_document(doc);
 
         // First, render the blog post itself, without the surrounding chrome. This is so that we can add on
         // more blog posts underneath later for a more continuous experience.
@@ -215,9 +217,10 @@ fn generate_blog(
         let html = handlebars.render("doc", &context)?;
 
         let target_path = out_root_folder;
-        println!("Writing blog root {}", target_path.display());
         util::write_file_as_folder_with_index(&target_path, html, false)?;
     }
+
+    println!("Wrote blog {}", folder);
 
     Ok(())
 }
@@ -240,7 +243,6 @@ fn generate_pages(
         let Some(os_str) = path.extension() else {
             continue;
         };
-        println!("considering {}", path.display());
         let (document, apply_doc_template) = match os_str.to_str().unwrap() {
             "md" => {
                 file_name.set_extension("html");
@@ -273,9 +275,8 @@ fn generate_pages(
 
         let target_path = out_root_folder.join(file_name);
         let fname = filename_to_string(&entry.file_name());
-        println!("Writing page {} ({fname})", target_path.display());
         if fname == "index.hbs" {
-            println!("INDEX.HTML special case");
+            println!("index.html special case");
             // Just write it plain.
             let mut file = std::fs::File::create(&target_path).context("create_file_as_dir")?;
             file.write_all(html.as_bytes())?;
@@ -284,10 +285,11 @@ fn generate_pages(
             util::write_file_as_folder_with_index(&target_path, html, true)?;
         }
     }
+    println!("Wrote pages from {}", folder);
     Ok(())
 }
 
-fn run() -> anyhow::Result<()> {
+fn build(production: bool) -> anyhow::Result<()> {
     let mut handlebars = handlebars::Handlebars::new();
 
     handlebars.register_template_file("common_header", "template/common_header.hbs")?;
@@ -297,6 +299,7 @@ fn run() -> anyhow::Result<()> {
     handlebars.register_template_file("cat_contents", "template/cat_contents.hbs")?;
     handlebars.register_template_file("blog_post", "template/blog_post.hbs")?;
     handlebars.register_template_file("blog_sidebar", "template/blog_sidebar.hbs")?;
+    handlebars.register_template_file("product_card", "template/product_card.hbs")?;
 
     println!("Barebones website generator");
 
@@ -308,7 +311,7 @@ fn run() -> anyhow::Result<()> {
         indir: PathBuf::from("."),
         outdir: PathBuf::from("build"),
         markdown_options,
-        global_meta: GlobalMeta::new()?,
+        global_meta: GlobalMeta::new(production)?,
     };
 
     if !config.outdir.exists() {
@@ -330,24 +333,82 @@ fn run() -> anyhow::Result<()> {
     generate_blog(&config, "blog", &mut handlebars)?;
     generate_blog(&config, "news", &mut handlebars)?;
 
-    // OK, we're done - just serve the results.
-    let port = 3000;
-    println!("Serving on localhost:{}", port);
-
     Ok(())
 }
 
 #[derive(StructOpt, Debug)]
 struct Opt {
-    #[structopt(short, long, default_value = "3000")]
+    #[structopt(long, default_value = "3000")]
     port: i32,
+    #[structopt(long)]
+    prod: bool,
+}
+
+async fn run() -> anyhow::Result<()> {
+    let (notify_tx, notify_rx) = mpsc::channel();
+
+    let opt = Opt::from_args();
+
+    let prod = opt.prod;
+
+    build(prod).unwrap();
+
+    let mut watcher =
+        notify::recommended_watcher(move |res: Result<notify::Event, notify::Error>| match res {
+            Ok(event) => {
+                if matches!(event.kind, notify::EventKind::Modify(_)) {
+                    notify_tx.send(()).unwrap();
+                }
+            }
+            Err(e) => println!("watch error: {:?}", e),
+        })?;
+
+    // Add a path to be watched. All files and directories at that path and
+    // below will be monitored for changes.
+    watcher.watch(Path::new("blog"), notify::RecursiveMode::Recursive)?;
+    watcher.watch(Path::new("news"), notify::RecursiveMode::Recursive)?;
+    watcher.watch(Path::new("src/pages"), notify::RecursiveMode::Recursive)?;
+    watcher.watch(Path::new("static"), notify::RecursiveMode::Recursive)?;
+    watcher.watch(Path::new("template"), notify::RecursiveMode::Recursive)?;
+
+    // OK, we're done - just serve the results.
+    println!("Serving on localhost:{}", opt.port);
+
+    server::spawn_server(opt.port as u16).await;
+
+    let mut quit = false;
+    while !quit {
+        // Only look for changes every second, to kinda batch them up.
+        std::thread::sleep(std::time::Duration::from_millis(1000));
+
+        let mut changed = false;
+        loop {
+            let result = notify_rx.try_recv();
+            match result {
+                Ok(()) => {
+                    // Received something.
+                    changed = true;
+                }
+                Err(mpsc::TryRecvError::Disconnected) => {
+                    quit = true;
+                }
+                Err(mpsc::TryRecvError::Empty) => {
+                    break;
+                }
+            }
+        }
+
+        if changed {
+            // TODO: Could make it more fine grained, but for now we just rebuild everything,
+            // it's fast enough.
+            println!("Detected changes, rebuilding!");
+            build(prod).unwrap();
+        }
+    }
+    Ok(())
 }
 
 #[tokio::main]
 async fn main() {
-    let opt = Opt::from_args();
-
-    run().unwrap();
-
-    server::run_server(opt.port as u16).await;
+    run().await.unwrap();
 }

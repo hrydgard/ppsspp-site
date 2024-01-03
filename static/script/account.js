@@ -1,3 +1,16 @@
+export function buyProduct(productId, item) {
+    console.log("Buy button clicked for " + productId);
+    console.log(item);
+    window.fastspring.builder.push({
+        products: [
+            {
+                path: item.path,
+                quantity: 1
+            }
+        ],
+        checkout: true
+    });
+}
 
 function statusCodeAction(status, setUserData) {
     if (status == 401) {
@@ -38,7 +51,7 @@ export async function jsonFetch(apiName, requestBody, setUserData) {
 }
 
 // This one doesn't expect a JSON response, just a status.
-export async function jsonPost(apiName, requestBody, setUserData) {
+export async function jsonPost(apiName, requestBody, callback) {
     return fetch('/api/' + apiName, {
         method: 'POST',
         headers: {

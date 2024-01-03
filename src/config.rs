@@ -33,10 +33,11 @@ pub struct PlatformInfo {
 #[derive(Debug, Deserialize, Serialize, Clone, Default)]
 pub struct GlobalMeta {
     pub app_version: String,
+    pub prod: bool,
 }
 
 impl GlobalMeta {
-    pub fn new() -> anyhow::Result<Self> {
+    pub fn new(production: bool) -> anyhow::Result<Self> {
         // Parse the download path dump.
 
         let downloads_json = std::fs::read_to_string("src/downloads.json")?;
@@ -55,6 +56,7 @@ impl GlobalMeta {
 
         Ok(Self {
             app_version: "1.17".to_string(),
+            prod: production,
         })
     }
 }

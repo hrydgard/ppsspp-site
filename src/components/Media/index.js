@@ -119,11 +119,11 @@ const images = [
 function genUrls(images) {
     return images.map((image) => {
         return {
-            original: "/static/img/"screenshots/ " + image.filename,
-        thumbnail: "/static/img/"screenshots / thumbs / " + image.filename,
-        description: image.description,
+            original: "/static/img/screenshots/" + image.filename,
+            thumbnail: "/static/img/screenshots/thumbs/" + image.filename,
+            description: image.description,
         };
-});
+    });
 }
 
 export default function ScreenshotGallery({ }) {

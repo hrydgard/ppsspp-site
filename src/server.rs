@@ -14,7 +14,7 @@ use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 type Client = hyper_util::client::legacy::Client<HttpConnector, Body>;
 
-pub async fn run_server(port: u16) {
+pub async fn spawn_server(port: u16) {
     tracing_subscriber::registry()
         .with(
             tracing_subscriber::EnvFilter::try_from_default_env()
@@ -23,7 +23,7 @@ pub async fn run_server(port: u16) {
         .with(tracing_subscriber::fmt::layer())
         .init();
 
-    tokio::join!(server(port),);
+    tokio::spawn(server(port));
 }
 
 async fn server(port: u16) {

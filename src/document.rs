@@ -123,7 +123,7 @@ impl Document {
 
         let mut found_end = false;
         buffer.clear();
-        while let Ok(_) = reader.read_line(&mut buffer) {
+        while reader.read_line(&mut buffer).is_ok() {
             if buffer.starts_with("---") {
                 found_end = true;
                 break;
@@ -149,7 +149,7 @@ impl Document {
 
     // Handles page, blog posts, etc, including triple-dash docusaurus-style metadata.
     pub fn from_md(md_path: &Path, options: &markdown::Options) -> anyhow::Result<Self> {
-        let md_file = std::fs::File::open(&md_path)?;
+        let md_file = std::fs::File::open(md_path)?;
         let mut reader = BufReader::new(md_file);
         let (mut meta, mut ate_title) = Self::read_dash_meta(&mut reader)?;
 
@@ -196,7 +196,7 @@ impl Document {
         hbs_path: &Path,
         handlebars: &mut handlebars::Handlebars,
     ) -> anyhow::Result<Self> {
-        let hbs = std::fs::read_to_string(&hbs_path)?;
+        let hbs = std::fs::read_to_string(hbs_path)?;
         let mut context = PageContext::new(None, None);
         context.globals = Some(globals.clone());
         let html = handlebars.render_template(&hbs, &context)?;
@@ -210,7 +210,7 @@ impl Document {
 
     // Applies the "doc" template.
     pub fn from_html(html_path: &Path) -> anyhow::Result<Self> {
-        let html = std::fs::read_to_string(&html_path)?;
+        let html = std::fs::read_to_string(html_path)?;
         Ok(Self {
             path: html_path.to_path_buf(),
             html,
@@ -258,8 +258,10 @@ impl Category {
         let mut documents = vec![];
         let mut sub_categories = vec![];
         let listing = folder.read_dir()?;
-        let mut meta = DocumentMeta::default();
-        meta.title = "Documentation".to_string();
+        let mut meta = DocumentMeta {
+            title: "Documentation".to_string(),
+            ..Default::default()
+        };
 
         for dir_entry in listing {
             let entry = dir_entry?;

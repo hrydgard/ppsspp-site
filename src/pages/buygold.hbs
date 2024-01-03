@@ -1,16 +1,51 @@
-{{> common_header this title="Download" description="Download PPSSPP for Android, Windows, Mac, iOS"}}
+{{> common_header this title="Download" description="Download PPSSPP for Android, Windows, Mac, iOS" fastspring="true"
+}}
 
 <div class="container">
-  <h1>Download PPSSPP</h1>
-  <div class="row">
+    <h1>Buy PPSSPP Gold {{ globals.app_version }}</h1>
 
-  </div>
+    <div class="row gold-only">
+        <div class="span8">
+            <h2>Gold already!</h2>
+            <p class="magenta">You are already a Gold user, are you looking for <a href="/downloadgold">the
+                    downloads</a>?</p>
+            <p>Of course, feel free to purchase again if you'd like to support PPSSPP even more.</a>
+        </div>
+    </div>
+
+    <h2>Buy PPSSPP Gold for Android</h2>
+    <p>
+        <a href="https://play.google.com/store/apps/details?id=org.ppsspp.ppssppgold">
+            <img alt="PPSSPP Gold on Google Play"
+                src="https://developer.android.com/images/brand/en_generic_rgb_wo_60.png" />
+        </a>
+    </p>
+
+    <h2>Buy PPSSPP Gold for Windows/macOS</h2>
+
+    <p>Buy PPSSPP Gold for Windows to support the project! Choose your level of contribution:</p>
+
+    {{> product_card title="Hangaround" description="A show of support." productId="ppsspp-gold-l1" }}
+    {{> product_card title="Supporter" description="This will help!" productId="ppsspp-gold-l2" }}
+    {{> product_card title="Fan" description="A strong statement." productId="ppsspp-gold-l3" }}
+
+    {{> product_card title="Gamer" description="A real contribution." productId="ppsspp-gold-l4" }}
+    {{> product_card title="Powergamer" description="A love of emulation." productId="ppsspp-gold-l5" }}
+    {{> product_card title="Grandmaster" description="You totally rock!" productId="ppsspp-gold-l6" }}
+
+    <a href="/legacybuilds">Download legacy builds and the Switch port here</a>.
+
+    <div class="row">
+        <p><span class="label label-success">IMPORTANT!</span>&nbsp;The email address you use while paying will
+            receive the download link, so make sure it's right. If you have not received an email within an hour,
+            please contact <a href="mailto:henrik@millionthline.com">henrik@millionthline.com</a> and I'll have a
+            look.</p>
+        <p><span class="label label-warning">EU citizens</span>&nbsp;VAT is included so no need to worry about that.
+        </p>
+        <small>Please note that all price options get you the same thing: the permanent right to download PPSSPP
+            Gold for Windows, a gold account on this site, and Gold downloads for more platforms in the
+            future.</small>
+    </div>
 </div>
-
-<h2>Legacy builds and ports</h2>
-
-<a href="/legacybuilds">Download legacy builds and the Switch port here</a>.
-
-<h2>Download development builds</h2>
 
 {{> common_footer this}}

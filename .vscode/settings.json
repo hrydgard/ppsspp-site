@@ -169,5 +169,6 @@
         "updategoldrequest",
         "usescript",
         "whygold"
-    ]
+    ],
+    "html.format.wrapLineLength": 0
 }
