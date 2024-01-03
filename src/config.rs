@@ -62,7 +62,11 @@ impl GlobalMeta {
         // OK, here we need to preprocess the downloads together with the platform data.
 
         Ok(Self {
-            app_version: "1.17".to_string(),
+            app_version: if let Some(file) = files.first() {
+                file.version.clone()
+            } else {
+                "indeterminate".to_string()
+            },
             prod: production,
         })
     }
@@ -93,7 +97,8 @@ fn to_binaries_per_version(files: File) -> Vec<BinaryVersion> {
 fn parse_files(files: File, gold_files: File) -> Vec<BinaryVersion> {
     let mut binaries_per_version = to_binaries_per_version(files);
 
-    binaries_per_version.sort_by(|a, b| natord::compare(&a.version, &b.version));
+    // reverse order, newest first
+    binaries_per_version.sort_by(|a, b| natord::compare(&b.version, &a.version));
 
     let mut binaries_per_version_gold = to_binaries_per_version(gold_files);
 
