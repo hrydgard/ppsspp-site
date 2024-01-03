@@ -78,10 +78,55 @@ function setDisplayMode(className, mode) {
     }
 }
 
-var myTemplate = `
+// It's a little awkward that unlike handlebars, sqrl has these "it." everywhere.
+const tmplUserInfo = `
+<div class="ms-card ms-fill">
+<p>{{it.name}}</p>
+<p>Email: {{it.email}}.</p>
+<p>Gold: {{it.goldUser}}.</p>
+</div>
+`;
+
+// Not really secret, even if you know this you can't do anything :P
+const tmplAdminPanel = `
+<div class="ms-card ms-fill">
 <p>{{it.name}}.</p>
 <p>Email: {{it.email}}.</p>
 <p>Gold: {{it.goldUser}}.</p>
+<p>ADMIN STATUS</p>
+</div>
+<div class="ms-card ms-fill">
+
+<h2>Give free gold</h2>
+<form action="#" onSubmit="return handleGiveFreeGold(event)">
+<div class="alert alert--warning hidden" id="error_message" role="alert"></div>
+<label>
+    <div>Name</div>
+    <span><input type="text" size="38" id="freegold_name" /></span>
+    <div>E-mail address</div>
+    <span><input type="text" size="38" id="freegold_email" /></span>
+</label>
+<div>
+    <button className="button button--primary margin-top--md" type="submit">Give free gold</button>
+</div>
+</form>
+
+<h2>Get magic link</h2>
+<form action="#" onSubmit="return handleGetMagicLink(event)">
+<div class="alert alert--warning hidden" id="error_message" role="alert"></div>
+<label>
+    <div>E-mail address</div>
+    <span><input type="text" size="38" id="magiclink_email" /></span>
+</label>
+<div>
+    <button className="button button--primary margin-top--md" type="submit">Get magic link!</button>
+</div>
+<div id="magic_link">
+...
+</div>
+</form>
+
+</div>
 `;
 
 function applyDOMVisibility() {
@@ -112,10 +157,77 @@ function applyDOMVisibility() {
 
     const loginInfo = document.getElementById("loginInfo");
     if (loginInfo) {
-        let templateResult = Sqrl.render(myTemplate, g_userData);
-        console.log(templateResult);
+        let templateResult = Sqrl.render(g_userData.admin ? tmplAdminPanel : tmplUserInfo, g_userData);
         loginInfo.innerHTML = templateResult;
     }
+}
+
+async function handleGiveFreeGold(event) {
+    event.preventDefault();
+    let userName = document.getElementById("freegold_name").value.trim();
+    let userEmail = document.getElementById("freegold_email").value.trim();
+    console.log("Was gonna give free gold to " + userEmail + " " + userName);
+
+    if (userEmail) {
+        userEmail = userEmail.trim();
+    }
+    if (userName) {
+        userName = userName.trim();
+    }
+
+    if (userName && !userEmail) {
+        // See if we can auto-reformat from this format: Mr User <mruser@gmail.com>
+        if (userName.includes(" <")) {
+            console.log("splitting " + userName);
+            var offset = userName.indexOf(" <");
+            if (offset != -1) {
+                userEmail = userName.substr(offset + 2, userName.length - offset - 2 - 1);
+                userName = userName.substr(0, offset);
+            } else {
+                console.log("not splitting, separator not found");
+            }
+        }
+
+        console.log(userName + " '" + userEmail + "'");
+    }
+
+    if (!userEmail) {
+        return;
+    }
+
+    // OK, let's actually give gold!
+
+    var freeGoldUser = {
+        'name': userName,
+        'email': userEmail,
+    };
+    const response = await jsonFetch("freegold", freeGoldUser);
+    if (response) {
+        console.log("gave free gold to " + userName + " '" + userEmail + "'");
+    }
+    return false;
+}
+
+async function handleGetMagicLink(event) {
+    event.preventDefault();
+    const email = document.getElementById("magiclink_email").value.trim();
+    var magicLink = await jsonFetch("getmagiclink", {
+        'email': email,
+    });
+    magicLinkDest = document.getElementById("magic_link");
+    if (magicLink) {
+        if (magicLinkDest) {
+            magicLinkDest.innerHTML = magicLink.link;
+            // Also copy to clipboard
+            await navigator.clipboard.writeText(magicLink.link);
+        }
+        console.log("success: " + magicLink.link);
+    } else {
+        if (magicLinkDest) {
+            magicLinkDest.innerHTML = "";
+        }
+    }
+    return false;
 }
 
 async function handleLoginForm(event) {
@@ -177,8 +289,8 @@ function loadCredentials() {
     if (cookie) {
         var userDataFromCookie = JSON.parse(cookie);
         if (userDataFromCookie) {
-            console.log("Found cookie: ");
-            console.log(userDataFromCookie);
+            // console.log("Found cookie with below userdata:");
+            // console.log(userDataFromCookie);
             g_userData = userDataFromCookie;
         }
     }
@@ -221,9 +333,10 @@ function onLoadPage() {
     applyDOMVisibility();
 }
 
-console.log("loading");
+console.log("initial script execution");
 
 document.addEventListener('DOMContentLoaded', function () {
+    console.log("DOMContentLoaded");
     onLoadPage();
 });
 
