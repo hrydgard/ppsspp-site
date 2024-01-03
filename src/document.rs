@@ -96,6 +96,10 @@ impl PageContext {
     }
 }
 
+fn postprocess_markdown(md: String) -> String {
+    md.replace("<table>", "<table class=\"ms-table\">")
+}
+
 impl Document {
     pub fn to_doclink(&self) -> DocLink {
         DocLink {
@@ -185,6 +189,8 @@ impl Document {
             .to_string();
 
         let html = markdown::to_html_with_options(&md, options).map_err(anyhow::Error::msg)?;
+        let html = postprocess_markdown(html);
+
         let mut path = md_path.to_path_buf();
         path.set_extension("");
         Ok(Self { path, html, meta })

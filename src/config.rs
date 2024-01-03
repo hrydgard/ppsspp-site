@@ -1,3 +1,4 @@
+use axum::http::version;
 use serde::{Deserialize, Serialize};
 use std::{collections::HashMap, path::PathBuf};
 
@@ -17,6 +18,7 @@ pub struct DownloadInfo {
     download_url: Option<String>,
     service_img: Option<String>,
     service_alt: Option<String>,
+    short_name: Option<String>,
     whats_this: Option<String>,
     whats_this_url: Option<String>,
     filename: Option<String>,
@@ -38,6 +40,13 @@ struct BinaryVersion {
     files: Vec<String>,
 }
 
+// Boiled-down version of the Previous Releases table for easy template consumption.
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct VersionDownloads {
+    version: String,
+    downloads: Vec<DownloadInfo>,
+}
+
 // This contains a bunch of stuff that various pages want to reference.
 // Little point in restricting certain data to certain pages since we're a static generator
 // so it'll be a grab bag of stuff.
@@ -45,6 +54,7 @@ struct BinaryVersion {
 pub struct GlobalMeta {
     pub app_version: String,
     pub platforms: Vec<PlatformInfo>,
+    pub version_downloads: Vec<VersionDownloads>,
     pub prod: bool,
 }
 
@@ -100,9 +110,12 @@ impl GlobalMeta {
             }
         }
 
-        println!("{:#?}", version_binaries);
-        println!("{:#?}", file_versions);
-        println!("{:#?}", platforms);
+        let version_downloads = boil(&version_binaries, &platforms);
+
+        //println!("{:#?}", version_binaries);
+        //println!("{:#?}", file_versions);
+        //println!("{:#?}", platforms);
+        println!("{:#?}", version_downloads);
 
         // println!("{:#?}", downloads);
         // println!("{:#?}", platforms);
@@ -117,6 +130,7 @@ impl GlobalMeta {
             },
             prod: production,
             platforms,
+            version_downloads,
         })
     }
 }
@@ -166,6 +180,44 @@ fn pivot(binaries_per_version: &Vec<BinaryVersion>) -> HashMap<String, Vec<Strin
         }
     }
     hash
+}
+
+fn boil(version_binaries: &[BinaryVersion], platforms: &[PlatformInfo]) -> Vec<VersionDownloads> {
+    let mut downloads = vec![];
+    for version in version_binaries {
+        let mut version_download = VersionDownloads {
+            version: version.version.clone(),
+            downloads: vec![],
+        };
+
+        for platform in platforms {
+            let mut first = true;
+            for filename in &version.files {
+                //println!("filename: {}", filename);
+                //println!("{:#?}", platform.downloads);
+                // Look up the filename in platforms, the ugly way.
+                if let Some(download) = platform
+                    .downloads
+                    .iter()
+                    .find(|download| download.filename.as_ref() == Some(filename))
+                {
+                    // Add this download!
+                    let mut download = download.clone();
+                    if first {
+                        download.icon = platform.platform_badge.clone();
+                        first = false;
+                    } else {
+                        download.icon = None;
+                    }
+                    version_download.downloads.push(download);
+                }
+            }
+        }
+        if !version_download.downloads.is_empty() {
+            downloads.push(version_download);
+        }
+    }
+    downloads
 }
 
 pub struct Config {

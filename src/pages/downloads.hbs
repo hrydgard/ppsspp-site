@@ -44,6 +44,42 @@
 
     <p class="gold-only">You have Gold - get PPSSPP Gold for Android for free!</p>
 
+    <h2>Development builds</h2>
+    <p>Download fresh development builds from Orphis' Buildbot, also included below.</p>
+    <p>Please note that these development builds can be unstable - if one doesn't work, try an earlier one. And backup
+        your save games!</p>
+
+    <h2>Legacy builds and other downloads</h2>
+    <p><a href="/legacybuilds">A page where you can download</a> cube.elf, and builds for Switch, Blackberry, Meego and
+        other esoteric or old platforms.</p>
+
+    <h2>Previous releases</h2>
+    <table class="ms-table">
+        <thead>
+            <tr>
+                <th>Version</th>
+                <th>Downloads</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ #each globals.version_downloads }}
+            <tr>
+                <td>{{version}}</td>
+                <td>
+                    {{ #each downloads }}
+                    {{ #if icon }}
+                    <img src="/static/img/platform/{{icon}}" width="24px" height="24px">
+                    {{ /if }}
+                    {{ #if short_name }}
+                    <a href="{{download_url}}">{{short_name}}</a>
+                    {{ /if }}
+                    {{ /each }}
+                </td>
+            </tr>
+            {{ /each }}
+        </tbody>
+    </table>
+
 </div>
 
 <!--
