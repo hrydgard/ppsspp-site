@@ -100,6 +100,24 @@ fn postprocess_markdown(md: String) -> String {
     md.replace("<table>", "<table class=\"ms-table\">")
 }
 
+fn split_bracketed_list(value: &str) -> Vec<String> {
+    if let Some(value) = value.strip_prefix('[') {
+        if let Some(value) = value.strip_suffix(']') {
+            return value
+                .split(',')
+                .map(|s| s.trim().to_owned())
+                .collect::<Vec<_>>();
+        }
+    }
+    vec![]
+}
+
+fn cleanup_path(path: &Path) -> Option<String> {
+    path.to_string_lossy()
+        .strip_prefix('.')
+        .map(|s| s.to_string().replace('\\', "/"))
+}
+
 impl Document {
     pub fn to_doclink(&self) -> DocLink {
         DocLink {
@@ -138,7 +156,7 @@ impl Document {
                     "title" => meta.title = value,
                     "slug" => meta.slug = value,
                     "authors" => meta.author = value,
-                    "tags" => meta.tags = value.split(' ').map(str::to_owned).collect::<Vec<_>>(),
+                    "tags" => meta.tags = split_bracketed_list(&value),
                     _ => {}
                 }
             }
@@ -156,6 +174,11 @@ impl Document {
         let md_file = std::fs::File::open(md_path)?;
         let mut reader = BufReader::new(md_file);
         let (mut meta, mut ate_title) = Self::read_dash_meta(&mut reader)?;
+
+        let mut path = md_path.to_path_buf();
+        path.set_extension("");
+
+        meta.url = cleanup_path(&path);
 
         let mut md = String::from("");
 
@@ -191,8 +214,6 @@ impl Document {
         let html = markdown::to_html_with_options(&md, options).map_err(anyhow::Error::msg)?;
         let html = postprocess_markdown(html);
 
-        let mut path = md_path.to_path_buf();
-        path.set_extension("");
         Ok(Self { path, html, meta })
     }
 
@@ -266,6 +287,7 @@ impl Category {
         let listing = folder.read_dir()?;
         let mut meta = DocumentMeta {
             title: "Documentation".to_string(),
+            url: Some("/docs".to_string()),
             ..Default::default()
         };
 
@@ -294,11 +316,13 @@ impl Category {
             }
         }
 
+        let path = folder.to_path_buf();
+        meta.url = cleanup_path(&path);
         Ok(Self {
             meta,
             documents,
             sub_categories,
-            path: folder.to_path_buf(),
+            path,
         })
     }
 
@@ -314,6 +338,16 @@ impl Category {
         }
         for cat in &self.sub_categories {
             all_docs.extend(cat.all_documents(handlebars)?);
+        }
+        // Add next/forward links
+        // for [prev, cur, next] in documents.
+        for i in 0..all_docs.len() {
+            if let Some(prev) = all_docs.get(i.wrapping_sub(1)) {
+                all_docs[i].meta.prev = Some(prev.to_doclink());
+            }
+            if let Some(next) = all_docs.get(i.wrapping_add(1)) {
+                all_docs[i].meta.next = Some(next.to_doclink());
+            }
         }
         Ok(all_docs)
     }

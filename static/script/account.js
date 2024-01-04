@@ -540,9 +540,79 @@ function translateForward(forward, reason) {
     return forward;
 }
 
+// Fastspring thankyou globals.
+
+var g_pollInterval = 1000;
+
+// For the thank-you-page. TODO: Organize things more sensibly.
+
+// Two references from the test repo: PPS230228-4621-17116  PPS230228-4621-52125
+
+const tmplShowSuccessfulPurchase = `
+<p>Thank you!</p>
+<p>An e-mail with your login info has been sent to <strong>{{it.email}}</strong>.</p>
+<p>(If this e-mail address is incorrect, <a href="mailto:hrydgard+ppssppgold@gmail.com">contact support</a>.)</p>
+<p>Price: {{it.totalDisplay}} ({{it.currency}})</p>
+<p><a href="{{it.magicLink}}">Click here to log in!</a></p>
+`;
+
+const tmplShowPendingPurchase = `
+<p>Thank you!</p>
+<p>Confirming purchase for {{it.totalDisplay}} made by {{it.email}}.</p>
+<p>(If this e-mail address is incorrect, <a href="mailto:hrydgard+ppssppgold@gmail.com">contact support</a>.)</p>
+`;
+
+const tmplShowBadPurchase = `
+
+`;
+
+async function pollPurchase() {
+    console.log("Thank you poll");
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const reference = urlParams.get('orderId');
+
+    if (!reference) {
+        // Page was loaded with wrong parameters.
+        setStatusDisplay("ERROR", "purchaseStatus", "Missing purchase reference (?orderId)");
+        return;
+    }
+
+    console.log("Order reference: " + reference);
+
+    const statusData = await jsonFetch("getorderstatus", { reference: reference });
+    if (statusData) {
+        console.log(statusData);
+        if (statusData.paymentStatus == "completed") {
+            setStatusDisplay("SUCCESS", "purchaseStatus", "Purchase confirmed!");
+            const purchaseInfo = document.getElementById("purchaseInfo");
+            purchaseInfo.innerHTML = Sqrl.render(tmplShowSuccessfulPurchase, statusData);
+        } else {
+            const purchaseInfo = document.getElementById("purchaseInfo");
+            purchaseInfo.innerHTML = Sqrl.render(tmplShowPendingPurchase, statusData);
+            console.log("Purchase not confirmed completed, keeping polling.");
+            if (g_pollInterval < 10000) {
+                g_pollInterval += 1000;  // ms
+            }
+            window.setTimeout(pollPurchase, g_pollInterval);
+        }
+    } else {
+        setStatusDisplay("INFO", "purchaseStatus", "Confirming purchase... (might take a while)");
+        console.log("Failed, trying again.");
+        if (g_pollInterval < 10000) {
+            g_pollInterval += 1000;  // ms
+        }
+        window.setTimeout(pollPurchase, g_pollInterval);
+    }
+}
+
 function onLoadPage() {
     loadCredentials();
     applyDOMVisibility();
+    if (g_thankYouPage) {
+        window.setTimeout(pollPurchase, g_pollInterval);
+    }
 }
 
 console.log("initial script execution");

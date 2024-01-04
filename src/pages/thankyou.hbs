@@ -3,17 +3,15 @@
 <div class="container">
 
     <h1>Thank you for buying PPSSPP Gold!</h1>
-
     <p>Check your e-mail for confirmation.</p>
+
+    <div id="purchaseStatus"></div>
+    <div id="purchaseInfo"></div>
 
 </div>
 
 <script>
-
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    console.log(urlParams);
-
+    g_thankYouPage = true;
 </script>
 
 {{> common_footer this }}

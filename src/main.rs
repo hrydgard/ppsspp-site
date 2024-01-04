@@ -81,20 +81,17 @@ fn generate_doctree(
     // Note that we also generate the categories as documents in `all_documents`.
     let docs = root_cat.all_documents(handlebars)?;
     for doc in docs {
-        let target_path = out_root_folder.join(doc.path);
+        let target_path = out_root_folder.join(&doc.path);
 
         util::create_folder_if_missing(&target_path)?;
 
         // We apply the template right here.
-        let mut context = PageContext::new(Some(doc.meta.title), Some(doc.html));
+        let mut context = PageContext::from_document(&doc);
         context.sidebar = Some(generate_docnav_html(&root_cat, &target_path));
         let html = handlebars.render("doc", &context)?;
 
         write_file_as_folder_with_index(&target_path, html, true)?;
     }
-
-    // MD documents get wrapped into our doc template.
-    // println!("{:#?}", root_cat);
 
     println!("Wrote doctree {}", folder);
 
@@ -116,6 +113,7 @@ fn generate_blog_sidebar(
     let output = handlebars.render("blog_sidebar", &context)?;
     Ok(output)
 }
+
 fn generate_blog(
     config: &Config,
     folder: &str,
@@ -167,16 +165,6 @@ fn generate_blog(
         documents.push(doc);
     }
 
-    // Add next/forward links
-    // for [prev, cur, next] in documents.
-    for i in 1..documents.len() - 1 {
-        let prev = documents[i - 1].to_doclink();
-        let next = documents[i + 1].to_doclink();
-        let cur = &mut documents[i];
-        cur.meta.prev = Some(prev);
-        cur.meta.next = Some(next);
-    }
-
     documents.sort_by(|a, b| {
         a.meta
             .date
@@ -184,6 +172,17 @@ fn generate_blog(
             .unwrap_or(Ordering::Equal)
             .reverse()
     });
+
+    // Add next/forward links
+    // for [prev, cur, next] in documents.
+    for i in 0..documents.len() {
+        if let Some(prev) = documents.get(i.wrapping_sub(1)) {
+            documents[i].meta.prev = Some(prev.to_doclink());
+        }
+        if let Some(next) = documents.get(i.wrapping_add(1)) {
+            documents[i].meta.next = Some(next.to_doclink());
+        }
+    }
 
     for doc in &documents {
         let mut context = PageContext::from_document(doc);
@@ -196,6 +195,7 @@ fn generate_blog(
         // Now, use that as contents and render into a doc template.
         context.contents = Some(post_html);
         context.sidebar = Some(sidebar);
+        //println!("{:#?}", context.meta);
         let html = handlebars.render("doc", &context)?;
 
         let target_path = &doc.path;
