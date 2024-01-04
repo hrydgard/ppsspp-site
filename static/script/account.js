@@ -546,14 +546,16 @@ var g_pollInterval = 1000;
 
 // For the thank-you-page. TODO: Organize things more sensibly.
 
-// Two references from the test repo: PPS230228-4621-17116  PPS230228-4621-52125
+// Two references from the test backend: PPS230228-4621-17116  PPS230228-4621-52125
 
 const tmplShowSuccessfulPurchase = `
 <p>Thank you!</p>
 <p>An e-mail with your login info has been sent to <strong>{{it.email}}</strong>.</p>
-<p>(If this e-mail address is incorrect, <a href="mailto:hrydgard+ppssppgold@gmail.com">contact support</a>.)</p>
-<p>Price: {{it.totalDisplay}} ({{it.currency}})</p>
+<p>NOTE: If no e-mail arrives within a few minutes, please check your spam box.
+If it's not there or you want to use a different e-mail address for log-in,
+then <a href="mailto:hrydgard+ppssppgold@gmail.com">e-mail me</a> and I'll sort it out.</p>
 <p><a href="{{it.magicLink}}">Click here to log in!</a></p>
+<p>Paid: {{it.totalDisplay}} ({{it.currency}})</p>
 `;
 
 const tmplShowPendingPurchase = `
