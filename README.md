@@ -12,25 +12,24 @@ Authentication is done using httponly cookies, which means that client side java
 Thus, we also keep a record of the current login state in localstorage. Could also use a client-visible cookie
 but localstorage was just easier.
 
-In root.js, we wrap everything in `<BrowserOnly>` so that we can have dynamic content. Ideally, we'd only use that in the navbar (for the login indicator) and on the select few pages where it matters - it's a future project to try to get to such a state.
+We load the authentication data from localstorage on every page load, and apply visibility accordingly. All this
+is managed from /static/script/account.js.
 
 ## Local testing instructions
 
 Prerequisites:
 
-* On Windows, you probably should use a WSL shell. IF you've checked out in a /mnt directory, you'll want to be using WSL 1. You can change version with `wsl --set-version Ubuntu 1` or similar in PowerShell, if you're on v2.
-
-* Node must be installed: `sudo apt npm install`
-  If you are using an ubuntu WSL, install npm [from here](https://github.com/nodesource/distributions/blob/master/README.md).
-  Also it must be a Ubuntu 22, so if you have an older one, uninstall and reinstall your ubuntu WSL.
+- Rust must be installed.
 
 Local testing:
 
-`./switch.sh local`
-`npm update`
-`npm run start`  (not serve! that's for serving the build directory, after `npm build`)
+- `cargo run`
+- Go to `localhost:3000` in a browser.
 
-That will launch the site on localhost:3000.
+That will launch the site on localhost:3000. A proxy is launched pointing `/api` at our dev backend (which
+isn't always running).
+
+To see options, `cargo run -- --help`.
 
 ## Deploy instructions
 
@@ -39,9 +38,10 @@ NOTE: Currently, only hrydgard does this.
 Prerequisites: See Local Testing Instructions.
 
 If upgrading PPSSPP versions, regenerate static/downloads.json using util/dirtree-json.
-That will have its own README.md.
+
+That will have its own README.md one day..
 
 Use one of the below as appropriate:
 
-`./deploy.sh dev`  (deploys to dev.ppsspp.org)
-`./deploy.sh prod` (deploys to www.ppsspp.org)
+`./deploy.sh dev`  (deploys to `dev.ppsspp.org`)
+`./deploy.sh prod` (deploys to `www.ppsspp.org`)
