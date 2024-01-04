@@ -1,5 +1,7 @@
 {{> common_header this title="Login" description="Login form"}}
 
+<!-- This takes care of /loginbykey duties too. That's a redirect. -->
+
 <div class="container">
     <h1>Login</h1>
 
@@ -25,6 +27,8 @@
             </div>
         </form>
 
+        <div id="loginStatus"></div>
+
     </div>
 
     <div class="logged-in-only">
@@ -34,5 +38,10 @@
     </div>
 
 </div>
+
+<script>
+    // Allow login by keys on this page only. There might be a better way to accomplish this.
+    g_loginByKey = true;
+</script>
 
 {{> common_footer this}}

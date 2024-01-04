@@ -34,9 +34,14 @@ function statusCodeAction(status) {
         // (1) The user doesn't have the required status, in which case there might be something suspicious afoot
         // (2) The user login expired
         // Reset user data immediately
-        console.log("401, logging out");
+        console.log("Some request returned 401, logging out");
         logoutUser();
     }
+}
+
+function validateEmailAddress(email) {
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    return email.match(validRegex);
 }
 
 async function jsonFetch(apiName, requestBody) {
@@ -65,7 +70,7 @@ async function jsonPost(apiName, requestBody) {
         },
         body: requestBody ? JSON.stringify(requestBody) : null,
     }).then(data => {
-        statusCodeAction(data.status, setUserData);
+        statusCodeAction(data.status);
         return data.status == 200;
     });
 }
@@ -87,17 +92,23 @@ const tmplUserInfo = `
 <div class="ms-card ms-fill">
 <p>{{it.name}}</p>
 <p>Email: {{it.email}}.</p>
-<p>Gold: {{it.goldUser}}.</p>
+{{ @if (it.goldUser) }}
+<p>Gold status!</p>
+{{ /if }}
+<p><a href="/changepassword">Change password</a></p>
 </div>
 `;
 
 // Not really secret panel, even if you know what this can do you can't do anything :P
 const tmplAdminPanel = `
 <div class="ms-card ms-fill">
-<p>{{it.name}}.</p>
+<p>{{it.name}}</p>
+<p><strong>ADMIN</strong></p>
 <p>Email: {{it.email}}.</p>
-<p>Gold: {{it.goldUser}}.</p>
-<p>ADMIN STATUS</p>
+{{ @if (it.goldUser) }}
+<p>Gold status!</p>
+{{ /if }}
+<p><a href="/changepassword">Change password</a></p>
 </div>
 
 <div class="ms-card ms-fill">
@@ -113,6 +124,7 @@ const tmplAdminPanel = `
 <div>
     <button className="button button--primary margin-top--md" type="submit">Give free gold</button>
 </div>
+<div id="loginStatus"></div>
 </form>
 </div>
 
@@ -128,14 +140,15 @@ const tmplAdminPanel = `
     <button className="button button--primary margin-top--md" type="submit">Get magic link!</button>
 </div>
 <div id="magic_link">...</div>
+<div id="magicLinkStatus"></div>
 </form>
 </div>
 
 <div class="ms-card ms-fill">
 <h2>Google Play Codes</h2>
 
-<div id="add_codes_result">...</div>
-
+<div id="playCodesStats">...</div>
+<div id="googlePlayStatus"></div>
 <form action="#" onSubmit="return handleAddGooglePlayCodes(event)">
 <label>
   <div>Codes to add:</div>
@@ -152,8 +165,8 @@ const tmplAdminPanel = `
 `;
 
 const tmplPlayCodes = `
-<p>Codes used: {codesUsed}</p>
-<p>Codes left: {codesLeft}</p>
+<p>Codes used: {{it.codesUsed}}</p>
+<p>Codes left: {{it.codesLeft}}</p>
 `;
 
 const tmplLoginCorner = `
@@ -172,7 +185,7 @@ Login
 </a>
 `;
 
-function applyDOMVisibility() {
+async function applyDOMVisibility() {
     // Hides and shows stuff depending on your current login state.
     if (g_userData.loggedIn) {
         setDisplayMode("logged-in-only", g_userData.loggedIn ? "block" : "none");
@@ -183,6 +196,8 @@ function applyDOMVisibility() {
         setDisplayMode("logged-in-only", "none");
         setDisplayMode("not-logged-in-only", "block");
     }
+
+    setDisplayMode("not-login-key-only", g_userData.loginType != "key" ? "block" : "none");
 
     setDisplayMode("gold-only", g_userData.goldUser ? "block" : "none");
     setDisplayMode("no-gold-only", g_userData.goldUser ? "none" : "block");
@@ -204,6 +219,32 @@ function applyDOMVisibility() {
     if (loginInfo) {
         loginInfo.innerHTML = Sqrl.render(g_userData.admin ? tmplAdminPanel : tmplUserInfo, g_userData);
     }
+    const playCodesStats = document.getElementById("playCodesStats");
+    if (playCodesStats) {
+        await updatePlayCodesStats();
+    }
+}
+
+async function updatePlayCodesStats() {
+    const data = await jsonFetch("googleplaycodeadmin", {});
+    if (data) {
+        console.log(data);
+        playCodesStats.innerHTML = Sqrl.render(tmplPlayCodes, data);
+    } else {
+        console.log("got no playcodes stats");
+    }
+}
+
+// severities:
+// "WARN", "ERROR", "SUCCESS", "INFO"
+function setStatusDisplay(severity, errorElement, errorString) {
+    let errorBox = document.getElementById(errorElement);
+    if (errorBox) {
+        console.log(severity + ": " + errorString);
+        errorBox.innerHTML = errorString;
+    } else {
+        console.log("Error-display '" + errorElement + "' didn't exist: " + errorString)
+    }
 }
 
 async function handleGiveFreeGold(event) {
@@ -223,7 +264,7 @@ async function handleGiveFreeGold(event) {
         // See if we can auto-reformat from this format: Mr User <mruser@gmail.com>
         if (userName.includes(" <")) {
             console.log("splitting " + userName);
-            var offset = userName.indexOf(" <");
+            const offset = userName.indexOf(" <");
             if (offset != -1) {
                 userEmail = userName.substr(offset + 2, userName.length - offset - 2 - 1);
                 userName = userName.substr(0, offset);
@@ -241,7 +282,7 @@ async function handleGiveFreeGold(event) {
 
     // OK, let's actually give gold!
 
-    var freeGoldUser = {
+    const freeGoldUser = {
         'name': userName,
         'email': userEmail,
     };
@@ -255,7 +296,7 @@ async function handleGiveFreeGold(event) {
 async function handleGetMagicLink(event) {
     event.preventDefault();
     const email = document.getElementById("magiclink_email").value.trim();
-    var magicLink = await jsonFetch("getmagiclink", {
+    const magicLink = await jsonFetch("getmagiclink", {
         'email': email,
     });
     magicLinkDest = document.getElementById("magic_link");
@@ -276,10 +317,51 @@ async function handleGetMagicLink(event) {
 
 async function handleAddGooglePlayCodes(event) {
     event.preventDefault();
+
+    const codeString = document.getElementById("pending_codes").value.trim();
+    // TODO: Validate contents better.
+    let codes = codeString.split(/\r?\n/).filter(x => x.length > 0).map(x => x.trim());
+    if (codes.length == 0) {
+        console.log("nothing to do");
+        return;
+    }
+
+    console.log(codes);
+    var result = await jsonPost("googleplaycodeadmin", {
+        'addCodes': codes,
+    });
+    if (result) {
+        console.log("success");
+        setStatusDisplay("SUCCESS", "googlePlayStatus", "Codes added.");
+    } else {
+        console.log("failure");
+        setStatusDisplay("ERROR", "googlePlayStatus", "Failed to add codes.");
+    }
+
+    await updatePlayCodesStats();
+
     console.log("google play codes");
-
-
     return false;
+}
+
+function processLoginData(loginData) {
+    console.log(loginData);
+    const userData = {
+        'loggedIn': true,
+        'goldUser': loginData.goldUser,
+        'admin': loginData.admin,
+        'name': loginData.name,
+        'email': loginData.email,
+        'loginType': loginData.loginType,
+    };
+
+    console.log("Setting user data: ");
+    console.log(userData);
+
+    g_userData = userData;
+
+    // Store the data for the next page load.
+    localStorage.setItem('ppsspp-auth', JSON.stringify(userData));
 }
 
 async function handleLoginForm(event) {
@@ -291,41 +373,31 @@ async function handleLoginForm(event) {
     const queryParams = new URLSearchParams(location.search);
     const forward = translateForward(queryParams.get('Forward'), "set form forward");
 
-    // TODO: Pre-verify email here.
+    if (!validateEmailAddress(email)) {
+        setStatusDisplay("ERROR", "loginStatus", BAD_EMAIL_ADDRESS);
+        return false;
+    }
+    if (!password) {
+        setStatusDisplay("ERROR", "loginStatus", MISSING_PASSWORD);
+        return false;
+    }
 
-    var credentials = {
+    const credentials = {
         'email': email,
         'password': password,
         'key': "",
     };
     console.log(credentials);
     const loginData = await jsonFetch("login", credentials);
-    console.log(loginData);
     if (loginData) {
-        console.log(loginData);
-        var userData = {
-            'loggedIn': true,
-            'goldUser': loginData.goldUser,
-            'admin': loginData.admin,
-            'name': loginData.name,
-            'email': loginData.email,
-            'loginType': loginData.loginType,
-        };
-
-        console.log("Setting user data: ");
-        console.log(userData);
-
-        g_userData = userData;
-
-        // Store the data for the next page load.
-        localStorage.setItem('ppsspp-auth', JSON.stringify(userData));
+        processLoginData(loginData);
 
         if (forward) {
             console.log("Forwarding to " + forward);
             window.location.href = "/" + forward;
         }
     } else {
-        setErrorMessage("Email/Password didn't match.");
+        setStatusDisplay("ERROR", "loginStatus", "Email/Password didn't match, or account doesn't exist.");
     }
 
     applyDOMVisibility();
@@ -333,34 +405,122 @@ async function handleLoginForm(event) {
     return false;  // irrelevant since we're in async context here
 }
 
+async function handleLoginByKey() {
+    const queryParams = new URLSearchParams(location.search);
+    const queryEmail = queryParams.get('Email');
+    const queryKey = queryParams.get('Key');
+    var forward = null;
+    // Note: We allow logins by key if already logged in by password.
+    // This is so that password recovery emails can still be opened if you happened to forget
+    // the password while you were already logged in...
+    if (queryEmail && queryKey && (!g_userData.loggedIn || g_userData.loginType == "password")) {
+        // Automated login by key
+        var credentials = {
+            'email': queryEmail,
+            'key': queryKey,
+        };
+        console.log("Trying to log in by key: " + credentials.email + " " + credentials.key);
+        const loginData = await jsonFetch("login", credentials, null);
+        if (loginData) {
+            processLoginData(loginData);
+            // setLoginFailed(false);
+            forward = translateForward(queryParams.get('Forward'), "effect");
+            console.log("Login-by-key success");
+        } else {
+            console.log("No login data in response, not logging in. forward was " + forward);
+            // setLoginFailed(true);
+            // Remove query parameters. This causes some kind of wacky redirect loop though!
+            // queryParams.delete('error')
+            setStatusDisplay("ERROR", "loginStatus", "Failed to login by key.");
+        }
+    } else if (g_userData.loggedIn) {
+        // Just proceed with the forward, we're already logged in.
+        forward = translateForward(queryParams.get('Forward'), "effect");
+    }
+    if (forward) {
+        var url = "/" + forward;
+        console.log("Attempting to navigate to forwarding URL " + url);
+        window.location.href = url;
+    } else {
+        console.log("not forwarding, forward == null");
+    }
+}
+
+async function handleChangePasswordForm(event) {
+    event.preventDefault();
+    const status = "changePasswordStatus";
+    const oldPassword = document.getElementById("old_password").value.trim();
+    const newPassword = document.getElementById("new_password").value.trim();
+
+    if (newPassword.length < 8) {
+        setStatusDisplay("ERROR")
+    }
+
+    var result = await jsonPost("changepassword", { oldPassword: oldPassword, newPassword: newPassword });
+    if (result) {
+        console.log(result);
+        setStatusDisplay("SUCCESS", status, "Password changed");
+        // window.location.href = "/login";
+    } else {
+        setStatusDisplay("ERROR", status, "Failed to change password. Was your old password correct?");
+    }
+
+    return false;
+}
+
+async function handleRecoverPasswordForm(event) {
+    event.preventDefault();
+    const status = "recoverPasswordStatus";
+    const email = document.getElementById("email").value.trim();
+    if (!validateEmailAddress(email)) {
+        setStatusDisplay("ERROR", status, BAD_EMAIL_ADDRESS);
+        return false;
+    }
+    await jsonPost('recoverpassword', { email: email }, null, null); // not fetch!
+    // Don't reveal success or failure.
+    setStatusDisplay("SUCCESS", status, "E-mail with recover link sent to your account, if valid.");
+    return false;
+}
+
+async function handleRequestPromoCodeForm(event) {
+    const status = "requestPromoCodeStatus";
+    event.preventDefault();
+    var result = await jsonFetch("getgoogleplaycode", null, null);
+    if (result) {
+        setStatusDisplay("SUCCESS", status, "Your Promo Code: " + result.code);
+    } else {
+        setStatusDisplay("ERROR", status, "Failed to make request - duplicate?");
+    }
+}
+
 function loadCredentials() {
-    console.log("Loading credentials...");
     // This is done on every page load. We get credentials from localStorage
     // and update the UI accordingly.
     const cookie = localStorage.getItem('ppsspp-auth');
     if (cookie) {
-        var userDataFromCookie = JSON.parse(cookie);
+        console.log("Loading credentials...");
+        const userDataFromCookie = JSON.parse(cookie);
         if (userDataFromCookie) {
-            // console.log("Found cookie with below userdata:");
-            // console.log(userDataFromCookie);
             g_userData = userDataFromCookie;
         }
+    } else {
+        console.log("No credentials, not logged in.");
+    }
+
+    if (g_loginByKey) {
+        handleLoginByKey();
     }
 }
 
 async function logoutUser() {
-    // Reset user data immediately
+    // Reset user data
     g_userData = defaultUserContext;
-    // Reset the local cookie so we don't auto-login on the next load.
+    // Reset the localStorage cache so we don't appear logged-in on the next page load.
     localStorage.removeItem('ppsspp-auth');
     // Reset the server cookie
     await jsonPost("logout", null);
-
+    // Apply changes to the UI.
     applyDOMVisibility();
-}
-
-function setErrorMessage(msg) {
-    console.log("Error: " + msg);
 }
 
 function translateForward(forward, reason) {
@@ -371,7 +531,7 @@ function translateForward(forward, reason) {
             forward = null;
             break;
         case "downloadgold":
-            forward = "download";
+            forward = "downloads";
             break;
     }
     if (forward) {
@@ -393,3 +553,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // window.onload = onLoadPage;
+
+// Error messages
+const BAD_EMAIL_ADDRESS = "Not a valid e-mail address ";
+const MISSING_PASSWORD = "Please enter a password";

@@ -14,9 +14,13 @@
     -->
     <script src="https://unpkg.com/squirrelly"></script>
     <script src="/static/script/account.js" defer></script>
+    {{ #unless noAds }}
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3281131109267988"
         crossorigin="anonymous"></script>
-
+    {{ /unless }}
+    <script>
+        var g_loginByKey = false;
+    </script>
     {{ #if fastspring }}
     <script>
         function onFSPopupClosed(orderReference) {

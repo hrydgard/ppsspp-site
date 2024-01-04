@@ -114,7 +114,7 @@ impl GlobalMeta {
         //println!("{:#?}", version_binaries);
         //println!("{:#?}", file_versions);
         //println!("{:#?}", platforms);
-        println!("{:#?}", version_downloads);
+        //println!("{:#?}", version_downloads);
 
         // println!("{:#?}", downloads);
         // println!("{:#?}", platforms);
