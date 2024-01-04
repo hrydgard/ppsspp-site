@@ -3,6 +3,7 @@ title: Privacy policy - PPSSPP
 ---
 
 <!-- markdownlint-disable MD024 -->
+<!-- markdownlint-disable MD025 -->
 
 # PPSSPP Privacy Policy
 
@@ -24,7 +25,7 @@ anonymously, only when manually enabled, and no personal data is ever collected 
 The only data collected is voluntary compatibility reports. This data is collected completely
 anonymously only when manually enabled,  and no personal data is ever collected or stored.
 
-## Privacy Policy for PPSSPP.org<
+## Privacy Policy for PPSSPP.org
 
 ### Information collection and use
 

@@ -79,6 +79,7 @@ function setDisplayMode(className, mode) {
 }
 
 // It's a little awkward that unlike handlebars, sqrl has these "it." everywhere.
+// Also, ifs and each look a bit different.
 
 // TODO: See if we can find a better client-side templating solution. While it's nice to
 // avoid react, this does get a little awkward, vscode fails to syntax color this.
@@ -153,11 +154,26 @@ const tmplAdminPanel = `
 const tmplPlayCodes = `
 <p>Codes used: {codesUsed}</p>
 <p>Codes left: {codesLeft}</p>
-`
+`;
+
+const tmplLoginCorner = `
+<a href='/login'>
+{{@if(it.loggedIn)}}
+<img
+{{@if(it.goldUser)}}
+src="/static/img/platform/ppsspp-icon-gold.png"
+{{#else}}
+src="/static/img/platform/ppsspp-icon.png"
+{{/if}}
+width="22px" height="22px" />&nbsp;{{it.name}}
+{{#else}}
+Login
+{{/if}}
+</a>
+`;
 
 function applyDOMVisibility() {
     // Hides and shows stuff depending on your current login state.
-
     if (g_userData.loggedIn) {
         setDisplayMode("logged-in-only", g_userData.loggedIn ? "block" : "none");
         setDisplayMode("not-logged-in-only", g_userData.loggedIn ? "none" : "block");
@@ -180,11 +196,13 @@ function applyDOMVisibility() {
     if (loginEmail) {
         loginEmail.innerText = g_userData.email;
     }
-
+    const loginCorner = document.getElementById("loginCorner");
+    if (loginCorner) {
+        loginCorner.innerHTML = Sqrl.render(tmplLoginCorner, g_userData);
+    }
     const loginInfo = document.getElementById("loginInfo");
     if (loginInfo) {
-        let templateResult = Sqrl.render(g_userData.admin ? tmplAdminPanel : tmplUserInfo, g_userData);
-        loginInfo.innerHTML = templateResult;
+        loginInfo.innerHTML = Sqrl.render(g_userData.admin ? tmplAdminPanel : tmplUserInfo, g_userData);
     }
 }
 
