@@ -9,15 +9,50 @@ pub fn filename_to_string(name: &OsStr) -> String {
     name.to_string_lossy().to_string()
 }
 
-pub fn copy_recursive(src: impl AsRef<Path>, dst: impl AsRef<Path>) -> std::io::Result<()> {
+#[allow(clippy::single_match)]
+pub fn copy_recursive(
+    src: impl AsRef<Path>,
+    dst: impl AsRef<Path>,
+    minify: bool,
+) -> anyhow::Result<()> {
+    let minify_session = minify_js::Session::new();
     fs::create_dir_all(&dst)?;
     for entry in fs::read_dir(src)? {
         let entry = entry?;
         let ty = entry.file_type()?;
         if ty.is_dir() {
-            copy_recursive(entry.path(), dst.as_ref().join(entry.file_name()))?;
+            copy_recursive(entry.path(), dst.as_ref().join(entry.file_name()), minify)?;
         } else {
-            fs::copy(entry.path(), dst.as_ref().join(entry.file_name()))?;
+            let dst = dst.as_ref().join(entry.file_name());
+            if minify {
+                // TODO: This complains about utf-8. Oh well, let's fix this later.
+
+                // TODO: This read can be done more efficiently.
+                let mut data = std::fs::read_to_string(entry.path())?.as_bytes().to_owned();
+
+                // Here we can minify.
+                if let Some(os_str) = entry.path().extension() {
+                    // Check file extension to figure out what to do.
+                    match os_str.to_str().unwrap() {
+                        "js" => {
+                            let mut buffer = vec![];
+                            let _ = minify_js::minify(
+                                &minify_session,
+                                minify_js::TopLevelMode::Global,
+                                &data,
+                                &mut buffer,
+                            );
+                            data = buffer;
+                        }
+                        _ => {}
+                    }
+                }
+
+                let mut out_file = std::fs::File::create(&dst).context("minify")?;
+                out_file.write_all(&data)?;
+            }
+
+            fs::copy(entry.path(), dst)?;
         }
     }
     Ok(())

@@ -25,3 +25,4 @@ tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 regex = "1.0"
 notify = "6.1"
 natord = "1.0"
+minify-js = "0.6"

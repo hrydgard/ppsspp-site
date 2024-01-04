@@ -289,7 +289,17 @@ fn generate_pages(
     Ok(())
 }
 
-fn build(prod: bool) -> anyhow::Result<()> {
+#[derive(StructOpt, Debug)]
+struct Opt {
+    #[structopt(long, default_value = "3000")]
+    port: i32,
+    #[structopt(long)]
+    prod: bool,
+    #[structopt(long)]
+    minify: bool,
+}
+
+fn build(opt: &Opt) -> anyhow::Result<()> {
     let mut handlebars = handlebars::Handlebars::new();
 
     handlebars.register_template_file("common_header", "template/common_header.hbs")?;
@@ -307,7 +317,7 @@ fn build(prod: bool) -> anyhow::Result<()> {
     markdown_options.compile.allow_dangerous_html = true;
     // println!("md: {:#?}", markdown_options);
 
-    let url_base = if prod {
+    let url_base = if opt.prod {
         "https://www.ppsspp.org"
     } else {
         "https://dev.ppsspp.org"
@@ -318,7 +328,7 @@ fn build(prod: bool) -> anyhow::Result<()> {
         indir: PathBuf::from("."),
         outdir: PathBuf::from("build"),
         markdown_options,
-        global_meta: GlobalMeta::new(prod, &url_base)?,
+        global_meta: GlobalMeta::new(opt.prod, &url_base)?,
     };
 
     if !config.outdir.exists() {
@@ -327,7 +337,11 @@ fn build(prod: bool) -> anyhow::Result<()> {
 
     println!("Copying static files...");
 
-    util::copy_recursive(config.indir.join("static"), config.outdir.join("static"))?;
+    util::copy_recursive(
+        config.indir.join("static"),
+        config.outdir.join("static"),
+        opt.minify,
+    )?;
     std::fs::copy(
         config.indir.join("static/img/favicon.ico"),
         config.outdir.join("favicon.ico"),
@@ -343,22 +357,12 @@ fn build(prod: bool) -> anyhow::Result<()> {
     Ok(())
 }
 
-#[derive(StructOpt, Debug)]
-struct Opt {
-    #[structopt(long, default_value = "3000")]
-    port: i32,
-    #[structopt(long)]
-    prod: bool,
-}
-
 async fn run() -> anyhow::Result<()> {
     let (notify_tx, notify_rx) = mpsc::channel();
 
     let opt = Opt::from_args();
 
-    let prod = opt.prod;
-
-    build(prod).unwrap();
+    build(&opt).unwrap();
 
     let mut watcher =
         notify::recommended_watcher(move |res: Result<notify::Event, notify::Error>| match res {
@@ -409,7 +413,7 @@ async fn run() -> anyhow::Result<()> {
             // TODO: Could make it more fine grained, but for now we just rebuild everything,
             // it's fast enough.
             println!("Detected changes, rebuilding!");
-            build(prod).unwrap();
+            build(&opt).unwrap();
         }
     }
     Ok(())
