@@ -79,9 +79,9 @@ impl GlobalMeta {
     pub fn new(production: bool, url_base: &str) -> anyhow::Result<Self> {
         // Parse the download path dump.
 
-        let downloads_json = std::fs::read_to_string("src/downloads.json")?;
-        let downloads_gold_json = std::fs::read_to_string("src/downloads_gold.json")?;
-        let platforms_json = std::fs::read_to_string("src/platform.json")?;
+        let downloads_json = std::fs::read_to_string("data/downloads.json")?;
+        let downloads_gold_json = std::fs::read_to_string("data/downloads_gold.json")?;
+        let platforms_json = std::fs::read_to_string("data/platform.json")?;
 
         let downloads: File = serde_json::from_str(&downloads_json).unwrap();
         let downloads_gold: File = serde_json::from_str(&downloads_gold_json).unwrap();

@@ -21,7 +21,8 @@ pub fn copy_recursive(
         let entry = entry?;
         let ty = entry.file_type()?;
         if ty.is_dir() {
-            copy_recursive(entry.path(), dst.as_ref().join(entry.file_name()), minify)?;
+            copy_recursive(entry.path(), dst.as_ref().join(entry.file_name()), minify)
+                .context("copy-recurse")?;
         } else {
             let dst = dst.as_ref().join(entry.file_name());
             if minify {
@@ -52,7 +53,7 @@ pub fn copy_recursive(
                 out_file.write_all(&data)?;
             }
 
-            fs::copy(entry.path(), dst)?;
+            fs::copy(entry.path(), dst).context("copy-file")?;
         }
     }
     Ok(())

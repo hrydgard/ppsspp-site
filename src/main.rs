@@ -74,6 +74,7 @@ fn generate_doctree(
 ) -> anyhow::Result<()> {
     // First, build the tree and convert all the markdown to html and metadata.
     let root_folder = config.indir.join(folder);
+    anyhow::ensure!(root_folder.exists());
     let out_root_folder = config.outdir.clone();
     let root_cat = document::Category::from_folder_tree(&root_folder, &config.markdown_options)?;
 
@@ -122,6 +123,7 @@ fn generate_blog(
     // For the blog
 
     let root_folder = config.indir.join(folder);
+    anyhow::ensure!(root_folder.exists());
     let out_root_folder = config.outdir.join(folder);
 
     util::create_folder_if_missing(&out_root_folder)?;
@@ -231,6 +233,7 @@ fn generate_pages(
     handlebars: &mut handlebars::Handlebars,
 ) -> anyhow::Result<()> {
     let root_folder = config.indir.join(folder);
+    anyhow::ensure!(root_folder.exists());
     // pages are generated directly into the root.
     let out_root_folder = &config.outdir;
 
@@ -335,8 +338,6 @@ fn build(opt: &Opt) -> anyhow::Result<()> {
         std::fs::create_dir(&config.outdir).context("outdir")?;
     }
 
-    println!("Copying static files...");
-
     util::copy_recursive(
         config.indir.join("static"),
         config.outdir.join("static"),
@@ -347,7 +348,7 @@ fn build(opt: &Opt) -> anyhow::Result<()> {
         config.outdir.join("favicon.ico"),
     )?;
 
-    generate_pages(&config, "src/pages", &mut handlebars)?;
+    generate_pages(&config, "pages", &mut handlebars)?;
 
     generate_doctree(&config, "docs", &mut handlebars)?;
 
@@ -378,7 +379,7 @@ async fn run() -> anyhow::Result<()> {
     // below will be monitored for changes.
     watcher.watch(Path::new("blog"), notify::RecursiveMode::Recursive)?;
     watcher.watch(Path::new("news"), notify::RecursiveMode::Recursive)?;
-    watcher.watch(Path::new("src/pages"), notify::RecursiveMode::Recursive)?;
+    watcher.watch(Path::new("pages"), notify::RecursiveMode::Recursive)?;
     watcher.watch(Path::new("static"), notify::RecursiveMode::Recursive)?;
     watcher.watch(Path::new("template"), notify::RecursiveMode::Recursive)?;
 
