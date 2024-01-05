@@ -86,3 +86,12 @@ pub fn create_folder_if_missing(path: &Path) -> anyhow::Result<()> {
         Ok(())
     }
 }
+
+pub fn concat_files(parent: &Path, inputs: &[&str], output: &str) -> anyhow::Result<()> {
+    let mut file = std::fs::File::create(parent.join(output))?;
+    for input in inputs {
+        let data = std::fs::read(parent.join(input))?;
+        file.write_all(&data)?;
+    }
+    Ok(())
+}
