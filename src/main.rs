@@ -343,9 +343,25 @@ fn build(opt: &Opt) -> anyhow::Result<()> {
         config.outdir.join("static"),
         opt.minify,
     )?;
+    // Move the favicon into place.
     std::fs::copy(
         config.indir.join("static/img/favicon.ico"),
         config.outdir.join("favicon.ico"),
+    )?;
+    // Concat the CSS files.
+    util::concat_files(
+        &config.indir.join("static/css"),
+        &[
+            "vars.css",
+            "reset.css",
+            "grid.css",
+            "ui.css",
+            "hamburger.css",
+            "style.css",
+            "custom.css",
+        ],
+        &config.outdir.join("static/css/all.css"),
+        !opt.minify,
     )?;
 
     generate_pages(&config, "pages", &mut handlebars)?;

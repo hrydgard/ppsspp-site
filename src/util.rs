@@ -87,10 +87,19 @@ pub fn create_folder_if_missing(path: &Path) -> anyhow::Result<()> {
     }
 }
 
-pub fn concat_files(parent: &Path, inputs: &[&str], output: &str) -> anyhow::Result<()> {
-    let mut file = std::fs::File::create(parent.join(output))?;
+pub fn concat_files(
+    in_parent: &Path,
+    inputs: &[&str],
+    out_path: &Path,
+    include_headings: bool,
+) -> anyhow::Result<()> {
+    let mut file = std::fs::File::create(out_path)?;
     for input in inputs {
-        let data = std::fs::read(parent.join(input))?;
+        if include_headings {
+            let heading = format!("\n\n/* ============== {} ============== */\n\n", input);
+            file.write_all(heading.as_bytes())?;
+        }
+        let data = std::fs::read(in_parent.join(input))?;
         file.write_all(&data)?;
     }
     Ok(())
