@@ -163,7 +163,7 @@
 
 .card .card-title {
     margin: 0;
-    padding-bottom: 1rem;
+    padding-bottom: 0.7rem;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -175,6 +175,11 @@
     padding: 0;
 }
 
+.card .card-title h2.no-icon {
+    margin: 2px 0px 0px 0px;
+    padding: 0;
+}
+
 .card .card-contents h3 {
     font-size: 14pt;
     margin: 0;
@@ -183,7 +188,7 @@
 
 .card .card-contents {
     margin: 0;
-    padding-bottom: 1rem;
+    padding-bottom: 0;
 }
 
 .card .card-section {
