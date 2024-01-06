@@ -1,115 +1,4 @@
-/* Flexbox guide: https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
-
-/*
-.navbar {
-  border-width: 0px 0px 3px 0px;
-  border-style: none none solid none;
-  border-color: var(--ifm-color-primary);
-  background-color: var(--navbar-color);
-}
-
-.footer {
-  background-color: var(--footer-color);
-}
-
-.navbar__link--active {
-  border-width: 0px 0px 3px 0px;
-  border-style: none none solid none;
-  border-color: var(--ifm-color-primary);
-  border-style: solid;
-  padding-bottom: 2px;
-}
-
-.simple-center {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
-}
-
-.centering-row {
-  justify-content: center;
-}
-
-.hero__title {
-  text-align: left;
-}
-
-.hero__subtitle {
-  text-align: left;
-}
-*/
-
-/* Form hack
-input {
-  width: 60%;
-}
-
-.image-gallery-slide-wrapper {
-  min-height: 200px;
-}
-
-form input {
-  width: 100%;
-}
-
-form span {
-  display: block;
-  overflow: hidden;
-  padding: 0 5px 0 0;
-}
-*/
-
-/* For the YoutubeEmbed component. TODO: Find a better place.
-.video-responsive {
-  overflow: hidden;
-  padding-bottom: 56.25%;
-  position: relative;
-  height: 0;
-}
-
-.video-responsive iframe {
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  padding-bottom: 20px;
-}
- */
-
-/* Front page
-.features {
-  display: flex;
-  align-items: center;
-  padding: 2rem 0;
-  width: 100%;
-}
-
-.featureSvg {
-  height: 200px;
-  width: 200px;
-}
-*/
-
-/* Downloads
-.download {
-  display: flex;
-  align-items: left;
-  padding: 2rem 0;
-  width: 100%;
-}
-
-.downloadList {
-  display: flex;
-  align-items: left;
-  padding: 2rem 0;
-  width: 100%;
-}
-*/
-
-/* Silly CSS from https://alvarotrigo.com/blog/animated-backgrounds-css/ */
-/* TODO: Move to a separate file */
+/* Silly moving background CSS from https://alvarotrigo.com/blog/animated-backgrounds-css/ */
 
 .hero {
   background: #193858;
@@ -119,16 +8,26 @@ form span {
   background-repeat: no-repeat;
   /* Do not repeat the image */
   background-size: contain;
-  /* Resize the background image to cover the entire container */
-  padding: 9rem 1.5rem;
 }
 
 .hero-banner {
   color: #fff;
+  /* light up the hero title slightly */
   overflow: hidden;
-  padding: 4rem 0;
+  padding: 8rem 0;
   position: relative;
   text-align: center;
+}
+
+.hero-title {
+  font-size: 42pt;
+  padding: 0px;
+  margin: 0px;
+}
+
+.hero-subtitle {
+  font-size: 20pt;
+  padding-bottom: 20px;
 }
 
 .light {

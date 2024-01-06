@@ -1,5 +1,13 @@
-@import url("/static/fonts/droidsans/v18/SlGVmQWMvZQIdix7AFxXkHNSbQ.woff2");
-@import url("/static/fonts/droidsans/v18/SlGWmQWMvZQIdix7AFxXmMh3eDs1Zw.woff2");
+@font-face {
+  font-family: 'DroidSans';
+  src: url('/static/fonts/droid_sans.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'DroidSans';
+  src: url('/static/fonts/droid_sans_bold.woff2') format('woff2');
+  font-weight: bold;
+}
 
 * {
   font-family: DroidSans, sans-serif;
@@ -24,7 +32,7 @@ p,
 li,
 pre {
   line-height: 1.6;
-  font-size: 13pt;
+  font-size: 12pt;
 }
 
 p,
@@ -44,15 +52,15 @@ h4 {
 }
 
 h1 {
-  font-size: 30pt;
+  font-size: 26pt;
 }
 
 h2 {
-  font-size: 20pt;
+  font-size: 18pt;
 }
 
 h3 {
-  font-size: 18pt;
+  font-size: 16pt;
 }
 
 h4 {
@@ -130,7 +138,7 @@ footer h2 {
   border-style: none none solid;
   border-color: var(--color-primary);
   border-width: 0 0 3px;
-  font-size: 16px;
+  font-size: 12pt;
 }
 
 .top-nav a {

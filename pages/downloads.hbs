@@ -1,7 +1,7 @@
 {{> common_header this title="Download" description="Download PPSSPP for Android, Windows, Mac, iOS"}}
 
 <div class="container">
-    <h1>Download PPSSPP {{ globals.app_version }}</h1>
+    <h1>Download PPSSPP</h1>
 
     <p>What's new in {{ globals.app_version }}? See the <a href="/news">news page</a>!</p>
 
@@ -26,7 +26,7 @@
                         <h3>{{ title }}</h3>
                         {{ /if }}
 
-                        <a class="download-button button--block {{#if gold}}button-gold{{/if}}" {{#if url
+                        <a class="download-button button-block {{#if gold}}button-gold{{/if}}" {{#if url
                             }}href="{{url}}" {{ /if }} {{ #if download_url }}href="{{download_url}}" {{ /if }}>
                             {{ #if icon }}
                             <img src="/static/img/platform/{{icon}}" width="24px" height="24px">&nbsp;

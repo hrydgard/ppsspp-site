@@ -14,12 +14,12 @@
     --color-gold: #a78300;
     --color-gold-border: #ffc800;
 
-    --color-primary-dark: rgb(48, 108, 206);
-    --color-primary-darker: rgb(45, 102, 195);
-    --color-primary-darkest: rgb(37, 84, 160);
-    --color-primary-light: rgb(83, 140, 233);
-    --color-primary-lighter: rgb(114, 161, 237);
-    --color-primary-lightest: rgb(154, 188, 242);
+    --color-primary-dark: #0d313e;
+    --color-primary-darker: #1a627c;
+    --color-primary-darkest: #2792b9;
+    --color-primary-light: #6dc9eb;
+    --color-primary-lighter: #ace9ff;
+    --color-primary-lightest: #c9f1ff;
     --color-primary-contrast-background: rgb(235, 242, 252);
     --color-primary-contrast-foreground: rgb(16, 36, 69);
     --color-secondary-dark: rgb(212, 213, 216);
@@ -91,6 +91,7 @@
     --color-card-background: var(--background-surface-color);
 
     --button-background-color: var(--color-primary);
+    --button-background-color-hover: var(--color-primary-light);
     --button-border-color: var(--button-background-color);
     --button-border-width: 2px;
     --button-color: var(--color-text-inverse);

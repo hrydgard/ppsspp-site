@@ -377,7 +377,7 @@ fn build(opt: &Opt) -> anyhow::Result<()> {
             "style.css",
             "ui.css",
             "hamburger.css",
-            "custom.css",
+            "hero.css",
         ],
         &config.outdir.join("static/css/all.css"),
         !opt.minify,
