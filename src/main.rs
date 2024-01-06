@@ -131,6 +131,9 @@ fn generate_blog(
     let mut documents = vec![];
 
     let listing = root_folder.read_dir()?;
+
+    let mut tag_lookup = std::collections::HashMap::<String, Tag>::new();
+
     for entry in listing {
         let entry = entry?;
         let file_name = PathBuf::from(entry.file_name());
@@ -164,6 +167,18 @@ fn generate_blog(
         assert!(!doc.meta.slug.is_empty());
         doc.meta.url = Some(format!("/{folder}/{}", &doc.meta.slug));
         doc.path = out_root_folder.join(&doc.meta.slug);
+
+        for tag in &doc.meta.tags {
+            tag_lookup
+                .entry(tag.clone())
+                .or_insert_with(|| Tag {
+                    name: tag.clone(),
+                    articles: vec![],
+                })
+                .articles
+                .push(doc.to_doclink());
+        }
+
         documents.push(doc);
     }
 
@@ -174,6 +189,9 @@ fn generate_blog(
             .unwrap_or(Ordering::Equal)
             .reverse()
     });
+
+    // Reformat the tag data to a vector.
+    let tags = tag_lookup.values().cloned().collect::<Vec<_>>();
 
     // Add next/forward links
     // for [prev, cur, next] in documents.
@@ -216,6 +234,7 @@ fn generate_blog(
         // Now, use that as contents and render into a doc template.
         context.contents = Some(post_html);
         context.sidebar = Some(sidebar);
+        context.tags = tags;
         let html = handlebars.render("doc", &context)?;
 
         let target_path = out_root_folder;

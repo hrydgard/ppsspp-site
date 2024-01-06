@@ -57,6 +57,12 @@ pub struct SidebarContext {
     pub links: Vec<DocLink>,
 }
 
+#[derive(Debug, Serialize, Deserialize, Clone, Default)]
+pub struct Tag {
+    pub name: String,
+    pub articles: Vec<DocLink>,
+}
+
 // Used when rendering templates.
 // Should probably split into multiple more focused ones .. but then again, not really necessary,
 // can just omit what we don't need.
@@ -69,6 +75,7 @@ pub struct PageContext {
     pub meta: Option<DocumentMeta>,
     pub year: i32,
     pub globals: Option<GlobalMeta>,
+    pub tags: Vec<Tag>,
 }
 
 impl PageContext {
@@ -81,6 +88,7 @@ impl PageContext {
             children: vec![],
             meta: None,
             globals: None,
+            tags: vec![],
         }
     }
     pub fn from_document(document: &Document) -> Self {
@@ -92,6 +100,7 @@ impl PageContext {
             children: vec![],
             meta: Some(document.meta.clone()),
             globals: None,
+            tags: vec![],
         }
     }
 }
