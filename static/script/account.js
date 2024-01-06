@@ -170,7 +170,7 @@ const tmplPlayCodes = `
 `;
 
 const tmplLoginCorner = `
-<a href='/login'>
+<a href='/login' class="center-vertical">
 {{@if(it.loggedIn)}}
 <img
 {{@if(it.goldUser)}}

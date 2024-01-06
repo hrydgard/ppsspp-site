@@ -36,29 +36,31 @@
 </head>
 
 <body>
-    <div class="ms-menu">
-        <div class="container">
-            <div class="ms-menu-logo">
-                <a href="/"><img src="/static/img/platform/ppsspp-icon.png" /></a>
+    <div class="page-wrapper">
+        <nav class="top-nav">
+            <div class="top-nav-logo">
+                <a href="/" class="center-vertical"><img src="/static/img/platform/ppsspp-icon.png"
+                        width="32px" />&nbsp;PPSSPP</a>
             </div>
-            <nav class="ms-menu-link">
-                <input type="checkbox" id="ms-menu-toggle" />
-                <label for="ms-menu-toggle" class="ms-menu-icon"><i class="fa fa-bars"></i></label>
-                <ul>
-                    <li><a href="/downloads">Downloads</a></li>
-                    <li><a href="/news">News</a></li>
-                    <li><a href="/blog">Blog</a></li>
-                    <li><a href="/docs/intro">Docs &amp; Help</a></li>
-                    <li><a href="/media">Media</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                    <li><a href="https://forums.ppsspp.org/">Forums {{> link_icon }}</a></li>
-                    <li><a href="https://github.com/hrydgard/ppsspp">Github {{> link_icon }}</a></li>
-                    <li class="not-logged-in-only-inline"><a href="/login">Login</a></li>
-                    <li class="logged-in-only-inline" id="loginCorner"><a href="/login">Name</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
+            <input id="menu-toggle" type="checkbox" />
+            <label class='menu-button-container' for="menu-toggle">
+                <div class='menu-button'></div>
+            </label>
+            <ul class="menu">
+                <li><a href="/downloads">Downloads</a></li>
+                <li><a href="/news">News</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/docs/intro">Docs&nbsp;&amp;&nbsp;Help</a></li>
+                <li><a href="/media">Media</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="https://forums.ppsspp.org/">Forums&nbsp;{{> link_icon }}</a></li>
+                <li><a href="https://github.com/hrydgard/ppsspp">Github&nbsp;{{> link_icon }}</a></li>
+            </ul>
+            <div class="not-logged-in-only-inline"><a href="/login">Login</a></div>
+            <div class="logged-in-only-inline" class="center-vertical" id="loginCorner"><a href="/login">Name</a></div>
+        </nav>
 
-    <script src="https://cdn.jsdelivr.net/npm/dark-mode-switcher@0.0.1/dist/dark.min.js"></script>
-    <script type="text/javascript" src="https://kit.fontawesome.com/d35975edad.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/dark-mode-switcher@0.0.1/dist/dark.min.js"></script>
+        <script type="text/javascript" src="https://kit.fontawesome.com/d35975edad.js"></script>
+
+        <section class="contents">

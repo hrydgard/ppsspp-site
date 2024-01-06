@@ -1,5 +1,5 @@
 <div>
-    <div class="ms-article">
+    <div class="article">
         {{ #if picture_title }}
         <div class="ms-article-picture">
             <img src="https://www.zupimages.net/up/22/08/uitq.png" alt="background" />
@@ -9,21 +9,13 @@
             </div>
         </div>
         {{ /if }}
-        <div class="ms-article-infos">
+        <div class="article-infos">
             <ul>
                 <li><i class="fas fa-user-circle"></i> <b>{{ meta.author }}</b></li>
                 <li><i class="fas fa-folder"></i> <b>{{ #each meta.tags }} {{this}} {{/each}} </b></li>
                 <li><i class="fas fa-clock"></i> <b>{{ meta.date }}</b></li>
-            </ul>
-        </div>
-        <div class="ms-list-label">
-            <ul>
-                <li>
-                    <div class="ms-label ms-primary ms-rounded"><a href="https://twitter.com/henrikrydgard"><i
-                                class="fab fa-twitter"></i></a></div>
-                    <div class="ms-label ms-rounded"><a href="https://www.github.com/hrydgard"><i
-                                class="fab fa-github-alt"></i></a></div>
-                </li>
+                <li><a href="https://twitter.com/henrikrydgard"><i class="fab fa-twitter"></i></a></li`>
+                <li><a href="https://www.github.com/hrydgard"><i class="fab fa-github-alt"></i></a></li>
             </ul>
         </div>
         <div class="ms-article-title">

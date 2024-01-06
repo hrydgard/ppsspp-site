@@ -1,47 +1,47 @@
-<div class="container">
+</section>
+
+<section>
     {{ #unless prod }}
     <p>DEVELOPMENT MODE</p>
     {{ /unless }}
-</div>
+</section>
 
-<footer class="ms-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="footer__title">Documentation</div>
-                <ul class="footer__items clean-list">
-                    <li class="footer__item"><a class="footer__link-item" href="/docs/intro">Docs &amp; Help</a></li>
-                    <li class="footer__item"><a class="footer__link-item" href="/docs/category/getting-started">Getting
-                            started</a></li>
-                </ul>
-            </div>
-            <div class="col footer__col">
-                <div class="footer__title">Community</div>
-                <ul class="footer__items clean-list">
-                    <li class="footer__item"><a class="footer__link-item" href="https://discord.gg/5NJB6dD">Discord</a>
-                    </li>
-                    <li class="footer__item"><a class="footer__link-item"
-                            href="https://twitter.com/ppsspp_emu">Twitter</a></li>
-                </ul>
-            </div>
-            <div class="col footer__col">
-                <div class="footer__title">More</div>
-                <ul class="footer__items clean-list">
-                    <li class="footer__item"><a class="footer__link-item"
-                            href="https://github.com/hrydgard/ppsspp">GitHub</a></li>
-                    <li class="footer__item"><a class="footer__link-item"
-                            href="https://github.com/hrydgard/ppsspp-site">Website Github</a></li>
-                    <li class="footer__item"><a class="footer__link-item" href="/login">Login</a></li>
-                </ul>
-            </div>
+<footer>
+    <div class="row">
+        <div class="col-4">
+            <h2>Documentation</h2>
+            <ul class="footer__items clean-list">
+                <li class="footer__item"><a class="footer__link-item" href="/docs/intro">Docs &amp; Help</a></li>
+                <li class="footer__item"><a class="footer__link-item" href="/docs/category/getting-started">Getting
+                        started</a></li>
+            </ul>
         </div>
-        <div class="footer__bottom text--center">
-            <div class="footer__copyright">
-                Copyright {{ year }} PPSSPP Project. <a href="/privacy">Privacy Policy</a>
-            </div>
+        <div class="col-4">
+            <div class="footer__title">Community</div>
+            <ul class="footer__items clean-list">
+                <li class="footer__item"><a class="footer__link-item" href="https://discord.gg/5NJB6dD">Discord</a>
+                </li>
+                <li class="footer__item"><a class="footer__link-item" href="https://twitter.com/ppsspp_emu">Twitter</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-4">
+            <div class="footer__title">More</div>
+            <ul class="footer__items clean-list">
+                <li class="footer__item"><a class="footer__link-item"
+                        href="https://github.com/hrydgard/ppsspp">GitHub</a></li>
+                <li class="footer__item"><a class="footer__link-item"
+                        href="https://github.com/hrydgard/ppsspp-site">Website Github</a></li>
+                <li class="footer__item"><a class="footer__link-item" href="/login">Login</a></li>
+            </ul>
         </div>
     </div>
+    <div class="text--center">
+        Copyright {{ year }} PPSSPP Project. <a href="/privacy">Privacy Policy</a>
+    </div>
+    </div>
 </footer>
+</div>
 
 </body>
 

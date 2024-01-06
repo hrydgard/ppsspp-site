@@ -45,3 +45,7 @@ Use one of the below as appropriate:
 
 `./deploy.sh dev`  (deploys to `dev.ppsspp.org`)
 `./deploy.sh prod` (deploys to `www.ppsspp.org`)
+
+## Resources
+
+https://dev.to/madsstoumann/dark-mode-in-3-lines-of-css-and-other-adventures-1ljj

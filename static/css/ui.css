@@ -1,0 +1,77 @@
+.logged-in-only {
+    display: none;
+}
+
+.logged-in-only-inline {
+    display: none;
+}
+
+.gold-only {
+    display: none;
+}
+
+.gold-only-inline {
+    display: none;
+}
+
+.button,
+.button:hover {}
+
+.hero-button {
+    box-shadow: 0 0 10px #000;
+    font-size: 15px;
+}
+
+.button--block {
+    display: block;
+    width: 100%;
+}
+
+.button {
+    background-color: var(--button-background-color);
+    border: var(--button-border-width) solid var(--button-border-color);
+    border-radius: var(--button-border-radius);
+    cursor: pointer;
+    font-size: calc(.875rem*var(--button-size-multiplier));
+    font-weight: var(--button-font-weight);
+    line-height: 1.5;
+    padding: calc(var(--button-padding-vertical)*var(--button-size-multiplier)) calc(var(--button-padding-horizontal)*var(--button-size-multiplier));
+    text-align: center;
+    transition-duration: var(--button-transition-duration);
+    transition-property: color, background, border-color;
+    user-select: none;
+    white-space: nowrap;
+}
+
+
+/* Article / doc stuff */
+
+.article {
+    /* General */
+    display: block;
+    width: 100%;
+    position: relative;
+    /* Border */
+    border-radius: var(--default-border-radius);
+    /* Margin */
+    margin: 1rem 0;
+    padding: 0;
+}
+
+.article .article-infos ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.article .article-infos ul li {
+    display: inline-block;
+    color: rgba(var(--default-bg-color), 1);
+    font-size: 14px;
+    margin: 0 1rem 0 0;
+    padding: 0;
+}
+
+.article .article-infos i {
+    color: rgba(var(--main-text-color), 0.5);
+}
