@@ -99,7 +99,7 @@
 
     /* 540px */
     .container {
-        width: 80%;
+        width: 95%;
     }
 }
 
@@ -119,7 +119,7 @@
     }
 
     .col-4 {
-        width: 29.33%;
+        width: 30.8%;
     }
 
     .col-5 {
@@ -163,8 +163,7 @@
 
     /* 960px */
     .container {
-        width: 80%;
+        width: 95%;
         max-width: 60rem;
-        text-align: left;
     }
 }

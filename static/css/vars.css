@@ -11,8 +11,10 @@
     --color-warning: #b78600;
     --color-danger: #fa383e;
 
-    --color-gold: #a78300;
+    --color-gold: #b48700;
+    --color-gold-hover: #efb400;
     --color-gold-border: #ffc800;
+    --color-gold-border-hover: #fff5d0;
 
     --color-primary-dark: #0d313e;
     --color-primary-darker: #1a627c;

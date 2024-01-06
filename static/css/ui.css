@@ -57,6 +57,11 @@
     text-decoration: none;
 }
 
+.download-button.button-gold:hover {
+    background-color: var(--color-gold-hover);
+    border-color: var(--color-gold-border-hover);
+}
+
 /* Article / doc stuff */
 
 .article {
@@ -86,6 +91,21 @@
 
 .article .article-infos i {
     color: var(--color-gray-300);
+}
+
+.prev-next {
+    border-width: 2px;
+    border-color: var(--color-primary);
+    border-radius: 7px;
+    border-style: solid;
+}
+
+.prev-next-inner {
+    margin: 3px;
+}
+
+code {
+    font-family: monospace;
 }
 
 .collapsible {

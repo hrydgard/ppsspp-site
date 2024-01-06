@@ -10,7 +10,7 @@
 
     {{{ breadcrumbs }}}
 
-    <div class="container">
+    <div class="container document">
         <div class="row">
             <div class="col-12">
                 {{{ contents }}}
@@ -19,13 +19,19 @@
 
         <div class="row">
             {{ #if meta.prev }}
-            <div class="col-4">
-                <a href="{{ meta.prev.url }}">{{ meta.prev.title }}</a>
+            <div class="col-4 prev-next">
+                <div class="prev-next-inner">
+                    <p>Prev</p>
+                    <a href="{{ meta.prev.url }}">{{ meta.prev.title }}</a>
+                </div>
             </div>
             {{ /if }}
             {{ #if meta.next }}
-            <div class="col-4">
-                <a href="{{ meta.next.url }}">{{ meta.next.title }}</a>
+            <div class="col-4 prev-next">
+                <div class="prev-next-inner">
+                    <p>Next</p>
+                    <a href="{{ meta.next.url }}">{{ meta.next.title }}</a>
+                </div>
             </div>
             {{ /if }}
         </div>

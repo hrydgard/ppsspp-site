@@ -36,6 +36,8 @@ pub struct PlatformInfo {
     platform_badge: Option<String>,
     platform_key: String, // we can ignore this, this was for react
     downloads: Vec<DownloadInfo>,
+    #[serde(default)]
+    newline: bool, // visual purposes only
 }
 
 #[derive(Debug)]
@@ -98,7 +100,7 @@ impl GlobalMeta {
         let file_versions = pivot(&version_binaries);
 
         // Update the platforms with URLs
-        for platform in &mut platforms {
+        for (index, platform) in &mut platforms.iter_mut().enumerate() {
             for download in &mut platform.downloads {
                 if let Some(filename) = &download.filename {
                     if let Some(version) = file_versions.get(filename) {
@@ -111,6 +113,9 @@ impl GlobalMeta {
                         }
                     }
                 }
+            }
+            if (index % 3) == 2 {
+                platform.newline = true;
             }
         }
 

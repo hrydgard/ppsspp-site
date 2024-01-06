@@ -9,7 +9,7 @@
 
     <div class="row">
         <!-- We now over the platforms -->
-        {{ #each globals.platforms }}
+        {{#each globals.platforms}}
         <div class="col-4">
             <div class="card">
                 <div class="card-title">
@@ -29,7 +29,7 @@
                         <a class="download-button button-block {{#if gold}}button-gold{{/if}}" {{#if url
                             }}href="{{url}}" {{ /if }} {{ #if download_url }}href="{{download_url}}" {{ /if }}>
                             {{ #if icon }}
-                            <img src="/static/img/platform/{{icon}}" width="24px" height="24px">&nbsp;
+                            <img src="/static/img/platform/{{icon}}" width="32px" height="32px">&nbsp;
                             {{ /if }}
                             {{ #if url }}{{name}}{{ /if }}
                             {{ #if download_url }}{{name}}{{ /if }}
@@ -47,7 +47,11 @@
                 </div>
             </div>
         </div>
-        {{ /each }}
+        {{#if newline}}
+    </div>
+    <div class="row">
+        {{/if}}
+        {{/each}}
     </div>
 
     <p class="gold-only">You have Gold for Windows/macOS - <a href="/requestgold">get PPSSPP Gold for Android for
