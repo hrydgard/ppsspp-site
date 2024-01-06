@@ -12,6 +12,7 @@ pub struct File {
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct DownloadInfo {
     name: String,
+    title: Option<String>,
     icon: Option<String>,
     url: Option<String>,
     download_url: Option<String>,
@@ -23,6 +24,10 @@ pub struct DownloadInfo {
     filename: Option<String>,
     #[serde(default)]
     gold: bool,
+    #[serde(default)]
+    gold_only: bool,
+    #[serde(default)]
+    login_prompt: bool,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -98,7 +103,7 @@ impl GlobalMeta {
                 if let Some(filename) = &download.filename {
                     if let Some(version) = file_versions.get(filename) {
                         if let Some(first) = version.first() {
-                            download.download_url = if download.gold {
+                            download.download_url = if download.gold_only {
                                 Some(gold_download_path(url_base, first, filename))
                             } else {
                                 Some(download_path(url_base, first, filename))

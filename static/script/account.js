@@ -609,15 +609,36 @@ async function pollPurchase() {
     }
 }
 
+function setupCollapsibles() {
+    // UI utilities
+    // See the collapsible css styles in ui.css.
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            console.log("collapse");
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    }
+}
+
 function onLoadPage() {
     loadCredentials();
     applyDOMVisibility();
+    setupCollapsibles();
     if (g_thankYouPage) {
         window.setTimeout(pollPurchase, g_pollInterval);
     }
 }
 
 console.log("initial script execution");
+
 
 document.addEventListener('DOMContentLoaded', function () {
     console.log("DOMContentLoaded");

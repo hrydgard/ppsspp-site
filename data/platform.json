@@ -20,7 +20,7 @@
                 "service_alt": "Get it on Google Play"
             },
             {
-                "name": "Download APK of PPSSPP Free",
+                "name": "APK for Android (free)",
                 "icon": "ppsspp-icon.png",
                 "filename": "ppsspp.apk",
                 "short_name": "APK"
@@ -41,34 +41,36 @@
                 "login_prompt": true
             },
             {
-                "name": "Download PPSSPP Gold (ZIP)",
+                "name": "PPSSPP Gold (ZIP)",
                 "short_name": "Gold (ZIP)",
                 "icon": "ppsspp-icon-gold.png",
                 "filename": "PPSSPPWindowsGold.zip",
+                "gold_only": true,
                 "gold": true
             },
             {
-                "name": "Download PPSSPP Gold (Installer)",
+                "name": "PPSSPP Gold (Installer)",
                 "short_name": "Gold (installer)",
                 "icon": "ppsspp-icon-gold.png",
                 "filename": "PPSSPPGoldSetup.exe",
+                "gold_only": true,
                 "gold": true
             },
             {
                 "title": "PPSSPP Free",
                 "short_name": "Installer",
-                "name": "Download PPSSPP installer",
+                "name": "PPSSPP installer",
                 "icon": "ppsspp-icon.png",
                 "filename": "PPSSPPSetup.exe"
             },
             {
-                "name": "Download ZIP file (portable)",
+                "name": "ZIP file (portable)",
                 "short_name": "ZIP",
                 "icon": "ppsspp-icon.png",
                 "filename": "ppsspp_win.zip"
             },
             {
-                "name": "Download ZIP file for ARM64",
+                "name": "ZIP file for ARM64",
                 "short_name": "ZIP (ARM64)",
                 "icon": "ppsspp-icon.png",
                 "filename": "PPSSPPWindowsARM64.zip",
@@ -92,15 +94,16 @@
             },
             {
                 "short_name": "Installer",
-                "name": "Download PPSSPP Gold.dmg",
+                "name": "PPSSPP Gold.dmg",
                 "icon": "ppsspp-icon-gold.png",
                 "filename": "PPSSPPGold_macOS.dmg",
+                "gold_only": true,
                 "gold": true
             },
             {
                 "title": "PPSSPP Free",
                 "short_name": "Installer",
-                "name": "Download PPSSPP .dmg",
+                "name": "PPSSPP.dmg",
                 "icon": "ppsspp-icon.png",
                 "filename": "PPSSPP_macOS.dmg",
                 "whats_this_url": "/docs/reference/mac",

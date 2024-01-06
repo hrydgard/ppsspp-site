@@ -18,8 +18,8 @@
 
 .row [class^="col"] {
     float: left;
-    margin: 0.5rem 2%;
-    min-height: 0.125rem;
+    margin: 0.5rem 1%;
+    min-height: 1rem;
 }
 
 .col-1,

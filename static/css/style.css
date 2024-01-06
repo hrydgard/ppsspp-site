@@ -59,6 +59,15 @@ h4 {
   font-size: 14pt;
 }
 
+a {
+  color: var(--color-primary);
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--color-a-hover);
+}
+
 .page-wrapper {
   box-sizing: border-box;
   min-height: 100%;
@@ -129,15 +138,6 @@ footer h2 {
 }
 
 .top-nav a:hover {
-  color: var(--color-a-hover);
-}
-
-.contents a {
-  color: var(--color-primary);
-}
-
-.contents a:hover {
-  text-decoration: underline;
   color: var(--color-a-hover);
 }
 

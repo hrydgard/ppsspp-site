@@ -10,33 +10,41 @@
     <div class="row">
         <!-- We now over the platforms -->
         {{ #each globals.platforms }}
-        <div class="col-md-4 ms-card ms-fill">
-            <div class="ms-card-title">
-                {{ #if platform_badge }}
-                <img src="/static/img/platform/{{platform_badge}}">
-                {{ /if}}
-                {{ title }}
-            </div>
-            <div class="ms-card-content">
-                {{ #each downloads }}
+        <div class="col-4">
+            <div class="card">
+                <div class="card-title">
+                    {{ #if platform_badge }}
+                    <img src="/static/img/platform/{{platform_badge}}">
+                    {{ /if}}
+                    <h2>{{ title }}</h2>
+                </div>
+                <div class="card-contents">
+                    {{ #each downloads }}
 
-                {{ #if icon }}
-                <img src="/static/img/platform/{{icon}}" width="24px" height="24px">
-                {{ /if }}
+                    <div {{ #if gold_only }} class="gold-only" {{ /if }}>
+                        {{ #if title }}
+                        <h3>{{ title }}</h3>
+                        {{ /if }}
 
-                {{ #if url }}
-                <a href="{{url}}">{{name}}</a><br />
-                {{ /if }}
+                        <a class="download-button button--block {{#if gold}}button-gold{{/if}}" {{#if url
+                            }}href="{{url}}" {{ /if }} {{ #if download_url }}href="{{download_url}}" {{ /if }}>
+                            {{ #if icon }}
+                            <img src="/static/img/platform/{{icon}}" width="24px" height="24px">&nbsp;
+                            {{ /if }}
+                            {{ #if url }}{{name}}{{ /if }}
+                            {{ #if download_url }}{{name}}{{ /if }}
+                            {{ #if service_image }}
+                            <img src="{{service_image}}" alt="{{service_alt}}">
+                            {{ /if }}
+                        </a>
 
-                {{ #if download_url }}
-                <a href="{{download_url}}">{{filename}}</a><br />
-                {{ /if }}
+                        {{ #if whats_this_url }}
+                        <a href="{{whats_this_url}}">{{whats_this}}</a><br />
+                        {{ /if }}
 
-                {{ #if whats_this_url }}
-                <a href="{{whats_this_url}}">{{whats_this}}</a><br />
-                {{ /if }}
-
-                {{ /each }}
+                    </div>
+                    {{ /each }}
+                </div>
             </div>
         </div>
         {{ /each }}
@@ -56,32 +64,34 @@
         other esoteric or old platforms.</p>
 
     <h2>Previous releases</h2>
-    <table class="ms-table">
-        <thead>
-            <tr>
-                <th>Version</th>
-                <th>Downloads</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{ #each globals.version_downloads }}
-            <tr>
-                <td>{{version}}</td>
-                <td>
-                    {{ #each downloads }}
-                    {{ #if icon }}
-                    <img src="/static/img/platform/{{icon}}" width="24px" height="24px">
-                    {{ /if }}
-                    {{ #if short_name }}
-                    <a href="{{download_url}}">{{short_name}}</a>
-                    {{ /if }}
-                    {{ /each }}
-                </td>
-            </tr>
-            {{ /each }}
-        </tbody>
-    </table>
-
+    <button class="collapsible">Show downloads of previous releases</button>
+    <div class="collapsible-content">
+        <table class="nice-table">
+            <thead>
+                <tr>
+                    <th>Version</th>
+                    <th>Downloads</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ #each globals.version_downloads }}
+                <tr>
+                    <td>{{version}}</td>
+                    <td>
+                        {{ #each downloads }}
+                        {{ #if icon }}
+                        <img src="/static/img/platform/{{icon}}" width="24px" height="24px">
+                        {{ /if }}
+                        {{ #if short_name }}
+                        <a href="{{download_url}}">{{short_name}}</a>
+                        {{ /if }}
+                        {{ /each }}
+                    </td>
+                </tr>
+                {{ /each }}
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <!--

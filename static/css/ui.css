@@ -14,9 +14,6 @@
     display: none;
 }
 
-.button,
-.button:hover {}
-
 .hero-button {
     box-shadow: 0 0 10px #000;
     font-size: 15px;
@@ -27,15 +24,21 @@
     width: 100%;
 }
 
-.button {
+.download-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
     background-color: var(--button-background-color);
     border: var(--button-border-width) solid var(--button-border-color);
     border-radius: var(--button-border-radius);
+    color: var(--color-text-inverse);
     cursor: pointer;
     font-size: calc(.875rem*var(--button-size-multiplier));
     font-weight: var(--button-font-weight);
     line-height: 1.5;
-    padding: calc(var(--button-padding-vertical)*var(--button-size-multiplier)) calc(var(--button-padding-horizontal)*var(--button-size-multiplier));
+    padding: var(--button-padding-vertical) var(--button-padding-horizontal);
+    margin: 10px 0px;
     text-align: center;
     transition-duration: var(--button-transition-duration);
     transition-property: color, background, border-color;
@@ -43,6 +46,10 @@
     white-space: nowrap;
 }
 
+.download-button.button-gold {
+    background-color: var(--color-gold);
+    border-color: var(--color-gold-border);
+}
 
 /* Article / doc stuff */
 
@@ -66,12 +73,120 @@
 
 .article .article-infos ul li {
     display: inline-block;
-    color: rgba(var(--default-bg-color), 1);
     font-size: 14px;
     margin: 0 1rem 0 0;
     padding: 0;
 }
 
 .article .article-infos i {
-    color: rgba(var(--main-text-color), 0.5);
+    color: var(--color-gray-300);
+}
+
+.collapsible {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+.active,
+.collapsible:hover {
+    background-color: #555;
+}
+
+.collapsible:after {
+    content: '\002B';
+    color: white;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2212";
+}
+
+.collapsible-content {
+    display: none;
+    overflow: hidden;
+}
+
+.nice-table {
+    width: 100%;
+    display: table;
+    border-spacing: 0;
+    margin-bottom: 1rem;
+    background-color: var(--color-table-bg);
+    padding: 0;
+}
+
+.nice-table thead {
+    background-color: var(--color-table-bg);
+    text-align: left;
+}
+
+.nice-table td,
+.nice-table th {
+    background-color: var(--color-table-bg);
+    padding: 0.8rem 0.4rem;
+    border-bottom: 2px solid var(--color-table-border);
+}
+
+.nice-table th {
+    font-weight: bold;
+}
+
+.nice-table.ms-border {
+    border: 2px solid var(--color-table-border);
+}
+
+.card {
+    /* General */
+    width: 100%;
+    height: auto;
+    /* Margin */
+    margin: 0.2rem 0;
+    padding: 0;
+    /* Color */
+    background-color: var(--color-card-background);
+    /* Border */
+    border-radius: var(--card-border-radius);
+    /* Margin */
+    padding: 1rem;
+    box-shadow: 0 3px 5px #000;
+}
+
+.card .card-title {
+    margin: 0;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.card .card-title h2 {
+    font-size: 16pt;
+    margin: 2px 0px 0px 10px;
+    padding: 0;
+}
+
+.card .card-contents h3 {
+    font-size: 14pt;
+    margin: 0;
+    padding: 0;
+}
+
+.card .card-contents {
+    margin: 0;
+    padding-bottom: 1rem;
+}
+
+.card .card-section {
+    border-bottom: 2px solid var(--color-table-border);
+    padding: 1rem;
 }
