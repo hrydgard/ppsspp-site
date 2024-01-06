@@ -1,3 +1,11 @@
+@import url("/static/fonts/droidsans/v18/SlGVmQWMvZQIdix7AFxXkHNSbQ.woff2");
+@import url("/static/fonts/droidsans/v18/SlGWmQWMvZQIdix7AFxXmMh3eDs1Zw.woff2");
+
+* {
+  font-family: DroidSans, sans-serif;
+  box-sizing: border-box;
+}
+
 html,
 body {
   padding: 0;
@@ -20,16 +28,19 @@ pre {
 }
 
 p,
-li,
 pre {
   padding-bottom: 9px;
+}
+
+li {
+  padding-bottom: 2px;
 }
 
 h1,
 h2,
 h3,
 h4 {
-  padding: 10px 5px 0 0;
+  padding: 12px 9px 0 0;
 }
 
 h1 {
@@ -55,16 +66,20 @@ h4 {
   flex-direction: column;
 }
 
-* {
-  font-family: sans-serif;
-  box-sizing: border-box;
-}
-
 /* Utility for images followed by text. */
 .center-vertical {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.clean-list {
+  padding-inline-start: 0px;
+  list-style: none;
+}
+
+.center-text {
+  text-align: center;
 }
 
 footer a {
@@ -73,6 +88,19 @@ footer a {
 
 footer a:hover {
   color: var(--color-a-hover);
+}
+
+footer h2 {
+  font-size: 14pt;
+  padding-bottom: 12px;
+}
+
+.footer-bottom-text {
+  padding: 10px;
+}
+
+.footer-bottom-text a {
+  color: var(--color-primary);
 }
 
 .top-nav-logo {
