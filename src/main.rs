@@ -1,21 +1,24 @@
 // Things to generate:
 // - [x] Docs
 // - [x] Pages
-//   - [ ] Downloads
+//   - [x] Downloads
 //   - [x] Regular static pages
 // - [x] Blog
 // - [x] News
 // Features to add:
 // - [x] serve, with proxy
 // - [x] templating
-// - [ ] choose css framework
-// - [ ] generate RSS/Atom feeds
+// - [x] choose css framework (none)
 // - [x] Javascript basics (log in, log out)
-// - [ ] Purchase flow
-// - [ ] Admin UI
+// - [x] Purchase flow
+// - [x] Admin UI
+// - [ ] Docs tree view
+// - [ ] Mobile site improvements
 // - [ ] Blog tags, browse by
 // - [ ] Blog feed pagination
+// - [ ] generate RSS/Atom feeds
 
+use chrono::{DateTime, Utc};
 use std::{
     cmp::Ordering,
     convert::TryInto,
@@ -27,6 +30,7 @@ use std::{
 extern crate anyhow;
 mod config;
 mod document;
+mod feed;
 mod server;
 mod util;
 
@@ -237,6 +241,26 @@ fn generate_blog(
         util::write_file_as_folder_with_index(target_path, html, false)?;
     }
 
+    // Generate RSS feed
+    feed::write_feed(
+        config,
+        title,
+        "PPSSPP Blog",
+        folder,
+        &documents,
+        feed::FeedFormat::Atom,
+        handlebars,
+    )?;
+    feed::write_feed(
+        config,
+        title,
+        "PPSSPP Blog",
+        folder,
+        &documents,
+        feed::FeedFormat::RSS,
+        handlebars,
+    )?;
+
     // Generate the root blog post.
     let sidebar = generate_blog_sidebar(title, &format!("/{}", folder), &documents, handlebars)?;
     // First, render the blog post itself, without the surrounding chrome. This is so that we can add on
@@ -348,6 +372,8 @@ struct Opt {
     prod: bool,
     #[structopt(long)]
     minify: bool,
+    #[structopt(long)]
+    skip_serve: bool,
 }
 
 fn build(opt: &Opt) -> anyhow::Result<()> {
@@ -362,6 +388,8 @@ fn build(opt: &Opt) -> anyhow::Result<()> {
     handlebars.register_template_file("blog_sidebar", "template/blog_sidebar.hbs")?;
     handlebars.register_template_file("product_card", "template/product_card.hbs")?;
     handlebars.register_template_file("page", "template/page.hbs")?;
+    handlebars.register_template_file("rss", "template/rss.hbs")?;
+    handlebars.register_template_file("atom", "template/atom.hbs")?;
 
     println!("Barebones website generator");
 
@@ -379,12 +407,20 @@ fn build(opt: &Opt) -> anyhow::Result<()> {
     let top_nav: Vec<DocLink> =
         serde_json::from_str(&std::fs::read_to_string("data/top_nav.json")?)?;
 
+    let current_time: DateTime<Utc> = Utc::now();
+
+    // Format the time in the desired format
+    let formatted_time = current_time.format("%a, %d %b %Y %H:%M:%S GMT").to_string();
+
+    println!("Build time: {formatted_time}");
+
     let config = Config {
         url_base: url_base.clone(),
         indir: PathBuf::from("."),
         outdir: PathBuf::from("build"),
         markdown_options,
         global_meta: GlobalMeta::new(opt.prod, &url_base, top_nav)?,
+        build_date: formatted_time,
     };
 
     if !config.outdir.exists() {
@@ -434,6 +470,11 @@ async fn run() -> anyhow::Result<()> {
     let opt = Opt::from_args();
 
     build(&opt).unwrap();
+
+    if opt.skip_serve {
+        println!("not serving.");
+        return Ok(());
+    }
 
     let mut watcher =
         notify::recommended_watcher(move |res: Result<notify::Event, notify::Error>| match res {

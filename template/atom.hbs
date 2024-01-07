@@ -1,0 +1,28 @@
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>{{channel.link}}</id>
+    <title>{{channel.title}}</title>
+    <updated>{{channel.lastBuildDate}}</updated>
+    <link rel="alternate" href="{{channel.link_folder}}" />
+    <subtitle>{{channel.title}}</subtitle>
+    <icon>https://www.ppsspp.org/favicon.ico</icon>
+    {{#each channel.items}}
+    <entry>
+        <title type="html">
+            <![CDATA[ {{title}} ]]>
+        </title>
+        <id>{{link}}</id>
+        <link href="{{link}}" />
+        <updated>2023-09-09T00:00:00.000Z</updated>
+        <summary type="html">
+            <![CDATA[ {{description}} ]]>
+        </summary>
+        <author>
+            <name>Henrik Rydgård</name>
+            <uri>https://github.com/hrydgard</uri>
+        </author>
+        {{#each tags}}
+        <category label="{{this}}" term="{{this}}" />
+        {{/each}}
+    </entry>
+    {{/each}}
+</feed>

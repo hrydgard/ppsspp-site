@@ -260,4 +260,5 @@ pub struct Config {
     pub outdir: PathBuf,
     pub markdown_options: markdown::Options,
     pub global_meta: GlobalMeta,
+    pub build_date: String,
 }
