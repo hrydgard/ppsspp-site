@@ -7,20 +7,13 @@ use std::{
 extern crate serde;
 use serde::{Deserialize, Serialize};
 
-use crate::config::GlobalMeta;
+use crate::config::{DocLink, GlobalMeta};
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Link {
     #[serde(rename = "type")]
     pub link_type: String,
     pub description: String,
-}
-
-#[derive(Debug, Clone, Deserialize, Serialize)]
-pub struct DocLink {
-    pub url: String,
-    pub title: String,
-    pub summary: Option<String>,
 }
 
 // This is passed into rendering of blog posts, for example,
@@ -45,6 +38,9 @@ pub struct DocumentMeta {
     pub next: Option<DocLink>,
     #[serde(default)]
     pub contains_code: bool,
+    // TODO: Figure out a better place for this?
+    #[serde(default)]
+    pub navbar: Vec<DocLink>,
 }
 
 #[derive(Debug, Clone)]
@@ -134,11 +130,11 @@ fn cleanup_path(path: &Path) -> Option<String> {
 
 impl Document {
     pub fn to_doclink(&self) -> DocLink {
-        DocLink {
-            title: self.meta.title.clone(),
-            url: self.meta.url.clone().unwrap_or("/".to_owned()),
-            summary: None, // TODO
-        }
+        DocLink::new(
+            &self.meta.url.clone().unwrap_or("/".to_owned()),
+            &self.meta.title,
+            None,
+        )
     }
 
     fn read_dash_meta(reader: &mut impl BufRead) -> anyhow::Result<(DocumentMeta, bool)> {

@@ -118,6 +118,7 @@ fn generate_blog_sidebar(
 fn generate_blog(
     config: &Config,
     folder: &str,
+    title: &str,
     handlebars: &mut handlebars::Handlebars,
 ) -> anyhow::Result<()> {
     // For the blog
@@ -223,23 +224,27 @@ fn generate_blog(
     }
 
     // Generate the root blog post.
-    if let Some(doc) = documents.first() {
-        let mut context = PageContext::from_document(doc);
+    let sidebar = generate_blog_sidebar(&documents, handlebars)?;
+    // First, render the blog post itself, without the surrounding chrome. This is so that we can add on
+    // more blog posts underneath later for a more continuous experience.
+    let post_html = documents
+        .iter()
+        .map(|doc| {
+            let context = PageContext::from_document(doc);
+            // Now, use that as contents and render into a doc template.
+            handlebars.render("blog_post", &context).unwrap()
+        })
+        .collect::<Vec<_>>()
+        .join("\n");
 
-        // First, render the blog post itself, without the surrounding chrome. This is so that we can add on
-        // more blog posts underneath later for a more continuous experience.
-        let post_html = handlebars.render("blog_post", &context)?;
-        let sidebar = generate_blog_sidebar(&documents, handlebars)?;
+    let mut context = PageContext::new(Some(title.to_owned()), Some(post_html));
+    context.sidebar = Some(sidebar);
+    context.tags = tags;
 
-        // Now, use that as contents and render into a doc template.
-        context.contents = Some(post_html);
-        context.sidebar = Some(sidebar);
-        context.tags = tags;
-        let html = handlebars.render("doc", &context)?;
+    let html = handlebars.render("doc", &context)?;
 
-        let target_path = out_root_folder;
-        util::write_file_as_folder_with_index(&target_path, html, false)?;
-    }
+    let target_path = out_root_folder;
+    util::write_file_as_folder_with_index(&target_path, html, false)?;
 
     println!("Wrote blog {}", folder);
 
@@ -388,8 +393,8 @@ fn build(opt: &Opt) -> anyhow::Result<()> {
 
     generate_doctree(&config, "docs", &mut handlebars)?;
 
-    generate_blog(&config, "blog", &mut handlebars)?;
-    generate_blog(&config, "news", &mut handlebars)?;
+    generate_blog(&config, "blog", "PPSSPP development blog", &mut handlebars)?;
+    generate_blog(&config, "news", "PPSSPP News", &mut handlebars)?;
 
     Ok(())
 }

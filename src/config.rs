@@ -53,6 +53,26 @@ pub struct VersionDownloads {
     downloads: Vec<DownloadInfo>,
 }
 
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct DocLink {
+    pub url: String,
+    pub title: String,
+    pub summary: Option<String>,
+    #[serde(default)]
+    pub external: bool,
+}
+
+impl DocLink {
+    pub fn new(url: &str, title: &str, summary: Option<String>) -> Self {
+        Self {
+            url: url.to_string(),
+            title: title.to_string(),
+            summary,
+            external: url.starts_with("https://"),
+        }
+    }
+}
+
 // This contains a bunch of stuff that various pages want to reference.
 // Little point in restricting certain data to certain pages since we're a static generator
 // so it'll be a grab bag of stuff.
