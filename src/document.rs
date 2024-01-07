@@ -122,22 +122,15 @@ impl PageContext {
     }
 
     fn update_selected(&mut self) {
-        let mut found = false;
-
         if let Some(ref mut globals) = &mut self.globals {
             if let Some(meta) = &self.meta {
                 let self_url = &meta.url;
                 for link in &mut globals.top_nav {
                     if self_url.starts_with(&link.url) {
                         link.selected = true;
-                        found = true;
                     }
                 }
             }
-        }
-
-        if !found {
-            println!("no top menu item found rendering {:#?}", self.meta,);
         }
     }
 }
@@ -218,11 +211,7 @@ impl Document {
     }
 
     // Handles page, blog posts, etc, including triple-dash docusaurus-style metadata.
-    pub fn from_md(
-        name: Option<&str>,
-        md_path: &Path,
-        options: &markdown::Options,
-    ) -> anyhow::Result<Self> {
+    pub fn from_md(md_path: &Path, options: &markdown::Options) -> anyhow::Result<Self> {
         let md_file = std::fs::File::open(md_path)?;
         let mut reader = BufReader::new(md_file);
         let (mut meta, mut ate_title) = Self::read_dash_meta(&mut reader)?;
@@ -366,8 +355,7 @@ impl Category {
                 // Check file extension to figure out what to do.
                 match os_str.to_str().unwrap() {
                     "md" => {
-                        let page_name = strip_extension(entry.file_name());
-                        documents.push(Document::from_md(Some(&page_name), &path, options)?);
+                        documents.push(Document::from_md(&path, options)?);
                     }
                     "json" => {
                         if name == "_category_.json" {

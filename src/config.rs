@@ -66,10 +66,6 @@ pub struct DocLink {
 
 impl DocLink {
     pub fn new(url: &str, title: &str, summary: Option<String>, selected_url: &str) -> Self {
-        if url == selected_url {
-            println!("{} {}", url, selected_url);
-        }
-
         Self {
             url: url.to_string(),
             title: title.to_string(),
