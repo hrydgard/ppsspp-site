@@ -181,6 +181,7 @@ With the addition of a special doc-container for docs with sidebars.
     min-width: var(--doc-sidebar-width);
     height: 100%;
     border-right: 2px solid var(--color-gray-800);
+    padding-bottom: 12px;
 }
 
 .doc-sidebar a {

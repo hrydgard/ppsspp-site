@@ -50,14 +50,9 @@
                 <div class='menu-button'></div>
             </label>
             <ul class="menu">
-                <li><a href="/downloads">Downloads</a></li>
-                <li><a href="/news">News</a></li>
-                <li><a href="/blog">Blog</a></li>
-                <li><a href="/docs/intro">Docs&nbsp;&amp;&nbsp;Help</a></li>
-                <li><a href="/media">Media</a></li>
-                <li><a href="/contact">Contact</a></li>
-                <li><a href="https://forums.ppsspp.org/">Forums{{> link_icon }}</a></li>
-                <li><a href="https://github.com/hrydgard/ppsspp">Github{{> link_icon }}</a></li>
+                {{#each globals.top_nav}}
+                <li><a href="{{url}}">{{title}}{{#if external}}{{> link_icon }}{{/if}}</a></li>
+                {{/each}}
             </ul>
             <div class="not-logged-in-only-inline"><a href="/login">Login</a></div>
             <div class="logged-in-only-inline" class="center-vertical" id="loginCorner"><a href="/login">Name</a></div>

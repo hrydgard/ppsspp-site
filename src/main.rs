@@ -40,7 +40,7 @@ extern crate serde;
 use document::*;
 
 use crate::{
-    config::GlobalMeta,
+    config::{DocLink, GlobalMeta},
     util::{filename_to_string, write_file_as_folder_with_index},
 };
 
@@ -80,14 +80,14 @@ fn generate_doctree(
 
     // Write out all the docs. Don't need recursion here so we can linearize.
     // Note that we also generate the categories as documents in `all_documents`.
-    let docs = root_cat.all_documents(handlebars)?;
+    let docs = root_cat.all_documents(handlebars, &config.global_meta)?;
     for doc in docs {
         let target_path = out_root_folder.join(&doc.path);
 
         util::create_folder_if_missing(&target_path)?;
 
         // We apply the template right here.
-        let mut context = PageContext::from_document(&doc);
+        let mut context = PageContext::from_document(&doc, &config.global_meta);
         context.sidebar = Some(generate_docnav_html(&root_cat, &target_path));
         let html = handlebars.render("doc", &context)?;
 
@@ -101,10 +101,12 @@ fn generate_doctree(
 
 // Posts should be passed-in in reverse time order.
 fn generate_blog_sidebar(
+    title: &str,
     all_posts: &[Document],
     handlebars: &mut handlebars::Handlebars,
 ) -> anyhow::Result<String> {
     let context = SidebarContext {
+        title: title.to_string(),
         links: all_posts
             .iter()
             .map(|doc| doc.to_doclink())
@@ -206,12 +208,12 @@ fn generate_blog(
     }
 
     for doc in &documents {
-        let mut context = PageContext::from_document(doc);
+        let mut context = PageContext::from_document(doc, &config.global_meta);
 
         // First, render the blog post itself, without the surrounding chrome. This is so that we can add on
         // more blog posts underneath later for a more continuous experience.
         let post_html = handlebars.render("blog_post", &context)?;
-        let sidebar = generate_blog_sidebar(&documents, handlebars)?;
+        let sidebar = generate_blog_sidebar(title, &documents, handlebars)?;
 
         // Now, use that as contents and render into a doc template.
         context.contents = Some(post_html);
@@ -224,20 +226,21 @@ fn generate_blog(
     }
 
     // Generate the root blog post.
-    let sidebar = generate_blog_sidebar(&documents, handlebars)?;
+    let sidebar = generate_blog_sidebar(title, &documents, handlebars)?;
     // First, render the blog post itself, without the surrounding chrome. This is so that we can add on
     // more blog posts underneath later for a more continuous experience.
     let post_html = documents
         .iter()
         .map(|doc| {
-            let context = PageContext::from_document(doc);
+            let context = PageContext::from_document(doc, &config.global_meta);
             // Now, use that as contents and render into a doc template.
             handlebars.render("blog_post", &context).unwrap()
         })
         .collect::<Vec<_>>()
         .join("\n");
 
-    let mut context = PageContext::new(Some(title.to_owned()), Some(post_html));
+    let mut context =
+        PageContext::new(Some(title.to_owned()), Some(post_html), &config.global_meta);
     context.sidebar = Some(sidebar);
     context.tags = tags;
 
@@ -293,7 +296,7 @@ fn generate_pages(
         };
 
         let html = if apply_doc_template {
-            let mut context = PageContext::from_document(&document);
+            let mut context = PageContext::from_document(&document, &config.global_meta);
             context.globals = Some(config.global_meta.clone());
             handlebars.render("doc", &context)?
         } else {
@@ -350,12 +353,16 @@ fn build(opt: &Opt) -> anyhow::Result<()> {
         "https://dev.ppsspp.org"
     }
     .to_string();
+
+    let top_nav: Vec<DocLink> =
+        serde_json::from_str(&std::fs::read_to_string("data/top_nav.json")?)?;
+
     let config = Config {
         url_base: url_base.clone(),
         indir: PathBuf::from("."),
         outdir: PathBuf::from("build"),
         markdown_options,
-        global_meta: GlobalMeta::new(opt.prod, &url_base)?,
+        global_meta: GlobalMeta::new(opt.prod, &url_base, top_nav)?,
     };
 
     if !config.outdir.exists() {
@@ -393,8 +400,8 @@ fn build(opt: &Opt) -> anyhow::Result<()> {
 
     generate_doctree(&config, "docs", &mut handlebars)?;
 
-    generate_blog(&config, "blog", "PPSSPP development blog", &mut handlebars)?;
-    generate_blog(&config, "news", "PPSSPP News", &mut handlebars)?;
+    generate_blog(&config, "blog", "Development blog", &mut handlebars)?;
+    generate_blog(&config, "news", "Release News", &mut handlebars)?;
 
     Ok(())
 }

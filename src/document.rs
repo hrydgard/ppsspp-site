@@ -52,6 +52,7 @@ pub struct Document {
 
 #[derive(Debug, Serialize, Deserialize, Clone, Default)]
 pub struct SidebarContext {
+    pub title: String,
     pub links: Vec<DocLink>,
 }
 
@@ -78,7 +79,7 @@ pub struct PageContext {
 }
 
 impl PageContext {
-    pub fn new(title: Option<String>, contents: Option<String>) -> Self {
+    pub fn new(title: Option<String>, contents: Option<String>, globals: &GlobalMeta) -> Self {
         Self {
             title,
             contents,
@@ -86,12 +87,12 @@ impl PageContext {
             year: 2024,
             children: vec![],
             meta: None,
-            globals: None,
+            globals: Some(globals.clone()),
             tags: vec![],
             contains_code: false,
         }
     }
-    pub fn from_document(document: &Document) -> Self {
+    pub fn from_document(document: &Document, globals: &GlobalMeta) -> Self {
         Self {
             title: Some(document.meta.title.clone()),
             contents: Some(document.html.clone()),
@@ -99,7 +100,7 @@ impl PageContext {
             year: 2024,
             children: vec![],
             meta: Some(document.meta.clone()),
-            globals: None,
+            globals: Some(globals.clone()),
             tags: vec![],
             contains_code: document.meta.contains_code,
         }
@@ -238,7 +239,7 @@ impl Document {
         handlebars: &mut handlebars::Handlebars,
     ) -> anyhow::Result<Self> {
         let hbs = std::fs::read_to_string(hbs_path)?;
-        let mut context = PageContext::new(None, None);
+        let mut context = PageContext::new(None, None, globals);
         context.globals = Some(globals.clone());
         let html = handlebars.render_template(&hbs, &context)?;
 
@@ -266,8 +267,9 @@ impl Document {
     pub fn from_category(
         category: &Category,
         handlebars: &mut handlebars::Handlebars,
+        globals: &GlobalMeta,
     ) -> anyhow::Result<Self> {
-        let mut context = PageContext::new(None, None);
+        let mut context = PageContext::new(None, None, globals);
 
         context.children = category
             .documents
@@ -344,14 +346,15 @@ impl Category {
     pub fn all_documents(
         &self,
         handlebars: &mut handlebars::Handlebars,
+        globals: &GlobalMeta,
     ) -> anyhow::Result<Vec<Document>> {
         let mut all_docs = vec![];
-        all_docs.push(Document::from_category(self, handlebars)?);
+        all_docs.push(Document::from_category(self, handlebars, globals)?);
         for doc in &self.documents {
             all_docs.push(doc.clone());
         }
         for cat in &self.sub_categories {
-            all_docs.extend(cat.all_documents(handlebars)?);
+            all_docs.extend(cat.all_documents(handlebars, globals)?);
         }
         // Add next/forward links
         // for [prev, cur, next] in documents.

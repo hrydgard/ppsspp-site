@@ -1,0 +1,36 @@
+[
+    {
+        "url": "/downloads",
+        "title": "Downloads"
+    },
+    {
+        "url": "/news",
+        "title": "News"
+    },
+    {
+        "url": "/blog",
+        "title": "Blog"
+    },
+    {
+        "url": "/docs/intro",
+        "title": "Docs & Help"
+    },
+    {
+        "url": "/media",
+        "title": "Media"
+    },
+    {
+        "url": "/contact",
+        "title": "Contact"
+    },
+    {
+        "url": "https://forums.ppsspp.org/",
+        "title": "Media",
+        "external": true
+    },
+    {
+        "url": "https://github.com/hrydgard/ppsspp",
+        "title": "Github",
+        "external": true
+    }
+]

@@ -81,6 +81,7 @@ pub struct GlobalMeta {
     pub app_version: String,
     pub platforms: Vec<PlatformInfo>,
     pub version_downloads: Vec<VersionDownloads>,
+    pub top_nav: Vec<DocLink>,
     pub prod: bool,
 }
 
@@ -103,7 +104,7 @@ fn gold_download_path(url_base: &str, version: &str, filename: &str) -> String {
 }
 
 impl GlobalMeta {
-    pub fn new(production: bool, url_base: &str) -> anyhow::Result<Self> {
+    pub fn new(production: bool, url_base: &str, top_nav: Vec<DocLink>) -> anyhow::Result<Self> {
         // Parse the download path dump.
 
         let downloads_json = std::fs::read_to_string("data/downloads.json")?;
@@ -160,6 +161,7 @@ impl GlobalMeta {
             prod: production,
             platforms,
             version_downloads,
+            top_nav,
         })
     }
 }
