@@ -7,7 +7,7 @@ Quick answers to questions that are frequently asked.
 
 ## How can I run my real PSP games in PPSSPP?
 
-You need to have your PSP games as .CSO or .ISO files. I do not have the right to distribute those with the app, so you'll have to provide them on your own.
+You need to have your PSP games as .ISO or .CSO files. I do not have the right to distribute those with the app, so you'll have to provide them on your own.
 
 To convert your real PSP games for use with PPSSPP, see [this article](docs/getting-started/dumping-games.md).
 
@@ -201,16 +201,24 @@ Here: [The PPSSPP privacy policy](/privacy)
 
 No, it can't.
 
+## Is it possible change the date/time of the emulated PSP clock?
+
+No. You can change the date/time of your host device's clock though to get the same effect, though it's strongly recommended not to do that, due to a lot of weird things happening to savegames and stuff - many games are sensitive to wrong date/times.
+
 ## Does PPSSPP work on Chromecast?
 
 This is not currently actively supported. In theory it should work, but many people have reported problems with folder selection and file permissions.
 
 ## Does PPSSPP work on Chromebooks?
 
-Chromebooks can run the Android version of PPSSPP. However it's not tested very actively, it has not yet been adapted for keyboard input, so you'll want to use an external bluetooth controller for now.
+Chromebooks can run the Android version of PPSSPP. However, it's not tested very actively.
+
+## Is the .CHD file format supported for ISOs?
+
+From version 1.17, yes.
 
 ## My SD card won't work for loading games after upgrading to Android 13!
 
-I've had a couple of reports of this, and one customer reported being able to solve the problem by reformatting the SD card from scratch, and copying back the stuff on it. Still unclear what was going on.
+There have been a couple of reports of this, and one person reported being able to solve the problem by reformatting the SD card from scratch, and copying back the stuff on it. Still unclear what was going on.
 
 In general, SD cards are a bit iffy on the more recent Android versions and can have some really strange problems, unfortunately.
