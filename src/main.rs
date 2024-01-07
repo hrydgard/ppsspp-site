@@ -89,7 +89,7 @@ fn generate_doctree(
         // We apply the template right here.
         let mut context = PageContext::from_document(&doc, &config.global_meta);
         context.sidebar = Some(generate_docnav_html(&root_cat, &target_path));
-        let html = handlebars.render("doc", &context)?;
+        let html = context.render("doc", handlebars)?;
 
         write_file_as_folder_with_index(&target_path, html, true)?;
     }
@@ -102,6 +102,7 @@ fn generate_doctree(
 // Posts should be passed-in in reverse time order.
 fn generate_blog_sidebar(
     title: &str,
+    url: &str,
     all_posts: &[Document],
     handlebars: &mut handlebars::Handlebars,
 ) -> anyhow::Result<String> {
@@ -109,7 +110,7 @@ fn generate_blog_sidebar(
         title: title.to_string(),
         links: all_posts
             .iter()
-            .map(|doc| doc.to_doclink())
+            .map(|doc| doc.to_doclink(url))
             .collect::<Vec<_>>(),
     };
 
@@ -168,7 +169,7 @@ fn generate_blog(
             doc.meta.slug = remainder.to_string();
         }
         assert!(!doc.meta.slug.is_empty());
-        doc.meta.url = Some(format!("/{folder}/{}", &doc.meta.slug));
+        doc.meta.url = format!("/{folder}/{}", &doc.meta.slug);
         doc.path = out_root_folder.join(&doc.meta.slug);
 
         for tag in &doc.meta.tags {
@@ -179,7 +180,7 @@ fn generate_blog(
                     articles: vec![],
                 })
                 .articles
-                .push(doc.to_doclink());
+                .push(doc.to_doclink(""));
         }
 
         documents.push(doc);
@@ -200,33 +201,34 @@ fn generate_blog(
     // for [prev, cur, next] in documents.
     for i in 0..documents.len() {
         if let Some(prev) = documents.get(i.wrapping_sub(1)) {
-            documents[i].meta.prev = Some(prev.to_doclink());
+            documents[i].meta.prev = Some(prev.to_doclink(""));
         }
         if let Some(next) = documents.get(i.wrapping_add(1)) {
-            documents[i].meta.next = Some(next.to_doclink());
+            documents[i].meta.next = Some(next.to_doclink(""));
         }
     }
 
     for doc in &documents {
-        let mut context = PageContext::from_document(doc, &config.global_meta);
+        let context = PageContext::from_document(doc, &config.global_meta);
 
         // First, render the blog post itself, without the surrounding chrome. This is so that we can add on
         // more blog posts underneath later for a more continuous experience.
         let post_html = handlebars.render("blog_post", &context)?;
-        let sidebar = generate_blog_sidebar(title, &documents, handlebars)?;
+        let sidebar = generate_blog_sidebar(title, &doc.meta.url, &documents, handlebars)?;
 
+        let mut context = PageContext::from_document(doc, &config.global_meta);
         // Now, use that as contents and render into a doc template.
         context.contents = Some(post_html);
         context.sidebar = Some(sidebar);
         //println!("{:#?}", context.meta);
-        let html = handlebars.render("doc", &context)?;
+        let html = context.render("doc", handlebars)?;
 
         let target_path = &doc.path;
         util::write_file_as_folder_with_index(target_path, html, false)?;
     }
 
     // Generate the root blog post.
-    let sidebar = generate_blog_sidebar(title, &documents, handlebars)?;
+    let sidebar = generate_blog_sidebar(title, &format!("/{}", folder), &documents, handlebars)?;
     // First, render the blog post itself, without the surrounding chrome. This is so that we can add on
     // more blog posts underneath later for a more continuous experience.
     let post_html = documents
@@ -234,7 +236,7 @@ fn generate_blog(
         .map(|doc| {
             let context = PageContext::from_document(doc, &config.global_meta);
             // Now, use that as contents and render into a doc template.
-            handlebars.render("blog_post", &context).unwrap()
+            context.render("blog_post", handlebars).unwrap()
         })
         .collect::<Vec<_>>()
         .join("\n");
@@ -243,8 +245,9 @@ fn generate_blog(
         PageContext::new(Some(title.to_owned()), Some(post_html), &config.global_meta);
     context.sidebar = Some(sidebar);
     context.tags = tags;
+    context.meta = Some(documents[0].meta.clone());
 
-    let html = handlebars.render("doc", &context)?;
+    let html = context.render("doc", handlebars)?;
 
     let target_path = out_root_folder;
     util::write_file_as_folder_with_index(&target_path, html, false)?;
@@ -295,16 +298,23 @@ fn generate_pages(
             }
         };
 
+        let target_path = out_root_folder.join(file_name);
+        let fname = filename_to_string(&entry.file_name());
+
         let html = if apply_doc_template {
             let mut context = PageContext::from_document(&document, &config.global_meta);
             context.globals = Some(config.global_meta.clone());
-            handlebars.render("doc", &context)?
+            if let Some(ref mut meta) = &mut context.meta {
+                meta.url = format!(
+                    "/{}",
+                    fname.as_str().strip_suffix(".hbs").unwrap_or_default()
+                );
+            }
+            context.render("doc", handlebars)?
         } else {
             document.html
         };
 
-        let target_path = out_root_folder.join(file_name);
-        let fname = filename_to_string(&entry.file_name());
         if fname == "index.hbs" {
             println!("index.html special case");
             // Just write it plain.

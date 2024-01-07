@@ -33,14 +33,12 @@ pub struct DocumentMeta {
     #[serde(default)]
     pub tags: Vec<String>,
     pub link: Option<Link>,
-    pub url: Option<String>,
+    #[serde(default)]
+    pub url: String,
     pub prev: Option<DocLink>,
     pub next: Option<DocLink>,
     #[serde(default)]
     pub contains_code: bool,
-    // TODO: Figure out a better place for this?
-    #[serde(default)]
-    pub navbar: Vec<DocLink>,
 }
 
 #[derive(Debug, Clone)]
@@ -105,6 +103,32 @@ impl PageContext {
             contains_code: document.meta.contains_code,
         }
     }
+    pub fn render(
+        mut self,
+        template_name: &str,
+        handlebars: &mut handlebars::Handlebars,
+    ) -> anyhow::Result<String> {
+        let mut found = false;
+
+        if let Some(ref mut globals) = &mut self.globals {
+            if let Some(meta) = &self.meta {
+                let self_url = &meta.url;
+                for link in &mut globals.top_nav {
+                    if self_url.starts_with(&link.url) {
+                        println!("euqals! {} {}", link.url, self_url);
+                        link.selected = true;
+                        found = true;
+                    }
+                }
+            }
+        }
+
+        if !found {
+            println!("no top menu item found rendering {:#?}", self.meta,);
+        }
+
+        Ok(handlebars.render(template_name, &self)?)
+    }
 }
 
 fn postprocess_markdown(md: String) -> String {
@@ -130,12 +154,8 @@ fn cleanup_path(path: &Path) -> Option<String> {
 }
 
 impl Document {
-    pub fn to_doclink(&self) -> DocLink {
-        DocLink::new(
-            &self.meta.url.clone().unwrap_or("/".to_owned()),
-            &self.meta.title,
-            None,
-        )
+    pub fn to_doclink(&self, selected_url: &str) -> DocLink {
+        DocLink::new(&self.meta.url.clone(), &self.meta.title, None, selected_url)
     }
 
     fn read_dash_meta(reader: &mut impl BufRead) -> anyhow::Result<(DocumentMeta, bool)> {
@@ -189,7 +209,7 @@ impl Document {
         let mut path = md_path.to_path_buf();
         path.set_extension("");
 
-        meta.url = cleanup_path(&path);
+        meta.url = cleanup_path(&path).unwrap();
 
         let mut md = String::from("");
 
@@ -269,12 +289,12 @@ impl Document {
         handlebars: &mut handlebars::Handlebars,
         globals: &GlobalMeta,
     ) -> anyhow::Result<Self> {
-        let mut context = PageContext::new(None, None, globals);
+        let mut context = PageContext::new(Some(category.meta.title.clone()), None, globals);
 
         context.children = category
             .documents
             .iter()
-            .map(|doc| doc.to_doclink())
+            .map(|doc| doc.to_doclink(&category.meta.url))
             .collect::<Vec<_>>();
 
         // Add children document titles to the context here.
@@ -303,7 +323,7 @@ impl Category {
         let listing = folder.read_dir()?;
         let mut meta = DocumentMeta {
             title: "Documentation".to_string(),
-            url: Some("/docs".to_string()),
+            url: "/docs".to_string(),
             ..Default::default()
         };
 
@@ -333,7 +353,7 @@ impl Category {
         }
 
         let path = folder.to_path_buf();
-        meta.url = cleanup_path(&path);
+        meta.url = cleanup_path(&path).unwrap();
         Ok(Self {
             meta,
             documents,
@@ -360,10 +380,10 @@ impl Category {
         // for [prev, cur, next] in documents.
         for i in 0..all_docs.len() {
             if let Some(prev) = all_docs.get(i.wrapping_sub(1)) {
-                all_docs[i].meta.prev = Some(prev.to_doclink());
+                all_docs[i].meta.prev = Some(prev.to_doclink(""));
             }
             if let Some(next) = all_docs.get(i.wrapping_add(1)) {
-                all_docs[i].meta.next = Some(next.to_doclink());
+                all_docs[i].meta.next = Some(next.to_doclink(""));
             }
         }
         Ok(all_docs)

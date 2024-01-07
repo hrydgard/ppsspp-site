@@ -60,15 +60,22 @@ pub struct DocLink {
     pub summary: Option<String>,
     #[serde(default)]
     pub external: bool,
+    #[serde(default)]
+    pub selected: bool,
 }
 
 impl DocLink {
-    pub fn new(url: &str, title: &str, summary: Option<String>) -> Self {
+    pub fn new(url: &str, title: &str, summary: Option<String>, selected_url: &str) -> Self {
+        if url == selected_url {
+            println!("{} {}", url, selected_url);
+        }
+
         Self {
             url: url.to_string(),
             title: title.to_string(),
             summary,
             external: url.starts_with("https://"),
+            selected: url == selected_url,
         }
     }
 }
