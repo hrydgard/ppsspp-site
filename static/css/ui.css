@@ -67,13 +67,6 @@
 .article {
     /* General */
     display: block;
-    width: 100%;
-    position: relative;
-    /* Border */
-    border-radius: var(--default-border-radius);
-    /* Margin */
-    margin: 1rem 0;
-    padding: 0;
 }
 
 .article .article-infos ul {

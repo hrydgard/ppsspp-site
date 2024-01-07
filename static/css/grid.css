@@ -3,10 +3,14 @@
 *** (C) ZACH COLE 2016
 **/
 
-/* ==== RESPONSIVE GRID SYSTEM ==== */
+/* ==== RESPONSIVE GRID SYSTEM ====
+
+With the addition of a special doc-container for docs with sidebars.
+
+*/
 
 .container {
-    width: 90%;
+    width: 94%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -18,8 +22,8 @@
 
 .row [class^="col"] {
     float: left;
-    margin: 0.5rem 1%;
-    min-height: 1rem;
+    margin: 0.5em 1%;
+    min-height: 1em;
 }
 
 .col-1,
@@ -95,14 +99,7 @@
     display: none;
 }
 
-@media only screen and (min-width: 33.75em) {
-
-    /* 540px */
-    .container {
-        width: 95%;
-    }
-}
-
+/* The squeezy phase, before we hit max width */
 @media only screen and (min-width: 45em) {
 
     /* 720px */
@@ -159,11 +156,96 @@
     }
 }
 
+/* Max-width phase */
 @media only screen and (min-width: 60em) {
 
     /* 960px */
     .container {
         width: 95%;
-        max-width: 60rem;
+        max-width: 60em;
+    }
+}
+
+.doc-container {
+    height: 100%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
+}
+
+.doc-sidebar {
+    display: none;
+    z-index: 100;
+    overflow-x: hidden;
+    min-width: var(--doc-sidebar-width);
+    height: 100%;
+    border-right: 2px solid var(--color-gray-800);
+}
+
+.doc-sidebar a {
+    float: none;
+    display: block;
+    margin-bottom: 3px;
+    color: var(--color-text);
+}
+
+.doc-sidebar a.selected {
+    color: var(--color-primary);
+}
+
+.doc-sidebar a:hover {
+    color: var(--color-primary);
+}
+
+
+.doc-contents {
+    width: 95%;
+    padding-left: 12px;
+    padding-right: 8px;
+    display: table-cell;
+}
+
+.doc-contents img,
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+.doc-contents pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    text-align: justify;
+}
+
+/* The squeezy phase, before we hit max width */
+@media only screen and (min-width: 45em) {
+    .doc-container {
+        width: 100%;
+    }
+
+    .doc-sidebar {
+        display: table-cell;
+    }
+
+    .doc-contents {
+        margin-left: var(--doc-sidebar-width);
+    }
+}
+
+
+/* Max-width phase */
+@media only screen and (min-width: 60em) {
+    .doc-container {
+        width: 100%;
+        max-width: 60em;
+    }
+
+    .doc-sidebar {
+        display: table-cell;
+    }
+
+    .doc-contents {
+        margin-left: var(--doc-sidebar-width);
     }
 }
