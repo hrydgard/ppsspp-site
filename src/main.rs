@@ -76,7 +76,17 @@ fn generate_doctree(
     let root_folder = config.indir.join(folder);
     anyhow::ensure!(root_folder.exists());
     let out_root_folder = config.outdir.clone();
-    let root_cat = document::Category::from_folder_tree(&root_folder, &config.markdown_options)?;
+    let mut root_cat =
+        document::Category::from_folder_tree(&root_folder, &config.markdown_options)?;
+
+    let mut crumbs = vec![DocLink {
+        title: "Docs".to_owned(),
+        url: format!("/{}", folder),
+        summary: None,
+        external: false,
+        selected: false,
+    }];
+    root_cat.compute_breadcrumbs(&mut crumbs);
 
     // Write out all the docs. Don't need recursion here so we can linearize.
     // Note that we also generate the categories as documents in `all_documents`.

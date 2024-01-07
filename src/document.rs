@@ -40,6 +40,8 @@ pub struct DocumentMeta {
     pub next: Option<DocLink>,
     #[serde(default)]
     pub contains_code: bool,
+    #[serde(default)]
+    pub breadcrumbs: Vec<DocLink>,
 }
 
 #[derive(Debug, Clone)]
@@ -349,6 +351,7 @@ impl Category {
             let entry = dir_entry?;
             let path = folder.join(entry.file_name());
             let name = util::filename_to_string(&entry.file_name());
+
             if entry.metadata()?.is_dir() {
                 sub_categories.push(Self::from_folder_tree(&path, options)?);
             } else if let Some(os_str) = path.extension() {
@@ -405,5 +408,29 @@ impl Category {
             }
         }
         Ok(all_docs)
+    }
+
+    pub fn to_doclink(&self) -> DocLink {
+        DocLink {
+            url: self.meta.url.clone(),
+            title: self.meta.title.clone(),
+            summary: None,
+            external: false,
+            selected: false,
+        }
+    }
+
+    pub fn compute_breadcrumbs(&mut self, crumbs: &mut Vec<DocLink>) {
+        self.meta.breadcrumbs = crumbs.clone();
+        for doc in &mut self.documents {
+            crumbs.push(doc.to_doclink(""));
+            doc.meta.breadcrumbs = crumbs.clone();
+            crumbs.pop();
+        }
+        for cat in &mut self.sub_categories {
+            crumbs.push(cat.to_doclink());
+            cat.compute_breadcrumbs(crumbs);
+            crumbs.pop();
+        }
     }
 }

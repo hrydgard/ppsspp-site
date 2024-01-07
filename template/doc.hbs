@@ -9,17 +9,16 @@
     </div>
 
     <div class="doc-contents">
-        <!-- todo: improve -->
-        <p>
-            {{#each breadcrumbs}}
-            <span><a href="{{url}}">title</a></span> -
+        <ul class="breadcrumb">
+            {{#each meta.breadcrumbs}}
+            <li>{{#if url}}<a href="{{url}}">{{/if}}{{title}}{{#if url}}</a>{{/if}}</li>
             {{/each}}
-        </p>
+        </ul>
 
         {{{ contents }}}
 
         {{#each tags}}
-        {{this}}
+        <a class="tag-link">{{name}}</a>
         {{/each}}
 
         <div class="prev-next-container">

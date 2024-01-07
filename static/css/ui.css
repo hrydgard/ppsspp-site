@@ -86,6 +86,18 @@
     color: var(--color-gray-300);
 }
 
+a.tag-link {
+    border-radius: 7px;
+    background-color: var(--color-gray-800);
+    padding: 8px;
+    box-shadow: 0 3px 5px #000;
+    color: var(--color-text);
+}
+
+a.tag-link:hover {
+    color: var(--color-primary);
+}
+
 a.next {
     text-align: right;
 }
@@ -119,6 +131,42 @@ a.nav-link .title {
     margin: 3px;
     text-decoration: none;
     font-weight: bold;
+}
+
+/* Style the list */
+ul.breadcrumb {
+    display: inline-block;
+    padding: 8px 8px;
+    border-radius: 10px;
+    list-style: none;
+    margin-top: 12px;
+    margin-left: -5px;
+    background-color: var(--color-gray-800);
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+    display: inline;
+    font-size: 14pt;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li+li:before {
+    padding: 8px;
+    color: var(--color-text);
+    content: "/\00a0";
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+    text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+    text-decoration: underline;
 }
 
 code {
