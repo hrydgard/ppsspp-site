@@ -635,6 +635,10 @@ function onLoadPage() {
     if (g_thankYouPage) {
         window.setTimeout(pollPurchase, g_pollInterval);
     }
+    if (typeof hljs !== 'undefined') {
+        console.log("highlighting");
+        hljs.highlightAll();
+    }
 }
 
 console.log("initial script execution");

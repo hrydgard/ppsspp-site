@@ -43,6 +43,8 @@ pub struct DocumentMeta {
     pub url: Option<String>,
     pub prev: Option<DocLink>,
     pub next: Option<DocLink>,
+    #[serde(default)]
+    pub contains_code: bool,
 }
 
 #[derive(Debug, Clone)]
@@ -76,6 +78,7 @@ pub struct PageContext {
     pub year: i32,
     pub globals: Option<GlobalMeta>,
     pub tags: Vec<Tag>,
+    pub contains_code: bool,
 }
 
 impl PageContext {
@@ -89,6 +92,7 @@ impl PageContext {
             meta: None,
             globals: None,
             tags: vec![],
+            contains_code: false,
         }
     }
     pub fn from_document(document: &Document) -> Self {
@@ -101,6 +105,7 @@ impl PageContext {
             meta: Some(document.meta.clone()),
             globals: None,
             tags: vec![],
+            contains_code: document.meta.contains_code,
         }
     }
 }
@@ -211,6 +216,10 @@ impl Document {
         reader.read_to_end(&mut buffer)?;
 
         md += &String::from_utf8(buffer)?;
+
+        if md.contains("```c") || md.contains("```rust") {
+            meta.contains_code = true;
+        }
 
         let issue_regex = regex::Regex::new(r"\[#(\d+)\]").unwrap();
         md = issue_regex

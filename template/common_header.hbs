@@ -13,23 +13,26 @@
     -->
     <script src="https://unpkg.com/squirrelly" defer></script>
     <script src="/static/script/account.js" defer></script>
-    {{ #unless noAds }}
+    {{#unless noAds}}
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3281131109267988"
         crossorigin="anonymous"></script>
-    {{ /unless }}
+    {{/unless}}
     <script>
         // Special behaviors. There's probably a better way.
         var g_loginByKey = false;
         var g_thankYouPage = false;
     </script>
-    {{ #if fastspring }}
+    {{#if fastspring}}
     <script src="/static/script/fastspring.js" defer></script>
     <script id="fsc-api" src="https://d1f8f9xcsvx3ha.cloudfront.net/sbl/0.7.4/fastspring-builder.min.js"
         type="text/javascript" {{ #if prod }} data-storefront="ppsspp.onfastspring.com/popup-gold" {{ else }}
         data-storefront="ppsspp.test.onfastspring.com/popup-gold" {{ /if }} data-popup-closed="onFSPopupClosed"
         data-debug=true>
         </script>
-    {{ /if }}
+    {{/if}}
+    {{#if contains_code}}
+    <script src="/static/script/highlight.min.js" defer></script>
+    {{/if}}
 </head>
 
 <title>{{ title }}</title>

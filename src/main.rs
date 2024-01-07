@@ -378,6 +378,7 @@ fn build(opt: &Opt) -> anyhow::Result<()> {
             "ui.css",
             "hamburger.css",
             "hero.css",
+            "highlight-dark.min.css",
         ],
         &config.outdir.join("static/css/all.css"),
         !opt.minify,
