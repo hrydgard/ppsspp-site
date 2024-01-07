@@ -9,13 +9,9 @@
   font-weight: bold;
 }
 
-* {
-  font-family: DroidSans, sans-serif;
-  box-sizing: border-box;
-}
-
 html,
 body {
+  font-family: DroidSans, sans-serif;
   padding: 0;
   margin: 0;
   height: 100%;
