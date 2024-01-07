@@ -1,5 +1,6 @@
 use crate::util;
 use std::{
+    ffi::OsString,
     io::{BufRead, BufReader, Read},
     path::{Path, PathBuf},
 };
@@ -108,6 +109,19 @@ impl PageContext {
         template_name: &str,
         handlebars: &mut handlebars::Handlebars,
     ) -> anyhow::Result<String> {
+        self.update_selected();
+        Ok(handlebars.render(template_name, &self)?)
+    }
+    pub fn render_template(
+        mut self,
+        template_string: &str,
+        handlebars: &mut handlebars::Handlebars,
+    ) -> anyhow::Result<String> {
+        self.update_selected();
+        Ok(handlebars.render_template(template_string, &self)?)
+    }
+
+    fn update_selected(&mut self) {
         let mut found = false;
 
         if let Some(ref mut globals) = &mut self.globals {
@@ -115,7 +129,6 @@ impl PageContext {
                 let self_url = &meta.url;
                 for link in &mut globals.top_nav {
                     if self_url.starts_with(&link.url) {
-                        println!("euqals! {} {}", link.url, self_url);
                         link.selected = true;
                         found = true;
                     }
@@ -126,8 +139,6 @@ impl PageContext {
         if !found {
             println!("no top menu item found rendering {:#?}", self.meta,);
         }
-
-        Ok(handlebars.render(template_name, &self)?)
     }
 }
 
@@ -151,6 +162,12 @@ fn cleanup_path(path: &Path) -> Option<String> {
     path.to_string_lossy()
         .strip_prefix('.')
         .map(|s| s.to_string().replace('\\', "/"))
+}
+
+pub fn strip_extension(str: OsString) -> String {
+    let mut x = PathBuf::from(str);
+    x.set_extension("");
+    x.to_string_lossy().to_string()
 }
 
 impl Document {
@@ -201,7 +218,11 @@ impl Document {
     }
 
     // Handles page, blog posts, etc, including triple-dash docusaurus-style metadata.
-    pub fn from_md(md_path: &Path, options: &markdown::Options) -> anyhow::Result<Self> {
+    pub fn from_md(
+        name: Option<&str>,
+        md_path: &Path,
+        options: &markdown::Options,
+    ) -> anyhow::Result<Self> {
         let md_file = std::fs::File::open(md_path)?;
         let mut reader = BufReader::new(md_file);
         let (mut meta, mut ate_title) = Self::read_dash_meta(&mut reader)?;
@@ -210,6 +231,9 @@ impl Document {
         path.set_extension("");
 
         meta.url = cleanup_path(&path).unwrap();
+        //if let Some(name) = name {
+        //    meta.url = format!("/{name}");
+        //}
 
         let mut md = String::from("");
 
@@ -255,17 +279,22 @@ impl Document {
     // The document itself is the template so we apply it immediately. Used for pages.
     pub fn from_hbs(
         globals: &GlobalMeta,
+        name: &str,
         hbs_path: &Path,
         handlebars: &mut handlebars::Handlebars,
     ) -> anyhow::Result<Self> {
         let hbs = std::fs::read_to_string(hbs_path)?;
         let mut context = PageContext::new(None, None, globals);
         context.globals = Some(globals.clone());
-        let html = handlebars.render_template(&hbs, &context)?;
-
+        let meta = DocumentMeta {
+            url: format!("/{name}"),
+            ..Default::default()
+        };
+        context.meta = Some(meta.clone());
+        let html = context.render_template(&hbs, handlebars)?;
         Ok(Self {
             path: hbs_path.to_path_buf(),
-            meta: DocumentMeta::default(),
+            meta,
             html,
         })
     }
@@ -337,7 +366,8 @@ impl Category {
                 // Check file extension to figure out what to do.
                 match os_str.to_str().unwrap() {
                     "md" => {
-                        documents.push(Document::from_md(&path, options)?);
+                        let page_name = strip_extension(entry.file_name());
+                        documents.push(Document::from_md(Some(&page_name), &path, options)?);
                     }
                     "json" => {
                         if name == "_category_.json" {

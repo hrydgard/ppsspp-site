@@ -155,6 +155,7 @@ fn generate_blog(
 
         let parts: [&str; 4] = name.splitn(4, '-').collect::<Vec<_>>().try_into().unwrap();
         let mut doc = Document::from_md(
+            None, // we set it below
             &root_folder.join(entry.file_name()),
             &config.markdown_options,
         )?;
@@ -276,16 +277,20 @@ fn generate_pages(
         let Some(os_str) = path.extension() else {
             continue;
         };
+        let name = strip_extension(entry.file_name());
         let (document, apply_doc_template) = match os_str.to_str().unwrap() {
             "md" => {
                 file_name.set_extension("html");
-                (Document::from_md(&path, &config.markdown_options)?, true)
+                (
+                    Document::from_md(Some(&name), &path, &config.markdown_options)?,
+                    true,
+                )
             }
             "html" => (Document::from_html(&path)?, true),
             "hbs" => {
                 file_name.set_extension("html");
                 (
-                    Document::from_hbs(&config.global_meta, &path, handlebars)?,
+                    Document::from_hbs(&config.global_meta, &name, &path, handlebars)?,
                     false,
                 )
             }
@@ -298,6 +303,8 @@ fn generate_pages(
             }
         };
 
+        println!("st: {name} {}", document.meta.url);
+
         let target_path = out_root_folder.join(file_name);
         let fname = filename_to_string(&entry.file_name());
 
@@ -309,8 +316,9 @@ fn generate_pages(
                     "/{}",
                     fname.as_str().strip_suffix(".hbs").unwrap_or_default()
                 );
+                println!("!!! {:#?}", meta);
             }
-            context.render("doc", handlebars)?
+            context.render("page", handlebars)?
         } else {
             document.html
         };
@@ -350,6 +358,7 @@ fn build(opt: &Opt) -> anyhow::Result<()> {
     handlebars.register_template_file("blog_post", "template/blog_post.hbs")?;
     handlebars.register_template_file("blog_sidebar", "template/blog_sidebar.hbs")?;
     handlebars.register_template_file("product_card", "template/product_card.hbs")?;
+    handlebars.register_template_file("page", "template/page.hbs")?;
 
     println!("Barebones website generator");
 
