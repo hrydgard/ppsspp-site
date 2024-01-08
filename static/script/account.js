@@ -13,6 +13,14 @@ const defaultUserContext = {
 
 var g_userData = defaultUserContext;
 
+// Alert types for visual display.
+const ERROR = "alert-error";
+const WARNING = "alert-warning";
+const SUCCESS = "alert-success";
+const INFO = "alert-info";
+const HIDDEN = "alert-hidden";
+const ALL_ALERTS = [ERROR, WARNING, SUCCESS, INFO, HIDDEN];
+
 function buyProduct(productId, item) {
     console.log("Buy button clicked for " + productId);
     console.log(item);
@@ -235,13 +243,19 @@ async function updatePlayCodesStats() {
     }
 }
 
-// severities:
-// "WARN", "ERROR", "SUCCESS", "INFO"
+// severities: WARN, ERROR, SUCCESS, INFO
 function setStatusDisplay(severity, errorElement, errorString) {
     let errorBox = document.getElementById(errorElement);
     if (errorBox) {
-        console.log(severity + ": " + errorString);
+        console.log(severity + ": " + errorString + " (updating alert state next) " + severity);
         errorBox.innerHTML = errorString;
+        errorBox.classList.add("alert");
+        ALL_ALERTS.forEach(function (a) {
+            console.log("removing " + a)
+            errorBox.classList.remove(a);
+        });
+        errorBox.classList.add(severity);
+        console.log("done with alert states. Added " + severity);
     } else {
         console.log("Error-display '" + errorElement + "' didn't exist: " + errorString)
     }
@@ -332,10 +346,10 @@ async function handleAddGooglePlayCodes(event) {
     });
     if (result) {
         console.log("success");
-        setStatusDisplay("SUCCESS", "googlePlayStatus", "Codes added.");
+        setStatusDisplay(SUCCESS, "googlePlayStatus", "Codes added.");
     } else {
         console.log("failure");
-        setStatusDisplay("ERROR", "googlePlayStatus", "Failed to add codes.");
+        setStatusDisplay(ERROR, "googlePlayStatus", "Failed to add codes.");
     }
 
     await updatePlayCodesStats();
@@ -374,11 +388,11 @@ async function handleLoginForm(event) {
     const forward = translateForward(queryParams.get('Forward'), "set form forward");
 
     if (!validateEmailAddress(email)) {
-        setStatusDisplay("ERROR", "loginStatus", BAD_EMAIL_ADDRESS);
+        setStatusDisplay(ERROR, "loginStatus", BAD_EMAIL_ADDRESS);
         return false;
     }
     if (!password) {
-        setStatusDisplay("ERROR", "loginStatus", MISSING_PASSWORD);
+        setStatusDisplay(ERROR, "loginStatus", MISSING_PASSWORD);
         return false;
     }
 
@@ -397,7 +411,7 @@ async function handleLoginForm(event) {
             window.location.href = "/" + forward;
         }
     } else {
-        setStatusDisplay("ERROR", "loginStatus", "Email/Password didn't match, or account doesn't exist.");
+        setStatusDisplay(ERROR, "loginStatus", "Email/Password didn't match, or account doesn't exist.");
     }
 
     applyDOMVisibility();
@@ -431,7 +445,7 @@ async function handleLoginByKey() {
             // setLoginFailed(true);
             // Remove query parameters. This causes some kind of wacky redirect loop though!
             // queryParams.delete('error')
-            setStatusDisplay("ERROR", "loginStatus", "Failed to login by key.");
+            setStatusDisplay(ERROR, "loginStatus", "Failed to login by key.");
         }
     } else if (g_userData.loggedIn) {
         // Just proceed with the forward, we're already logged in.
@@ -453,16 +467,16 @@ async function handleChangePasswordForm(event) {
     const newPassword = document.getElementById("new_password").value.trim();
 
     if (newPassword.length < 8) {
-        setStatusDisplay("ERROR")
+        setStatusDisplay(ERROR)
     }
 
     var result = await jsonPost("changepassword", { oldPassword: oldPassword, newPassword: newPassword });
     if (result) {
         console.log(result);
-        setStatusDisplay("SUCCESS", status, "Password changed");
+        setStatusDisplay(SUCCESS, status, "Password changed");
         // window.location.href = "/login";
     } else {
-        setStatusDisplay("ERROR", status, "Failed to change password. Was your old password correct?");
+        setStatusDisplay(ERROR, status, "Failed to change password. Was your old password correct?");
     }
 
     return false;
@@ -473,12 +487,12 @@ async function handleRecoverPasswordForm(event) {
     const status = "recoverPasswordStatus";
     const email = document.getElementById("email").value.trim();
     if (!validateEmailAddress(email)) {
-        setStatusDisplay("ERROR", status, BAD_EMAIL_ADDRESS);
+        setStatusDisplay(ERROR, status, BAD_EMAIL_ADDRESS);
         return false;
     }
     await jsonPost('recoverpassword', { email: email }, null, null); // not fetch!
     // Don't reveal success or failure.
-    setStatusDisplay("SUCCESS", status, "E-mail with recover link sent to your account, if valid.");
+    setStatusDisplay(SUCCESS, status, "E-mail with recover link sent to your account, if valid.");
     return false;
 }
 
@@ -487,9 +501,9 @@ async function handleRequestPromoCodeForm(event) {
     event.preventDefault();
     var result = await jsonFetch("getgoogleplaycode", null, null);
     if (result) {
-        setStatusDisplay("SUCCESS", status, "Your Promo Code: " + result.code);
+        setStatusDisplay(SUCCESS, status, "Your Promo Code: " + result.code);
     } else {
-        setStatusDisplay("ERROR", status, "Failed to make request - duplicate?");
+        setStatusDisplay(ERROR, status, "Failed to make request - duplicate?");
     }
 }
 
@@ -577,7 +591,7 @@ async function pollPurchase() {
 
     if (!reference) {
         // Page was loaded with wrong parameters.
-        setStatusDisplay("ERROR", "purchaseStatus", "Missing purchase reference (?orderId)");
+        setStatusDisplay(ERROR, "purchaseStatus", "Missing purchase reference (?orderId)");
         return;
     }
 
@@ -587,7 +601,7 @@ async function pollPurchase() {
     if (statusData) {
         console.log(statusData);
         if (statusData.paymentStatus == "completed") {
-            setStatusDisplay("SUCCESS", "purchaseStatus", "Purchase confirmed!");
+            setStatusDisplay(SUCCESS, "purchaseStatus", "Purchase confirmed!");
             const purchaseInfo = document.getElementById("purchaseInfo");
             purchaseInfo.innerHTML = Sqrl.render(tmplShowSuccessfulPurchase, statusData);
         } else {
@@ -600,7 +614,7 @@ async function pollPurchase() {
             window.setTimeout(pollPurchase, g_pollInterval);
         }
     } else {
-        setStatusDisplay("INFO", "purchaseStatus", "Confirming purchase... (might take a while)");
+        setStatusDisplay(INFO, "purchaseStatus", "Confirming purchase... (might take a while)");
         console.log("Failed, trying again.");
         if (g_pollInterval < 10000) {
             g_pollInterval += 1000;  // ms

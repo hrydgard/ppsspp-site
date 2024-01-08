@@ -230,7 +230,6 @@ fn recurse(nodes: &[Node], meta: &mut DocumentMeta) -> anyhow::Result<()> {
                     if let Some(children) = node.children() {
                         recurse_text_join(children, &mut summary);
                     }
-                    println!("md_summary: {}", summary);
                     meta.summary = Some(truncate_string(summary, MAX_SUMMARY_CHARS));
                 }
             }
@@ -483,7 +482,6 @@ impl Category {
 
         let path = folder.to_path_buf();
         meta.url = cleanup_path(&path).unwrap();
-        println!("summary: {}", summary);
         meta.summary = Some(summary);
 
         Ok(Self {

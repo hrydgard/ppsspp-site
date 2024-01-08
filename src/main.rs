@@ -19,10 +19,11 @@
 // - [ ] Mobile site improvements
 // - [ ] Polish
 // - [ ] Test purchase
-// - [ ] Deploy
+// - [ ] *** Deploy ***
 // - [ ] Blog tags, browse by
-// - [ ] Blog feed pagination
 // - [ ] Merge the two blogs
+// - [ ] Blog feed pagination
+// - [ ] Light/dark mode
 // - [ ] Docs search
 
 use chrono::{DateTime, Utc};

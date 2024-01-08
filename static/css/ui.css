@@ -193,8 +193,8 @@ ul.breadcrumb li a:hover {
 }
 
 .alert.alert-error {
-    background-color: var(--color-error-darkest);
-    border-color: var(--color-error);
+    background-color: var(--color-danger-darkest);
+    border-color: var(--color-danger);
 }
 
 .alert.alert-success {
@@ -205,6 +205,10 @@ ul.breadcrumb li a:hover {
 .alert.alert-info {
     background-color: var(--color-primary-darkest);
     border-color: var(--color-primary);
+}
+
+.alert.alert-hidden {
+    display: none;
 }
 
 code {
