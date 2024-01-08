@@ -261,4 +261,5 @@ pub struct Config {
     pub markdown_options: markdown::Options,
     pub global_meta: GlobalMeta,
     pub build_date: String,
+    pub github_url: &'static str,
 }

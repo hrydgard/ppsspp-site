@@ -85,8 +85,7 @@ fn generate_doctree(
     let root_folder = config.indir.join(folder);
     anyhow::ensure!(root_folder.exists());
     let out_root_folder = config.outdir.clone();
-    let mut root_cat =
-        document::Category::from_folder_tree(&root_folder, &config.markdown_options)?;
+    let mut root_cat = document::Category::from_folder_tree(&root_folder, config)?;
 
     let mut crumbs = vec![DocLink {
         title: "Docs".to_owned(),
@@ -100,20 +99,38 @@ fn generate_doctree(
     // Write out all the docs. Don't need recursion here so we can linearize.
     // Note that we also generate the categories as documents in `all_documents`.
     let docs = root_cat.all_documents(handlebars, &config.global_meta)?;
-    for doc in docs {
+    for doc in &docs {
         let target_path = out_root_folder.join(&doc.path);
 
         util::create_folder_if_missing(&target_path)?;
 
         // We apply the template right here.
-        let mut context = PageContext::from_document(&doc, &config.global_meta);
+        let mut context = PageContext::from_document(doc, &config.global_meta);
         context.sidebar = Some(generate_docnav_html(&root_cat, &target_path));
         let html = context.render("doc", handlebars)?;
 
         write_file_as_folder_with_index(&target_path, html, true)?;
     }
 
-    println!("Wrote doctree {}", folder);
+    let mut index = index::Index::new();
+
+    // Generate search index
+    for doc in docs {
+        if let Some(markdown) = &doc.markdown {
+            index.add_md(&config.markdown_options, markdown, &doc.meta)?;
+        }
+    }
+
+    let json_index = index.to_index_json();
+    let json_index_path = out_root_folder.join("index.json");
+    let mut file = std::fs::File::create(&json_index_path).context("create_json_index")?;
+    file.write_all(json_index.as_bytes())?;
+
+    println!(
+        "Wrote doctree {}, index as {}",
+        folder,
+        json_index_path.display()
+    );
 
     Ok(())
 }
@@ -174,10 +191,7 @@ fn generate_blog(
 
         let parts: [&str; 4] = name.splitn(4, '-').collect::<Vec<_>>().try_into().unwrap();
 
-        let mut doc = Document::from_md(
-            &root_folder.join(entry.file_name()),
-            &config.markdown_options,
-        )?;
+        let mut doc = Document::from_md(&root_folder.join(entry.file_name()), config)?;
 
         let [year, month, day, remainder] = parts;
         doc.meta.date = format!("{}-{}-{}", year, month, day);
@@ -320,7 +334,7 @@ fn generate_pages(
         let (document, apply_doc_template) = match os_str.to_str().unwrap() {
             "md" => {
                 file_name.set_extension("html");
-                (Document::from_md(&path, &config.markdown_options)?, true)
+                (Document::from_md(&path, config)?, true)
             }
             "html" => (Document::from_html(&path)?, true),
             "hbs" => {
@@ -427,6 +441,7 @@ fn build(opt: &Opt) -> anyhow::Result<()> {
         markdown_options,
         global_meta: GlobalMeta::new(opt.prod, &url_base, top_nav)?,
         build_date: formatted_time,
+        github_url: "https://github.com/hrydgard/ppsspp/issues/",
     };
 
     if !config.outdir.exists() {
@@ -495,6 +510,7 @@ async fn run() -> anyhow::Result<()> {
     // Add a path to be watched. All files and directories at that path and
     // below will be monitored for changes.
     watcher.watch(Path::new("blog"), notify::RecursiveMode::Recursive)?;
+    watcher.watch(Path::new("docs"), notify::RecursiveMode::Recursive)?;
     watcher.watch(Path::new("news"), notify::RecursiveMode::Recursive)?;
     watcher.watch(Path::new("pages"), notify::RecursiveMode::Recursive)?;
     watcher.watch(Path::new("static"), notify::RecursiveMode::Recursive)?;

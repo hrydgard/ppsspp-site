@@ -8,7 +8,7 @@ use std::{
 extern crate serde;
 use serde::{Deserialize, Serialize};
 
-use crate::config::{DocLink, GlobalMeta};
+use crate::config::{Config, DocLink, GlobalMeta};
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Link {
@@ -47,6 +47,7 @@ pub struct DocumentMeta {
 #[derive(Debug, Clone)]
 pub struct Document {
     pub path: PathBuf, // written file, the link-to path is in meta
+    pub markdown: Option<String>,
     pub html: String,
     pub meta: DocumentMeta,
 }
@@ -213,7 +214,7 @@ impl Document {
     }
 
     // Handles page, blog posts, etc, including triple-dash docusaurus-style metadata.
-    pub fn from_md(md_path: &Path, options: &markdown::Options) -> anyhow::Result<Self> {
+    pub fn from_md(md_path: &Path, config: &Config) -> anyhow::Result<Self> {
         let md_file = std::fs::File::open(md_path)?;
         let mut reader = BufReader::new(md_file);
         let (mut meta, mut ate_title) = Self::read_dash_meta(&mut reader)?;
@@ -227,8 +228,6 @@ impl Document {
         //}
 
         let mut md = String::from("");
-
-        let github_url = "https://github.com/hrydgard/ppsspp/issues/";
 
         // If no dash-meta, grab the title string.
         if meta.title.is_empty() {
@@ -253,18 +252,26 @@ impl Document {
             meta.contains_code = true;
         }
 
+        // Markdown post-processing. This is for linking github issues.
         let issue_regex = regex::Regex::new(r"\[#(\d+)\]").unwrap();
         md = issue_regex
             .replace_all(&md, |captures: &regex::Captures| {
                 let issue_number = captures.get(1).unwrap().as_str();
-                format!("[#{}]({}{})", issue_number, github_url, issue_number) // Construct the replacement with the GitHub URL
+                format!("[#{}]({}{})", issue_number, config.github_url, issue_number)
+                // Construct the replacement with the GitHub URL
             })
             .to_string();
 
-        let html = markdown::to_html_with_options(&md, options).map_err(anyhow::Error::msg)?;
+        let html = markdown::to_html_with_options(&md, &config.markdown_options)
+            .map_err(anyhow::Error::msg)?;
         let html = postprocess_markdown(html);
 
-        Ok(Self { path, html, meta })
+        Ok(Self {
+            path,
+            markdown: Some(md),
+            html,
+            meta,
+        })
     }
 
     // The document itself is the template so we apply it immediately. Used for pages.
@@ -285,6 +292,7 @@ impl Document {
         let html = context.render_template(&hbs, handlebars)?;
         Ok(Self {
             path: hbs_path.to_path_buf(),
+            markdown: None,
             meta,
             html,
         })
@@ -295,6 +303,7 @@ impl Document {
         let html = std::fs::read_to_string(html_path)?;
         Ok(Self {
             path: html_path.to_path_buf(),
+            markdown: None,
             html,
             meta: DocumentMeta {
                 title: "untitled html".to_string(),
@@ -323,6 +332,7 @@ impl Document {
         Ok(Self {
             path: category.path.clone(),
             html,
+            markdown: None,
             meta: category.meta.clone(),
         })
     }
@@ -337,7 +347,7 @@ pub struct Category {
 }
 
 impl Category {
-    pub fn from_folder_tree(folder: &Path, options: &markdown::Options) -> anyhow::Result<Self> {
+    pub fn from_folder_tree(folder: &Path, config: &Config) -> anyhow::Result<Self> {
         let mut documents = vec![];
         let mut sub_categories = vec![];
         let listing = folder.read_dir()?;
@@ -353,12 +363,12 @@ impl Category {
             let name = util::filename_to_string(&entry.file_name());
 
             if entry.metadata()?.is_dir() {
-                sub_categories.push(Self::from_folder_tree(&path, options)?);
+                sub_categories.push(Self::from_folder_tree(&path, config)?);
             } else if let Some(os_str) = path.extension() {
                 // Check file extension to figure out what to do.
                 match os_str.to_str().unwrap() {
                     "md" => {
-                        documents.push(Document::from_md(&path, options)?);
+                        documents.push(Document::from_md(&path, config)?);
                     }
                     "json" => {
                         if name == "_category_.json" {
