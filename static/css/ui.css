@@ -33,7 +33,7 @@
     font-weight: var(--button-font-weight);
     line-height: 1.5;
     padding: var(--button-padding-vertical) var(--button-padding-horizontal);
-    margin: 10px 0px;
+    margin: 8px 0px;
     text-align: center;
     transition-duration: var(--button-transition-duration);
     transition-property: color, background, border-color;
@@ -43,6 +43,7 @@
 
 .hero-button {
     box-shadow: 0 0 10px #000;
+    margin: 14px 0px;
     font-size: 14pt;
 }
 

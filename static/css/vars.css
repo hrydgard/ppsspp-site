@@ -101,7 +101,7 @@
     --button-color: var(--color-text-inverse);
     --button-font-weight: bold;
     --button-padding-horizontal: 1rem;
-    --button-padding-vertical: .9rem;
+    --button-padding-vertical: .8rem;
     --button-transition-duration: var(--transition-fast);
     --button-border-radius: 5px;
     --button-group-spacing: 2px;

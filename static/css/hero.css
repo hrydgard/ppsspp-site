@@ -14,7 +14,7 @@
   color: #fff;
   /* light up the hero title slightly */
   overflow: hidden;
-  padding: 8rem 0;
+  padding: 3rem 0;
   position: relative;
   text-align: left;
 }
@@ -27,7 +27,15 @@
 
 .hero-subtitle {
   font-size: 20pt;
-  padding-bottom: 20px;
+  padding-bottom: 5px;
+}
+
+ul.feature-list li {
+  /* set font size of list item and bullet here */
+  list-style-type: square;
+  /* removes default bullet */
+  position: relative;
+  /* positioning context for bullet */
 }
 
 .light {
