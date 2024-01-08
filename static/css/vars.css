@@ -86,7 +86,7 @@
 
     --color-a-hover: var(--color-primary);
 
-    --color-table-bg: #444950;
+    --color-table-bg: var(--color-gray-800);
     --color-table-border: #8d949e;
 
     /* UI parts */

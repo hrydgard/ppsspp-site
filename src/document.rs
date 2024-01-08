@@ -140,8 +140,20 @@ impl PageContext {
     }
 }
 
-fn postprocess_markdown(md: String) -> String {
-    md.replace("<table>", "<table class=\"ms-table\">")
+fn postprocess_markdown(md: &str, config: &Config) -> String {
+    // Markdown post-processing. This is for linking github issues.
+    let issue_regex = regex::Regex::new(r"\[#(\d+)\]").unwrap();
+    issue_regex
+        .replace_all(md, |captures: &regex::Captures| {
+            let issue_number = captures.get(1).unwrap().as_str();
+            format!("[#{}]({}{})", issue_number, config.github_url, issue_number)
+            // Construct the replacement with the GitHub URL
+        })
+        .to_string()
+}
+
+fn postprocess_html(md: String) -> String {
+    md.replace("<table>", "<table class=\"nice-table\">")
 }
 
 fn split_bracketed_list(value: &str) -> Vec<String> {
@@ -254,19 +266,11 @@ impl Document {
             meta.contains_code = true;
         }
 
-        // Markdown post-processing. This is for linking github issues.
-        let issue_regex = regex::Regex::new(r"\[#(\d+)\]").unwrap();
-        md = issue_regex
-            .replace_all(&md, |captures: &regex::Captures| {
-                let issue_number = captures.get(1).unwrap().as_str();
-                format!("[#{}]({}{})", issue_number, config.github_url, issue_number)
-                // Construct the replacement with the GitHub URL
-            })
-            .to_string();
+        md = postprocess_markdown(&md, config);
 
         let html = markdown::to_html_with_options(&md, &config.markdown_options)
             .map_err(anyhow::Error::msg)?;
-        let html = postprocess_markdown(html);
+        let html = postprocess_html(html);
 
         Ok(Self {
             path,

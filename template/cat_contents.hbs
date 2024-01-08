@@ -2,20 +2,12 @@
 
 {{ #each children }}
 
-<div class="ms-card ms-fill">
-    <div class="ms-card-title">
-        <h2>{{ title }}</h2>
-    </div>
-    {{ #if summary }}
-    <div class="ms-card-content">
-        <p>
-            {{ summary }}
-        </p>
-    </div>
-    {{ /if }}
-    <div class="ms-card-btn">
-        <a class="ms-btn ms-primary" href="{{ url }}">Read</a>
-    </div>
+<div class="nav-link-container">
+    <a href="{{url}}" class="nav-link">
+        <div class="title">{{title}}</div>
+
+        <div class="direction">{{#if summary}}{{summary}}{{else}}Read&nbsp;&raquo;{{/if}}</div>
+    </a>
 </div>
 
 {{ /each }}

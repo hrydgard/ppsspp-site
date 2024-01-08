@@ -230,16 +230,13 @@ code {
 .nice-table td,
 .nice-table th {
     background-color: var(--color-table-bg);
-    padding: 0.8rem 0.4rem;
-    border-bottom: 2px solid var(--color-table-border);
+    padding: 0.5rem 0.4rem;
+    border-bottom: 3px solid var(--color-table-border);
 }
 
 .nice-table th {
     font-weight: bold;
-}
-
-.nice-table.ms-border {
-    border: 2px solid var(--color-table-border);
+    border-bottom: 4px solid var(--color-table-border);
 }
 
 .card {
