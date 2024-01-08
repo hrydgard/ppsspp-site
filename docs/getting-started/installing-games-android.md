@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+position: 4
 ---
 # How to move PSP games to your Android device
 

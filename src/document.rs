@@ -367,18 +367,33 @@ impl Category {
             ..Default::default()
         };
 
+        let mut summary = "<ul>".to_string();
+        let mut summary_line_count = 0;
+
+        const MAX_SUMMARY_LINES: usize = 3;
+
         for dir_entry in listing {
             let entry = dir_entry?;
             let path = folder.join(entry.file_name());
             let name = util::filename_to_string(&entry.file_name());
 
             if entry.metadata()?.is_dir() {
-                sub_categories.push(Self::from_folder_tree(&path, config)?);
+                let cat = Self::from_folder_tree(&path, config)?;
+                if summary_line_count < MAX_SUMMARY_LINES {
+                    summary += &format!("<li><strong>{}</strong></li>", &cat.meta.title);
+                }
+                summary_line_count += 4;
+                sub_categories.push(cat);
             } else if let Some(os_str) = path.extension() {
                 // Check file extension to figure out what to do.
                 match os_str.to_str().unwrap() {
                     "md" => {
-                        documents.push(Document::from_md(&path, config)?);
+                        let doc = Document::from_md(&path, config)?;
+                        if summary_line_count < MAX_SUMMARY_LINES {
+                            summary += &format!("<li>{}</li>", &doc.meta.title);
+                        }
+                        summary_line_count += 1;
+                        documents.push(doc);
                     }
                     "json" => {
                         if name == "_category_.json" {
@@ -393,8 +408,16 @@ impl Category {
             }
         }
 
+        if summary_line_count >= 4 {
+            summary += "<li>...</li>";
+        }
+        summary += "</ul>";
+
         let path = folder.to_path_buf();
         meta.url = cleanup_path(&path).unwrap();
+        println!("summary: {}", summary);
+        meta.summary = Some(summary);
+
         Ok(Self {
             meta,
             documents,
@@ -434,7 +457,7 @@ impl Category {
         DocLink {
             url: self.meta.url.clone(),
             title: self.meta.title.clone(),
-            summary: None,
+            summary: self.meta.summary.clone(),
             external: false,
             selected: false,
         }

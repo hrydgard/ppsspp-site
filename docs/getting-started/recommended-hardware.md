@@ -1,5 +1,5 @@
 ---
-sidebar_position: 6
+position: 6
 ---
 # Recommended hardware for PPSSPP
 
