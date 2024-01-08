@@ -440,6 +440,10 @@ impl Category {
         for cat in &self.sub_categories {
             all_docs.extend(cat.all_documents(handlebars, globals)?);
         }
+        Ok(all_docs)
+    }
+
+    pub fn add_prev_next_links(all_docs: &mut [Document]) {
         // Add next/forward links
         // for [prev, cur, next] in documents.
         for i in 0..all_docs.len() {
@@ -450,7 +454,6 @@ impl Category {
                 all_docs[i].meta.next = Some(next.to_doclink(""));
             }
         }
-        Ok(all_docs)
     }
 
     pub fn to_doclink(&self) -> DocLink {

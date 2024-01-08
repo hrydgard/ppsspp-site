@@ -98,7 +98,9 @@ fn generate_doctree(
 
     // Write out all the docs. Don't need recursion here so we can linearize.
     // Note that we also generate the categories as documents in `all_documents`.
-    let docs = root_cat.all_documents(handlebars, &config.global_meta)?;
+    let mut docs = root_cat.all_documents(handlebars, &config.global_meta)?;
+    Category::add_prev_next_links(&mut docs);
+
     for doc in &docs {
         let target_path = out_root_folder.join(&doc.path);
 
