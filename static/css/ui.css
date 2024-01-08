@@ -176,6 +176,37 @@ ul.breadcrumb li a:hover {
     text-decoration: underline;
 }
 
+.alert {
+    display: block;
+    box-shadow: 0 3px 5px #000;
+    border-radius: 5px;
+    border-left-style: solid;
+    border-width: 5px;
+    padding: 14px;
+    margin: 12px 0px;
+    color: var(--color-text);
+}
+
+.alert.alert-warning {
+    background-color: var(--color-warning-darkest);
+    border-color: var(--color-warning);
+}
+
+.alert.alert-error {
+    background-color: var(--color-error-darkest);
+    border-color: var(--color-error);
+}
+
+.alert.alert-success {
+    background-color: var(--color-success-darkest);
+    border-color: var(--color-success);
+}
+
+.alert.alert-info {
+    background-color: var(--color-primary-darkest);
+    border-color: var(--color-primary);
+}
+
 code {
     font-family: monospace;
 }

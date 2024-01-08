@@ -13,6 +13,7 @@
 // - [x] Purchase flow
 // - [x] Admin UI
 // - [x] generate RSS/Atom feeds
+// - [x] Pretty alerts
 // - [ ] Docs tree view
 // - [ ] Mobile site improvements
 // - [ ] Polish

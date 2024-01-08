@@ -3,41 +3,52 @@
 <!-- This takes care of /loginbykey duties too. That's a redirect. -->
 
 <div class="container">
-    <div class="not-logged-in-only">
-        <h1>Login</h1>
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-title">
+                    <h2 class="no-icon">Login</h2>
+                </div>
 
-        <p class="not-logged-in-only">No account? <a href="/buygold">Buy PPSSPP Gold</a>!</p>
+                <p class="not-logged-in-only">
+                    No account? <a href="/buygold">Buy PPSSPP Gold</a>!<br />
+                    Note that accounts are only for accessing PPSSPP Gold for PC/Mac.
+                </p>
 
-        <form action="#" onSubmit="return handleLoginForm(event)">
-            <div class="alert alert--warning hidden" id="error_message" role="alert"></div>
-            <label>
-                <div>E-mail address</div>
-                <span><input type="text" size="38" id="email" /></span>
-            </label>
-            <label>
-                <div>Password</div>
-                <span><input type="password" size="38" id="password" /></span>
-            </label>
-            <div>
-                <a href="/recoverpassword">Forgot your password?</a>
+                <form action="#" onSubmit="return handleLoginForm(event)">
+                    <div class="alert alert-success" style="display: none;" id="error_message" role="alert"></div>
+                    <label>
+                        <div>E-mail address</div>
+                        <span><input type="text" size="38" id="email" /></span>
+                    </label>
+                    <label>
+                        <div>Password</div>
+                        <span><input type="password" size="38" id="password" /></span>
+                    </label>
+                    <div>
+                        <a href="/recoverpassword">Forgot your password?</a>
+                    </div>
+                    <div class="alert alert-warning">
+                        Success!
+                    </div>
+                    <div>
+                        <button class="button" type="submit">Login</button>
+                    </div>
+                </form>
+
+                <div id="loginStatus"></div>
+
             </div>
-            <div>
-                <button className="button button--primary margin-top--md" type="submit">Login</button>
-            </div>
-        </form>
+        </div>
 
-        <div id="loginStatus"></div>
+        <div class="col-4 card logged-in-only">
+            <h1>Account</h1>
 
+            <p id="loginInfo">Will be populated when logged in.</p>
+
+            <button onclick="logoutUser()">Log out</button>
+        </div>
     </div>
-
-    <div class="logged-in-only">
-        <h1>Account</h1>
-
-        <p id="loginInfo">Will be populated when logged in.</p>
-
-        <button onclick="logoutUser()">Log out</button>
-    </div>
-
 </div>
 
 <script>

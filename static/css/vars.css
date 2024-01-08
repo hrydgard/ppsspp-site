@@ -36,7 +36,7 @@
     --color-secondary-contrast-foreground: rgb(71, 71, 72);
     --color-success-dark: rgb(0, 148, 0);
     --color-success-darker: rgb(0, 139, 0);
-    --color-success-darkest: rgb(0, 115, 0);
+    --color-success-darkest: rgb(1, 95, 1);
     --color-success-light: rgb(38, 178, 38);
     --color-success-lighter: rgb(77, 191, 77);
     --color-success-lightest: rgb(128, 210, 128);
@@ -52,7 +52,7 @@
     --color-info-contrast-foreground: rgb(25, 60, 71);
     --color-warning-dark: rgb(230, 167, 0);
     --color-warning-darker: rgb(217, 158, 0);
-    --color-warning-darkest: rgb(179, 130, 0);
+    --color-warning-darkest: rgb(139, 102, 0);
     --color-warning-light: rgb(255, 196, 38);
     --color-warning-lighter: rgb(255, 207, 77);
     --color-warning-lightest: rgb(255, 221, 128);
@@ -60,7 +60,7 @@
     --color-warning-contrast-foreground: rgb(77, 56, 0);
     --color-danger-dark: rgb(225, 50, 56);
     --color-danger-darker: rgb(213, 48, 53);
-    --color-danger-darkest: rgb(175, 39, 43);
+    --color-danger-darkest: rgb(140, 31, 34);
     --color-danger-light: rgb(251, 86, 91);
     --color-danger-lighter: rgb(251, 116, 120);
     --color-danger-lightest: rgb(253, 156, 159);
