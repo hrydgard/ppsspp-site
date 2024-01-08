@@ -12,11 +12,15 @@
 // - [x] Javascript basics (log in, log out)
 // - [x] Purchase flow
 // - [x] Admin UI
+// - [x] generate RSS/Atom feeds
 // - [ ] Docs tree view
 // - [ ] Mobile site improvements
+// - [ ] Polish
+// - [ ] Test purchase
+// - [ ] Deploy
 // - [ ] Blog tags, browse by
 // - [ ] Blog feed pagination
-// - [ ] generate RSS/Atom feeds
+// - [ ] Merge the two blogs
 
 use chrono::{DateTime, Utc};
 use std::{
@@ -31,6 +35,7 @@ extern crate anyhow;
 mod config;
 mod document;
 mod feed;
+mod index;
 mod server;
 mod util;
 
@@ -168,6 +173,7 @@ fn generate_blog(
         let name = util::filename_to_string(&entry.file_name());
 
         let parts: [&str; 4] = name.splitn(4, '-').collect::<Vec<_>>().try_into().unwrap();
+
         let mut doc = Document::from_md(
             &root_folder.join(entry.file_name()),
             &config.markdown_options,
