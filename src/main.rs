@@ -55,7 +55,7 @@ use crate::{
 
 // TODO: Involve templates here for easier modification?
 // Can handlebars templates recurse?
-fn generate_docnav_html(root: &document::Category, _focused_doc_path: &Path) -> String {
+fn generate_docnav_html(root: &document::Category, _breadcrumbs: &[DocLink]) -> String {
     let mut str = String::new();
     // For now, fully expanded. Will fix later.
     str += &format!(
@@ -65,7 +65,7 @@ fn generate_docnav_html(root: &document::Category, _focused_doc_path: &Path) -> 
     );
     str += "<div class=\"category\">";
     for cat in &root.sub_categories {
-        str += &generate_docnav_html(cat, _focused_doc_path);
+        str += &generate_docnav_html(cat, _breadcrumbs);
     }
     for doc in &root.documents {
         // TODO: these links don't match docusaurus!
@@ -106,7 +106,7 @@ fn generate_doctree(
 
         // We apply the template right here.
         let mut context = PageContext::from_document(doc, &config.global_meta);
-        context.sidebar = Some(generate_docnav_html(&root_cat, &target_path));
+        context.sidebar = Some(generate_docnav_html(&root_cat, &doc.meta.breadcrumbs));
         let html = context.render("doc", handlebars)?;
 
         write_file_as_folder_with_index(&target_path, html, true)?;
