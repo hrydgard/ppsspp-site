@@ -9,11 +9,13 @@
     </div>
 
     <div class="doc-contents">
+        {{#if meta.breadcrumbs}}
         <ul class="breadcrumb">
             {{#each meta.breadcrumbs}}
             <li>{{#if url}}<a href="{{url}}">{{/if}}{{title}}{{#if url}}</a>{{/if}}</li>
             {{/each}}
         </ul>
+        {{/if}}
 
         {{{ contents }}}
 
@@ -21,7 +23,7 @@
         <a class="tag-link">{{name}}</a>
         {{/each}}
 
-        <div class="prev-next-container">
+        <div class="nav-link-container">
             {{ #if meta.prev }}
             <a href="{{ meta.prev.url }}" class="nav-link">
                 <div class="direction">

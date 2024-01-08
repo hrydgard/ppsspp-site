@@ -114,7 +114,7 @@ fn generate_doctree(
 
     let mut index = index::Index::new();
 
-    // Generate search index
+    // Generate search index. Could be done in parallel to writing out the files.
     for doc in docs {
         if let Some(markdown) = &doc.markdown {
             index.add_md(&config.markdown_options, markdown, &doc.meta)?;

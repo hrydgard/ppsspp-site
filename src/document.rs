@@ -26,6 +26,8 @@ pub struct DocumentMeta {
     #[serde(rename = "label")]
     pub title: String,
     #[serde(default)]
+    pub summary: Option<String>,
+    #[serde(default)]
     pub date: String,
     #[serde(default)]
     pub slug: String,
@@ -325,6 +327,10 @@ impl Document {
             .iter()
             .map(|doc| doc.to_doclink(&category.meta.url))
             .collect::<Vec<_>>();
+
+        context
+            .children
+            .extend(category.sub_categories.iter().map(|cat| cat.to_doclink()));
 
         // Add children document titles to the context here.
 
