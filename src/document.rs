@@ -197,6 +197,16 @@ fn recurse_text_join(nodes: &[Node], str: &mut String) {
     }
 }
 
+fn truncate_string(str: String, max_length: usize) -> String {
+    if str.len() <= max_length {
+        str
+    } else {
+        // TODO: cut at whole words.
+        format!("{}...", &str[0..max_length])
+    }
+}
+const MAX_SUMMARY_CHARS: usize = 200;
+
 #[allow(clippy::single_match)]
 fn recurse(nodes: &[Node], meta: &mut DocumentMeta) -> anyhow::Result<()> {
     if !meta.title.is_empty() && meta.summary.is_some() {
@@ -214,14 +224,14 @@ fn recurse(nodes: &[Node], meta: &mut DocumentMeta) -> anyhow::Result<()> {
                     _ => {}
                 }
             }
-            Node::Paragraph(text) => {
+            Node::Paragraph(_) => {
                 if meta.summary.is_none() {
                     let mut summary = String::new();
                     if let Some(children) = node.children() {
                         recurse_text_join(children, &mut summary);
                     }
                     println!("md_summary: {}", summary);
-                    meta.summary = Some(summary);
+                    meta.summary = Some(truncate_string(summary, MAX_SUMMARY_CHARS));
                 }
             }
             _ => {

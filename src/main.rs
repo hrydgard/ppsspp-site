@@ -13,7 +13,8 @@
 // - [x] Purchase flow
 // - [x] Admin UI
 // - [x] generate RSS/Atom feeds
-// - [x] Pretty alerts
+// - [x] summaries
+// - [ ] Pretty alerts
 // - [ ] Docs tree view
 // - [ ] Mobile site improvements
 // - [ ] Polish
@@ -22,6 +23,7 @@
 // - [ ] Blog tags, browse by
 // - [ ] Blog feed pagination
 // - [ ] Merge the two blogs
+// - [ ] Docs search
 
 use chrono::{DateTime, Utc};
 use std::{
