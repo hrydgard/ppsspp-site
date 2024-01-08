@@ -82,7 +82,11 @@ pub fn write_feed(
                 .map(|x| Item {
                     title: x.meta.title.clone(),
                     link: format!("{base_path}{}", x.meta.url),
-                    description: x.meta.title.clone(),
+                    description: x
+                        .meta
+                        .summary
+                        .clone()
+                        .unwrap_or_else(|| x.meta.title.clone()),
                     category: x.meta.tags.first().map(String::clone).unwrap_or_default(),
                     tags: x.meta.tags.clone(),
                     pubDate: format_time(&x.meta.date, format),

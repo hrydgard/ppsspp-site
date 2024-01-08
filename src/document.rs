@@ -6,6 +6,8 @@ use std::{
 };
 
 extern crate serde;
+use anyhow::Context;
+use markdown::mdast::Node;
 use serde::{Deserialize, Serialize};
 
 use crate::config::{Config, DocLink, GlobalMeta};
@@ -180,9 +182,77 @@ pub fn strip_extension(str: OsString) -> String {
     x.to_string_lossy().to_string()
 }
 
+#[allow(clippy::single_match)]
+fn recurse_text_join(nodes: &[Node], str: &mut String) {
+    for node in nodes {
+        match node {
+            Node::Text(text) => {
+                *str += &text.value;
+            }
+            _ => {}
+        }
+        if let Some(children) = node.children() {
+            recurse_text_join(children, str);
+        }
+    }
+}
+
+#[allow(clippy::single_match)]
+fn recurse(nodes: &[Node], meta: &mut DocumentMeta) -> anyhow::Result<()> {
+    if !meta.title.is_empty() && meta.summary.is_some() {
+        return Ok(());
+    }
+    for node in nodes {
+        match node {
+            Node::Heading(heading) => {
+                match heading.children.first().context("missing heading child")? {
+                    Node::Text(text) => {
+                        if meta.title.is_empty() {
+                            meta.title = text.value.clone();
+                        }
+                    }
+                    _ => {}
+                }
+            }
+            Node::Paragraph(text) => {
+                if meta.summary.is_none() {
+                    let mut summary = String::new();
+                    if let Some(children) = node.children() {
+                        recurse_text_join(children, &mut summary);
+                    }
+                    println!("md_summary: {}", summary);
+                    meta.summary = Some(summary);
+                }
+            }
+            _ => {
+                if let Some(children) = node.children() {
+                    recurse(children, meta)?;
+                }
+            }
+        }
+    }
+    Ok(())
+}
+
+fn add_meta_from_markdown(
+    markdown: &str,
+    meta: &mut DocumentMeta,
+    config: &Config,
+) -> anyhow::Result<()> {
+    // If no dash-meta, grab the title string.
+    let tree = markdown::to_mdast(markdown, &config.markdown_options.parse).unwrap();
+    recurse(&[tree], meta)?;
+    Ok(())
+}
+
 impl Document {
     pub fn to_doclink(&self, selected_url: &str) -> DocLink {
-        DocLink::new(&self.meta.url.clone(), &self.meta.title, None, selected_url)
+        DocLink::new(
+            &self.meta.url.clone(),
+            &self.meta.title,
+            self.meta.summary.clone(),
+            selected_url,
+        )
     }
 
     fn read_dash_meta(reader: &mut impl BufRead) -> anyhow::Result<(DocumentMeta, bool)> {
@@ -231,42 +301,30 @@ impl Document {
     pub fn from_md(md_path: &Path, config: &Config) -> anyhow::Result<Self> {
         let md_file = std::fs::File::open(md_path)?;
         let mut reader = BufReader::new(md_file);
-        let (mut meta, mut ate_title) = Self::read_dash_meta(&mut reader)?;
+        let (mut meta, ate_title) = Self::read_dash_meta(&mut reader)?;
 
         let mut path = md_path.to_path_buf();
         path.set_extension("");
 
         meta.url = cleanup_path(&path).unwrap();
-        //if let Some(name) = name {
-        //    meta.url = format!("/{name}");
-        //}
 
-        let mut md = String::from("");
+        let mut buffer = vec![];
+        reader.read_to_end(&mut buffer)?;
 
-        // If no dash-meta, grab the title string.
-        if meta.title.is_empty() {
-            let mut buffer = String::new();
-            let _ = reader.read_line(&mut buffer);
-            if let Some(remaining) = buffer.strip_prefix("# ") {
-                meta.title = remaining.to_string(); // TODO: Only open the file once. But who cares, really.
-                ate_title = true;
-            }
-        }
+        let mut md = String::new();
         if ate_title {
             md += &format!("# {}\n", meta.title);
         }
 
-        // OK, read the rest.
-        let mut buffer = vec![];
-        reader.read_to_end(&mut buffer)?;
-
         md += &String::from_utf8(buffer)?;
+
+        add_meta_from_markdown(&md, &mut meta, config)?;
 
         if md.contains("```c") || md.contains("```rust") {
             meta.contains_code = true;
         }
 
-        md = postprocess_markdown(&md, config);
+        let md = postprocess_markdown(&md, config);
 
         let html = markdown::to_html_with_options(&md, &config.markdown_options)
             .map_err(anyhow::Error::msg)?;
