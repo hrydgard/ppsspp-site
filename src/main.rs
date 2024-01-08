@@ -14,7 +14,8 @@
 // - [x] Admin UI
 // - [x] generate RSS/Atom feeds
 // - [x] summaries
-// - [ ] Pretty alerts
+// - [x] Pretty alerts
+// - [ ] Replace inline SVG
 // - [ ] Docs tree view
 // - [ ] Mobile site improvements
 // - [ ] Polish

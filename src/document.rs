@@ -20,7 +20,8 @@ pub struct Link {
 }
 
 // This is passed into rendering of blog posts, for example,
-// as well as being used in the rust code.
+// as well as being used in the rust code. And being deserialized
+// from _category.json_, which we should probably replace.
 #[derive(Debug, Deserialize, Serialize, Clone, Default)]
 pub struct DocumentMeta {
     #[serde(default)]
@@ -294,6 +295,7 @@ impl Document {
                     "slug" => meta.slug = value,
                     "authors" => meta.author = value,
                     "tags" => meta.tags = split_bracketed_list(&value),
+                    "position" => meta.position = str::parse(&value).unwrap_or_default(),
                     _ => {}
                 }
             }
@@ -474,6 +476,23 @@ impl Category {
                 }
             }
         }
+
+        // Best-effort sorting using the given numbers. Numbers are ahead of no number.
+        sub_categories.sort_by_key(|a| {
+            if a.meta.position == 0 {
+                1000
+            } else {
+                a.meta.position
+            }
+        });
+
+        documents.sort_by_key(|d| {
+            if d.meta.position == 0 {
+                1000
+            } else {
+                d.meta.position
+            }
+        });
 
         if summary_line_count >= 4 {
             summary += "<li>...</li>";

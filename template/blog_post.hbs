@@ -1,6 +1,7 @@
 <div>
     <div class="article">
         {{ #if picture_title }}
+        <!-- unused -->
         <div class="ms-article-picture">
             <img src="https://www.zupimages.net/up/22/08/uitq.png" alt="background" />
             <div class="ms-article-picture-overlay"></div>
@@ -11,7 +12,11 @@
         {{ /if }}
         <div class="article-infos">
             <ul>
-                <li><i class="fas fa-user-circle"></i> <b>{{ meta.author }}</b></li>
+                <li><i class="fas fa-user-circle"></i> <b>
+                        {{#with (lookup globals.authors meta.author)}}
+                        {{name}}
+                        {{/with}}</b>
+                </li>
                 <li><i class="fas fa-folder"></i> <b>{{ #each meta.tags }} {{this}} {{/each}} </b></li>
                 <li><i class="fas fa-clock"></i> <b>{{ meta.date }}</b></li>
                 <li><a href="https://twitter.com/henrikrydgard"><i class="fab fa-twitter"></i></a></li`>
@@ -22,6 +27,7 @@
             <h1>{{ title }}</h1>
         </div>
         <div class="ms-article-text">
+            &nbsp;<i class="fas fa-external-link"></i>
             {{{ contents }}}
         </div>
         <div class="ms-user ms-compact ms-borderless">

@@ -9,6 +9,14 @@ pub struct File {
     pub children: Vec<File>,
 }
 
+#[derive(Debug, Deserialize, Serialize, Clone, Default)]
+pub struct Author {
+    name: String,
+    url: String,
+    image_url: String,
+    title: String,
+}
+
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct DownloadInfo {
     name: String,
@@ -86,6 +94,7 @@ pub struct GlobalMeta {
     pub version_downloads: Vec<VersionDownloads>,
     pub top_nav: Vec<DocLink>,
     pub prod: bool,
+    pub authors: HashMap<String, Author>,
 }
 
 fn download_path(url_base: &str, version: &str, filename: &str) -> String {
@@ -113,9 +122,11 @@ impl GlobalMeta {
         let downloads_json = std::fs::read_to_string("data/downloads.json")?;
         let downloads_gold_json = std::fs::read_to_string("data/downloads_gold.json")?;
         let platforms_json = std::fs::read_to_string("data/platform.json")?;
+        let authors_json = std::fs::read_to_string("data/authors.json")?;
 
         let downloads: File = serde_json::from_str(&downloads_json).unwrap();
         let downloads_gold: File = serde_json::from_str(&downloads_gold_json).unwrap();
+        let authors: HashMap<String, Author> = serde_json::from_str(&authors_json).unwrap();
 
         let mut platforms: Vec<PlatformInfo> = serde_json::from_str(&platforms_json).unwrap();
 
@@ -152,6 +163,7 @@ impl GlobalMeta {
 
         // println!("{:#?}", downloads);
         // println!("{:#?}", platforms);
+        println!("{:#?}", authors);
 
         // OK, here we need to preprocess the downloads together with the platform data.
 
@@ -161,6 +173,7 @@ impl GlobalMeta {
             } else {
                 "indeterminate".to_string()
             },
+            authors,
             prod: production,
             platforms,
             version_downloads,
