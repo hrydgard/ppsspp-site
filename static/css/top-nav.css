@@ -68,7 +68,7 @@
 .menu-button::before,
 .menu-button::after {
     display: block;
-    background-color: #fff;
+    background-color: var(--color-gray-0);
     position: absolute;
     height: 4px;
     width: 30px;

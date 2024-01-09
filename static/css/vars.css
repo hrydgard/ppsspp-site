@@ -91,9 +91,9 @@ html[data-theme='light'] {
     --color-info-lightest: rgb(170, 227, 246);
     --color-info-contrast-background: rgb(238, 249, 253);
     --color-info-contrast-foreground: rgb(25, 60, 71);
-    --color-warning-dark: rgb(230, 167, 0);
-    --color-warning-darker: rgb(217, 158, 0);
-    --color-warning-darkest: rgb(139, 102, 0);
+    --color-warning-dark: rgb(219, 161, 0);
+    --color-warning-darker: rgb(185, 135, 0);
+    --color-warning-darkest: rgb(105, 77, 0);
     --color-warning-light: rgb(255, 196, 38);
     --color-warning-lighter: rgb(255, 207, 77);
     --color-warning-lightest: rgb(255, 221, 128);

@@ -540,7 +540,7 @@ async function handleRequestPromoCodeForm(event) {
     event.preventDefault();
     var result = await jsonFetch("getgoogleplaycode", null, null);
     if (result) {
-        setStatusDisplay(SUCCESS, status, "Your Promo Code: " + result.code);
+        setStatusDisplay(SUCCESS, status, result.code);
     } else {
         setStatusDisplay(ERROR, status, "Failed to make request - duplicate?");
     }
