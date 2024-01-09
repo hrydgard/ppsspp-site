@@ -182,21 +182,7 @@ With the addition of a special doc-container for docs with sidebars.
     height: 100%;
     border-right: 2px solid var(--color-gray-800);
     padding-bottom: 12px;
-}
-
-.doc-sidebar a {
-    float: none;
-    display: block;
-    margin-bottom: 3px;
-    color: var(--color-text);
-}
-
-.doc-sidebar a.selected {
-    color: var(--color-primary);
-}
-
-.doc-sidebar a:hover {
-    color: var(--color-primary);
+    margin-right: 4px;
 }
 
 .doc-contents {

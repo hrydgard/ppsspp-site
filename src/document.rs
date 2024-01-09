@@ -498,28 +498,36 @@ pub fn generate_docnav_html(root: &Category, level: usize, _breadcrumbs: &[DocLi
     );
      */
 
-    let expanded = if let Some(crumb) = _breadcrumbs.get(level) {
-        root.meta.url == crumb.url
-    } else {
-        false
-    };
-
     str += &format!("<ul class=\"nav-tree-items level-{}\">\n", level);
-    if expanded {
-        for cat in &root.sub_categories {
-            str += &format!(
-                "<li><a href=\"{}\" class=\"nav-tree-category\">{}</a>",
-                cat.meta.url, cat.meta.title
-            );
+    for cat in &root.sub_categories {
+        let expanded = if let Some(crumb) = _breadcrumbs.get(level + 1) {
+            cat.meta.url == crumb.url
+        } else {
+            false
+        };
+
+        let extra_classes = if expanded { " selected" } else { "" };
+        str += &format!(
+            "<li><a href=\"{}\" class=\"nav-tree-category{}\">{}</a>",
+            cat.meta.url, extra_classes, cat.meta.title
+        );
+        if expanded {
             str += &generate_docnav_html(cat, level + 1, _breadcrumbs);
-            str += "</li>\n";
         }
-        for doc in &root.documents {
-            str += &format!(
-                "<li><a href=\"{}\">{}</a></li>\n",
-                doc.meta.url, doc.meta.title,
-            );
-        }
+        str += "</li>\n";
+    }
+    for doc in &root.documents {
+        let expanded = if let Some(crumb) = _breadcrumbs.get(level + 1) {
+            println!("hit!");
+            doc.meta.url == crumb.url
+        } else {
+            false
+        };
+        let extra_classes = if expanded { " selected" } else { "" };
+        str += &format!(
+            "<li><a href=\"{}\" class=\"nav-tree-item {}\">{}</a></li>\n",
+            doc.meta.url, extra_classes, doc.meta.title,
+        );
     }
     str += "</ul>\n";
 

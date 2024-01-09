@@ -163,7 +163,7 @@ impl GlobalMeta {
 
         // println!("{:#?}", downloads);
         // println!("{:#?}", platforms);
-        println!("{:#?}", authors);
+        // println!("{:#?}", authors);
 
         // OK, here we need to preprocess the downloads together with the platform data.
 
