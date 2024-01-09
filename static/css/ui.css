@@ -20,10 +20,7 @@
 }
 
 .download-button {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
+    display: block;
     background-color: var(--button-background-color);
     border: var(--button-border-width) solid var(--button-border-color);
     border-radius: var(--button-border-radius);
@@ -39,6 +36,12 @@
     transition-property: color, background, border-color;
     user-select: none;
     white-space: nowrap;
+}
+
+.download-button .button-contents {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .hero-button {

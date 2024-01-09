@@ -24,7 +24,7 @@ pub struct DownloadInfo {
     icon: Option<String>,
     url: Option<String>,
     download_url: Option<String>,
-    service_img: Option<String>,
+    service_image: Option<String>,
     service_alt: Option<String>,
     short_name: Option<String>,
     whats_this: Option<String>,
