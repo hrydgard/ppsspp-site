@@ -41,10 +41,9 @@
 <body>
     <div class="page-wrapper">
         <nav class="top-nav">
-            <input id="menu-toggle" type="checkbox" />
-            <label class='menu-button-container' for="menu-toggle">
+            <div class='menu-button-container' id="burgerButton" onclick="burgerClick()" tabindex="0">
                 <div class='menu-button'></div>
-            </label>
+            </div>
             <div class="top-nav-logo">
                 <a href="/" class="center-vertical"><img src="/static/img/platform/ppsspp-icon.png"
                         width="32px" />&nbsp;PPSSPP</a>
@@ -55,12 +54,26 @@
                         class="{{#if selected}}selected{{/if}}{{#if external}} external{{/if}}">{{{title}}}{{#if
                         external}}{{> link_icon }}{{/if}}</a></li>
                 {{/each}}
-
             </ul>
-            <div class="center-vertical" id="loginCorner"><a href="/login">Login</a></div>
+            <div id="loginCorner"><a href="/login">Login</a></div>
         </nav>
 
         <script src="/static/script/dark.min.js" defer></script>
         <script type="text/javascript" src="https://kit.fontawesome.com/d35975edad.js" defer></script>
 
         <section class="contents">
+            <div class="burger-sidebar hidden" id="rootSidebar">
+                <!-- We repeat all the same stuff again, but add Login.
+                better than crazy CSS tricks...
+                 -->
+                <ul class="burger-menu">
+                    {{#each top_nav}}
+                    <li><a href="{{url}}"
+                            class="{{#if selected}}selected{{/if}}{{#if external}} external{{/if}}">{{{title}}}{{#if
+                            external}}{{> link_icon }}{{/if}}</a></li>
+                    {{/each}}
+                    <li>
+                        <div id="loginItem"><a href="/login">Login</a></div>
+                    </li>
+                </ul>
+            </div>

@@ -202,6 +202,23 @@ Login
 </a>
 `;
 
+
+const tmplLoginItem = `
+<a href='/login' class="">
+{{@if(it.loggedIn)}}
+<img
+{{@if(it.goldUser)}}
+src="/static/img/platform/ppsspp-icon-gold.png"
+{{#else}}
+src="/static/img/platform/ppsspp-icon.png"
+{{/if}}
+width="22px" height="22px" />&nbsp;{{it.name}}
+{{#else}}
+Login
+{{/if}}
+</a>
+`;
+
 async function applyDOMVisibility() {
     // Hides and shows stuff depending on your current login state.
     if (g_userData.loggedIn) {
@@ -229,6 +246,10 @@ async function applyDOMVisibility() {
     const loginCorner = document.getElementById("loginCorner");
     if (loginCorner) {
         loginCorner.innerHTML = Sqrl.render(tmplLoginCorner, g_userData);
+    }
+    const loginItem = document.getElementById("loginItem");
+    if (loginItem) {
+        loginItem.innerHTML = Sqrl.render(tmplLoginItem, g_userData);
     }
     const loginInfo = document.getElementById("loginInfo");
     if (loginInfo) {
@@ -671,10 +692,22 @@ function onLoadPage() {
         console.log("highlighting");
         hljs.highlightAll();
     }
+
+    // Make the burger button keyboard accessible
+    var toggleButton = document.getElementById('burgerButton');
+    toggleButton.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            burgerClick();
+        }
+    });
+}
+
+function burgerClick() {
+    var contentDiv = document.getElementById('rootSidebar');
+    contentDiv.classList.toggle('hidden');
 }
 
 console.log("initial script execution");
-
 
 document.addEventListener('DOMContentLoaded', function () {
     console.log("DOMContentLoaded");
