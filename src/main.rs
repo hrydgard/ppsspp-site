@@ -17,7 +17,8 @@
 // - [x] Pretty alerts
 // - [x] Replace inline SVG
 // - [x] Docs tree view
-// - [ ] Screenshot gallery
+// - [x] Screenshot gallery
+// - [ ] Light/dark mode
 // - [ ] Mobile site improvements (move login to popdown menu, fix scrolling)
 // - [ ] Polish
 // - [ ] Test purchase
@@ -26,7 +27,6 @@
 // - [ ] Blog tags, browse by
 // - [ ] Merge the two blogs
 // - [ ] Blog feed pagination
-// - [ ] Light/dark mode
 // - [ ] Docs search
 
 use chrono::{DateTime, Utc};

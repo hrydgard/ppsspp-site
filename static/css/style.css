@@ -138,7 +138,7 @@ footer h2 {
 }
 
 .top-nav a {
-  color: #fff;
+  color: var(--color-gray-0);
 }
 
 .top-nav a:hover {

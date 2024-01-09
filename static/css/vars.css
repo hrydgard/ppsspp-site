@@ -1,10 +1,51 @@
 /* The colors are nabbed from infima (docusaurus) mainly. */
 
-:root {
+html[data-theme='dark'] {
     --default-border-radius: 5px;
     --card-border-radius: 15px;
 
     --doc-sidebar-width: 250px;
+
+    --color-gray-0: #fff;
+    --color-gray-100: #f5f6f7;
+    --color-gray-200: #ebedf0;
+    --color-gray-300: #dadde1;
+    --color-gray-400: #ccd0d5;
+    --color-gray-500: #bec3c9;
+    --color-gray-600: #8d949e;
+    --color-gray-700: #4e535a;
+    --color-gray-800: #34383d;
+    --color-gray-900: #1c1e21;
+    --color-gray-1000: #000;
+
+    --background-surface-color: var(--color-gray-800);
+    --shadow-color: var(--color-gray-1000);
+}
+
+html[data-theme='light'] {
+    --default-border-radius: 5px;
+    --card-border-radius: 15px;
+
+    --doc-sidebar-width: 250px;
+
+    --color-gray-1000: #fff;
+    --color-gray-900: #f5f6f7;
+    --color-gray-800: #ebedf0;
+    --color-gray-700: #dadde1;
+    --color-gray-600: #ccd0d5;
+    --color-gray-500: #bec3c9;
+    --color-gray-400: #8d949e;
+    --color-gray-300: #4e535a;
+    --color-gray-200: #34383d;
+    --color-gray-100: #1c1e21;
+    --color-gray-0: #000;
+
+    --background-surface-color: var(--color-gray-700);
+    --shadow-color: var(--color-gray-300);
+}
+
+:root {
+    /* Shared colors */
 
     --color-primary: #33b5e5;
     --color-secondary: #ebedf0;
@@ -67,31 +108,18 @@
     --color-danger-contrast-background: rgb(255, 235, 236);
     --color-danger-contrast-foreground: rgb(75, 17, 19);
 
-    --color-gray-0: var(--ifm-color-white);
-    --color-gray-100: #f5f6f7;
-    --color-gray-200: #ebedf0;
-    --color-gray-300: #dadde1;
-    --color-gray-400: #ccd0d5;
-    --color-gray-500: #bec3c9;
-    --color-gray-600: #8d949e;
-    --color-gray-700: #4e535a;
-    --color-gray-800: #34383d;
-    --color-gray-900: #1c1e21;
-    --color-gray-1000: var(--ifm-color-black);
+}
 
-    --color-header-footer: black;
-    --color-contents-background: #1b1b1d;
-    --color-text: #e3e3e3;
-    --color-text-inverse: #111111;
+:root {
+    /* UI parts, derived colors */
+    --color-header-footer: var(--color-gray-1000);
+    --color-contents-background: var(--color-gray-900);
+    --color-text: var(--color-gray-100);
+    --color-text-inverse: var(--color-gray-900);
 
+    --color-table-border: var(--color-gray-600);
     --color-a-hover: var(--color-primary);
-
     --color-table-bg: var(--color-gray-800);
-    --color-table-border: #8d949e;
-
-    /* UI parts */
-
-    --background-surface-color: #343536;
     --color-card-background: var(--background-surface-color);
 
     --button-background-color: var(--color-primary);

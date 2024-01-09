@@ -45,7 +45,7 @@
 }
 
 .hero-button {
-    box-shadow: 0 0 10px #000;
+    box-shadow: 0 0 10px var(--shadow-color);
     margin: 14px 0px;
     font-size: 14pt;
 }
@@ -94,7 +94,7 @@ a.tag-link {
     border-radius: 7px;
     background-color: var(--color-gray-800);
     padding: 8px;
-    box-shadow: 0 3px 5px #000;
+    box-shadow: 0 3px 5px var(--shadow-color);
     color: var(--color-text);
 }
 
@@ -227,7 +227,7 @@ a.nav-tree-item.selected {
 
 .alert {
     display: block;
-    box-shadow: 0 3px 5px #000;
+    box-shadow: 0 3px 5px var(--shadow-color);
     border-radius: 5px;
     border-left-style: solid;
     border-width: 5px;
@@ -265,8 +265,8 @@ code {
 }
 
 .collapsible {
-    background-color: #777;
-    color: white;
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
     cursor: pointer;
     padding: 18px;
     width: 100%;
@@ -337,7 +337,7 @@ code {
     border-radius: var(--card-border-radius);
     /* Margin */
     padding: 1rem;
-    box-shadow: 0 3px 5px #000;
+    box-shadow: 0 3px 5px var(--shadow-color);
 }
 
 .card .card-title {
