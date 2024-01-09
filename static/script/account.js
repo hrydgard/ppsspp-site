@@ -116,7 +116,9 @@ const tmplAdminPanel = `
 <div class="col-6">
 
 <div class="card">
-<h2>Give free gold</h2>
+<div class="card-title">
+    <h2 class="no-icon">Give free gold</h2>
+</div>
 <form action="#" onSubmit="return handleGiveFreeGold(event)">
 <div class="alert alert-hidden" id="error_message" role="alert"></div>
 <label>
@@ -137,7 +139,9 @@ const tmplAdminPanel = `
 <div class="col-6">
 
 <div class="card">
-<h2>Get magic link</h2>
+<div class="card-title">
+    <h2 class="no-icon">Get magic link</h2>
+</div>
 <form action="#" onSubmit="return handleGetMagicLink(event)">
 <div class="alert alert-hidden" id="error_message" role="alert"></div>
 <label>
@@ -145,7 +149,7 @@ const tmplAdminPanel = `
     <span><input type="text" size="38" id="magiclink_email" /></span>
 </label>
 <div>
-    <button className="button button--primary margin-top--md" type="submit">Get magic link!</button>
+    <button class="download-button" type="submit">Get magic link!</button>
 </div>
 <div id="magic_link">...</div>
 <div id="magicLinkStatus" class="alert alert-hidden"></div>
@@ -156,8 +160,9 @@ const tmplAdminPanel = `
 
 <div class="col-6">
 <div class="card">
-
-<h2>Google Play Codes</h2>
+<div class="card-title">
+    <h2 class="no-icon">Google Play Codes</h2>
+</div>
 
 <div id="playCodesStats">...</div>
 <div id="googlePlayStatus" class="alert alert-hidden"></div>
@@ -167,7 +172,7 @@ const tmplAdminPanel = `
   <textarea rows="10" cols="24" id="pending_codes"}></textarea>
 </label>
 <div>
-  <button className="button button--primary margin-top--md" type="submit">Add promo codes</button>
+  <button class="download-button" type="submit">Add promo codes</button>
 </div>
 </form>
 </div>
@@ -231,6 +236,8 @@ async function applyDOMVisibility() {
         const adminPanels = document.getElementById("adminPanels");
         if (g_userData.admin && adminPanels) {
             adminPanels.innerHTML = Sqrl.render(tmplAdminPanel, g_userData);
+        } else {
+            adminPanels.innerHTML = "";
         }
     }
     const playCodesStats = document.getElementById("playCodesStats");
