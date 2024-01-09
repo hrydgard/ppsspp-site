@@ -700,11 +700,22 @@ function onLoadPage() {
             burgerClick();
         }
     });
+
+    // Close the content when clicking outside the div
+    document.addEventListener('click', function (event) {
+        var rootSidebar = document.getElementById('rootSidebar');
+        var toggleButton = document.getElementById('burgerButton');
+
+        if (rootSidebar && !rootSidebar.contains(event.target) && event.target != toggleButton) {
+            rootSidebar.classList.add('hidden');
+        }
+    });
 }
 
 function burgerClick() {
     var contentDiv = document.getElementById('rootSidebar');
     contentDiv.classList.toggle('hidden');
+    console.log("clicked the burger");
 }
 
 console.log("initial script execution");

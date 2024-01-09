@@ -20,7 +20,7 @@
 // - [x] Screenshot gallery
 // - [x] Light/dark mode
 // - [ ] Styling forms
-// - [ ] Mobile site improvements (move login to popdown menu, fix scrolling)
+// - [x] Mobile site improvements (move login to popdown menu, fix scrolling)
 // - [ ] Polish
 // - [ ] Test purchase
 // - [ ] *** Deploy ***

@@ -32,8 +32,6 @@
     padding: var(--button-padding-vertical) var(--button-padding-horizontal);
     margin: 8px 0px;
     text-align: center;
-    transition-duration: var(--button-transition-duration);
-    transition-property: color, background, border-color;
     user-select: none;
     white-space: nowrap;
     overflow: hidden;
@@ -379,4 +377,50 @@ code {
 .video {
     aspect-ratio: 16 / 9;
     width: 100%;
+}
+
+form input {
+    width: 100%;
+    margin: 3px 0px 13px 0px;
+    height: 35px;
+    border: solid 2px var(--color-gray-600);
+    background-color: var(--color-gray-900);
+}
+
+form label {
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+form textarea {
+    width: 100%;
+}
+
+form button {
+    display: block;
+    background-color: var(--button-background-color);
+    border: var(--button-border-width) solid var(--button-border-color);
+    border-radius: var(--button-border-radius);
+    color: var(--color-text-inverse);
+    cursor: pointer;
+    font-size: calc(.875rem*var(--button-size-multiplier));
+    font-weight: var(--button-font-weight);
+    line-height: 1.5;
+    width: 100%;
+    padding: var(--button-padding-vertical) var(--button-padding-horizontal);
+    margin: 8px 0px;
+    text-align: center;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+form button:hover {
+    color: var(--color-text-inverse);
+    background-color: var(--button-background-color-hover);
+    text-decoration: none;
+}
+
+div.forgot-password {
+    margin-top: 20px;
 }

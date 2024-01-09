@@ -11,25 +11,22 @@
                 </div>
 
                 <p>
-                    No account? <a href="/buygold">Buy PPSSPP Gold</a>!<br />
-                    Note that accounts are only for accessing PPSSPP Gold for PC/Mac.
+                    No account? <a href="/buygold">Buy PPSSPP Gold</a>!
                 </p>
+                <div class="alert alert-info">Note that accounts are for accessing PPSSPP Gold on PC/Mac.
+                </div>
 
                 <form action="#" onSubmit="return handleLoginForm(event)">
                     <div class="alert alert-success" style="display: none;" id="error_message" role="alert"></div>
-                    <label>
-                        <div>E-mail address</div>
-                        <span><input type="text" size="38" id="email" /></span>
-                    </label>
-                    <label>
-                        <div>Password</div>
-                        <span><input type="password" size="38" id="password" /></span>
-                    </label>
-                    <div>
-                        <a href="/recoverpassword">Forgot your password?</a>
-                    </div>
+                    <label for="email">E-mail address</label>
+                    <input type="text" size="38" id="email" name="email" />
+                    <label for="password">Password</label>
+                    <input type="password" size="38" id="password" name="password" />
                     <div>
                         <button class="button" type="submit">Login</button>
+                    </div>
+                    <div class="forgot-password">
+                        <a href="/recoverpassword">Forgot your password?</a>
                     </div>
                 </form>
 
