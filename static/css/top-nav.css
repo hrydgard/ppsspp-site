@@ -182,3 +182,9 @@
     display: block;
     color: var(--color-text);
 }
+
+.burger-sidebar li #loginItem a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

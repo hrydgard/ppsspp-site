@@ -204,7 +204,7 @@ Login
 
 
 const tmplLoginItem = `
-<a href='/login' class="">
+<a href='/login'>
 {{@if(it.loggedIn)}}
 <img
 {{@if(it.goldUser)}}
