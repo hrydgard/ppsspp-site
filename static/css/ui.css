@@ -143,7 +143,7 @@ a.nav-link .title {
 /* Style the list */
 ul.breadcrumb {
     display: inline-block;
-    padding: 8px 8px;
+    padding: 4px 10px;
     border-radius: 10px;
     list-style: none;
     margin-top: 12px;
@@ -175,6 +175,28 @@ ul.breadcrumb li a {
 ul.breadcrumb li a:hover {
     text-decoration: underline;
 }
+
+/* */
+ul.nav-tree-items {
+    list-style: none;
+    padding-left: 0px;
+    margin-right: 4px;
+}
+
+ul.nav-tree-items .level-1,
+.level-2,
+.level-3 {
+    padding-left: 15px;
+}
+
+a .nav-tree-category {
+    display: block;
+}
+
+a .nav-tree-category.selected {
+    background-color: var(--color-gray-800);
+}
+
 
 .alert {
     display: block;

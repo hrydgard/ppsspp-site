@@ -1,5 +1,5 @@
 [package]
-name = "sgen"
+name = "ppsspp-site-generator"
 version = "0.0.1"
 authors = ["Henrik Rydgård"]
 edition = "2021"

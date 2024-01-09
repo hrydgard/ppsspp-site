@@ -15,8 +15,9 @@
 // - [x] generate RSS/Atom feeds
 // - [x] summaries
 // - [x] Pretty alerts
-// - [ ] Replace inline SVG
+// - [x] Replace inline SVG
 // - [ ] Docs tree view
+// - [ ] Section links
 // - [ ] Mobile site improvements
 // - [ ] Polish
 // - [ ] Test purchase
@@ -41,6 +42,7 @@ mod config;
 mod document;
 mod feed;
 mod index;
+mod post_process;
 mod server;
 mod util;
 
@@ -57,29 +59,6 @@ use crate::{
     config::{DocLink, GlobalMeta},
     util::{filename_to_string, write_file_as_folder_with_index},
 };
-
-// TODO: Involve templates here for easier modification?
-// Can handlebars templates recurse?
-fn generate_docnav_html(root: &document::Category, _breadcrumbs: &[DocLink]) -> String {
-    let mut str = String::new();
-    // For now, fully expanded. Will fix later.
-    str += &format!(
-        "<p><a href=/{} class=\"category-link\">{}</a></p>",
-        root.path.display(),
-        root.meta.title
-    );
-    str += "<div class=\"category\">";
-    for cat in &root.sub_categories {
-        str += &generate_docnav_html(cat, _breadcrumbs);
-    }
-    for doc in &root.documents {
-        // TODO: these links don't match docusaurus!
-        str += &format!("<a href=/{}>{}</a>", doc.path.display(), doc.meta.title,);
-    }
-    str += "</div>";
-
-    str
-}
 
 fn generate_doctree(
     config: &Config,
@@ -113,7 +92,7 @@ fn generate_doctree(
 
         // We apply the template right here.
         let mut context = PageContext::from_document(doc, &config.global_meta);
-        context.sidebar = Some(generate_docnav_html(&root_cat, &doc.meta.breadcrumbs));
+        context.sidebar = Some(generate_docnav_html(&root_cat, 0, &doc.meta.breadcrumbs));
         let html = context.render("doc", handlebars)?;
 
         write_file_as_folder_with_index(&target_path, html, true)?;
@@ -166,7 +145,7 @@ fn generate_blog(
     folder: &str,
     title: &str,
     handlebars: &mut handlebars::Handlebars,
-) -> anyhow::Result<()> {
+) -> anyhow::Result<Vec<Document>> {
     // For the blog
 
     let root_folder = config.indir.join(folder);
@@ -315,7 +294,7 @@ fn generate_blog(
 
     println!("Wrote blog {}", folder);
 
-    Ok(())
+    Ok(documents)
 }
 
 fn generate_pages(
@@ -482,12 +461,12 @@ fn build(opt: &Opt) -> anyhow::Result<()> {
         !opt.minify,
     )?;
 
-    generate_pages(&config, "pages", &mut handlebars)?;
-
     generate_doctree(&config, "docs", &mut handlebars)?;
 
-    generate_blog(&config, "blog", "Development blog", &mut handlebars)?;
-    generate_blog(&config, "news", "Release News", &mut handlebars)?;
+    let _ = generate_blog(&config, "blog", "Development blog", &mut handlebars)?;
+    let _ = generate_blog(&config, "news", "Release News", &mut handlebars)?;
+
+    generate_pages(&config, "pages", &mut handlebars)?;
 
     Ok(())
 }

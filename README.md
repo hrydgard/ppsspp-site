@@ -4,6 +4,12 @@ This is the entire frontend for the official ppsspp.org website.
 
 It's built using a super-minimal site generator written in Rust.
 
+The design is inspired by Docusaurus but doesn't use anything from it anymore
+other than the folder structure.
+
+Turns out doing everything fully custom is easier to understand, debug and maintain for the long term,
+plus the build process is way easier. `cargo run`, that's it.
+
 ## Backend and authentication
 
 The backend is not (yet?) open source.

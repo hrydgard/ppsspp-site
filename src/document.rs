@@ -1,4 +1,7 @@
-use crate::util;
+use crate::{
+    config::{Config, DocLink, GlobalMeta},
+    post_process, util,
+};
 use std::{
     ffi::OsString,
     io::{BufRead, BufReader, Read},
@@ -6,11 +9,7 @@ use std::{
 };
 
 extern crate serde;
-use anyhow::Context;
-use markdown::mdast::Node;
 use serde::{Deserialize, Serialize};
-
-use crate::config::{Config, DocLink, GlobalMeta};
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Link {
@@ -143,18 +142,6 @@ impl PageContext {
     }
 }
 
-fn postprocess_markdown(md: &str, config: &Config) -> String {
-    // Markdown post-processing. This is for linking github issues.
-    let issue_regex = regex::Regex::new(r"\[#(\d+)\]").unwrap();
-    issue_regex
-        .replace_all(md, |captures: &regex::Captures| {
-            let issue_number = captures.get(1).unwrap().as_str();
-            format!("[#{}]({}{})", issue_number, config.github_url, issue_number)
-            // Construct the replacement with the GitHub URL
-        })
-        .to_string()
-}
-
 fn postprocess_html(md: String) -> String {
     md.replace("<table>", "<table class=\"nice-table\">")
 }
@@ -181,78 +168,6 @@ pub fn strip_extension(str: OsString) -> String {
     let mut x = PathBuf::from(str);
     x.set_extension("");
     x.to_string_lossy().to_string()
-}
-
-#[allow(clippy::single_match)]
-fn recurse_text_join(nodes: &[Node], str: &mut String) {
-    for node in nodes {
-        match node {
-            Node::Text(text) => {
-                *str += &text.value;
-            }
-            _ => {}
-        }
-        if let Some(children) = node.children() {
-            recurse_text_join(children, str);
-        }
-    }
-}
-
-fn truncate_string(str: String, max_length: usize) -> String {
-    if str.len() <= max_length {
-        str
-    } else {
-        // TODO: cut at whole words.
-        format!("{}...", &str[0..max_length])
-    }
-}
-const MAX_SUMMARY_CHARS: usize = 200;
-
-#[allow(clippy::single_match)]
-fn recurse(nodes: &[Node], meta: &mut DocumentMeta) -> anyhow::Result<()> {
-    if !meta.title.is_empty() && meta.summary.is_some() {
-        return Ok(());
-    }
-    for node in nodes {
-        match node {
-            Node::Heading(heading) => {
-                match heading.children.first().context("missing heading child")? {
-                    Node::Text(text) => {
-                        if meta.title.is_empty() {
-                            meta.title = text.value.clone();
-                        }
-                    }
-                    _ => {}
-                }
-            }
-            Node::Paragraph(_) => {
-                if meta.summary.is_none() {
-                    let mut summary = String::new();
-                    if let Some(children) = node.children() {
-                        recurse_text_join(children, &mut summary);
-                    }
-                    meta.summary = Some(truncate_string(summary, MAX_SUMMARY_CHARS));
-                }
-            }
-            _ => {
-                if let Some(children) = node.children() {
-                    recurse(children, meta)?;
-                }
-            }
-        }
-    }
-    Ok(())
-}
-
-fn add_meta_from_markdown(
-    markdown: &str,
-    meta: &mut DocumentMeta,
-    config: &Config,
-) -> anyhow::Result<()> {
-    // If no dash-meta, grab the title string.
-    let tree = markdown::to_mdast(markdown, &config.markdown_options.parse).unwrap();
-    recurse(&[tree], meta)?;
-    Ok(())
 }
 
 impl Document {
@@ -329,13 +244,13 @@ impl Document {
 
         md += &String::from_utf8(buffer)?;
 
-        add_meta_from_markdown(&md, &mut meta, config)?;
+        post_process::add_meta_from_markdown(&md, &mut meta, config)?;
 
         if md.contains("```c") || md.contains("```rust") {
             meta.contains_code = true;
         }
 
-        let md = postprocess_markdown(&md, config);
+        let md = post_process::postprocess_markdown(&md, config);
 
         let html = markdown::to_html_with_options(&md, &config.markdown_options)
             .map_err(anyhow::Error::msg)?;
@@ -564,4 +479,49 @@ impl Category {
             crumbs.pop();
         }
     }
+}
+
+// TODO: Involve templates here for easier modification?
+// Can handlebars templates recurse?
+// Should be surrounded in an <ul class="nav-tree">
+pub fn generate_docnav_html(root: &Category, level: usize, _breadcrumbs: &[DocLink]) -> String {
+    let mut str = String::new();
+    /*
+    println!(
+        "{} {} {}",
+        root.meta.title,
+        root.meta.url,
+        _breadcrumbs
+            .get(level)
+            .map(|x| x.url.clone())
+            .unwrap_or_default()
+    );
+     */
+
+    let expanded = if let Some(crumb) = _breadcrumbs.get(level) {
+        root.meta.url == crumb.url
+    } else {
+        false
+    };
+
+    str += &format!("<ul class=\"nav-tree-items level-{}\">\n", level);
+    if expanded {
+        for cat in &root.sub_categories {
+            str += &format!(
+                "<li><a href=\"{}\" class=\"nav-tree-category\">{}</a>",
+                cat.meta.url, cat.meta.title
+            );
+            str += &generate_docnav_html(cat, level + 1, _breadcrumbs);
+            str += "</li>\n";
+        }
+        for doc in &root.documents {
+            str += &format!(
+                "<li><a href=\"{}\">{}</a></li>\n",
+                doc.meta.url, doc.meta.title,
+            );
+        }
+    }
+    str += "</ul>\n";
+
+    str
 }
