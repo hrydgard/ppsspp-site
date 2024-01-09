@@ -232,7 +232,8 @@ a.nav-tree-item.selected {
     border-width: 5px;
     padding: 14px;
     margin: 12px 0px;
-    color: var(--color-text);
+    color: #fff;
+    /* on both dark and light modes */
 }
 
 .alert.alert-warning {
