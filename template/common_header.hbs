@@ -41,14 +41,14 @@
 <body>
     <div class="page-wrapper">
         <nav class="top-nav">
-            <div class="top-nav-logo">
-                <a href="/" class="center-vertical"><img src="/static/img/platform/ppsspp-icon.png"
-                        width="32px" />&nbsp;PPSSPP</a>
-            </div>
             <input id="menu-toggle" type="checkbox" />
             <label class='menu-button-container' for="menu-toggle">
                 <div class='menu-button'></div>
             </label>
+            <div class="top-nav-logo">
+                <a href="/" class="center-vertical"><img src="/static/img/platform/ppsspp-icon.png"
+                        width="32px" />&nbsp;PPSSPP</a>
+            </div>
             <ul class="menu">
                 {{#each top_nav}}
                 <li><a href="{{url}}"
