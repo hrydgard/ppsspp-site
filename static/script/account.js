@@ -97,8 +97,12 @@ function setDisplayMode(className, mode) {
 // TODO: See if we can find a better client-side templating solution. While it's nice to
 // avoid react, this does get a little awkward, vscode fails to syntax color this.
 const tmplUserInfo = `
-<div class="ms-card ms-fill">
-<p>{{it.name}}</p>
+<div>
+<p>{{it.name}}
+{{ @if (it.admin) }}
+<strong>&nbsp;(ADMIN)</strong>
+{{ /if }}
+</p>
 <p>Email: {{it.email}}.</p>
 {{ @if (it.goldUser) }}
 <p>Gold status!</p>
@@ -109,20 +113,12 @@ const tmplUserInfo = `
 
 // Not really secret panel, even if you know what this can do you can't do anything :P
 const tmplAdminPanel = `
-<div class="ms-card ms-fill">
-<p>{{it.name}}</p>
-<p><strong>ADMIN</strong></p>
-<p>Email: {{it.email}}.</p>
-{{ @if (it.goldUser) }}
-<p>Gold status!</p>
-{{ /if }}
-<p><a href="/changepassword">Change password</a></p>
-</div>
+<div class="col-6">
 
-<div class="ms-card ms-fill">
+<div class="card">
 <h2>Give free gold</h2>
 <form action="#" onSubmit="return handleGiveFreeGold(event)">
-<div class="alert alert--warning hidden" id="error_message" role="alert"></div>
+<div class="alert alert-hidden" id="error_message" role="alert"></div>
 <label>
     <div>Name</div>
     <span><input type="text" size="38" id="freegold_name" /></span>
@@ -130,16 +126,20 @@ const tmplAdminPanel = `
     <span><input type="text" size="38" id="freegold_email" /></span>
 </label>
 <div>
-    <button className="button button--primary margin-top--md" type="submit">Give free gold</button>
+    <button class="download-button" type="submit">Give free gold</button>
 </div>
-<div id="loginStatus"></div>
+<div id="freeGoldStatus"></div>
 </form>
 </div>
 
-<div class="ms-card ms-fill">
+</div>
+
+<div class="col-6">
+
+<div class="card">
 <h2>Get magic link</h2>
 <form action="#" onSubmit="return handleGetMagicLink(event)">
-<div class="alert alert--warning hidden" id="error_message" role="alert"></div>
+<div class="alert alert-hidden" id="error_message" role="alert"></div>
 <label>
     <div>E-mail address</div>
     <span><input type="text" size="38" id="magiclink_email" /></span>
@@ -148,15 +148,19 @@ const tmplAdminPanel = `
     <button className="button button--primary margin-top--md" type="submit">Get magic link!</button>
 </div>
 <div id="magic_link">...</div>
-<div id="magicLinkStatus"></div>
+<div id="magicLinkStatus" class="alert alert-hidden"></div>
 </form>
 </div>
 
-<div class="ms-card ms-fill">
+</div>
+
+<div class="col-6">
+<div class="card">
+
 <h2>Google Play Codes</h2>
 
 <div id="playCodesStats">...</div>
-<div id="googlePlayStatus"></div>
+<div id="googlePlayStatus" class="alert alert-hidden"></div>
 <form action="#" onSubmit="return handleAddGooglePlayCodes(event)">
 <label>
   <div>Codes to add:</div>
@@ -166,9 +170,9 @@ const tmplAdminPanel = `
   <button className="button button--primary margin-top--md" type="submit">Add promo codes</button>
 </div>
 </form>
-
 </div>
 
+</div>
 </div>
 `;
 
@@ -198,8 +202,6 @@ async function applyDOMVisibility() {
     if (g_userData.loggedIn) {
         setDisplayMode("logged-in-only", g_userData.loggedIn ? "block" : "none");
         setDisplayMode("not-logged-in-only", g_userData.loggedIn ? "none" : "block");
-        setDisplayMode("logged-in-only-inline", g_userData.loggedIn ? "inline" : "none");
-        setDisplayMode("not-logged-in-only-inline", g_userData.loggedIn ? "none" : "inline");
     } else {
         setDisplayMode("logged-in-only", "none");
         setDisplayMode("not-logged-in-only", "block");
@@ -225,7 +227,11 @@ async function applyDOMVisibility() {
     }
     const loginInfo = document.getElementById("loginInfo");
     if (loginInfo) {
-        loginInfo.innerHTML = Sqrl.render(g_userData.admin ? tmplAdminPanel : tmplUserInfo, g_userData);
+        loginInfo.innerHTML = Sqrl.render(tmplUserInfo, g_userData);
+        const adminPanels = document.getElementById("adminPanels");
+        if (g_userData.admin && adminPanels) {
+            adminPanels.innerHTML = Sqrl.render(tmplAdminPanel, g_userData);
+        }
     }
     const playCodesStats = document.getElementById("playCodesStats");
     if (playCodesStats) {
@@ -265,7 +271,8 @@ async function handleGiveFreeGold(event) {
     event.preventDefault();
     let userName = document.getElementById("freegold_name").value.trim();
     let userEmail = document.getElementById("freegold_email").value.trim();
-    console.log("Was gonna give free gold to " + userEmail + " " + userName);
+
+    console.log("Gonna give free gold to " + userEmail + " " + userName);
 
     if (userEmail) {
         userEmail = userEmail.trim();
@@ -290,7 +297,8 @@ async function handleGiveFreeGold(event) {
         console.log(userName + " '" + userEmail + "'");
     }
 
-    if (!userEmail) {
+    if (!userEmail || !validateEmailAddress(userEmail)) {
+        setStatusDisplay(ERROR, "freeGoldStatus", "Failed to send free gold - no valid email.");
         return;
     }
 
@@ -304,6 +312,7 @@ async function handleGiveFreeGold(event) {
     if (response) {
         console.log("gave free gold to " + userName + " '" + userEmail + "'");
     }
+    setStatusDisplay(SUCCESS, "freeGoldStatus", "Gave free gold")
     return false;
 }
 
@@ -410,6 +419,7 @@ async function handleLoginForm(event) {
             console.log("Forwarding to " + forward);
             window.location.href = "/" + forward;
         }
+        setStatusDisplay(HIDDEN, "loginStatus");
     } else {
         setStatusDisplay(ERROR, "loginStatus", "Email/Password didn't match, or account doesn't exist.");
     }
@@ -440,6 +450,7 @@ async function handleLoginByKey() {
             // setLoginFailed(false);
             forward = translateForward(queryParams.get('Forward'), "effect");
             console.log("Login-by-key success");
+            setStatusDisplay(HIDDEN, "loginStatus");
         } else {
             console.log("No login data in response, not logging in. forward was " + forward);
             // setLoginFailed(true);

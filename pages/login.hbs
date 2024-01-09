@@ -4,13 +4,13 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-6">
+        <div class="col-6 not-logged-in-only">
             <div class="card">
                 <div class="card-title">
                     <h2 class="no-icon">Login</h2>
                 </div>
 
-                <p class="not-logged-in-only">
+                <p>
                     No account? <a href="/buygold">Buy PPSSPP Gold</a>!<br />
                     Note that accounts are only for accessing PPSSPP Gold for PC/Mac.
                 </p>
@@ -34,7 +34,6 @@
                 </form>
 
                 <div id="loginStatus" class="alert alert-hidden"></div>
-
             </div>
         </div>
 
@@ -45,6 +44,8 @@
 
             <button onclick="logoutUser()">Log out</button>
         </div>
+
+        <div id="adminPanels" class="admin-only"></div>
     </div>
 </div>
 
