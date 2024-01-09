@@ -398,7 +398,7 @@ fn build(opt: &Opt) -> anyhow::Result<()> {
     handlebars.register_template_file("rss", "template/rss.hbs")?;
     handlebars.register_template_file("atom", "template/atom.hbs")?;
 
-    println!("Barebones website generator");
+    println!("PPSSPP website generator");
 
     let mut markdown_options = markdown::Options::gfm();
     markdown_options.compile.allow_dangerous_html = true;

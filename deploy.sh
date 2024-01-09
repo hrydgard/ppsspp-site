@@ -14,7 +14,6 @@ cargo run -- --skip-serve
 
 echo deploying to www@main:/srv/www/ppsspp.org/$1
 
-rsync -av build www@main:/srv/www/ppsspp.org/$1
+rsync -avh build www@main:/srv/www/ppsspp.org/$1 --delete-after
 
 # TODO: Switch back to local automatically, instead of using switch.sh?
-

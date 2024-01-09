@@ -9,7 +9,7 @@ PPSSPP is compatible with almost any recent Android phone, and almost any reason
 
 Nearly any recent phone will work just fine.
 
-Shield TV is still the best Android TV machine (yes, in 2022).
+NVIDIA Shield TV is probably still the best Android TV machine (yes, in 2024).
 
 ## Controllers for Android
 

@@ -1,5 +1,9 @@
 /* RESET from https://www.joshwcomeau.com/css/custom-css-reset/ */
 
+:root {
+  color-scheme: dark;
+}
+
 /*
   1. Use a more-intuitive box-sizing model.
 */
