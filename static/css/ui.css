@@ -36,6 +36,7 @@
     transition-property: color, background, border-color;
     user-select: none;
     white-space: nowrap;
+    overflow: hidden;
 }
 
 .download-button .button-contents {

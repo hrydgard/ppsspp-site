@@ -51,8 +51,9 @@
             </label>
             <ul class="menu">
                 {{#each top_nav}}
-                <li><a href="{{url}}" {{#if selected}} class="selected" {{/if}}>{{title}}{{#if external}}{{>
-                        link_icon }}{{/if}}</a></li>
+                <li><a href="{{url}}"
+                        class="{{#if selected}}selected{{/if}}{{#if external}} external{{/if}}">{{{title}}}{{#if
+                        external}}{{> link_icon }}{{/if}}</a></li>
                 {{/each}}
             </ul>
             <div class="not-logged-in-only-inline"><a href="/login">Login</a></div>

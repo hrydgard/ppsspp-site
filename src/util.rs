@@ -14,6 +14,7 @@ pub fn copy_recursive(
     src: impl AsRef<Path>,
     dst: impl AsRef<Path>,
     minify: bool,
+    exclude_dirs: &[&str],
 ) -> anyhow::Result<()> {
     let minify_session = minify_js::Session::new();
     fs::create_dir_all(&dst)?;
@@ -21,8 +22,19 @@ pub fn copy_recursive(
         let entry = entry?;
         let ty = entry.file_type()?;
         if ty.is_dir() {
-            copy_recursive(entry.path(), dst.as_ref().join(entry.file_name()), minify)
+            let name = filename_to_string(&entry.file_name());
+            if !exclude_dirs.contains(&name.as_str()) {
+                copy_recursive(
+                    entry.path(),
+                    dst.as_ref().join(entry.file_name()),
+                    minify,
+                    exclude_dirs,
+                )
                 .context("copy-recurse")?;
+            } else {
+                // Just create the empty dir.
+                fs::create_dir_all(&dst.as_ref().join(entry.file_name()))?;
+            }
         } else {
             let dst = dst.as_ref().join(entry.file_name());
             if minify {

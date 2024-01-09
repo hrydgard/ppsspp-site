@@ -18,7 +18,7 @@
 // - [x] Replace inline SVG
 // - [x] Docs tree view
 // - [x] Screenshot gallery
-// - [ ] Light/dark mode
+// - [x] Light/dark mode
 // - [ ] Mobile site improvements (move login to popdown menu, fix scrolling)
 // - [ ] Polish
 // - [ ] Test purchase
@@ -439,6 +439,7 @@ fn build(opt: &Opt) -> anyhow::Result<()> {
         config.indir.join("static"),
         config.outdir.join("static"),
         opt.minify,
+        &["css"], // We mash the css files together, so don't copy them.
     )?;
     // Move the favicon into place.
     std::fs::copy(
@@ -453,6 +454,7 @@ fn build(opt: &Opt) -> anyhow::Result<()> {
             "reset.css",
             "grid.css",
             "style.css",
+            "top-nav.css",
             "ui.css",
             "hamburger.css",
             "gallery.css",
@@ -497,12 +499,12 @@ async fn run() -> anyhow::Result<()> {
 
     // Add a path to be watched. All files and directories at that path and
     // below will be monitored for changes.
-    watcher.watch(Path::new("blog"), notify::RecursiveMode::Recursive)?;
-    watcher.watch(Path::new("docs"), notify::RecursiveMode::Recursive)?;
-    watcher.watch(Path::new("news"), notify::RecursiveMode::Recursive)?;
-    watcher.watch(Path::new("pages"), notify::RecursiveMode::Recursive)?;
-    watcher.watch(Path::new("static"), notify::RecursiveMode::Recursive)?;
-    watcher.watch(Path::new("template"), notify::RecursiveMode::Recursive)?;
+    let watch_dirs = &[
+        "blog", "data", "docs", "news", "pages", "static", "template",
+    ];
+    for dir in watch_dirs {
+        watcher.watch(Path::new(dir), notify::RecursiveMode::Recursive)?;
+    }
 
     // OK, we're done - just serve the results.
     println!("Serving on localhost:{}", opt.port);
