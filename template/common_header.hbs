@@ -50,7 +50,7 @@
                 <div class='menu-button'></div>
             </label>
             <ul class="menu">
-                {{#each globals.top_nav}}
+                {{#each top_nav}}
                 <li><a href="{{url}}" {{#if selected}} class="selected" {{/if}}>{{title}}{{#if external}}{{>
                         link_icon }}{{/if}}</a></li>
                 {{/each}}

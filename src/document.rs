@@ -71,21 +71,22 @@ pub struct Tag {
 // Used when rendering templates.
 // Should probably split into multiple more focused ones .. but then again, not really necessary,
 // can just omit what we don't need.
-#[derive(Serialize, Deserialize)]
-pub struct PageContext {
+#[derive(Serialize)]
+pub struct PageContext<'a> {
     pub title: Option<String>,
     pub contents: Option<String>,
     pub sidebar: Option<String>,
     pub children: Vec<DocLink>,
     pub meta: Option<DocumentMeta>,
     pub year: i32,
-    pub globals: Option<GlobalMeta>,
+    pub globals: Option<&'a GlobalMeta>,
     pub tags: Vec<Tag>,
     pub contains_code: bool,
+    pub top_nav: Vec<DocLink>,
 }
 
-impl PageContext {
-    pub fn new(title: Option<String>, contents: Option<String>, globals: &GlobalMeta) -> Self {
+impl<'a> PageContext<'a> {
+    pub fn new(title: Option<String>, contents: Option<String>, globals: &'a GlobalMeta) -> Self {
         Self {
             title,
             contents,
@@ -93,12 +94,13 @@ impl PageContext {
             year: 2024,
             children: vec![],
             meta: None,
-            globals: Some(globals.clone()),
+            globals: Some(globals),
             tags: vec![],
             contains_code: false,
+            top_nav: globals.top_nav.clone(),
         }
     }
-    pub fn from_document(document: &Document, globals: &GlobalMeta) -> Self {
+    pub fn from_document(document: &Document, globals: &'a GlobalMeta) -> Self {
         Self {
             title: Some(document.meta.title.clone()),
             contents: Some(document.html.clone()),
@@ -106,9 +108,10 @@ impl PageContext {
             year: 2024,
             children: vec![],
             meta: Some(document.meta.clone()),
-            globals: Some(globals.clone()),
+            globals: Some(globals),
             tags: vec![],
             contains_code: document.meta.contains_code,
+            top_nav: globals.top_nav.clone(),
         }
     }
     pub fn render(
@@ -129,13 +132,11 @@ impl PageContext {
     }
 
     fn update_selected(&mut self) {
-        if let Some(ref mut globals) = &mut self.globals {
-            if let Some(meta) = &self.meta {
-                let self_url = &meta.url;
-                for link in &mut globals.top_nav {
-                    if self_url.starts_with(&link.url) {
-                        link.selected = true;
-                    }
+        if let Some(meta) = &self.meta {
+            let self_url = &meta.url;
+            for link in &mut self.top_nav {
+                if self_url.starts_with(&link.url) {
+                    link.selected = true;
                 }
             }
         }
@@ -273,7 +274,7 @@ impl Document {
     ) -> anyhow::Result<Self> {
         let hbs = std::fs::read_to_string(hbs_path)?;
         let mut context = PageContext::new(None, None, globals);
-        context.globals = Some(globals.clone());
+        context.globals = Some(globals);
         let meta = DocumentMeta {
             url: format!("/{name}"),
             ..Default::default()
@@ -484,23 +485,12 @@ impl Category {
 // TODO: Involve templates here for easier modification?
 // Can handlebars templates recurse?
 // Should be surrounded in an <ul class="nav-tree">
-pub fn generate_docnav_html(root: &Category, level: usize, _breadcrumbs: &[DocLink]) -> String {
+pub fn generate_docnav_html(root: &Category, level: usize, breadcrumbs: &[DocLink]) -> String {
     let mut str = String::new();
-    /*
-    println!(
-        "{} {} {}",
-        root.meta.title,
-        root.meta.url,
-        _breadcrumbs
-            .get(level)
-            .map(|x| x.url.clone())
-            .unwrap_or_default()
-    );
-     */
 
     str += &format!("<ul class=\"nav-tree-items level-{}\">\n", level);
     for cat in &root.sub_categories {
-        let expanded = if let Some(crumb) = _breadcrumbs.get(level + 1) {
+        let expanded = if let Some(crumb) = breadcrumbs.get(level + 1) {
             cat.meta.url == crumb.url
         } else {
             false
@@ -512,13 +502,12 @@ pub fn generate_docnav_html(root: &Category, level: usize, _breadcrumbs: &[DocLi
             cat.meta.url, extra_classes, cat.meta.title
         );
         if expanded {
-            str += &generate_docnav_html(cat, level + 1, _breadcrumbs);
+            str += &generate_docnav_html(cat, level + 1, breadcrumbs);
         }
         str += "</li>\n";
     }
     for doc in &root.documents {
-        let expanded = if let Some(crumb) = _breadcrumbs.get(level + 1) {
-            println!("hit!");
+        let expanded = if let Some(crumb) = breadcrumbs.get(level + 1) {
             doc.meta.url == crumb.url
         } else {
             false

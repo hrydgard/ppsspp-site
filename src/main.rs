@@ -16,12 +16,13 @@
 // - [x] summaries
 // - [x] Pretty alerts
 // - [x] Replace inline SVG
-// - [ ] Docs tree view
-// - [ ] Section links
-// - [ ] Mobile site improvements
+// - [x] Docs tree view
+// - [ ] Screenshot gallery
+// - [ ] Mobile site improvements (move login to popdown menu, fix scrolling)
 // - [ ] Polish
 // - [ ] Test purchase
 // - [ ] *** Deploy ***
+// - [ ] h2 Section links
 // - [ ] Blog tags, browse by
 // - [ ] Merge the two blogs
 // - [ ] Blog feed pagination
@@ -344,7 +345,7 @@ fn generate_pages(
 
         let html = if apply_doc_template {
             let mut context = PageContext::from_document(&document, &config.global_meta);
-            context.globals = Some(config.global_meta.clone());
+            context.globals = Some(&config.global_meta);
             if let Some(ref mut meta) = &mut context.meta {
                 meta.url = format!(
                     "/{}",
@@ -454,6 +455,7 @@ fn build(opt: &Opt) -> anyhow::Result<()> {
             "style.css",
             "ui.css",
             "hamburger.css",
+            "gallery.css",
             "hero.css",
             "highlight-dark.min.css",
         ],

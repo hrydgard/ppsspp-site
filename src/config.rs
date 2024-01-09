@@ -84,10 +84,18 @@ impl DocLink {
     }
 }
 
+// Boiled-down version of the Previous Releases table for easy template consumption.
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct Screenshot {
+    description: String,
+    filename: String,
+    #[serde(default)]
+    index: i32, // 1-based, not read from file.
+}
 // This contains a bunch of stuff that various pages want to reference.
 // Little point in restricting certain data to certain pages since we're a static generator
-// so it'll be a grab bag of stuff.
-#[derive(Debug, Deserialize, Serialize, Clone, Default)]
+// so it'll be a grab bag of stuff. If we get performance problems one day, we'll split this up.
+#[derive(Debug, Deserialize, Serialize, Default)]
 pub struct GlobalMeta {
     pub app_version: String,
     pub platforms: Vec<PlatformInfo>,
@@ -95,6 +103,7 @@ pub struct GlobalMeta {
     pub top_nav: Vec<DocLink>,
     pub prod: bool,
     pub authors: HashMap<String, Author>,
+    pub screenshots: Vec<Screenshot>,
 }
 
 fn download_path(url_base: &str, version: &str, filename: &str) -> String {
@@ -123,10 +132,15 @@ impl GlobalMeta {
         let downloads_gold_json = std::fs::read_to_string("data/downloads_gold.json")?;
         let platforms_json = std::fs::read_to_string("data/platform.json")?;
         let authors_json = std::fs::read_to_string("data/authors.json")?;
+        let screenshots_json = std::fs::read_to_string("data/screenshots.json")?;
 
         let downloads: File = serde_json::from_str(&downloads_json).unwrap();
         let downloads_gold: File = serde_json::from_str(&downloads_gold_json).unwrap();
         let authors: HashMap<String, Author> = serde_json::from_str(&authors_json).unwrap();
+        let mut screenshots: Vec<Screenshot> = serde_json::from_str(&screenshots_json).unwrap();
+        for (index, shot) in screenshots.iter_mut().enumerate() {
+            shot.index = (index as i32) + 1;
+        }
 
         let mut platforms: Vec<PlatformInfo> = serde_json::from_str(&platforms_json).unwrap();
 
@@ -178,6 +192,7 @@ impl GlobalMeta {
             platforms,
             version_downloads,
             top_nav,
+            screenshots,
         })
     }
 }
