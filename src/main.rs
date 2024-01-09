@@ -25,6 +25,7 @@
 // - [ ] *** Deploy ***
 // - [ ] h2 Section links
 // - [ ] Blog tags, browse by
+// - [ ] Nicer author tags in the blog
 // - [ ] Merge the two blogs
 // - [ ] Blog feed pagination
 // - [ ] Docs search
