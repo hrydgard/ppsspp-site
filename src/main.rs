@@ -19,10 +19,10 @@
 // - [x] Docs tree view
 // - [x] Screenshot gallery
 // - [x] Light/dark mode
-// - [ ] Styling forms
+// - [x] Styling forms
 // - [x] Mobile site improvements (move login to popdown menu, fix scrolling)
-// - [ ] Polish
-// - [ ] Test purchase
+// - [x] Polish
+// - [x] Test purchase
 // - [ ] *** Deploy ***
 // - [ ] h2 Section links
 // - [ ] Blog tags, browse by
@@ -388,17 +388,23 @@ struct Opt {
 fn build(opt: &Opt) -> anyhow::Result<()> {
     let mut handlebars = handlebars::Handlebars::new();
 
-    handlebars.register_template_file("common_header", "template/common_header.hbs")?;
-    handlebars.register_template_file("common_footer", "template/common_footer.hbs")?;
-    handlebars.register_template_file("doc", "template/doc.hbs")?;
-    handlebars.register_template_file("link_icon", "template/icons/link.hbs")?;
-    handlebars.register_template_file("cat_contents", "template/cat_contents.hbs")?;
-    handlebars.register_template_file("blog_post", "template/blog_post.hbs")?;
-    handlebars.register_template_file("blog_sidebar", "template/blog_sidebar.hbs")?;
-    handlebars.register_template_file("product_card", "template/product_card.hbs")?;
-    handlebars.register_template_file("page", "template/page.hbs")?;
-    handlebars.register_template_file("rss", "template/rss.hbs")?;
-    handlebars.register_template_file("atom", "template/atom.hbs")?;
+    let templates = &[
+        "common_header",
+        "common_footer",
+        "doc",
+        "cat_contents",
+        "blog_post",
+        "blog_sidebar",
+        "unit",
+        "product_card",
+        "page",
+        "rss",
+        "atom",
+    ];
+    for tmpl in templates {
+        handlebars.register_template_file(tmpl, &format!("template/{tmpl}.hbs"))?;
+    }
+    handlebars.register_template_file("link_icon", "template/icons/link_icon.hbs")?;
 
     println!("PPSSPP website generator");
 

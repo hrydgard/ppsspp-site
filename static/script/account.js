@@ -151,7 +151,7 @@ const tmplAdminPanel = `
 <div>
     <button class="download-button" type="submit">Get magic link!</button>
 </div>
-<div id="magic_link">...</div>
+<div id="magic_link"></div>
 <div id="magicLinkStatus" class="alert alert-hidden"></div>
 </form>
 </div>
@@ -358,10 +358,12 @@ async function handleGetMagicLink(event) {
             await navigator.clipboard.writeText(magicLink.link);
         }
         console.log("success: " + magicLink.link);
+        setStatusDisplay(SUCCESS, "magicLinkStatus", "Link fetched.");
     } else {
         if (magicLinkDest) {
             magicLinkDest.innerHTML = "";
         }
+        setStatusDisplay(ERROR, "magicLinkStatus", "Error getting magic link.");
     }
     return false;
 }
@@ -595,7 +597,7 @@ function translateForward(forward, reason) {
 
 // Fastspring thankyou globals.
 
-var g_pollInterval = 1000;
+var g_pollInterval = 500;
 
 // For the thank-you-page. TODO: Organize things more sensibly.
 
@@ -607,7 +609,7 @@ const tmplShowSuccessfulPurchase = `
 <p>NOTE: If no e-mail arrives within a few minutes, please check your spam box.
 If it's not there or you want to use a different e-mail address for log-in,
 then <a href="mailto:hrydgard+ppssppgold@gmail.com">e-mail me</a> and I'll sort it out.</p>
-<p><a href="{{it.magicLink}}">Click here to log in!</a></p>
+<p><a href="{{it.magicLink}}" class="download-button button-gold" style="display:block;">Click here to log in!</a></p>
 <p>Paid: {{it.totalDisplay}} ({{it.currency}})</p>
 `;
 
@@ -640,7 +642,7 @@ async function pollPurchase() {
     if (statusData) {
         console.log(statusData);
         if (statusData.paymentStatus == "completed") {
-            setStatusDisplay(SUCCESS, "purchaseStatus", "Purchase confirmed!");
+            setStatusDisplay(SUCCESS, "purchaseStatus", "Purchase successful!");
             const purchaseInfo = document.getElementById("purchaseInfo");
             purchaseInfo.innerHTML = Sqrl.render(tmplShowSuccessfulPurchase, statusData);
         } else {

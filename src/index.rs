@@ -1,3 +1,6 @@
+// Some ideas:
+// https://javascript.plainenglish.io/building-a-simple-in-browser-search-engine-d87c86ac3261
+
 use std::collections::HashMap;
 
 use crate::document::DocumentMeta;
