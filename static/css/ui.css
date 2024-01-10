@@ -429,3 +429,7 @@ form button:hover {
 div.forgot-password {
     margin-top: 20px;
 }
+
+.moon {
+    .fill: var(--text-color);
+}

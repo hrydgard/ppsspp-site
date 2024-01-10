@@ -59,8 +59,11 @@
                         class="{{#if selected}}selected{{/if}}{{#if external}} external{{/if}}">{{{title}}}{{#if
                         external}}{{> link_icon }}{{/if}}</a></li>
                 {{/each}}
+                <li>
+                    <div onclick="switchTheme()" style="display:inline"></div>
+                </li>
             </ul>
-            <div id="loginCorner"><a href="/login">Login</a></div>
+            <div id="loginCorner" style="display:inline"><a href="/login">Login</a></div>
         </nav>
 
         <script type="text/javascript" src="https://kit.fontawesome.com/d35975edad.js" defer></script>
@@ -78,6 +81,11 @@
                     {{/each}}
                     <li>
                         <div id="loginItem"><a href="/login">Login</a></div>
+                    </li>
+                    <li>
+                        <a id="darkItem" class="switch-theme" onclick="switchTheme()">
+                            <i class="fas fa-moon"></i>&nbsp;Dark Mode
+                        </a>
                     </li>
                 </ul>
             </div>

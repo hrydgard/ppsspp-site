@@ -37,7 +37,7 @@
 }
 
 .menu>li {
-    margin: 0 0.6rem;
+    margin: 0 0.45rem;
     overflow: hidden;
     padding-bottom: 0px;
     font-size: 12pt;
@@ -185,6 +185,12 @@
 }
 
 .burger-sidebar li #loginItem a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.burger-sidebar li #darkItem a {
     display: flex;
     flex-direction: row;
     align-items: center;
