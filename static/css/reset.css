@@ -1,7 +1,8 @@
 /* RESET from https://www.joshwcomeau.com/css/custom-css-reset/ */
 
 :root {
-  color-scheme: dark;
+  /*Breaks fast-spring popup background*/
+  /*color-scheme: dark;*/
 }
 
 /*
