@@ -23,7 +23,7 @@
 // - [x] Mobile site improvements (move login to popdown menu, fix scrolling)
 // - [x] Polish
 // - [x] Test purchase
-// - [ ] *** Deploy ***
+// - [x] *** Deploy ***
 // - [ ] h2 Section links
 // - [ ] Blog tags, browse by
 // - [ ] Nicer author tags in the blog
@@ -373,12 +373,15 @@ fn generate_pages(
     Ok(())
 }
 
+#[allow(dead_code)]
 #[derive(StructOpt, Debug)]
 struct Opt {
     #[structopt(long, default_value = "3000")]
     port: i32,
     #[structopt(long)]
     prod: bool,
+    #[structopt(long)]
+    dev: bool,
     #[structopt(long)]
     minify: bool,
     #[structopt(long)]
