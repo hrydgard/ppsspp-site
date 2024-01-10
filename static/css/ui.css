@@ -386,6 +386,7 @@ form input {
     height: 35px;
     border: solid 2px var(--color-gray-600);
     background-color: var(--color-gray-900);
+    color: var(--color-text);
 }
 
 form label {
@@ -397,6 +398,7 @@ form textarea {
     width: 100%;
     border: solid 2px var(--color-gray-600);
     background-color: var(--color-gray-900);
+    color: var(--color-text);
 }
 
 form button {

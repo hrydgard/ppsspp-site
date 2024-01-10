@@ -260,8 +260,10 @@ async function applyDOMVisibility() {
             let freegold_name_input = document.getElementById("freegold_name");
             let freegold_email_input = document.getElementById("freegold_email");
             let listener = (event) => {
+                console.log("event");
                 setStatusDisplay(HIDDEN, "freeGoldStatus");
             };
+            console.log("adding listeners");
             freegold_name_input.addEventListener("input", listener);
             freegold_email_input.addEventListener("input", listener);
         } else {
@@ -346,8 +348,11 @@ async function handleGiveFreeGold(event) {
     const response = await jsonFetch("freegold", freeGoldUser);
     if (response) {
         console.log("gave free gold to " + userName + " '" + userEmail + "'");
+        setStatusDisplay(SUCCESS, "freeGoldStatus", "Gave free gold to " + userName + " '" + userEmail + "'\n");
+        console.log(response);
+    } else {
+        setStatusDisplay(ERROR, "freeGoldStatus", "Failed to give free gold");
     }
-    setStatusDisplay(SUCCESS, "freeGoldStatus", "Gave free gold")
     return false;
 }
 
