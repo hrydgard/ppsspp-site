@@ -257,6 +257,13 @@ async function applyDOMVisibility() {
         const adminPanels = document.getElementById("adminPanels");
         if (g_userData.admin && adminPanels) {
             adminPanels.innerHTML = Sqrl.render(tmplAdminPanel, g_userData);
+            let freegold_name_input = document.getElementById("freegold_name");
+            let freegold_email_input = document.getElementById("freegold_email");
+            let listener = (event) => {
+                setStatusDisplay(HIDDEN, "freeGoldStatus");
+            };
+            freegold_name_input.addEventListener("input", listener);
+            freegold_email_input.addEventListener("input", listener);
         } else {
             adminPanels.innerHTML = "";
         }
