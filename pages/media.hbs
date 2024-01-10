@@ -1,0 +1,67 @@
+{{> common_header this title="Media" description="Screenshots and video"}}
+
+<div class="container">
+    <h2>Screenshots</h2>
+    <!-- Slideshow container -->
+    <div class="slideshow-container">
+        <!-- Full-width images with number and caption text -->
+        {{#each globals.screenshots}}
+        <div class="mySlides fade">
+            <img src="/static/img/screenshots/{{filename}}" style="width:100%" onclick="plusSlides(1)">
+            <div class="text">{{description}}</div>
+        </div>
+        {{/each}}
+
+        <!-- Next and previous buttons -->
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+    <br>
+    <!-- The dots/circles -->
+    <div style="text-align:center">
+        {{#each globals.screenshots}}
+        <span class="slideshow-dot" onclick="currentSlide({{index}})"></span>
+        {{/each}}
+    </div>
+
+    <h2>Videos</h2>
+    <iframe class="video" src="https://www.youtube.com/embed/10_i9cQdQA0" title="PPSSPP: PSP emulator" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+    <iframe class="video" src="https://www.youtube.com/embed/y3dgEeDW5Xw" title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+</div>
+
+<script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    // Next/previous controls
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    // Thumbnail image controls
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("slideshow-dot");
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].classList.remove("active");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].classList.add("active");
+    }
+</script>
+
+{{> common_footer this}}

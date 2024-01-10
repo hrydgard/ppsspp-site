@@ -1,0 +1,136 @@
+/* The colors are nabbed from infima (docusaurus) mainly. */
+
+html[data-theme='dark'] {
+    --default-border-radius: 5px;
+    --card-border-radius: 15px;
+
+    --doc-sidebar-width: 250px;
+
+    --color-gray-0: #fff;
+    --color-gray-100: #f5f6f7;
+    --color-gray-200: #ebedf0;
+    --color-gray-300: #dadde1;
+    --color-gray-400: #ccd0d5;
+    --color-gray-500: #bec3c9;
+    --color-gray-600: #8d949e;
+    --color-gray-700: #4e535a;
+    --color-gray-800: #34383d;
+    --color-gray-900: #1c1e21;
+    --color-gray-1000: #000;
+
+    --background-surface-color: var(--color-gray-800);
+    --shadow-color: var(--color-gray-1000);
+}
+
+html[data-theme='light'] {
+    --default-border-radius: 5px;
+    --card-border-radius: 15px;
+
+    --doc-sidebar-width: 250px;
+
+    --color-gray-1000: #fff;
+    --color-gray-900: #f5f6f7;
+    --color-gray-800: #ebedf0;
+    --color-gray-700: #dadde1;
+    --color-gray-600: #ccd0d5;
+    --color-gray-500: #bec3c9;
+    --color-gray-400: #8d949e;
+    --color-gray-300: #4e535a;
+    --color-gray-200: #34383d;
+    --color-gray-100: #1c1e21;
+    --color-gray-0: #000;
+
+    --background-surface-color: var(--color-gray-700);
+    --shadow-color: var(--color-gray-300);
+}
+
+:root {
+    /* Shared colors */
+
+    --color-primary: #33b5e5;
+    --color-secondary: #ebedf0;
+    --color-success: #00a400;
+    --color-info: #54c7ec;
+    --color-warning: #b78600;
+    --color-danger: #fa383e;
+
+    --color-gold: #b48700;
+    --color-gold-hover: #efb400;
+    --color-gold-border: #ffc800;
+    --color-gold-border-hover: #fff5d0;
+
+    --color-primary-dark: #2792b9;
+    --color-primary-darker: #1a627c;
+    --color-primary-darkest: #13475b;
+    --color-primary-light: #6dc9eb;
+    --color-primary-lighter: #ace9ff;
+    --color-primary-lightest: #c9f1ff;
+    --color-primary-contrast-background: rgb(235, 242, 252);
+    --color-primary-contrast-foreground: rgb(16, 36, 69);
+    --color-secondary-dark: rgb(212, 213, 216);
+    --color-secondary-darker: rgb(200, 201, 204);
+    --color-secondary-darkest: rgb(164, 166, 168);
+    --color-secondary-light: rgb(238, 240, 242);
+    --color-secondary-lighter: rgb(241, 242, 245);
+    --color-secondary-lightest: rgb(245, 246, 248);
+    --color-secondary-contrast-background: rgb(253, 253, 254);
+    --color-secondary-contrast-foreground: rgb(71, 71, 72);
+    --color-success-dark: rgb(0, 148, 0);
+    --color-success-darker: rgb(0, 139, 0);
+    --color-success-darkest: rgb(1, 95, 1);
+    --color-success-light: rgb(38, 178, 38);
+    --color-success-lighter: rgb(77, 191, 77);
+    --color-success-lightest: rgb(128, 210, 128);
+    --color-success-contrast-background: rgb(230, 246, 230);
+    --color-success-contrast-foreground: rgb(0, 49, 0);
+    --color-info-dark: rgb(76, 179, 212);
+    --color-info-darker: rgb(71, 169, 201);
+    --color-info-darkest: rgb(59, 139, 165);
+    --color-info-light: rgb(110, 207, 239);
+    --color-info-lighter: rgb(135, 216, 242);
+    --color-info-lightest: rgb(170, 227, 246);
+    --color-info-contrast-background: rgb(238, 249, 253);
+    --color-info-contrast-foreground: rgb(25, 60, 71);
+    --color-warning-dark: rgb(219, 161, 0);
+    --color-warning-darker: rgb(185, 135, 0);
+    --color-warning-darkest: rgb(105, 77, 0);
+    --color-warning-light: rgb(255, 196, 38);
+    --color-warning-lighter: rgb(255, 207, 77);
+    --color-warning-lightest: rgb(255, 221, 128);
+    --color-warning-contrast-background: rgb(255, 248, 230);
+    --color-warning-contrast-foreground: rgb(77, 56, 0);
+    --color-danger-dark: rgb(225, 50, 56);
+    --color-danger-darker: rgb(213, 48, 53);
+    --color-danger-darkest: rgb(140, 31, 34);
+    --color-danger-light: rgb(251, 86, 91);
+    --color-danger-lighter: rgb(251, 116, 120);
+    --color-danger-lightest: rgb(253, 156, 159);
+    --color-danger-contrast-background: rgb(255, 235, 236);
+    --color-danger-contrast-foreground: rgb(75, 17, 19);
+
+}
+
+:root {
+    /* UI parts, derived colors */
+    --color-header-footer: var(--color-gray-1000);
+    --color-contents-background: var(--color-gray-900);
+    --color-text: var(--color-gray-100);
+    --color-text-inverse: var(--color-gray-900);
+
+    --color-table-border: var(--color-gray-600);
+    --color-a-hover: var(--color-primary);
+    --color-table-bg: var(--color-gray-800);
+    --color-card-background: var(--background-surface-color);
+
+    --button-background-color: var(--color-primary);
+    --button-background-color-hover: var(--color-primary-light);
+    --button-border-color: var(--button-background-color);
+    --button-border-width: 2px;
+    --button-color: var(--color-text-inverse);
+    --button-font-weight: bold;
+    --button-padding-horizontal: 1rem;
+    --button-padding-vertical: .8rem;
+    --button-transition-duration: var(--transition-fast);
+    --button-border-radius: 5px;
+    --button-group-spacing: 2px;
+}

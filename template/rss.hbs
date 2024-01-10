@@ -1,0 +1,24 @@
+<rss version="2.0">
+    <channel>
+        <title>{{channel.title}}</title>
+        <link>{{channel.link}}</link>
+        <description>{{channel.description}}</description>
+        <lastBuildDate>{{channel.lastBuildDate}}</lastBuildDate>
+        <docs>{{channel.docs}}</docs>
+        <language>{{channel.language}}</language>
+        {{#each channel.items}}
+        <item>
+            <title>
+                <![CDATA[ {{title}} ]]>
+            </title>
+            <link>{{link}}</link>
+            <guid>{{link}}</guid>
+            <pubDate>{{pubDate}}</pubDate>
+            <description>
+                <![CDATA[ {{description}} ]]>
+            </description>
+            <category>{{category}}</category>
+        </item>
+        {{/each}}
+    </channel>
+</rss>

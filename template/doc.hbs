@@ -1,0 +1,54 @@
+{{> common_header this }}
+
+<div class="doc-container">
+
+    <div class="doc-sidebar" id="localSidebar">
+
+        {{{ sidebar }}}
+
+    </div>
+
+    <div class="doc-contents">
+        {{#if meta.breadcrumbs}}
+        <ul class="breadcrumb">
+            {{#each meta.breadcrumbs}}
+            <li>{{#if url}}<a href="{{url}}">{{/if}}{{title}}{{#if url}}</a>{{/if}}</li>
+            {{/each}}
+        </ul>
+        {{/if}}
+
+        {{{ contents }}}
+
+        {{#each tags}}
+        <a class="tag-link">{{name}}</a>
+        {{/each}}
+
+        {{> unit}}
+
+        <div class="nav-link-container">
+            {{ #if meta.prev }}
+            <a href="{{ meta.prev.url }}" class="nav-link">
+                <div class="direction">
+                    Prev
+                </div>
+                <div class="title">
+                    &laquo;&nbsp;{{meta.prev.title}}
+                </div>
+            </a>
+            {{ /if }}
+            {{ #if meta.next }}
+            <a href="{{ meta.next.url }}" class="nav-link next">
+                <div class="direction">
+                    Next
+                </div>
+                <div class="title">
+                    {{meta.next.title}}&nbsp;&raquo;
+                </div>
+            </a>
+            {{ /if }}
+        </div>
+    </div>
+
+</div>
+
+{{> common_footer this }}

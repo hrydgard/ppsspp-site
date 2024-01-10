@@ -195,4 +195,4 @@ It can be a bit annoying that KTX2 files don't have thumbnails in the Windows Ex
 
 ## More info
 
-See [#8715](https://github.com/hrydgard/ppsspp/pull/8715), [#8792](https://github.com/hrydgard/ppsspp/pull/8792), [#4630](https://github.com/hrydgard/ppsspp/issues/4630), and [#9668](https://github.com/hrydgard/ppsspp/pull/9668).
+See [#8715], [#8792], [#4630], and [#9668].

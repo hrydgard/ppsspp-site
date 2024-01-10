@@ -6,7 +6,7 @@ One of the next interesting main porting-related tasks will be to implement a JI
 
 ## Platforms
 
-Here's an incomplete list of platforms that PPSSPP could or could not be ported to (last updated October 2022):
+Here's an incomplete list of platforms that PPSSPP could or could not be ported to (last updated 2024):
 
 | Platform  | State | Comments |
 | --------- | ----- | -------- |

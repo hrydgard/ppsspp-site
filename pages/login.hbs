@@ -1,0 +1,55 @@
+{{> common_header this title="Login" description="Login form"}}
+
+<!-- This takes care of /loginbykey duties too. That's a redirect. -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 not-logged-in-only">
+            <div class="card">
+                <div class="card-title">
+                    <h2 class="no-icon">Login</h2>
+                </div>
+
+                <p>
+                    No account? <a href="/buygold">Buy PPSSPP Gold</a>!
+                </p>
+                <div class="alert alert-info">Note that accounts are for accessing PPSSPP Gold on PC/Mac.
+                </div>
+
+                <form action="#" onSubmit="return handleLoginForm(event)">
+                    <div class="alert alert-success" style="display: none;" id="error_message" role="alert"></div>
+                    <label for="email">E-mail address</label>
+                    <input type="text" size="38" id="email" name="email" />
+                    <label for="password">Password</label>
+                    <input type="password" size="38" id="password" name="password" />
+                    <div>
+                        <button class="button" type="submit">Login</button>
+                    </div>
+                    <div class="forgot-password">
+                        <a href="/recoverpassword">Forgot your password?</a>
+                    </div>
+                </form>
+
+                <div id="loginStatus" class="alert alert-hidden"></div>
+            </div>
+        </div>
+
+        <div class="col-4 card logged-in-only">
+            <div class="card-title">
+                <h2 class="no-icon">Account</h2>
+            </div>
+            <p id="loginInfo">Will be populated when logged in.</p>
+
+            <button onclick="logoutUser()" class="download-button">Log out</button>
+        </div>
+
+        <div id="adminPanels" class="admin-only"></div>
+    </div>
+</div>
+
+<script>
+    // Allow login by keys on this page only. There might be a better way to accomplish this.
+    g_loginByKey = true;
+</script>
+
+{{> common_footer this}}

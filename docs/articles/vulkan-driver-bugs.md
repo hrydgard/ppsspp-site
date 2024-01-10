@@ -69,7 +69,7 @@ Fixed in the latest Adreno drivers since some time, supposedly fixed by Mali (bu
 
 The color mask controls which channels of a color attachment are written. It's possible to write to only the depth buffer while still having both a color buffer and a depth buffer bound by setting the color mask to 0. Unfortunately, on Adreno 500, this does not produce the expected results.
 
-It's unclear what exactly happens but it's clear that it doesn't work properly. See PPSSPP issue #10421.
+It's unclear what exactly happens but it's clear that it doesn't work properly. See PPSSPP issue [#10421].
 
 #### Workaround
 
@@ -192,7 +192,7 @@ Fixed.
 
 Passing samplers as parameters to functions doesn't work, and `textureQueryLod()` crashes the driver.
 
-####  Workaround
+#### Workaround
 
 Sampler: Avoid these constructs, or use SPIRV-Opt to inline all functions before calling `vkCreateShaderModule`.
 

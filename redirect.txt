@@ -1,0 +1,12 @@
+List of things that have changed, that need to be reflected in redirects
+
+docs/category/getting-started -> docs/getting-started:
+* troubleshooting
+* development
+* multiplayer
+* psp-hardware
+* reference
+* articles
+
+/docs/category/gpu---the-ge -> /docs/psp-hardware/gpu
+/docs/category/cpu---allegrex -> /docs/category/cpu

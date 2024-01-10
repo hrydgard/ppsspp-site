@@ -1,0 +1,109 @@
+{{> common_header this title="Download" description="Download PPSSPP for Android, Windows, Mac, iOS"}}
+
+<div class="container">
+    <h1>Download PPSSPP</h1>
+
+    <p>What's new in {{ globals.app_version }}? See the <a href="/news">news page</a>!</p>
+
+    <div class="alert alert-warning gold-only">
+        You've got PPSSPP Gold for Windows/macOS! Downloads are now available below.
+    </div>
+
+    <div class="row">
+        <!-- We now over the platforms -->
+        {{#each globals.platforms}}
+        <div class="col-4">
+            <div class="card">
+                <div class="card-title">
+                    {{ #if platform_badge }}
+                    <img src="/static/img/platform/{{platform_badge}}">
+                    {{ /if}}
+                    <h2>{{ title }}</h2>
+                </div>
+                <div class="card-contents">
+                    {{ #each downloads }}
+
+                    <div {{ #if gold_only }} class="gold-only" {{ /if }}>
+                        {{ #if title }}
+                        <h3>{{ title }}</h3>
+                        {{ /if }}
+
+                        <a class="download-button button-block {{#if gold}}button-gold{{/if}}" {{#if url
+                            }}href="{{url}}" {{ /if }} {{ #if download_url }}href="{{download_url}}" {{ /if }}>
+                            <div class="button-contents">
+                                {{ #if icon }}
+                                <img src="/static/img/platform/{{icon}}" width="32px" height="32px">&nbsp;
+                                {{ /if }}
+                                {{ #if url }}{{name}}{{ /if }}
+                                {{ #if download_url }}{{name}}{{ /if }}
+                            </div>
+                            {{ #if service_image }}
+                            <img src="{{service_image}}" alt="{{service_alt}}" width="80%">
+                            {{ /if }}
+                        </a>
+
+                        {{ #if whats_this_url }}
+                        <a href="{{whats_this_url}}">{{whats_this}}</a><br />
+                        {{ /if }}
+
+                    </div>
+                    {{ /each }}
+                </div>
+            </div>
+        </div>
+        {{#if newline}}
+    </div>
+    <div class="row">
+        {{/if}}
+        {{/each}}
+    </div>
+
+    <p class="gold-only">You have Gold for Windows/macOS - <a href="/requestgold">get PPSSPP Gold for Android for
+            free!</a></p>
+
+    <h2>Development builds</h2>
+    <p>Download fresh development builds from <a href="https://buildbot.orphis.net/ppsspp/index.php">Orphis'
+            Buildbot</a>, also included below.</p>
+    <p>Please note that these development builds can be unstable - if one doesn't work, try an earlier one. And backup
+        your save games!</p>
+
+    <h2>Legacy builds and other downloads</h2>
+    <p><a href="/legacybuilds">A page where you can download</a> cube.elf, and builds for Switch, Blackberry, Meego and
+        other esoteric or old platforms.</p>
+
+    <h2>Previous releases</h2>
+    <button class="collapsible">Show downloads of previous releases</button>
+    <div class="collapsible-content">
+        <table class="nice-table">
+            <thead>
+                <tr>
+                    <th>Version</th>
+                    <th>Downloads</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ #each globals.version_downloads }}
+                <tr>
+                    <td>{{version}}</td>
+                    <td>
+                        {{ #each downloads }}
+                        {{ #if icon }}
+                        <img src="/static/img/platform/{{icon}}" width="24px" height="24px">
+                        {{ /if }}
+                        {{ #if short_name }}
+                        <a href="{{download_url}}">{{short_name}}</a>
+                        {{ /if }}
+                        |
+                        {{ /each }}
+                    </td>
+                </tr>
+                {{ /each }}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<iframe seamless="true" src="https://buildbot.orphis.net/ppsspp/"
+    style="border-width: 0px; background-color: transparent; padding: 0px; overflow: hidden; width: 100%; height: 2000px" />
+
+{{> common_footer this}}

@@ -19,7 +19,7 @@ On old-school, fixed-function hardware such as that of the PSP, where you can’
 
 Let's start by looking at the wrong result - the way it was in PPSSPP before I started investigating the effect:
 
-<video src="/img/blog/burnout-dominator-lens-flare/wrongly-occluded-small.mp4" width="100%" controls/>
+<video src="/static/img/blog/burnout-dominator-lens-flare/wrongly-occluded-small.mp4" width="100%" controls></video>
 
 As you can see, the lens flare effect is visible going into the tunnel, and through various trees and stuff.
 
@@ -37,11 +37,11 @@ First, it makes a backup copy of a 14x14 rectangle around the sun location on-sc
 It then downsamples (through bilinear filtering) this binary image to 8x8, sitting out in the unused border of the main framebuffer.
 Then, it downsamples this 8x8 image three more times, until we reach a single value, which is thus the average of the black and white pixels, and thus an effective measurement of the coverage. The final value is for some obscure reason spread out over four pixels.
 
-<img src="/img/blog/burnout-dominator-lens-flare/edge_annotated.png" />
+<img src="/static/img/blog/burnout-dominator-lens-flare/edge_annotated.png" alt="Picture of downsampling" />
 
 After that, it restores the little modified square of image the way it was, using the backup copy from before:
 
-<img src="/img/blog/burnout-dominator-lens-flare/restored.png" />
+<img src="/static/img/blog/burnout-dominator-lens-flare/restored.png" alt="Restored image region"/>
 
 ## Applying the coverage value
 
@@ -75,11 +75,11 @@ And we reach the final moment, where the coverage value sits properly in the alp
 
 Finally, we have:
 
-<img src="/img/blog/burnout-dominator-lens-flare/subtle.png" width="200px"/>
-<img src="/img/blog/burnout-dominator-lens-flare/stronger_flare.png" width="200px"/>
+<img src="/static/img/blog/burnout-dominator-lens-flare/subtle.png" alt="Subtle working lensflare" width="200px"/>
+<img src="/static/img/blog/burnout-dominator-lens-flare/stronger_flare.png" alt="Bright working lensflare" width="200px"/>
 
 And a video:
 
-<video src="/img/blog/burnout-dominator-lens-flare/correctly-occluded-small.mp4" width="100%" controls/>
+<video src="/static/img/blog/burnout-dominator-lens-flare/correctly-occluded-small.mp4" width="100%" controls></video>
 
 Phew! Getting this to work in PPSSPP was.. not trivial. I could write a whole other article about the improvements that needed to be done to the rendering pipeline so that all of the tricky steps above would actually work correctly.

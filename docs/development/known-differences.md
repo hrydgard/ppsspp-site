@@ -1,4 +1,6 @@
-# Known differences in behavior compared to the real PSP
+# Known differences from the real PSP
+
+PPSSPP tries to replicate the behavior of a real PSP, with regards to running games, as closely as possible, but there are known differences. Some of them are described below.
 
 ## Language in sceUtility dialogs
 
@@ -18,13 +20,19 @@ The MIPS CPU in the PSP has separate data and instruction caches. The data cache
 
 PPSSPP just pretends the caches are invisible, which they should be if games use it correct. Which they don't always do - it's believed that a graphical glitch with fires in the Prince of Persia games is caused by some kind of cache misuse.
 
-## VFPU math functions are not even nearly bit-accurate
+## VFPU math functions are not fully bit-accurate
 
-The VFPU is a vector co-processor that is controlled with the same instruction stream as the main CPU. It has a lot of very complex instructions like cosines, square roots and so forth, and we haven't figured out the exact formulas behind these so instead we use approximations that are quick to compute. Additionally, dot products use a cool mantissa-aligning optimization, causing quite different results from a naive series of multiplications and adds. This means however there are sometimes some accuracy issues, especially in replays (such as the Ridge Racer built-in replays) that can go out of sync, and various physical and graphical problems such as the legendary shaking feet in Tekken 6 (since fixed).
+The VFPU is a vector co-processor that is controlled with the same instruction stream as the main CPU. It has a lot of very complex instructions like cosines, square roots and so forth, and we haven't figured out the exact formulas behind these so instead we use approximations that are quick to compute. Additionally, dot products use a cool mantissa-aligning optimization, causing quite different results from a naive series of multiplications and adds. This means however there are sometimes some accuracy issues, especially in replays (such as the Ridge Racer built-in replays) that can go out of sync, and various physical and graphical problems such as shaking feet in Tekken 6 (since fixed).
 
-## Media Engine (mpeg, atrac) is rough
+This has been improved greatly recently by fp64's work, but some functions are still a bit off, and replays in Ridge Racer still don't function correctly.
 
-The Media Engine APIs are not very well documented and our implementation of them involves a lot of guesswork, and a lot of ugly tricks wrangling FFMPEG into doing our bidding. This does sometimes lead to problems, such as the quick-skipping tracks in Flatout. An area that needs more work, but also a very difficult one.
+## Media Engine (mpeg, atrac decoder) is rough
+
+The Media Engine APIs are not very well documented and our implementation of them involves a lot of guesswork, and a lot of ugly tricks wrangling FFMPEG into doing our bidding. This does sometimes lead to problems, such as the quick-skipping audio tracks in Flatout, see issue [#6663]. An area that needs more work, but also a very difficult one.
+
+## Color depth is not emulated accurately
+
+The PSP often renders at 16-bit color depth (either RGB555 or RGB565), but PPSSPP always renders with 32-bit color (full RGBA8888).
 
 ## And so much more...
 

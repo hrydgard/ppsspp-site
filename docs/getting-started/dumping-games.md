@@ -1,7 +1,6 @@
 ---
-sidebar_position: 2
+position: 3
 ---
-
 # Dumping UMD games
 
 To read a game disc into an ISO is called "dumping" for historical reasons - it's old computer lingo for copying every single bit of a medium to a file, for archival storage or other use.

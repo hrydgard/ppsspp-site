@@ -1,0 +1,130 @@
+@font-face {
+  font-family: 'DroidSans';
+  src: url('/static/fonts/droid_sans.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'DroidSans';
+  src: url('/static/fonts/droid_sans_bold.woff2') format('woff2');
+  font-weight: bold;
+}
+
+html,
+body {
+  font-family: DroidSans, sans-serif;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  box-sizing: border-box;
+  color: var(--color-text);
+  background-color: var(--color-contents-background);
+}
+
+a {
+  text-decoration: none;
+}
+
+p,
+li,
+pre {
+  line-height: 1.6;
+  font-size: 12pt;
+}
+
+p,
+pre {
+  padding-bottom: 9px;
+}
+
+li {
+  padding-bottom: 2px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  padding: 12px 9px 0 0;
+}
+
+h1 {
+  font-size: 26pt;
+}
+
+h2 {
+  font-size: 18pt;
+}
+
+h3 {
+  font-size: 16pt;
+}
+
+h4 {
+  font-size: 14pt;
+}
+
+a {
+  color: var(--color-primary);
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--color-a-hover);
+}
+
+.page-wrapper {
+  box-sizing: border-box;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Utility for images followed by text. */
+.center-vertical {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.clean-list {
+  padding-inline-start: 0px;
+  list-style: none;
+}
+
+.center-text {
+  text-align: center;
+}
+
+footer a {
+  color: var(--color-text);
+}
+
+footer a:hover {
+  color: var(--color-a-hover);
+}
+
+footer h2 {
+  font-size: 14pt;
+  padding-bottom: 12px;
+}
+
+.footer-bottom-text {
+  padding: 10px;
+}
+
+.footer-bottom-text a {
+  color: var(--color-primary);
+}
+
+.contents {
+  flex-grow: 1;
+  background-color: var(--color-contents-background);
+  color: var(--color-text)
+}
+
+footer {
+  flex-grow: 0;
+  flex-shrink: 0;
+  background-color: var(--color-header-footer);
+  color: var(--color-text)
+}

@@ -1,0 +1,429 @@
+.logged-in-only {
+    display: none;
+}
+
+.logged-in-only-inline {
+    display: none;
+}
+
+.gold-only {
+    display: none;
+}
+
+.gold-only-inline {
+    display: none;
+}
+
+.button-block {
+    display: block;
+    width: 100%;
+}
+
+.download-button {
+    display: block;
+    background-color: var(--button-background-color);
+    border: var(--button-border-width) solid var(--button-border-color);
+    border-radius: var(--button-border-radius);
+    color: var(--color-text-inverse);
+    cursor: pointer;
+    font-size: calc(.875rem*var(--button-size-multiplier));
+    font-weight: var(--button-font-weight);
+    line-height: 1.5;
+    padding: var(--button-padding-vertical) var(--button-padding-horizontal);
+    margin: 8px 0px;
+    text-align: center;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.download-button .button-contents {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.hero-button {
+    box-shadow: 0 0 10px var(--shadow-color);
+    margin: 14px 0px;
+    font-size: 14pt;
+}
+
+.download-button.button-gold {
+    background-color: var(--color-gold);
+    border-color: var(--color-gold-border);
+}
+
+.download-button:hover {
+    color: var(--color-text-inverse);
+    background-color: var(--button-background-color-hover);
+    text-decoration: none;
+}
+
+.download-button.button-gold:hover {
+    background-color: var(--color-gold-hover);
+    border-color: var(--color-gold-border-hover);
+}
+
+/* Article / doc stuff */
+
+.article {
+    /* General */
+    display: block;
+}
+
+.article .article-infos ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.article .article-infos ul li {
+    display: inline-block;
+    font-size: 14px;
+    margin: 0 1rem 0 0;
+    padding: 0;
+}
+
+.article .article-infos i {
+    color: var(--color-gray-300);
+}
+
+a.tag-link {
+    border-radius: 7px;
+    background-color: var(--color-gray-800);
+    padding: 8px;
+    box-shadow: 0 3px 5px var(--shadow-color);
+    color: var(--color-text);
+}
+
+a.tag-link:hover {
+    color: var(--color-primary);
+}
+
+a.next {
+    text-align: right;
+}
+
+.nav-link-container {
+    display: table;
+    width: 100%;
+    border-spacing: 3px;
+    table-layout: fixed;
+}
+
+a.nav-link {
+    display: table-cell;
+    border-width: 2px;
+    border-color: var(--color-gray-700);
+    border-radius: 10px;
+    border-style: solid;
+    margin: 20px 0px 10px 0px;
+    padding: 10px;
+    width: 48%;
+}
+
+a.nav-link:hover {
+    border-color: var(--color-primary);
+}
+
+a.nav-link .direction {
+    margin: 3px;
+    color: var(--color-text);
+}
+
+a.nav-link:hover {
+    text-decoration: none;
+}
+
+a.nav-link .title {
+    margin: 3px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Style the list */
+ul.breadcrumb {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 10px;
+    list-style: none;
+    margin-top: 12px;
+    margin-left: -5px;
+    background-color: var(--color-gray-800);
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+    display: inline;
+    font-size: 14pt;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li+li:before {
+    padding: 8px;
+    color: var(--color-text);
+    content: "/\00a0";
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+    text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+    text-decoration: underline;
+}
+
+.doc-sidebar a {
+    float: none;
+    display: block;
+    color: var(--color-text);
+}
+
+.doc-sidebar a.selected {
+    color: var(--color-primary);
+}
+
+.doc-sidebar a:hover {
+    color: var(--color-primary);
+}
+
+/* */
+ul.nav-tree-items {
+    list-style: none;
+    padding: 0px;
+    margin-right: 0px;
+    margin-bottom: 7px;
+}
+
+ul.nav-tree-items .level-1,
+ul.nav-tree-items .level-2,
+ul.nav-tree-items .level-3 {
+    padding-left: 15px;
+}
+
+a.nav-tree-category {
+    display: block;
+    font-weight: bold;
+    padding-left: 5px;
+    margin-bottom: 5px;
+}
+
+a.nav-tree-item {
+    display: block;
+    padding-left: 5px;
+    margin-bottom: 0px;
+}
+
+a.nav-tree-category.selected,
+a.nav-tree-item.selected {
+    background-color: var(--color-gray-800);
+}
+
+.alert {
+    display: block;
+    box-shadow: 0 3px 5px var(--shadow-color);
+    border-radius: 5px;
+    border-left-style: solid;
+    border-width: 5px;
+    padding: 14px;
+    margin: 12px 0px;
+    color: #fff;
+    /* on both dark and light modes */
+}
+
+.alert.alert-warning {
+    background-color: var(--color-warning-darkest);
+    border-color: var(--color-warning);
+}
+
+.alert.alert-error {
+    background-color: var(--color-danger-darkest);
+    border-color: var(--color-danger);
+}
+
+.alert.alert-success {
+    background-color: var(--color-success-darkest);
+    border-color: var(--color-success);
+}
+
+.alert.alert-info {
+    background-color: var(--color-primary-darkest);
+    border-color: var(--color-primary);
+}
+
+.alert.alert-hidden {
+    display: none;
+}
+
+code {
+    font-family: monospace;
+}
+
+.collapsible {
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+.active,
+.collapsible:hover {
+    background-color: #555;
+}
+
+.collapsible:after {
+    content: '\002B';
+    color: white;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2212";
+}
+
+.collapsible-content {
+    display: none;
+    overflow: hidden;
+}
+
+.nice-table {
+    width: 100%;
+    display: table;
+    border-spacing: 0;
+    margin-bottom: 1rem;
+    background-color: var(--color-table-bg);
+    padding: 0;
+}
+
+.nice-table thead {
+    background-color: var(--color-table-bg);
+    text-align: left;
+}
+
+.nice-table td,
+.nice-table th {
+    background-color: var(--color-table-bg);
+    padding: 0.5rem 0.4rem;
+    border-bottom: 3px solid var(--color-table-border);
+}
+
+.nice-table th {
+    font-weight: bold;
+    border-bottom: 4px solid var(--color-table-border);
+}
+
+.card {
+    /* General */
+    width: 100%;
+    height: auto;
+    /* Margin */
+    margin: 0.2rem 0;
+    padding: 0;
+    /* Color */
+    background-color: var(--color-card-background);
+    /* Border */
+    border-radius: var(--card-border-radius);
+    /* Margin */
+    padding: 1rem;
+    box-shadow: 0 3px 5px var(--shadow-color);
+}
+
+.card .card-title {
+    margin: 0;
+    padding-bottom: 0.7rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.card .card-title h2 {
+    font-size: 16pt;
+    margin: 2px 0px 0px 10px;
+    padding: 0;
+}
+
+.card .card-title h2.no-icon {
+    margin: 2px 0px 0px 0px;
+    padding: 0;
+}
+
+.card .card-contents h3 {
+    font-size: 14pt;
+    margin: 0;
+    padding: 0;
+}
+
+.card .card-contents {
+    margin: 0;
+    padding-bottom: 0;
+}
+
+.card .card-section {
+    border-bottom: 2px solid var(--color-table-border);
+    padding: 1rem;
+}
+
+.video {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+}
+
+form input {
+    width: 100%;
+    margin: 3px 0px 13px 0px;
+    height: 35px;
+    border: solid 2px var(--color-gray-600);
+    background-color: var(--color-gray-900);
+}
+
+form label {
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+form textarea {
+    width: 100%;
+    border: solid 2px var(--color-gray-600);
+    background-color: var(--color-gray-900);
+}
+
+form button {
+    display: block;
+    background-color: var(--button-background-color);
+    border: var(--button-border-width) solid var(--button-border-color);
+    border-radius: var(--button-border-radius);
+    color: var(--color-text-inverse);
+    cursor: pointer;
+    font-size: calc(.875rem*var(--button-size-multiplier));
+    font-weight: var(--button-font-weight);
+    line-height: 1.5;
+    width: 100%;
+    padding: var(--button-padding-vertical) var(--button-padding-horizontal);
+    margin: 8px 0px;
+    text-align: center;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+form button:hover {
+    color: var(--color-text-inverse);
+    background-color: var(--button-background-color-hover);
+    text-decoration: none;
+}
+
+div.forgot-password {
+    margin-top: 20px;
+}

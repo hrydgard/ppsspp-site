@@ -1,0 +1,79 @@
+<!doctype html>
+
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/static/css/all.css">
+    <!--<link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="PPSSPP RSS Feed">
+    <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="PPSSPP Atom Feed">
+    <script src="/static/script/squirrelly.min.js" defer></script>
+    -->
+    <script src="/static/script/squirrelly.min.js" defer></script>
+    <script src="/static/script/account.js" defer></script>
+    {{#unless noAds}}
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3281131109267988"
+        crossorigin="anonymous"></script>
+    {{/unless}}
+    <script>
+        // Special behaviors. There's probably a better way.
+        var g_loginByKey = false;
+        var g_thankYouPage = false;
+    </script>
+    {{#if fastspring}}
+    <script src="/static/script/fastspring.js" defer></script>
+    <script id="fsc-api" src="https://d1f8f9xcsvx3ha.cloudfront.net/sbl/0.7.4/fastspring-builder.min.js"
+        type="text/javascript" {{ #if prod }} data-storefront="ppsspp.onfastspring.com/popup-gold" {{ else }}
+        data-storefront="ppsspp.test.onfastspring.com/popup-gold" {{ /if }} data-popup-closed="onFSPopupClosed"
+        data-debug=true>
+        </script>
+    {{/if}}
+    {{#if contains_code}}
+    <script src="/static/script/highlight.min.js" defer></script>
+    {{/if}}
+    <script src="/static/script/dark.js" defer></script>
+</head>
+
+<title>{{ title }}</title>
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <nav class="top-nav">
+            <div class='menu-button-container' id="burgerButton" onclick="burgerClick()" tabindex="0">
+                <div class='menu-button'></div>
+            </div>
+            <div class="top-nav-logo">
+                <a href="/" class="center-vertical"><img src="/static/img/platform/ppsspp-icon.png"
+                        width="32px" />&nbsp;PPSSPP</a>
+            </div>
+            <ul class="menu">
+                {{#each top_nav}}
+                <li><a href="{{url}}"
+                        class="{{#if selected}}selected{{/if}}{{#if external}} external{{/if}}">{{{title}}}{{#if
+                        external}}{{> link_icon }}{{/if}}</a></li>
+                {{/each}}
+            </ul>
+            <div id="loginCorner"><a href="/login">Login</a></div>
+        </nav>
+
+        <script type="text/javascript" src="https://kit.fontawesome.com/d35975edad.js" defer></script>
+
+        <section class="contents">
+            <div class="burger-sidebar hidden" id="rootSidebar">
+                <!-- We repeat all the same stuff again, but add Login.
+                better than crazy CSS tricks...
+                 -->
+                <ul class="burger-menu">
+                    {{#each top_nav}}
+                    <li><a href="{{url}}"
+                            class="{{#if selected}}selected{{/if}}{{#if external}} external{{/if}}">{{{title}}}{{#if
+                            external}}{{> link_icon }}{{/if}}</a></li>
+                    {{/each}}
+                    <li>
+                        <div id="loginItem"><a href="/login">Login</a></div>
+                    </li>
+                </ul>
+            </div>

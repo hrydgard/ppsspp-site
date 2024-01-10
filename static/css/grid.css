@@ -1,0 +1,237 @@
+/**
+*** SIMPLE GRID
+*** (C) ZACH COLE 2016
+**/
+
+/* ==== RESPONSIVE GRID SYSTEM ====
+
+With the addition of a special doc-container for docs with sidebars.
+
+*/
+
+.container {
+    width: 94%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.row {
+    position: relative;
+    width: 100%;
+}
+
+.row [class^="col"] {
+    float: left;
+    margin: 0.5em 1%;
+    min-height: 1em;
+}
+
+.col-1,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-10,
+.col-11,
+.col-12 {
+    width: 96%;
+}
+
+.col-1-sm {
+    width: 4.33%;
+}
+
+.col-2-sm {
+    width: 12.66%;
+}
+
+.col-3-sm {
+    width: 21%;
+}
+
+.col-4-sm {
+    width: 29.33%;
+}
+
+.col-5-sm {
+    width: 37.66%;
+}
+
+.col-6-sm {
+    width: 46%;
+}
+
+.col-7-sm {
+    width: 54.33%;
+}
+
+.col-8-sm {
+    width: 62.66%;
+}
+
+.col-9-sm {
+    width: 71%;
+}
+
+.col-10-sm {
+    width: 79.33%;
+}
+
+.col-11-sm {
+    width: 87.66%;
+}
+
+.col-12-sm {
+    width: 96%;
+}
+
+.row::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.hidden-sm {
+    display: none;
+}
+
+/* The squeezy phase, before we hit max width */
+@media only screen and (min-width: 45em) {
+
+    /* 720px */
+    .col-1 {
+        width: 4.33%;
+    }
+
+    .col-2 {
+        width: 12.66%;
+    }
+
+    .col-3 {
+        width: 21%;
+    }
+
+    .col-4 {
+        width: 30.8%;
+    }
+
+    .col-5 {
+        width: 37.66%;
+    }
+
+    .col-6 {
+        width: 46%;
+    }
+
+    .col-7 {
+        width: 54.33%;
+    }
+
+    .col-8 {
+        width: 62.66%;
+    }
+
+    .col-9 {
+        width: 71%;
+    }
+
+    .col-10 {
+        width: 79.33%;
+    }
+
+    .col-11 {
+        width: 87.66%;
+    }
+
+    .col-12 {
+        width: 96%;
+    }
+
+    .hidden-sm {
+        display: block;
+    }
+}
+
+/* Max-width phase */
+@media only screen and (min-width: 60em) {
+
+    /* 960px */
+    .container {
+        width: 95%;
+        max-width: 60em;
+    }
+}
+
+.doc-container {
+    height: 100%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
+}
+
+.doc-sidebar {
+    display: none;
+    z-index: 100;
+    overflow-x: hidden;
+    min-width: var(--doc-sidebar-width);
+    height: 100%;
+    border-right: 2px solid var(--color-gray-800);
+    padding-bottom: 12px;
+    margin-right: 4px;
+}
+
+.doc-contents {
+    width: 95%;
+    padding-left: 12px;
+    padding-right: 8px;
+    display: table-cell;
+}
+
+.doc-contents img,
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+.doc-contents pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    text-align: justify;
+}
+
+/* The squeezy phase, before we hit max width */
+@media only screen and (min-width: 45em) {
+    .doc-container {
+        width: 100%;
+    }
+
+    .doc-sidebar {
+        display: table-cell;
+    }
+
+    .doc-contents {
+        margin-left: var(--doc-sidebar-width);
+    }
+}
+
+
+/* Max-width phase */
+@media only screen and (min-width: 60em) {
+    .doc-container {
+        width: 100%;
+        max-width: 60em;
+    }
+
+    .doc-sidebar {
+        display: table-cell;
+    }
+
+    .doc-contents {
+        margin-left: var(--doc-sidebar-width);
+    }
+}

@@ -29,7 +29,7 @@ Additionally, in Vulkan, we now do shader compilation (as in pipeline creation) 
 
 In PPSSPP, you can install "[texture replacement packs](/docs/reference/use-texture-replacement)", containing higher resolution textures for a game. PSP games were made for a low resolution screen.
 
-The texture replacement code has evolved over the years but had some lingering problems, like too much I/O on the main thread. It's now been substantially reorganized and partly rewritten, moving more work to background threads - which reduces stutters caused by loading new replacement textures by quite a bit. Additionally, support for efficient compressed texture formats has been added (KTX2 with Basis and UASTC, DDS with BC1-7), along with built-in mipmap support (#17134, #17092, #12059). Using these can further speed up loading and improve quality while also reducing the memory use.
+The texture replacement code has evolved over the years but had some lingering problems, like too much I/O on the main thread. It's now been substantially reorganized and partly rewritten, moving more work to background threads - which reduces stutters caused by loading new replacement textures by quite a bit. Additionally, support for efficient compressed texture formats has been added (KTX2 with Basis and UASTC, DDS with BC1-7), along with built-in mipmap support ([#17134], [#17092], [#12059]). Using these can further speed up loading and improve quality while also reducing the memory use.
 
 In connection with this, video memory use when loading large textures to VRAM has been optimized. This mainly helps when using texture replacement packs with very high-resolution textures, but will reduce the risk of running out of memory in general, which is one of the major remaining causes of reported crashes on Android.
 
@@ -41,15 +41,15 @@ Additionally, a bug has been fixed where temporary buffers during applications o
 
 ### Rendering fixes and features
 
-* We can now texture-sample from render targets that have been cast to CLUT formats, using a palette that comes from yet another render target. Fixed some special effects: [#8390](https://github.com/hrydgard/ppsspp/issues/8390). See the [GPU image formats page](/docs/psp-hardware/gpu/image-formats) for more information about the PSP's CLUT functionality and what can be done with it. Additionally, we now support a few additional CLUT texturing modes, which fixes night vision and other effects in the SOCOM games.
+* We can now texture-sample from render targets that have been cast to CLUT formats, using a palette that comes from yet another render target. Fixed some special effects: [#8390]. See the [GPU image formats page](/docs/psp-hardware/gpu/image-formats) for more information about the PSP's CLUT functionality and what can be done with it. Additionally, we now support a few additional CLUT texturing modes, which fixes night vision and other effects in the SOCOM games.
 
 * Xiaomi Poco C40 phones, which are quite widespread in some countries, only expose a software Vulkan device, which is missing some mandatory features. This caused PPSSPP's UI to render incorrectly and slowly, and even worse in-game. I have corrected the Vulkan device detection code to reject this software device - which simply means these phones will fallback to using OpenGL instead, which is reasonably functional on them.
 
-* Fixed a slowdown in Naruto Heroes: [#16733](https://github.com/hrydgard/ppsspp/issues/16733). This is a very typical case of unnecessary readbacks. The PSP has a "block copy" command to copy around arbitrary GPU memory between RAM and VRAM. PPSSPP designates areas in VRAM as framebuffers if they have been previously rendered to, and copies between two framebuffers can be simply converted to a GPU copy on the host. However, if data is copied to "new" VRAM or to RAM, by default we assume that the game will try to read the copied data with the CPU. This means we have to do a very costly readback. Often it actually doesn't need the data on the CPU, though, so we added a per-game compatibility option where we automatically create framebuffers covering the destination area of memory. If the game later simply textures from it, this becomes much, more more efficient than a readback from the GPU. We enabled this for Naruto Heroes.
+* Fixed a slowdown in Naruto Heroes: [#16733]. This is a very typical case of unnecessary readbacks. The PSP has a "block copy" command to copy around arbitrary GPU memory between RAM and VRAM. PPSSPP designates areas in VRAM as framebuffers if they have been previously rendered to, and copies between two framebuffers can be simply converted to a GPU copy on the host. However, if data is copied to "new" VRAM or to RAM, by default we assume that the game will try to read the copied data with the CPU. This means we have to do a very costly readback. Often it actually doesn't need the data on the CPU, though, so we added a per-game compatibility option where we automatically create framebuffers covering the destination area of memory. If the game later simply textures from it, this becomes much, more more efficient than a readback from the GPU. We enabled this for Naruto Heroes.
 
 ### The curious case of skewed input
 
-It was noticed that Daxter and the two God of War games (all three from the studio Ready At Dawn) both rotate the analog stick input by 15 degrees before passing it to the game's internal control system. This makes the analog stick feel better aligned on the real PSP and likely good for ergonomics, but is not appropriate for an emulator that takes many kinds of different inputs, so automatic pre-rotation in the other direction was added to compensate. Daxter now walks correctly along the cardinal directions as expected, and Kratos does too in the God of War games. See [#17020](https://github.com/hrydgard/ppsspp/issues/17020).
+It was noticed that Daxter and the two God of War games (all three from the studio Ready At Dawn) both rotate the analog stick input by 15 degrees before passing it to the game's internal control system. This makes the analog stick feel better aligned on the real PSP and likely good for ergonomics, but is not appropriate for an emulator that takes many kinds of different inputs, so automatic pre-rotation in the other direction was added to compensate. Daxter now walks correctly along the cardinal directions as expected, and Kratos does too in the God of War games. See [#17020].
 
 ### Tilt control has been improved
 
@@ -57,9 +57,9 @@ The Android-only tilt (accelerometer) input feature has not been maintained nor 
 
 ## Regressions fixed
 
-* Thrillville rendering corrected (#17169)
-* A major performance regression in Dante's Inferno has been fixed (#17032)
-* Mipmaps are now actually used with texture replacement, if provided (#17144)
+* Thrillville rendering corrected ([#17169])
+* A major performance regression in Dante's Inferno has been fixed ([#17032])
+* Mipmaps are now actually used with texture replacement, if provided ([#17144])
 
 ## Other changes
 
@@ -67,11 +67,11 @@ The Android-only tilt (accelerometer) input feature has not been maintained nor 
 * Enabling rewind savestates (automatic savestates every N seconds) no longer slow down gameplay noticeably.
 * Software renderer is even more playable, after another round of optimizations and fixes by \[Unknown\]
 * fp64 has worked on [VFPU](/docs/psp-hardware/cpu/allegrex-overview) accuracy. It's not yet all enabled, though.
-* Multiple fixes for various depth clipping issues ([#17055](https://github.com/hrydgard/ppsspp/issues/17020), more)
+* Multiple fixes for various depth clipping issues ([#17055], more)
 * VR has gained some new features (top-down perspective), new control options, and various fixes, thanks Lubos!
 * Several large code cleanups and refactors have been performed across the code base, to make future changes easier.
 * The RISC-V JIT compiler has been improved by \[Unknown\]. Future-proofs the emulator a bit!
-* New app icon (#11996), assorted bugfixes (#16988, #17017, more)
+* New app icon ([#11996]), assorted bugfixes ([#16988], [#17017], more)
 * And [much more](/news/2023-04-30-ppsspp-1.15)!
 
 ## Go get it!
