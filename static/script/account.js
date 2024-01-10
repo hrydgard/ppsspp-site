@@ -84,9 +84,9 @@ async function jsonPost(apiName, requestBody) {
 }
 
 function setDisplayMode(className, mode) {
-    console.log("Setting all with " + className + " to " + mode);
+    // console.log("Setting all with " + className + " to " + mode);
     for (let element of document.getElementsByClassName(className)) {
-        console.log(element);
+        // console.log(element);
         element.style.display = mode;
     }
 }
@@ -260,10 +260,8 @@ async function applyDOMVisibility() {
             let freegold_name_input = document.getElementById("freegold_name");
             let freegold_email_input = document.getElementById("freegold_email");
             let listener = (event) => {
-                console.log("event");
                 setStatusDisplay(HIDDEN, "freeGoldStatus");
             };
-            console.log("adding listeners");
             freegold_name_input.addEventListener("input", listener);
             freegold_email_input.addEventListener("input", listener);
         } else {
@@ -347,7 +345,7 @@ async function handleGiveFreeGold(event) {
     };
     const response = await jsonFetch("freegold", freeGoldUser);
     if (response) {
-        console.log("gave free gold to " + userName + " '" + userEmail + "'");
+        console.log("gave free gold to " + userName + " '" + userEmail + "'\n" + response.magicLink);
         setStatusDisplay(SUCCESS, "freeGoldStatus", "Gave free gold to " + userName + " '" + userEmail + "'\n");
         console.log(response);
     } else {
@@ -730,6 +728,13 @@ function burgerClick() {
     var contentDiv = document.getElementById('rootSidebar');
     contentDiv.classList.toggle('hidden');
     console.log("clicked the burger");
+}
+
+function onFSError(code, string) {
+    console.log("FastSpring error detected: ", code, string);
+    setStatusDisplay(WARNING, "fastspring-error-alert", "The PPSSPP Store is having some technical issues right now. Will be back soon.")
+    var productCards = document.getElementById('product-cards');
+    productCards.style.display = "none";
 }
 
 console.log("initial script execution");

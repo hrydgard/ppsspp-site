@@ -33,7 +33,7 @@
     <script id="fsc-api" src="https://d1f8f9xcsvx3ha.cloudfront.net/sbl/0.7.4/fastspring-builder.min.js"
         type="text/javascript" {{ #if globals.prod }} data-storefront="ppsspp.onfastspring.com/popup-gold" {{ else }}
         data-storefront="ppsspp.test.onfastspring.com/popup-gold" {{ /if }} data-popup-closed="onFSPopupClosed"
-        data-debug=true>
+        data-error-callback="onFSError" data-debug=true>
         </script>
     {{/if}}
     {{#if contains_code}}
