@@ -168,7 +168,21 @@ function BuyGoldPage({goldUser, devMode}) {
       <h3>Buy PPSSPP Gold for Windows/macOS</h3>
       {goldAlready}
 
-      <div className="alert alert--warning" role="alert">The PPSSPP Gold store is having some technical issues. Will be back soon!</div>
+      <p>Choose your level:</p>
+
+      <div className="row">
+        <CategoryCard title="Hangaround" description="A show of support." productId="ppsspp-gold-l1" items={items}/>
+        <CategoryCard title="Supporter" description="This will help!" productId="ppsspp-gold-l2" items={items}/>
+        <CategoryCard title="Fan" description="A strong statement." productId="ppsspp-gold-l3" items={items}/>
+      </div>
+
+      <br/>
+
+      <div className="row">
+        <CategoryCard title="Gamer" description="A real contribution." productId="ppsspp-gold-l4" items={items}/>
+        <CategoryCard title="Powergamer" description="A love of emulation." productId="ppsspp-gold-l5" items={items}/>
+        <CategoryCard title="Grandmaster" description="You totally rock!" productId="ppsspp-gold-l6" items={items}/>
+      </div>
 
       <br/>
 

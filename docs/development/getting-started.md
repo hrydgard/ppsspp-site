@@ -43,7 +43,11 @@ Since this emulator implements most of the PSP OS in order to run games, testing
 
 PPSSPP can be hard to profile with traditional tools, since it generates a lot of code at runtime (JIT compilation) that won't have proper symbols.
 
-To this end, \[Unknown\] has modified a convenient little profiler called Very Sleepy with a feature where it can query symbols from the running executable. [Source code branch here](https://github.com/unknownbrackets/verysleepy/tree/jit-support). [Download binary here](/unofficial/sleepy.zip).
+To this end, \[Unknown\] has modified a convenient little profiler called Very Sleepy with a feature where it can query symbols from the running executable. [Source code branch here](https://github.com/unknownbrackets/verysleepy/tree/jit-support).
+
+[Download binary from Unknown's branch here](/unofficial/sleepy.zip).
+
+[Download updated EXE with some extra features here](/unofficial/sleepy2.zip). Can now sort processes by creation time, and has the latest features from upstream.
 
 To find the integration in PPSSPP's source code, search for `VERYSLEEPY_WPARAM_GETADDRINFO`.
 
