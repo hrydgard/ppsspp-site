@@ -154,7 +154,7 @@
     display: block;
     position: absolute;
     width: 50%;
-    z-index: 20000;
+    z-index: 800;
     border: 2px solid var(--color-gray-800);
     border-bottom: none;
     box-shadow: 0 5px 8px var(--shadow-color);
