@@ -8,7 +8,7 @@
                 "name": "PPSSPP Gold for Android",
                 "icon": "ppsspp-icon-gold.png",
                 "url": "https://play.google.com/store/apps/details?id=org.ppsspp.ppssppgold",
-                "service_image": "https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png",
+                "service_image": "/static/img/platform/google-play-badge.png",
                 "service_alt": "Get it on Google Play",
                 "gold": true
             },
@@ -16,7 +16,7 @@
                 "name": "PPSSPP for Android (free)",
                 "icon": "ppsspp-icon.png",
                 "url": "https://play.google.com/store/apps/details?id=org.ppsspp.ppsspp",
-                "service_image": "https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png",
+                "service_image": "/static/img/platform/google-play-badge.png",
                 "service_alt": "Get it on Google Play"
             },
             {
@@ -124,7 +124,7 @@
                 "name": "PPSSPP Flatpak package",
                 "icon": "ppsspp-icon.png",
                 "url": "https://flathub.org/apps/details/org.ppsspp.PPSSPP",
-                "service_image": "https://flathub.org/assets/badges/flathub-badge-en.png",
+                "service_image": "/static/img/platform/flathub-badge-en.png",
                 "service_alt": "Download on Flathub"
             }
         ]

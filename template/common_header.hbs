@@ -3,6 +3,8 @@
 <html lang="en" data-theme="dark">
 
 <head>
+    <title>{{ title }}</title>
+
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,7 +20,7 @@
     <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="PPSSPP Atom Feed">
 
     <script src="/static/script/squirrelly.min.js" defer></script>
-    <script src="/static/script/account.js" defer></script>
+    <script src="/static/script/main.js" defer></script>
     {{#unless noAds}}
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3281131109267988"
         crossorigin="anonymous"></script>
@@ -29,7 +31,6 @@
         var g_thankYouPage = false;
     </script>
     {{#if fastspring}}
-    <script src="/static/script/fastspring.js" defer></script>
     <script id="fsc-api" src="https://d1f8f9xcsvx3ha.cloudfront.net/sbl/0.7.4/fastspring-builder.min.js"
         type="text/javascript" {{ #if globals.prod }} data-storefront="ppsspp.onfastspring.com/popup-gold" {{ else }}
         data-storefront="ppsspp.test.onfastspring.com/popup-gold" {{ /if }} data-popup-closed="onFSPopupClosed"
@@ -39,8 +40,8 @@
     {{#if contains_code}}
     <script src="/static/script/highlight.min.js" defer></script>
     {{/if}}
-    <script src="/static/script/dark.js" defer></script>
-    <title>{{ title }}</title>
+
+    <script type="text/javascript" src="https://kit.fontawesome.com/d35975edad.js" defer></script>
 </head>
 
 <body>
@@ -65,8 +66,6 @@
             </ul>
             <div id="loginCorner" style="display:inline"><a href="/login">Login</a></div>
         </nav>
-
-        <script type="text/javascript" src="https://kit.fontawesome.com/d35975edad.js" defer></script>
 
         <section class="contents">
             <div class="burger-sidebar hidden" id="rootSidebar">

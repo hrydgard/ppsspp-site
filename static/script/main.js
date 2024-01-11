@@ -730,11 +730,37 @@ function burgerClick() {
     console.log("clicked the burger");
 }
 
+// Fastspring stuff
+
+function onFSPopupClosed(orderReference) {
+    if (orderReference) {
+        console.log("Order completed - redirecting!");
+        console.log(orderReference.reference);
+        fastspring.builder.reset();
+        var url = "/thankyou?orderId=" + orderReference.reference;
+        try { window.location.replace(url); }
+        catch (e) { window.location = url; }
+    } else {
+        console.log("no order ID - won't redirect to thankyou page");
+    }
+}
+
 function onFSError(code, string) {
     console.log("FastSpring error detected: ", code, string);
     setStatusDisplay(WARNING, "fastspring-error-alert", "The PPSSPP Store is having some technical issues right now. Will be back soon.")
     var productCards = document.getElementById('product-cards');
     productCards.style.display = "none";
+}
+
+// change the mode by adding the attribute 'data-theme' on the element <html>. It also creates a cookie to record the mode selected by the user.
+function switchTheme() {
+    if (document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem("theme", "light");
+    } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem("theme", "dark");
+    }
 }
 
 console.log("initial script execution");
@@ -744,7 +770,23 @@ document.addEventListener('DOMContentLoaded', function () {
     onLoadPage();
 });
 
-// window.onload = onLoadPage;
+/**
+* Automatic mode assignment according to user-selected system preference.
+*/
+let curTheme = localStorage.getItem("theme");
+if (curTheme) {
+    document.documentElement.setAttribute('data-theme', curTheme);
+} else {
+    // Let's default to dark instead of asking the system.
+    /*
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+    */
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
 
 // Error messages
 const BAD_EMAIL_ADDRESS = "Not a valid e-mail address ";

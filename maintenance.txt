@@ -1,0 +1,19 @@
+Purging the Cloudflare cache
+
+When we need changes quickly reflected online, copy paste this into the purge form.
+
+https://www.ppsspp.org/static/css/all.css
+https://www.ppsspp.org/static/script/main.js
+https://www.ppsspp.org/
+https://www.ppsspp.org/download
+https://www.ppsspp.org/privacy
+https://www.ppsspp.org/contact
+https://www.ppsspp.org/getgames
+https://www.ppsspp.org/gethomebrew
+https://www.ppsspp.org/index.html
+https://www.ppsspp.org/media
+https://www.ppsspp.org/recoverpassword
+https://www.ppsspp.org/requestgold
+https://www.ppsspp.org/thankyou
+https://www.ppsspp.org/changepassword
+https://www.ppsspp.org/buygold
