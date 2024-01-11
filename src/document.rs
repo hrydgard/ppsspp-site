@@ -363,22 +363,12 @@ impl Category {
             let name = util::filename_to_string(&entry.file_name());
 
             if entry.metadata()?.is_dir() {
-                let cat = Self::from_folder_tree(&path, config)?;
-                if summary_line_count < MAX_SUMMARY_LINES {
-                    summary += &format!("<li><strong>{}</strong></li>", &cat.meta.title);
-                }
-                summary_line_count += 4;
-                sub_categories.push(cat);
+                sub_categories.push(Self::from_folder_tree(&path, config)?);
             } else if let Some(os_str) = path.extension() {
                 // Check file extension to figure out what to do.
                 match os_str.to_str().unwrap() {
                     "md" => {
-                        let doc = Document::from_md(&path, config)?;
-                        if summary_line_count < MAX_SUMMARY_LINES {
-                            summary += &format!("<li>{}</li>", &doc.meta.title);
-                        }
-                        summary_line_count += 1;
-                        documents.push(doc);
+                        documents.push(Document::from_md(&path, config)?);
                     }
                     "json" => {
                         if name == "_category_.json" {
@@ -409,6 +399,20 @@ impl Category {
                 d.meta.position
             }
         });
+
+        // Compute the summaries after sorting.
+        for cat in &sub_categories {
+            if summary_line_count < MAX_SUMMARY_LINES {
+                summary += &format!("<li><strong>{}</strong></li>", &cat.meta.title);
+            }
+            summary_line_count += 1;
+        }
+        for doc in &documents {
+            if summary_line_count < MAX_SUMMARY_LINES {
+                summary += &format!("<li>{}</li>", &doc.meta.title);
+            }
+            summary_line_count += 1;
+        }
 
         if summary_line_count >= 4 {
             summary += "<li>...</li>";
