@@ -80,7 +80,7 @@ pub fn add_meta_from_markdown(
 pub fn postprocess_markdown(md: &str, config: &Config) -> String {
     let issue_regex = regex::Regex::new(r"\[#(\d+)\]").unwrap();
     issue_regex
-        .replace_all(md, |captures: &regex::Captures| {
+        .replace_all(md, |captures: &regex::Captures<'_>| {
             let issue_number = captures.get(1).unwrap().as_str();
             format!("[#{}]({}{})", issue_number, config.github_url, issue_number)
             // Construct the replacement with the GitHub URL

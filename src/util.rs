@@ -1,8 +1,14 @@
 use anyhow::Context;
-use std::ffi::OsStr;
+use std::ffi::{OsStr, OsString};
 use std::fs;
 use std::io::Write;
-use std::path::Path;
+use std::path::{Path, PathBuf};
+
+pub fn strip_extension(str: OsString) -> String {
+    let mut x = PathBuf::from(str);
+    x.set_extension("");
+    x.to_string_lossy().to_string()
+}
 
 pub fn filename_to_string(name: &OsStr) -> String {
     // name.to_str().unwrap().to_owned()

@@ -64,7 +64,7 @@ pub fn write_feed(
     folder: &str,
     all_posts: &[Document],
     format: FeedFormat,
-    handlebars: &mut handlebars::Handlebars,
+    handlebars: &mut handlebars::Handlebars<'_>,
 ) -> anyhow::Result<()> {
     let base_path = format!("https://www.ppssspp.org/{folder}");
     let rss = Rss {
@@ -96,12 +96,12 @@ pub fn write_feed(
     };
 
     let (template, filename) = match format {
-        FeedFormat::Atom => ("atom", "atom.xml"),
-        FeedFormat::RSS => ("rss", "rss.xml"),
+        FeedFormat::Atom => ("feed_atom", "atom.xml"),
+        FeedFormat::RSS => ("feed_rss", "rss.xml"),
     };
 
     let contents = handlebars.render(template, &rss)?;
-    let file_path = config.outdir.join(folder).join(filename);
+    let file_path = config.out_dir.join(folder).join(filename);
     println!("writing {} to {}...", template, file_path.display());
     let mut file = std::fs::File::create(file_path).context("generate_feed")?;
     file.write_all(contents.as_bytes())?;

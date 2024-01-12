@@ -284,8 +284,8 @@ fn boil(version_binaries: &[BinaryVersion], platforms: &[PlatformInfo]) -> Vec<V
 
 pub struct Config {
     pub url_base: String,
-    pub indir: PathBuf,
-    pub outdir: PathBuf,
+    pub in_dir: PathBuf,
+    pub out_dir: PathBuf,
     pub markdown_options: markdown::Options,
     pub global_meta: GlobalMeta,
     pub build_date: String,

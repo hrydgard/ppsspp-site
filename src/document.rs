@@ -3,12 +3,10 @@ use crate::{
     post_process, util,
 };
 use std::{
-    ffi::OsString,
     io::{BufRead, BufReader, Read},
     path::{Path, PathBuf},
 };
 
-extern crate serde;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -117,7 +115,7 @@ impl<'a> PageContext<'a> {
     pub fn render(
         mut self,
         template_name: &str,
-        handlebars: &mut handlebars::Handlebars,
+        handlebars: &mut handlebars::Handlebars<'_>,
     ) -> anyhow::Result<String> {
         self.update_selected();
         Ok(handlebars.render(template_name, &self)?)
@@ -125,7 +123,7 @@ impl<'a> PageContext<'a> {
     pub fn render_template(
         mut self,
         template_string: &str,
-        handlebars: &mut handlebars::Handlebars,
+        handlebars: &mut handlebars::Handlebars<'_>,
     ) -> anyhow::Result<String> {
         self.update_selected();
         Ok(handlebars.render_template(template_string, &self)?)
@@ -163,12 +161,6 @@ fn cleanup_path(path: &Path) -> Option<String> {
     path.to_string_lossy()
         .strip_prefix('.')
         .map(|s| s.to_string().replace('\\', "/"))
-}
-
-pub fn strip_extension(str: OsString) -> String {
-    let mut x = PathBuf::from(str);
-    x.set_extension("");
-    x.to_string_lossy().to_string()
 }
 
 impl Document {
@@ -270,7 +262,7 @@ impl Document {
         globals: &GlobalMeta,
         name: &str,
         hbs_path: &Path,
-        handlebars: &mut handlebars::Handlebars,
+        handlebars: &mut handlebars::Handlebars<'_>,
     ) -> anyhow::Result<Self> {
         let hbs = std::fs::read_to_string(hbs_path)?;
         let mut context = PageContext::new(None, None, globals);
@@ -306,7 +298,7 @@ impl Document {
     // Category front pages.
     pub fn from_category(
         category: &Category,
-        handlebars: &mut handlebars::Handlebars,
+        handlebars: &mut handlebars::Handlebars<'_>,
         globals: &GlobalMeta,
     ) -> anyhow::Result<Self> {
         let mut context = PageContext::new(Some(category.meta.title.clone()), None, globals);
@@ -434,7 +426,7 @@ impl Category {
     // Note: This also generates category documents.
     pub fn all_documents(
         &self,
-        handlebars: &mut handlebars::Handlebars,
+        handlebars: &mut handlebars::Handlebars<'_>,
         globals: &GlobalMeta,
     ) -> anyhow::Result<Vec<Document>> {
         let mut all_docs = vec![];
@@ -484,45 +476,4 @@ impl Category {
             crumbs.pop();
         }
     }
-}
-
-// TODO: Involve templates here for easier modification?
-// Can handlebars templates recurse?
-// Should be surrounded in an <ul class="nav-tree">
-pub fn generate_docnav_html(root: &Category, level: usize, breadcrumbs: &[DocLink]) -> String {
-    let mut str = String::new();
-
-    str += &format!("<ul class=\"nav-tree-items level-{}\">\n", level);
-    for cat in &root.sub_categories {
-        let expanded = if let Some(crumb) = breadcrumbs.get(level + 1) {
-            cat.meta.url == crumb.url
-        } else {
-            false
-        };
-
-        let extra_classes = if expanded { " selected" } else { "" };
-        str += &format!(
-            "<li><a href=\"{}\" class=\"nav-tree-category{}\">{}</a>",
-            cat.meta.url, extra_classes, cat.meta.title
-        );
-        if expanded {
-            str += &generate_docnav_html(cat, level + 1, breadcrumbs);
-        }
-        str += "</li>\n";
-    }
-    for doc in &root.documents {
-        let expanded = if let Some(crumb) = breadcrumbs.get(level + 1) {
-            doc.meta.url == crumb.url
-        } else {
-            false
-        };
-        let extra_classes = if expanded { " selected" } else { "" };
-        str += &format!(
-            "<li><a href=\"{}\" class=\"nav-tree-item {}\">{}</a></li>\n",
-            doc.meta.url, extra_classes, doc.meta.title,
-        );
-    }
-    str += "</ul>\n";
-
-    str
 }

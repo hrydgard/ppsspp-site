@@ -55,11 +55,7 @@ async fn reverse_proxy_handler(
     mut req: Request,
 ) -> Result<Response, StatusCode> {
     let path = req.uri().path();
-    let path_query = req
-        .uri()
-        .path_and_query()
-        .map(|v| v.as_str())
-        .unwrap_or(path);
+    let path_query = req.uri().path_and_query().map_or(path, |v| v.as_str());
 
     // let proxy_url = "http://127.0.0.1:3000";
     // let proxy_url = "http://46.246.45.220:9101";

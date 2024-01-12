@@ -195,7 +195,7 @@ src="/static/img/platform/ppsspp-icon-gold.png"
 {{#else}}
 src="/static/img/platform/ppsspp-icon.png"
 {{/if}}
-width="22px" height="22px" />&nbsp;{{it.name}}
+width="22" height="22">&nbsp;{{it.name}}
 {{#else}}
 Login
 {{/if}}
@@ -212,7 +212,7 @@ src="/static/img/platform/ppsspp-icon-gold.png"
 {{#else}}
 src="/static/img/platform/ppsspp-icon.png"
 {{/if}}
-width="22px" height="22px" />&nbsp;{{it.name}}
+width="22" height="22">&nbsp;{{it.name}}
 {{#else}}
 Login
 {{/if}}
@@ -280,7 +280,7 @@ async function updatePlayCodesStats() {
         console.log(data);
         playCodesStats.innerHTML = Sqrl.render(tmplPlayCodes, data);
     } else {
-        console.log("got no playcodes stats");
+        console.log("got no play codes stats");
     }
 }
 
@@ -356,7 +356,7 @@ async function handleGiveFreeGold(event) {
 
 async function handleGetMagicLink(event) {
     event.preventDefault();
-    const email = document.getElementById("magiclink_email").value.trim();
+    const email = document.getElementById("magic link_email").value.trim();
     const magicLink = await jsonFetch("getmagiclink", {
         'email': email,
     });
