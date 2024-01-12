@@ -3,11 +3,11 @@
 <html lang="en" data-theme="dark">
 
 <head>
-    <title>{{ title }}</title>
+    <title>{{title}}</title>
 
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PEQLDV0155"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -31,9 +31,9 @@
         var g_thankYouPage = false;
     </script>
     {{#if fastspring}}
-    <script id="fsc-api" src="https://d1f8f9xcsvx3ha.cloudfront.net/sbl/0.7.4/fastspring-builder.min.js"
-        type="text/javascript" {{ #if globals.prod }} data-storefront="ppsspp.onfastspring.com/popup-gold" {{ else }}
-        data-storefront="ppsspp.test.onfastspring.com/popup-gold" {{ /if }} data-popup-closed="onFSPopupClosed"
+    <script id="fsc-api" src="https://d1f8f9xcsvx3ha.cloudfront.net/sbl/0.7.4/fastspring-builder.min.js" {{#if
+        globals.prod}} data-storefront="ppsspp.onfastspring.com/popup-gold" {{else}}
+        data-storefront="ppsspp.test.onfastspring.com/popup-gold" {{/if}} data-popup-closed="onFSPopupClosed"
         data-error-callback="onFSError" data-debug=true>
         </script>
     {{/if}}
@@ -41,7 +41,7 @@
     <script src="/static/script/highlight.min.js" defer></script>
     {{/if}}
 
-    <script type="text/javascript" src="https://kit.fontawesome.com/d35975edad.js" defer></script>
+    <script src="https://kit.fontawesome.com/d35975edad.js" defer></script>
 </head>
 
 <body>
@@ -51,8 +51,8 @@
                 <div class='menu-button'></div>
             </div>
             <div class="top-nav-logo">
-                <a href="/" class="center-vertical"><img src="/static/img/platform/ppsspp-icon.png"
-                        width="32px" />&nbsp;PPSSPP</a>
+                <a href="/" class="center-vertical"><img src="/static/img/platform/ppsspp-icon.png" alt="icon"
+                        width="32">&nbsp;PPSSPP</a>
             </div>
             <ul class="menu">
                 {{#each top_nav}}
