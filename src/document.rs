@@ -44,6 +44,8 @@ pub struct DocumentMeta {
     pub contains_code: bool,
     #[serde(default)]
     pub breadcrumbs: Vec<DocLink>,
+    #[serde(default)]
+    pub section: String,
 }
 
 #[derive(Debug, Clone)]
@@ -64,6 +66,7 @@ pub struct SidebarContext {
 pub struct Tag {
     pub name: String,
     pub articles: Vec<DocLink>,
+    pub selected: bool,
 }
 
 // Used when rendering templates.

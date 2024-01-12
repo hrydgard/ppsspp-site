@@ -1,5 +1,5 @@
 ---
-position: 5
+position: 6
 ---
 # Save data and storage on Android
 
@@ -29,8 +29,8 @@ If you already have a PSP folder from an older installation of PPSSPP, just pick
 
 If not, follow the red markings in the below pictures.
 
-![](/static/img/guide_folder/step1.png)
+![Click "Create new folder"](/static/img/guide_folder/step1.png)
 
-![](/static/img/guide_folder/step2.png)
+![Enter a name for the new folder. PSP suggested.](/static/img/guide_folder/step2.png)
 
-![](/static/img/guide_folder/step3.png)
+![Click "Use this folder"](/static/img/guide_folder/step3.png)

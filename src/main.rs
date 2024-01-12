@@ -101,6 +101,7 @@
     nonstandard_style,
     rust_2018_idioms
 )]
+#![allow(clippy::too_many_arguments)]
 
 use chrono::{DateTime, Utc};
 use std::{
@@ -150,6 +151,7 @@ fn build(opt: &Opt) -> anyhow::Result<()> {
         "doc",
         "cat_contents",
         "blog_post",
+        "blog_page",
         "blog_sidebar",
         "unit",
         "product_card",

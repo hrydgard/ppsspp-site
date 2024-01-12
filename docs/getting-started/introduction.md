@@ -9,7 +9,7 @@ The PSP had multiple types of software. The two most common are native PSP games
 
 ## Installing PPSSPP
 
-On Android, you can install PPSSPP like any other app from the Google Play Store or from the Huawei store, if that's what your device has. If your device doesn't have access to these stores, you can install the app by downloading the APK and then "sideloading" it onto your device.
+On Android, you can install PPSSPP like any other app from the Google Play Store or from the Huawei store, if that's what your device has. If your device doesn't have access to these stores, you can install the app by downloading the APK and then "side-loading" it onto your device.
 
 On PC, you have the option of a "portable" install (just a zip file to unzip where you want it) or you can use a traditional installer.
 

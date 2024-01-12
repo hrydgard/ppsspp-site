@@ -17,7 +17,8 @@
                         {{name}}
                         {{/with}}</b>
                 </li>
-                <li><i class="fas fa-folder"></i> <b>{{ #each meta.tags }} {{this}} {{/each}} </b></li>
+                <li><i class="fas fa-folder"></i> <b>{{#each meta.tags}}<a
+                            href="/{{../meta.section}}/tags/{{this}}">{{this}}</a> {{/each}} </b></li>
                 <li><i class="fas fa-clock"></i> <b>{{ meta.date }}</b></li>
                 <li><a href="https://twitter.com/henrikrydgard"><i class="fab fa-twitter"></i></a></li>
                 <li><a href="https://www.github.com/hrydgard"><i class="fab fa-github-alt"></i></a></li>

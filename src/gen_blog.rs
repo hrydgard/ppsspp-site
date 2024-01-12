@@ -63,6 +63,7 @@ pub fn generate_blog(
         let mut doc = Document::from_md(&root_folder.join(entry.file_name()), config)?;
 
         let [year, month, day, remainder] = parts;
+        doc.meta.section = folder.to_string();
         doc.meta.date = format!("{}-{}-{}", year, month, day);
         if doc.meta.slug.is_empty() {
             println!(
@@ -81,6 +82,7 @@ pub fn generate_blog(
                 .or_insert_with(|| Tag {
                     name: tag.clone(),
                     articles: vec![],
+                    selected: false,
                 })
                 .articles
                 .push(doc.to_doclink(""));
@@ -129,7 +131,7 @@ pub fn generate_blog(
         context.contents = Some(post_html);
         context.sidebar = Some(sidebar);
         //println!("{:#?}", context.meta);
-        let html = context.render("doc", handlebars)?;
+        let html = context.render("blog_page", handlebars)?;
 
         let target_path = &doc.path;
         util::write_file_as_folder_with_index(target_path, html, false)?;
@@ -157,7 +159,7 @@ pub fn generate_blog(
 
     // Generate a full blog listing as the root blog post.
     // TODO: paginate.
-    let target_path = out_root_folder;
+    let target_path = out_root_folder.clone();
     generate_blog_page(
         config,
         &documents,
@@ -165,8 +167,24 @@ pub fn generate_blog(
         title,
         &target_path,
         &tags,
+        &tags,
         handlebars,
     )?;
+
+    // Now for each tag, generate another, but filter by tag.
+    for tag in &tags {
+        let target_path = out_root_folder.join("tags").join(&tag.name);
+        generate_blog_page(
+            config,
+            &documents,
+            folder,
+            title,
+            &target_path,
+            &[tag.clone()],
+            &tags,
+            handlebars,
+        )?;
+    }
 
     println!("Wrote blog {}", folder);
 
@@ -179,13 +197,22 @@ fn generate_blog_page(
     folder: &str,
     title: &str,
     target_path: &Path,
-    tags: &[Tag],
+    tag_filter: &[Tag],
+    all_tags: &[Tag],
     handlebars: &mut handlebars::Handlebars<'_>,
 ) -> anyhow::Result<()> {
     // Filter the documents by tag.
     let mut filtered_documents = vec![];
     for doc in documents {
-        filtered_documents.push(doc);
+        let mut found = false;
+        for tag in &doc.meta.tags {
+            if tag_filter.iter().any(|t| &t.name == tag) {
+                found = true;
+            }
+        }
+        if found {
+            filtered_documents.push(doc);
+        }
     }
 
     let sidebar = generate_blog_sidebar(
@@ -210,10 +237,10 @@ fn generate_blog_page(
     let mut context =
         PageContext::new(Some(title.to_owned()), Some(post_html), &config.global_meta);
     context.sidebar = Some(sidebar);
-    context.tags = tags;
+    context.tags = all_tags;
     context.meta = Some(documents[0].meta.clone());
 
-    let html = context.render("doc", handlebars)?;
+    let html = context.render("blog_page", handlebars)?;
 
     util::write_file_as_folder_with_index(target_path, html, false)?;
     Ok(())
