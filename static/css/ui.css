@@ -67,6 +67,10 @@
 
 /* Article / doc stuff */
 
+.feed-links {
+    margin-top: 12px;
+}
+
 .article {
     /* General */
     display: block;
