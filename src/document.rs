@@ -78,7 +78,7 @@ pub struct PageContext<'a> {
     pub meta: Option<DocumentMeta>,
     pub year: i32,
     pub globals: Option<&'a GlobalMeta>,
-    pub tags: Vec<Tag>,
+    pub tags: &'a [Tag],
     pub contains_code: bool,
     pub top_nav: Vec<DocLink>,
 }
@@ -93,7 +93,7 @@ impl<'a> PageContext<'a> {
             children: vec![],
             meta: None,
             globals: Some(globals),
-            tags: vec![],
+            tags: &[],
             contains_code: false,
             top_nav: globals.top_nav.clone(),
         }
@@ -107,7 +107,7 @@ impl<'a> PageContext<'a> {
             children: vec![],
             meta: Some(document.meta.clone()),
             globals: Some(globals),
-            tags: vec![],
+            tags: &[],
             contains_code: document.meta.contains_code,
             top_nav: globals.top_nav.clone(),
         }

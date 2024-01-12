@@ -1,11 +1,14 @@
 use crate::{config::*, document::*, feed, util};
-use std::{cmp::Ordering, path::PathBuf};
+use std::{
+    cmp::Ordering,
+    path::{Path, PathBuf},
+};
 
 // Posts should be passed-in in reverse time order.
 fn generate_blog_sidebar(
     title: &str,
     url: &str,
-    all_posts: &[Document],
+    all_posts: &[&Document],
     handlebars: &mut handlebars::Handlebars<'_>,
 ) -> anyhow::Result<String> {
     let context = SidebarContext {
@@ -108,13 +111,18 @@ pub fn generate_blog(
         }
     }
 
+    let mut filtered_documents = vec![];
+    for doc in &documents {
+        filtered_documents.push(doc);
+    }
+
     for doc in &documents {
         let context = PageContext::from_document(doc, &config.global_meta);
 
         // First, render the blog post itself, without the surrounding chrome. This is so that we can add on
         // more blog posts underneath later for a more continuous experience.
         let post_html = handlebars.render("blog_post", &context)?;
-        let sidebar = generate_blog_sidebar(title, &doc.meta.url, &documents, handlebars)?;
+        let sidebar = generate_blog_sidebar(title, &doc.meta.url, &filtered_documents, handlebars)?;
 
         let mut context = PageContext::from_document(doc, &config.global_meta);
         // Now, use that as contents and render into a doc template.
@@ -147,11 +155,49 @@ pub fn generate_blog(
         handlebars,
     )?;
 
-    // Generate the root blog post.
-    let sidebar = generate_blog_sidebar(title, &format!("/{}", folder), &documents, handlebars)?;
+    // Generate a full blog listing as the root blog post.
+    // TODO: paginate.
+    let target_path = out_root_folder;
+    generate_blog_page(
+        config,
+        &documents,
+        folder,
+        title,
+        &target_path,
+        &tags,
+        handlebars,
+    )?;
+
+    println!("Wrote blog {}", folder);
+
+    Ok(documents)
+}
+
+fn generate_blog_page(
+    config: &Config,
+    documents: &[Document],
+    folder: &str,
+    title: &str,
+    target_path: &Path,
+    tags: &[Tag],
+    handlebars: &mut handlebars::Handlebars<'_>,
+) -> anyhow::Result<()> {
+    // Filter the documents by tag.
+    let mut filtered_documents = vec![];
+    for doc in documents {
+        filtered_documents.push(doc);
+    }
+
+    let sidebar = generate_blog_sidebar(
+        title,
+        &format!("/{}", folder),
+        &filtered_documents,
+        handlebars,
+    )?;
+
     // First, render the blog post itself, without the surrounding chrome. This is so that we can add on
     // more blog posts underneath later for a more continuous experience.
-    let post_html = documents
+    let post_html = filtered_documents
         .iter()
         .map(|doc| {
             let context = PageContext::from_document(doc, &config.global_meta);
@@ -169,10 +215,6 @@ pub fn generate_blog(
 
     let html = context.render("doc", handlebars)?;
 
-    let target_path = out_root_folder;
-    util::write_file_as_folder_with_index(&target_path, html, false)?;
-
-    println!("Wrote blog {}", folder);
-
-    Ok(documents)
+    util::write_file_as_folder_with_index(target_path, html, false)?;
+    Ok(())
 }
