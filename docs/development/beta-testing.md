@@ -4,12 +4,17 @@ position: 2
 
 # Beta Testing on Android
 
-You will soon be able to join the PPSSPP beta testing program for Android!
+The beta testing program for PPSSPP for Android is now open!
 
-A few weeks before each new official release, a beta release will be rolled out to participating people, containing most of the new features that will be in the next release.
+A few weeks before each new official release, a beta release will be rolled out to participating people, containing most of the new features that will be in the next release. Additionally, there'll be a build every couple of months between major releases.
 
-I may later roll out beta versions earlier than that, in the middle of each development cycle instead.
-
-The below link will be active soon, if it isn't already when you are reading this:
+Click this link to join:
 
 [Join the beta test!](https://play.google.com/apps/testing/org.ppsspp.ppsspp)
+
+## Reporting bugs and issues
+
+Either report bugs using our [Github issue tracker](https://github.com/hrydgard/ppsspp/issues), or join
+the discord ([instructions here](/contact)) and report your issues in the #general channel.
+
+But before reporting, please do a search of the Github issue tracker to see if your problem is already known!
