@@ -289,7 +289,7 @@ fn boil(
             downloads.push(version_download);
         }
     }
-    println!("{:#?}", downloads);
+    // println!("{:#?}", downloads);
     downloads
 }
 

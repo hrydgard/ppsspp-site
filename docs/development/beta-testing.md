@@ -18,3 +18,15 @@ Either report bugs using our [Github issue tracker](https://github.com/hrydgard/
 the discord ([instructions here](/contact)) and report your issues in the #general channel.
 
 But before reporting, please do a search of the Github issue tracker to see if your problem is already known!
+
+## Upcoming features in 1.17
+
+* Performance improvements
+* CHD ISO support
+* Many bug fixes in MLB Baseball
+* Adrenotools driver support
+* Keep the game running behind the pause menu for less desyncs in multiplayer
+* Deadzone fixes for joystick and tilt input
+* Bugfixes in texture replacement
+
+And much more! [Work-in-progress list](https://github.com/hrydgard/ppsspp/pull/18677/files#diff-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5R28)
