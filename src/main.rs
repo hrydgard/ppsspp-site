@@ -121,28 +121,28 @@ mod server;
 mod util;
 
 use anyhow::Context;
+use clap::Parser;
 pub use config::Config;
 use notify::Watcher;
-use structopt::StructOpt;
 
 use crate::config::{DocLink, GlobalMeta};
 
 #[allow(dead_code)]
-#[derive(StructOpt, Debug)]
-struct Opt {
-    #[structopt(long, default_value = "3000")]
+#[derive(Parser, Debug)]
+struct Args {
+    #[arg(long, default_value_t = 3000)]
     port: i32,
-    #[structopt(long)]
+    #[arg(long)]
     prod: bool,
-    #[structopt(long)]
+    #[arg(long)]
     dev: bool,
-    #[structopt(long)]
+    #[arg(long)]
     minify: bool,
-    #[structopt(long)]
+    #[arg(long)]
     skip_serve: bool,
 }
 
-fn build(opt: &Opt) -> anyhow::Result<()> {
+fn build(opt: &Args) -> anyhow::Result<()> {
     let mut handlebars = handlebars::Handlebars::new();
 
     let templates = &[
@@ -244,7 +244,7 @@ fn build(opt: &Opt) -> anyhow::Result<()> {
 async fn run() -> anyhow::Result<()> {
     let (notify_tx, notify_rx) = mpsc::channel();
 
-    let opt = Opt::from_args();
+    let opt = Args::parse();
 
     build(&opt).unwrap();
 

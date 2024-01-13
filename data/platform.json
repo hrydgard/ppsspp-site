@@ -141,7 +141,9 @@
             },
             {
                 "name": "W.MS' latest .deb",
-                "url": "https://pbot.w-ms.cn/getdeb?PPSSPPORG"
+                "url": "https://pbot.w-ms.cn/getdeb?PPSSPPORG",
+                "whats_this_url": "/docs/reference/ios-support/",
+                "whats_this": "iOS information"
             }
         ]
     },

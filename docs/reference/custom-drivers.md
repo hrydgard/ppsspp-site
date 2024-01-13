@@ -9,11 +9,11 @@ Note that generally, this feature is not as beneficial as it is for say Dolphin 
 Note that this feature is not available for phones with ARM (Mali) or PowerVR GPUs. You can check what GPU
 you have by going to `Settings/Tools/System Information` within PPSSPP.
 
-Also note that these drivers only apply to Vulkan, not OpenGL. OpenGL always runs using the proprietary driver.
+Also note that these drivers only apply to Vulkan, not OpenGL. OpenGL always runs using the pre-installed proprietary driver.
 
 ## How to download and use Adreno drivers
 
-[AdrenoToolsDrivers Release page](https://github.com/K11MCH1/AdrenoToolsDrivers/releases/)
+[AdrenoTools driver release page](https://github.com/K11MCH1/AdrenoToolsDrivers/releases/)
 
 Download drivers to your device from the above link, and keep them as ZIP files (do not decompress).
 
