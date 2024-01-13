@@ -168,7 +168,7 @@ impl GlobalMeta {
             }
         }
 
-        let version_downloads = boil(&version_binaries, &platforms);
+        let version_downloads = boil(url_base, &version_binaries, &platforms);
 
         //println!("{:#?}", version_binaries);
         //println!("{:#?}", file_versions);
@@ -244,11 +244,16 @@ fn pivot(binaries_per_version: &Vec<BinaryVersion>) -> HashMap<String, Vec<Strin
     hash
 }
 
-fn boil(version_binaries: &[BinaryVersion], platforms: &[PlatformInfo]) -> Vec<VersionDownloads> {
+fn boil(
+    url_base: &str,
+    version_binaries: &[BinaryVersion],
+    platforms: &[PlatformInfo],
+) -> Vec<VersionDownloads> {
     let mut downloads = vec![];
     for version in version_binaries {
+        let version_str = version.version.clone();
         let mut version_download = VersionDownloads {
-            version: version.version.clone(),
+            version: version_str.clone(),
             downloads: vec![],
         };
 
@@ -271,6 +276,11 @@ fn boil(version_binaries: &[BinaryVersion], platforms: &[PlatformInfo]) -> Vec<V
                     } else {
                         download.icon = None;
                     }
+                    download.download_url = if download.gold_only {
+                        Some(gold_download_path(url_base, &version_str, filename))
+                    } else {
+                        Some(download_path(url_base, &version_str, filename))
+                    };
                     version_download.downloads.push(download);
                 }
             }
@@ -279,6 +289,7 @@ fn boil(version_binaries: &[BinaryVersion], platforms: &[PlatformInfo]) -> Vec<V
             downloads.push(version_download);
         }
     }
+    println!("{:#?}", downloads);
     downloads
 }
 
