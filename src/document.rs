@@ -378,6 +378,10 @@ impl Category {
             }
         }
 
+        // First sort alphabetically, then by key.
+        sub_categories.sort_by_cached_key(|a| a.meta.title.clone());
+        documents.sort_by_cached_key(|a| a.meta.title.clone());
+
         // Best-effort sorting using the given numbers. Numbers are ahead of no number.
         sub_categories.sort_by_key(|a| {
             if a.meta.position == 0 {

@@ -100,7 +100,8 @@ pub fn generate_blog(
     });
 
     // Reformat the tag data to a vector.
-    let tags = tag_lookup.values().cloned().collect::<Vec<_>>();
+    let mut tags = tag_lookup.values().cloned().collect::<Vec<_>>();
+    tags.sort_by_key(|t| t.name.clone());
 
     // Add next/forward links
     // for [prev, cur, next] in documents.
