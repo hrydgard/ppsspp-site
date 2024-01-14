@@ -179,7 +179,7 @@ impl GlobalMeta {
         // println!("{:#?}", platforms);
         // println!("{:#?}", authors);
 
-        // OK, here we need to preprocess the downloads together with the platform data.
+        // OK, here we need to pre-process the downloads together with the platform data.
 
         Ok(Self {
             app_version: if let Some(file) = version_binaries.first() {

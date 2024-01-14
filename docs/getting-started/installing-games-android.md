@@ -29,7 +29,7 @@ The following instructions apply identically for PPSSPP and PPSSPP Gold.
 
     ![Open device storage in Explorer](/static/img/guide_files/step4.png)
 
-7. You can now create a new folder to store your ISOs in, if you haven't already (it's recommended that it's separate from the "PSP" folder where system files and savegames go, but it does work to use the same folder). A quick way is by pressing Ctrl+Shift+N and typing the name of your new folder.
+7. You can now create a new folder to store your ISOs in, if you haven't already (it's recommended that it's separate from the "PSP" folder where system files and save games go, but it does work to use the same folder). A quick way is by pressing Ctrl+Shift+N and typing the name of your new folder.
 
     ![Create a new folder](/static/img/guide_files/step5.png)
 

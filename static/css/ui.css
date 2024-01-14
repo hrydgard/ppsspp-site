@@ -462,3 +462,15 @@ form button:hover {
 div.forgot-password {
     margin-top: 20px;
 }
+
+/* Style the list */
+.url-display {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 10px;
+    list-style: none;
+    margin-top: 12px;
+    margin-left: -5px;
+    margin-bottom: 12px;
+    background-color: var(--color-gray-800);
+}
