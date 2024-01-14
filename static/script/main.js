@@ -356,7 +356,7 @@ async function handleGiveFreeGold(event) {
 
 async function handleGetMagicLink(event) {
     event.preventDefault();
-    const email = document.getElementById("magic link_email").value.trim();
+    const email = document.getElementById("magiclink_email").value.trim();
     const magicLink = await jsonFetch("getmagiclink", {
         'email': email,
     });
