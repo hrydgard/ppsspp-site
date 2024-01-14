@@ -131,7 +131,7 @@ Types of Upscale algorithms:
 
 Improves sharpness of textures at shallow angles. See [wikipedia](https://en.wikipedia.org/wiki/Anisotropic_filtering) for some example pictures. There are generally no drawbacks to using it - PPSSPP's performance is rarely bottlenecked by texture sampling.
 
-### Texture Filtering - how textures are drawn on the screen
+### Texture Filtering
 
 * Auto - follows what the game sets
 * Nearest - pixellates textures like on the PS1
@@ -139,6 +139,12 @@ Improves sharpness of textures at shallow angles. See [wikipedia](https://en.wik
 * Auto Max Quality - Like auto, but will generate extra mipmaps where the game doesn't supply them. Can cause artifacts with things like fence textures, but will generally give you a smoother look in the distance in 3D games, especially combined with anisotropic filtering.
 
 For most games, max anisotropic + auto max quality will give you the best results. For a few games like Pursuit Force, switch back to just Auto. This may be made automatic in the future.
+
+### Smart 2D texture filtering
+
+Many 2D games render graphics with linear filtering enabled, even when drawing 2D where each texel maps exactly to a pixel, which we call "pixel-mapped". In this case, the filtering mode doesn't matter, but it does start to matter when you scale up the rendering to higher resolution.
+
+With this option enabled we try to detect this case and switch to "nearest" (pixellated) filtering, which looks better than linear filtering for a lot of 2D art. Some more information can be found [in this PR](https://github.com/hrydgard/ppsspp/pull/18646). The detection is not working in all games yet though.
 
 ## Lower resolution for effects
 
