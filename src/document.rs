@@ -7,19 +7,12 @@ use std::{
     path::{Path, PathBuf},
 };
 
-use serde::{Deserialize, Serialize};
-
-#[derive(Debug, Clone, Deserialize, Serialize)]
-pub struct Link {
-    #[serde(rename = "type")]
-    pub link_type: String,
-    pub description: String,
-}
+use serde::Serialize;
 
 // This is passed into rendering of blog posts, for example,
 // as well as being used in the rust code. And being deserialized
 // from _category.json_, which we should probably replace.
-#[derive(Debug, Deserialize, Serialize, Clone, Default)]
+#[derive(Debug, Serialize, Clone, Default)]
 pub struct DocumentMeta {
     #[serde(default)]
     pub position: u32,
@@ -35,7 +28,6 @@ pub struct DocumentMeta {
     pub author: String,
     #[serde(default)]
     pub tags: Vec<String>,
-    pub link: Option<Link>,
     #[serde(default)]
     pub url: String,
     pub prev: Option<DocLink>,
@@ -56,13 +48,13 @@ pub struct Document {
     pub meta: DocumentMeta,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone, Default)]
+#[derive(Debug, Serialize, Clone, Default)]
 pub struct SidebarContext {
     pub title: String,
     pub links: Vec<DocLink>,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone, Default)]
+#[derive(Debug, Serialize, Clone, Default)]
 pub struct Tag {
     pub name: String,
     pub articles: Vec<DocLink>,
@@ -370,12 +362,6 @@ impl Category {
                             (meta, _ate_title) = Document::read_dash_meta(&mut reader)?;
                         } else {
                             documents.push(Document::from_md(&path, config)?);
-                        }
-                    }
-                    "json" => {
-                        if name == "_category_.json" {
-                            let json_str = std::fs::read_to_string(path)?;
-                            meta = serde_json::from_str(&json_str).expect("Failed to parse JSON");
                         }
                     }
                     _ => {
