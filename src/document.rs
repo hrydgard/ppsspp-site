@@ -176,7 +176,7 @@ impl Document {
         )
     }
 
-    fn read_dash_meta(reader: &mut impl BufRead) -> anyhow::Result<(DocumentMeta, bool)> {
+    pub fn read_dash_meta(reader: &mut impl BufRead) -> anyhow::Result<(DocumentMeta, bool)> {
         let mut meta = DocumentMeta::default();
         let mut buffer = String::new();
 
@@ -363,7 +363,14 @@ impl Category {
                 // Check file extension to figure out what to do.
                 match os_str.to_str().unwrap() {
                     "md" => {
-                        documents.push(Document::from_md(&path, config)?);
+                        if name == "_category_.md" {
+                            let md_file = std::fs::File::open(path)?;
+                            let mut reader = BufReader::new(md_file);
+                            let mut _ate_title;
+                            (meta, _ate_title) = Document::read_dash_meta(&mut reader)?;
+                        } else {
+                            documents.push(Document::from_md(&path, config)?);
+                        }
                     }
                     "json" => {
                         if name == "_category_.json" {
