@@ -8,6 +8,16 @@ The beta testing program for PPSSPP for Android is now open!
 
 A few weeks before each new official release, a beta release will be rolled out to participating people, containing most of the new features that will be in the next release. Additionally, there'll be a build every couple of months between major releases.
 
+## Important information
+
+Beta builds can have bugs and instabilities, but will usually be usable. If you see unexpected behavior or odd crashes, please report them, as explained below.
+
+If you make a save state in a beta build, it will not load if you go back to the previous "normal" build, but it will load in future versions. Regular in-game save games are portable back and forth, assuming you keep the files around.
+
+On Android 11 or higher, make sure you are using a manually-selected folder for memstick data. [More information](/docs/getting-started/save-data-and-storage.md).
+
+## Joining the beta test
+
 Click the appropriate link to join:
 
 <img src="/static/img/platform/ppsspp-icon.png" width="32" alt="icon"> [Join the beta test!](https://play.google.com/apps/testing/org.ppsspp.ppsspp)
