@@ -10,9 +10,14 @@
 
     <div class="doc-contents">
         {{#if meta.breadcrumbs}}
-        <ul class="breadcrumb">
+        <ul class="breadcrumb" vocab="https://schema.org/" typeof="BreadcrumbList">
             {{#each meta.breadcrumbs}}
-            <li>{{#if url}}<a href="{{url}}">{{/if}}{{title}}{{#if url}}</a>{{/if}}</li>
+            <li property="itemListElement" typeof="ListItem">
+                {{#if url}}<a href="{{url}}" property="item" typeof="WebPage">{{/if}}
+                    <span property="name">{{title}}</span>
+                    {{#if url}}</a>{{/if}}
+                <meta property="position" content="{{position}}">
+            </li>
             {{/each}}
         </ul>
         {{/if}}

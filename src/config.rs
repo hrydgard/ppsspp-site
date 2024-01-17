@@ -72,6 +72,8 @@ pub struct DocLink {
     pub external: bool,
     #[serde(default)]
     pub selected: bool,
+    #[serde(default)]
+    pub position: usize,
 }
 
 impl DocLink {
@@ -89,6 +91,7 @@ impl DocLink {
             summary,
             external: url.starts_with("https://"),
             selected: url == selected_url,
+            position: 0,
         }
     }
 }

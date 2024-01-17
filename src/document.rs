@@ -329,6 +329,12 @@ pub struct Category {
     pub path: PathBuf,
 }
 
+fn add_positions(crumbs: &mut [DocLink]) {
+    for (i, crumb) in crumbs.iter_mut().enumerate() {
+        crumb.position = i + 1;
+    }
+}
+
 impl Category {
     pub fn from_folder_tree(folder: &Path, config: &Config) -> anyhow::Result<Self> {
         let mut documents = vec![];
@@ -462,11 +468,14 @@ impl Category {
             summary: self.meta.summary.clone(),
             external: false,
             selected: false,
+            position: 0,
         }
     }
 
     pub fn compute_breadcrumbs(&mut self, crumbs: &mut Vec<DocLink>) {
         self.meta.breadcrumbs = crumbs.clone();
+        add_positions(&mut self.meta.breadcrumbs);
+
         for doc in &mut self.documents {
             crumbs.push(doc.to_doclink(""));
             doc.meta.breadcrumbs = crumbs.clone();

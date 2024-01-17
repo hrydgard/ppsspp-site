@@ -63,6 +63,7 @@ pub fn generate_doctree(
         summary: None,
         external: false,
         selected: false,
+        position: 0,
     }];
     root_cat.compute_breadcrumbs(&mut crumbs);
 
