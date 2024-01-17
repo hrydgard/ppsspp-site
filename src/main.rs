@@ -115,6 +115,7 @@ mod feed;
 mod gen_blog;
 mod gen_doctree;
 mod gen_pages;
+mod gen_sitemap;
 mod index;
 mod post_process;
 mod server;
@@ -158,6 +159,7 @@ fn build(opt: &Args) -> anyhow::Result<()> {
         "page",
         "feed_rss",
         "feed_atom",
+        "sitemap_xml",
     ];
     for tmpl in templates {
         handlebars.register_template_file(tmpl, &format!("template/{tmpl}.hbs"))?;
@@ -231,9 +233,9 @@ fn build(opt: &Args) -> anyhow::Result<()> {
         !opt.minify,
     )?;
 
-    gen_doctree::generate_doctree(&config, "docs", &mut handlebars)?;
+    let docs = gen_doctree::generate_doctree(&config, "docs", &mut handlebars)?;
 
-    let _ = gen_blog::generate_blog(&config, "blog", "Development blog", &mut handlebars)?;
+    let blog = gen_blog::generate_blog(&config, "blog", "Development blog", &mut handlebars)?;
     let news = gen_blog::generate_blog(&config, "news", "Release News", &mut handlebars)?;
 
     config.global_meta.latest_news = news
@@ -242,7 +244,14 @@ fn build(opt: &Args) -> anyhow::Result<()> {
         .map(|doc| doc.to_doclink(""))
         .collect::<Vec<_>>();
 
-    gen_pages::generate_pages(&config, "pages", &mut handlebars)?;
+    let pages = gen_pages::generate_pages(&config, "pages", &mut handlebars)?;
+
+    let mut sitemap = gen_sitemap::SitemapGenerator::new();
+    sitemap.add(&docs, 0.8);
+    sitemap.add(&blog, 0.9);
+    sitemap.add(&news, 0.9);
+    sitemap.add(&pages, 1.0);
+    sitemap.generate(&config, &mut handlebars)?;
 
     Ok(())
 }

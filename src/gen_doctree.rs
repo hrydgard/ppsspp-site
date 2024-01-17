@@ -1,4 +1,4 @@
-use crate::document::{self, Category, PageContext};
+use crate::document::{self, Category, Document, PageContext};
 use crate::index;
 use crate::{config::*, util};
 use anyhow::Context;
@@ -49,7 +49,7 @@ pub fn generate_doctree(
     config: &Config,
     folder: &str,
     handlebars: &mut handlebars::Handlebars<'_>,
-) -> anyhow::Result<()> {
+) -> anyhow::Result<Vec<Document>> {
     // First, build the tree and convert all the markdown to html and metadata.
     let root_folder = config.in_dir.join(folder);
     anyhow::ensure!(root_folder.exists());
@@ -88,7 +88,7 @@ pub fn generate_doctree(
     let mut index = index::Index::new();
 
     // Generate search index. Could be done in parallel to writing out the files.
-    for doc in docs {
+    for doc in &docs {
         if let Some(markdown) = &doc.markdown {
             index.add_md(&config.markdown_options, markdown, &doc.meta)?;
         }
@@ -105,5 +105,5 @@ pub fn generate_doctree(
         json_index_path.display()
     );
 
-    Ok(())
+    Ok(docs)
 }
