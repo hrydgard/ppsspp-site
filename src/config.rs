@@ -65,6 +65,8 @@ pub struct VersionDownloads {
 pub struct DocLink {
     pub url: String,
     pub title: String,
+    #[serde(default)]
+    pub date: String,
     pub summary: Option<String>,
     #[serde(default)]
     pub external: bool,
@@ -73,10 +75,17 @@ pub struct DocLink {
 }
 
 impl DocLink {
-    pub fn new(url: &str, title: &str, summary: Option<String>, selected_url: &str) -> Self {
+    pub fn new(
+        url: &str,
+        title: &str,
+        date: &str,
+        summary: Option<String>,
+        selected_url: &str,
+    ) -> Self {
         Self {
             url: url.to_string(),
             title: title.to_string(),
+            date: date.to_string(),
             summary,
             external: url.starts_with("https://"),
             selected: url == selected_url,
@@ -104,6 +113,7 @@ pub struct GlobalMeta {
     pub prod: bool,
     pub authors: HashMap<String, Author>,
     pub screenshots: Vec<Screenshot>,
+    pub latest_news: Vec<DocLink>,
 }
 
 fn download_path(url_base: &str, version: &str, filename: &str) -> String {
@@ -193,6 +203,7 @@ impl GlobalMeta {
             version_downloads,
             top_nav,
             screenshots,
+            latest_news: vec![],
         })
     }
 }

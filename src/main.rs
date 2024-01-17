@@ -187,7 +187,7 @@ fn build(opt: &Args) -> anyhow::Result<()> {
 
     println!("Build time: {formatted_time}");
 
-    let config = Config {
+    let mut config = Config {
         url_base: url_base.clone(),
         in_dir: PathBuf::from("."),
         out_dir: PathBuf::from("build"),
@@ -234,7 +234,13 @@ fn build(opt: &Args) -> anyhow::Result<()> {
     gen_doctree::generate_doctree(&config, "docs", &mut handlebars)?;
 
     let _ = gen_blog::generate_blog(&config, "blog", "Development blog", &mut handlebars)?;
-    let _ = gen_blog::generate_blog(&config, "news", "Release News", &mut handlebars)?;
+    let news = gen_blog::generate_blog(&config, "news", "Release News", &mut handlebars)?;
+
+    config.global_meta.latest_news = news
+        .iter()
+        .take(3)
+        .map(|doc| doc.to_doclink(""))
+        .collect::<Vec<_>>();
 
     gen_pages::generate_pages(&config, "pages", &mut handlebars)?;
 

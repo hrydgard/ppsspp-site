@@ -1,6 +1,6 @@
 ---
 slug: beta-1.17
-title: Android Beta program now open, new website again!
+title: Android Beta program now open, site update!
 authors: hrydgard
 tags: [releases]
 ---

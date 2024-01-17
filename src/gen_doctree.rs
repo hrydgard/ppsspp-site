@@ -59,6 +59,7 @@ pub fn generate_doctree(
     let mut crumbs = vec![DocLink {
         title: "Docs".to_owned(),
         url: format!("/{}", folder),
+        date: "N/A".to_owned(),
         summary: None,
         external: false,
         selected: false,

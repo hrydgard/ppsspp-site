@@ -163,6 +163,7 @@ impl Document {
         DocLink::new(
             &self.meta.url.clone(),
             &self.meta.title,
+            &self.meta.date,
             self.meta.summary.clone(),
             selected_url,
         )
@@ -457,6 +458,7 @@ impl Category {
         DocLink {
             url: self.meta.url.clone(),
             title: self.meta.title.clone(),
+            date: self.meta.date.clone(),
             summary: self.meta.summary.clone(),
             external: false,
             selected: false,

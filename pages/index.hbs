@@ -36,6 +36,15 @@
 <div class="container">
 
     <div class="row">
+        <div class="col-12">
+            <h3>Latest news</h3>
+            {{#each globals.latest_news}}
+            <div class="latest"><a href="{{url}}">{{title}}</a> <small>{{date}}</small></div>
+            {{/each}}
+        </div>
+    </div>
+
+    <div class="row">
 
         <div class="col-4">
             <h3>Play your PSP games in HD!</h3>
