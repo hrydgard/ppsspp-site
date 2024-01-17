@@ -3,17 +3,20 @@ position: 1
 ---
 # Graphics settings
 
+PPSSPP has a large amount of settings to change the way graphics are rendered, but most of them are generally fine to leave at their defaults.
+
+See the [Recommended settings](/docs/settings/recommended) for ideas on how to optimize for low-end, high-end and latency.
+
 ## Backend
 
-We have implemented rendering code for a few common graphics APIs.
+Lets you choose which rendering API PPSSPP should use to draw graphics.
+
+We have implemented support for a few of the most common graphics APIs:
 
 * Vulkan: The recommended backend on most devices, if available. On Mac, this will use MoltenVK if available.
 * OpenGL: The compatibility option on Android, and available on a lot of other devices too.
-
-Windows-only options:
-
-* D3D11: A good alternative to Vulkan if you're on Windows, very fast and high compatibility.
-* D3D9: Mainly useful on very old laptops with Intel GPUs
+* D3D11: Windows-only. Good alternative to Vulkan if you're on Windows, very fast and high compatibility.
+* D3D9: Windows-only. Mainly useful on very old laptops with Intel GPUs.
 
 ## Rendering resolution
 
@@ -31,12 +34,15 @@ Higher resolutions have obvious benefits for 3D games, but 2D games can benefit 
 ## Software Rendering
 
 The software renderer is mostly more accurate, but runs a lot slower than using the GPU to render. It also
-doesn't allow higher resolutions. Can be useful for development, or a small number of games and homebrew apps
-that the hardware renderers can't handle, or if you just like the look of authentic PSP rendering with dithering and so on.
+doesn't allow higher resolutions, it's limited to 1x and ignores a lot of settings.
+Can be useful for development, or a small number of games and homebrew apps that the hardware renderers
+can't handle, or if you just like the look of authentic PSP rendering with dithering and so on.
 
 ## VSync
 
 Tries to avoid presenting a new image in the middle of your monitor's display refresh, by using whatever option is available to do so. This doesn't always make a difference at all, so if you don't see any issues with screen tearing, best to leave it off.
+
+In Vulkan, instead of tearing, if the "Mailbox" present mode is available, latency will be almost as good as if we did tear. Still, no tearing will happen, instead the framerate might not be 100% smooth at all times.
 
 ## Display layout and effects
 
