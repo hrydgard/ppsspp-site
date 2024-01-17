@@ -1,3 +1,6 @@
+---
+position: 6
+---
 # Hidden settings
 
 These are little-used settings that have not seemed worth creating specific UI for.

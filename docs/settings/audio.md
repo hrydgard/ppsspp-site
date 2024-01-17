@@ -1,3 +1,6 @@
+---
+position: 2
+---
 # Audio Settings
 
 ## Global volume
