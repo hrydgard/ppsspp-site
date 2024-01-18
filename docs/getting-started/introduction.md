@@ -21,6 +21,10 @@ On Linux, we have a flatpak. Manual install from source is also possible.
 
 See [How to get games](/docs/getting-started/how-to-get-games).
 
+## Setting up PPSSPP
+
+Generally, the defaults should be fine, unless you want to set up controllers and so on. However, PPSSPP has a lot of functionality which means a lot of different settings. See the [Settings section](/docs/settings).
+
 ## Updating PPSSPP
 
 On Android, if you installed PPSSPP from the Play or Huawei store, the app will auto update from time to time. New releases are made 2-3 times per year. If you installed via APK, you'll have to manually update by simply installing the new version on top of the old one.
