@@ -7,7 +7,9 @@ PPSSPP has a large amount of settings to change the way graphics are rendered, b
 
 See the [Recommended settings](/docs/settings/recommended) for ideas on how to optimize for low-end, high-end and latency.
 
-## Backend
+## Rendering mode
+
+### Backend
 
 Lets you choose which rendering API PPSSPP should use to draw graphics.
 
@@ -18,7 +20,7 @@ We have implemented support for a few of the most common graphics APIs:
 * D3D11: Windows-only. Good alternative to Vulkan if you're on Windows, very fast and high compatibility.
 * D3D9: Windows-only. Mainly useful on very old laptops with Intel GPUs.
 
-## Rendering resolution
+### Rendering resolution
 
 Sets the resolution to render at as a multiplier of the PSP's original resolution. Setting it to higher values
 than 1x can affect performance, depending on your hardware, but will create a much nicer and sharper image.
@@ -31,20 +33,24 @@ Not all games work perfectly in higher resolution, as PSP games were made to run
 
 Higher resolutions have obvious benefits for 3D games, but 2D games can benefit too, depending on their style. If it's mostly just pixel-aligned sprites art like in King of Fighters (typical of ports from 2D consoles) there won't be any benefits. If they scale and rotate stuff (think Patapon) or use vector graphics like loco roco, that will look better at higher rendering resolutions.
 
-## Software Rendering
+### Software rendering
 
 The software renderer is mostly more accurate, but runs a lot slower than using the GPU to render. It also
 doesn't allow higher resolutions, it's limited to 1x and ignores a lot of settings.
 Can be useful for development, or a small number of games and homebrew apps that the hardware renderers
 can't handle, or if you just like the look of authentic PSP rendering with dithering and so on.
 
-## VSync
+### Antialiasing (MSAA)
+
+This is the best quality antialiasing you can get in PPSSPP, but it's currently only implemented in the Vulkan backend, and only on desktop GPUs (this will change in the future). Use if if it's available, crank it up to 8x if your GPU can handle it for ultra smooth edges on things.
+
+### VSync
 
 Tries to avoid presenting a new image in the middle of your monitor's display refresh, by using whatever option is available to do so. This doesn't always make a difference at all, so if you don't see any issues with screen tearing, best to leave it off.
 
 In Vulkan, instead of tearing, if the "Mailbox" present mode is available, latency will be almost as good as if we did tear. Still, no tearing will happen, instead the framerate might not be 100% smooth at all times.
 
-## Display layout and effects
+### Display layout & effects
 
 Allows you to move around and stretch the actual PSP display on the screen as desired, and additionally
 apply various optional post-processing effects, some of which are documented below:
@@ -54,38 +60,28 @@ apply various optional post-processing effects, some of which are documented bel
 * Scanlines - creates a CRT screen like effect by drawing horizontal lines. Note that this doesn't make
   that much sense because the real PSP had an LCD screen, but I guess could be cool for some arcade ports.
 
-## Framerate control settings
+## Framerate control
+
+### Frame skipping
 
 Especially on mobile platforms, the graphics rendering can be the performance bottleneck. Hence, speed
 can be improved by simply skipping the rendering process on every other frame, or more. The drawback
 is of course that the framerate will decrease, and in some cases there can be flickering issues.
-The setting to control this is called *Frameskipping*.
 
-## Render duplicate frames
+The sub-setting Frame Skipping Type is generally not very useful.
 
-Does what it says - if a game runs at 30hz, we'll still push 60 frames to the monitor. A little more "work" for your device, but can improve timing on some (ie. reduce microstutter)
+### Auto frameskip
 
-## Buffer graphics
+Not generally recommended for use, only use on very low-power devices. Will automatically vary frameskip from 0 up to the current frameskip setting.
 
-How much latency is allowed between the CPU and GPU. A smaller value means that they might not be able to work in parallel as much, and you might get worse performance, but better latency. This may help in music games, such as Project Diva or Patapon.
+### Alternative speed
 
-## MSAA antialiasing
+Lets you set an alternative speed to play at, that can be toggled with a bindable key or button.
 
-This is the best quality antialiasing you can get in PPSSPP, but it's currently only implemented in the Vulkan backend, and only on desktop GPUs (this will change in the future). Use if if it's available, crank it up to 8x if your GPU can handle it for ultra smooth edges on things.
+Useful for passing very tricky sections in games in slow motion, or for speeding things up in a
+more predictable manner than using the unlimited fast-forward key.
 
-## Hardware transform
-
-Do not turn this setting off, unless you are doing it for debugging purposes. With this enabled, PPSSPP runs the vertex transform pipeline (lighting, transform etc) on the GPU. Turning it off is always slower.
-
-## Software skinning
-
-Runs "skinning" on the CPU instead of the GPU, which does sound like it would be slower but it means that draw calls from the game can more easily be combined, which often improves things, especially on older devices. However, in some games, hardware (vertex shader) skinning can be faster on some devices so we keep the option around.
-
-## Geometry shader culling
-
-The PSP has some rather different behavior than PC GPUs about at what depth and in which positions triangles get "culled" (removed) and clipped.
-
-Modern PC GPUs lets us emulate these behaviors efficiently if they support clip and cull planes, but not all GPUs do. For those that don't, we have added this option to use "geometry shaders" to get the same behavior. Unfortunately these have some performance overhead, so we offer the option to turn them off - most games don't in fact need this, though some do - if weird geometry is obscuring the camera, you're going to want to enable this.
+Unfortunately due to how the way this works, audio will glitch and crackle at any other speed than 100%.
 
 ## Speedhacks
 
@@ -98,20 +94,39 @@ on which game you're trying to play, and the hardware you're trying to play it o
 
 Disabling it, and thus skipping rendering of everything that's not rendering directly to the backbuffer, is a speed hack, that may or may not speed up some games, and may cause severe graphical artifacts and/or screen flickering.
 
-### Alternative speed
+### Disable culling
 
-Lets you set an alternative speed to play at, that can be toggled with a bindable key or button.
-
-Useful for passing very tricky sections in games in slow motion, or for speeding things up in a
-more predictable manner than using the unlimited fast-forward key.
-
-Unfortunately due to how the way this works, audio will glitch and crackle at any other speed than 100%.
+The PSP will cull triangles that are outside a 4096x4096 clipping box, and also triangles crossing the Z=1 plane if clipping is enabled. Some games rely on this, but there are a few games where we get this subtly wrong. It can be useful to experiment with turning this off if you see missing or flickering geometry.
 
 ## Spline/Bezier curves quality
 
 The PSP is capable of drawing curves using splines and bezier curves. This is not widely used but there are a few games out there that use it heavily, like Pursuit Force and Loco Roco.
 
 This setting allows reducing the visual quality of these curves for higher performance.
+
+## Performance
+
+### Render duplicate frames
+
+Does what it says - if a game runs at 30hz, we'll still push 60 frames to the monitor. A little more "work" for your device, but can improve timing on some (ie. reduce microstutter)
+
+### Buffer graphics commands
+
+How much latency is allowed between the CPU and GPU. A smaller value means that they might not be able to work in parallel as much, and you might get worse performance, but better latency. This may help in music games, such as Project Diva or Patapon. For more detail, see [Recommended settings](/docs/settings/recommended).
+
+### Hardware transform
+
+Do not turn this setting off, unless you are doing it for debugging purposes. With this enabled, PPSSPP runs the vertex transform pipeline (lighting, transform etc) on the GPU. Turning it off is always slower.
+
+### Software skinning
+
+Runs "skinning" on the CPU instead of the GPU, which does sound like it would be slower but it means that draw calls from the game can more easily be combined, which often improves things, especially on older devices. However, in some games, hardware (vertex shader) skinning can be faster on some devices so we keep the option around.
+
+### Geometry shader culling
+
+The PSP has some rather different behavior than PC GPUs about at what depth and in which positions triangles get "culled" (removed) and clipped.
+
+Modern PC GPUs lets us emulate these behaviors efficiently if they support clip and cull planes, but not all GPUs do. For those that don't, we have added this option to use "geometry shaders" to get the same behavior. Unfortunately these have some performance overhead, so we offer the option to turn them off - most games don't in fact need this, though some do - if weird geometry is obscuring the camera, you're going to want to enable this.
 
 ## Texture Scaling
 
@@ -155,7 +170,9 @@ Many 2D games render graphics with linear filtering enabled, even when drawing 2
 
 With this option enabled we try to detect this case and switch to "nearest" (pixellated) filtering, which looks better than linear filtering for a lot of 2D art. Some more information can be found [in this PR](https://github.com/hrydgard/ppsspp/pull/18646). The detection is not working in all games yet though.
 
-## Lower resolution for effects
+## Hack settings
+
+### Lower resolution for effects
 
 Sometimes games will draw effects that are meant to blur the screen in various ways, such as light bloom effects. PSP games are all designed for 480x272 though, so when it does the blurring, it basically just resizes the things it wants to blur down by a certain %. Now, enter PPSSPP: let's say we renders at 4x or even 8x the original resolution. That means that the "blurred" version is actually still pretty sharp and detailed. So then the supposedly blurred image is applied to the screen and... it kinda looks like a strange outline, after image or ghosting.
 
@@ -163,47 +180,14 @@ Lower resolution for effects forces images other than the main render targets to
 
 The different levels just represents a series of checks we add to identify this situation, with varying confidence.
 
+For more details, see [The Bloom Problem](/docs/troubleshooting/the-bloom-problem.md).
+
 ## Overlay Information
 
-* Show FPS Counter - shows FPS at the top right corner in-game.
-* Show debug statistics - shows realtime information which can be useful for debugging games. It is primarily a developer option.
+### Show FPS Counter
 
-## Controls
+Shows FPS at the top right corner in-game.
 
-### Enable standard shortcut keys
+### Debug overlay
 
-If this is checked, keys like the Windows key, alt key etc can be used as normal.
-If you instead want to map those, uncheck this option.
-
-### Control Mapping
-
-Rebind PSP controls to keyboard, game pad and virtual buttons.
-
-### Haptic Feedback
-
-If this is enabled, the device will vibrate every time a button is pressed.
-Useful of mobile devices for tactile feedback.
-
-### On-screen touch controls
-
-This option can be enabled to use on-screen controls. This is useful on
-devices such as phones and tablets with no hardware buttons.
-
-### Button Opacity
-
-Used to change the opacity of buttons. An opacity of 0 is completely transparent.
-Opacity of 100 is fully opaque
-
-### Auto-hide buttons after seconds
-
-After this number of seconds of inactivity, touch-screen buttons are hidden. This is
-nice when playing on the gamepad or watching long cutscenes.
-
-### Edit touch control layout
-
-Used to move on-screen buttons to custom positions.
-
-Hold down a button and drag the button to the desired location. Then click on
-Back to save changes.
-
-To Reset changes, press the *Reset* button.
+Lets you choose one of a variety of overlays that shows various shows realtime information which can be useful for debugging games. It is primarily a developer option.
