@@ -128,6 +128,8 @@ The PSP has some rather different behavior than PC GPUs about at what depth and 
 
 Modern PC GPUs lets us emulate these behaviors efficiently if they support clip and cull planes, but not all GPUs do. For those that don't, we have added this option to use "geometry shaders" to get the same behavior. Unfortunately these have some performance overhead, so we offer the option to turn them off - most games don't in fact need this, though some do - if weird geometry is obscuring the camera, you're going to want to enable this.
 
+This option is not visible if the hardware has the sufficient clip and cull plane features.
+
 ## Texture Scaling
 
 Texture scaling improves texture detail. However, it is an expensive process and can cause slowdown.
