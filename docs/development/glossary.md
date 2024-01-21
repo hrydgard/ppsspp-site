@@ -1,5 +1,9 @@
 # Glossary
 
+## Memstick / Memory Stick
+
+The PSP's portable flash storage solution, very similar to SD cards but a different format.
+
 ## Allegrex
 
 The [PSP's main CPU](/docs/psp-hardware/cpu/allegrex-overview). It's a 333MHz MIPS processor with a whole bunch of custom extensions, including a SIMD vector instruction set, and a few very convenient bit manipulation instructions. Most games run it at 222MHz to save power, but some make full use of it.
