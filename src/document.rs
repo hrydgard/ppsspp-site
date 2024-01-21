@@ -309,6 +309,8 @@ impl Document {
             .children
             .extend(category.sub_categories.iter().map(|cat| cat.to_doclink()));
 
+        context.contents = Some(category.html.clone());
+
         // Add children document titles to the context here.
 
         let html = handlebars.render("cat_contents", &context)?;
@@ -327,6 +329,7 @@ pub struct Category {
     pub documents: Vec<Document>,
     pub sub_categories: Vec<Category>,
     pub path: PathBuf,
+    pub html: String,
 }
 
 fn add_positions(crumbs: &mut [DocLink]) {
@@ -349,6 +352,8 @@ impl Category {
         let mut summary = "<ul>".to_string();
         let mut summary_line_count = 0;
 
+        let mut html = "".to_string();
+
         const MAX_SUMMARY_LINES: usize = 3;
 
         for dir_entry in listing {
@@ -362,13 +367,14 @@ impl Category {
                 // Check file extension to figure out what to do.
                 match os_str.to_str().unwrap() {
                     "md" => {
+                        let doc = Document::from_md(&path, config)?;
                         if name == "_category_.md" {
-                            let md_file = std::fs::File::open(path)?;
-                            let mut reader = BufReader::new(md_file);
-                            let mut _ate_title;
-                            (meta, _ate_title) = Document::read_dash_meta(&mut reader)?;
+                            meta = doc.meta.clone();
+                            html = doc.html;
+                            // let mut _ate_title;
+                            //(meta, _ate_title) = Document::read_dash_meta(&mut reader)?;
                         } else {
-                            documents.push(Document::from_md(&path, config)?);
+                            documents.push(doc);
                         }
                     }
                     _ => {
@@ -427,6 +433,7 @@ impl Category {
             documents,
             sub_categories,
             path,
+            html,
         })
     }
 

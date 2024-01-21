@@ -2,4 +2,4 @@
 title: GPU - The GE
 position: 2
 ---
-PSP GPU overview.
+Some notes about the PSP's GPU:

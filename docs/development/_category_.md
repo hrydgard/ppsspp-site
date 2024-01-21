@@ -1,5 +1,5 @@
 ---
 title: Development
-position: 3
+position: 4
 ---
-How to get started on PPSSPP development
+How to get started on PPSSPP development.
