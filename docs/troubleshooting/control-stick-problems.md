@@ -1,6 +1,19 @@
-# Problems with Bluetooth controllers on Android
+# Game controller troubleshooting
 
-## D-Pad and joystick won't work
+Some steps to try if you have problems with your gamepad or joystick.
+
+## Not getting any input at all?
+
+Things to check:
+
+* If on Android, can you navigate other apps with the connected gamepad? If not, troubleshoot that first.
+* Go to Settings/Tools/Developer Tools and open the Touchscreen Test. It's a bit of a misnomer since it
+  can also be used to check other input. Push some buttons and see if any messages show up on screen.
+* If the above worked, you should be able to go to Settings/Controls/Control Mapping and use Auto mapping.
+* If Auto mapping didn't work, try manually mapping the inputs one by one. Click "O" and then press the
+  button you want to use for that, for example.
+
+## D-Pad and analog stick won't work on Android
 
 This is a common issue that appears to be because of a bug in Android itself.
 
