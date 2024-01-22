@@ -1,4 +1,4 @@
-# Game controller troubleshooting
+# Game controller problems?
 
 Some steps to try if you have problems with your gamepad or joystick.
 

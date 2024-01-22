@@ -7,10 +7,20 @@ Due to this, PPSSPP for iOS is not officially supported - though, we do try to k
 
 It's highly recommended that if you are interested in emulation on mobile, use Android instead.
 
-However, there are ways to install it:
+However, there are some ways to install it.
 
 ## Unofficial installation guide
 
-IMPORTANT: This guide is unofficial - the project is not responsible for any negative results, and will not answer questino about it. You're on your own!
+IMPORTANT: This guide is unofficial - the project is not responsible for any negative results, and will not answer questions about it. You're on your own!
+
+Also, this is one way to install it. There may be others.
 
 [Sugoyga's SideStore guide for PPSSPP on iOS](https://suyogya.link/installing-sidestore-and-ppsspp-on-ios/)
+
+## Missing features
+
+The iOS build is missing a few features:
+
+* Virtual keyboard input
+* Camera input
+* Microphone
