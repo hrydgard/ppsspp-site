@@ -16,11 +16,15 @@ After that, simply run games, and if they have achievement sets made for them, t
 
 ## Settings documentation
 
-### Challenge Mode
+### Challenge/Hardcore Mode
 
-In Challenge Mode, a number of the emulator's features that are particularly prone to cheating are disabled, such as save states and slowing down time. Speeding up time is still allowed.
+In Challenge/Hardcore Mode, a number of the emulator's features that are particularly prone to cheating are disabled, such as save states and slowing down time. Speeding up time is still allowed.
+
+Leaderboards are only available in Challenge/Hardcore mode.
 
 Challenge Mode is known as Hardcore Mode in some other emulators and on the website, but due to the various associations of the word, and how restrictive the Play Store reviewers can be, we've renamed it to Challenge Mode, much like DuckStation or PCSX2.
+
+From 1.17, we decided to change to Hardcore mode to match the other emulators. Let's see how it goes.
 
 ### Encore Mode
 
@@ -39,6 +43,10 @@ Usually, turning on this option is not very useful - if you need it, you know yo
 Find the list of PSP games with achievement support [here](https://retroachievements.org/gameList.php?c=41).
 
 Unfortunately, it's often the case that only one or two regions of a game are supported. Click the link "Supported game files" on the game's page on that site to find out.
+
+## Leaderboards are not working!
+
+Turn on hardcore mode.
 
 ## My achievement unlocked at the wrong time!
 
