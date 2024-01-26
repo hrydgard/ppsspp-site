@@ -16,7 +16,7 @@ Beta builds can have bugs and instabilities, but will usually be usable. If you 
 
 If you make a save state in a beta build, it will not load if you go back to the previous "normal" build, but it will load in future versions. Regular in-game save games are portable back and forth, assuming you keep the files around.
 
-On Android 11 or higher, make sure you are using a manually-selected folder for memstick data. [More information](/docs/getting-started/save-data-and-storage.md).
+On Android 11 or higher, make sure you are using a manually-selected folder for memstick data. [More information](/docs/getting-started/save-data-and-storage).
 
 ## Joining the beta test
 

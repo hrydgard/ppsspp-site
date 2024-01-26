@@ -9,7 +9,7 @@ Quick answers to questions that are frequently asked.
 
 You need to have your PSP games as .ISO or .CSO files. I do not have the right to distribute those with the app, so you'll have to provide them on your own.
 
-To convert your real PSP games for use with PPSSPP, see [this article](docs/getting-started/dumping-games.md).
+To convert your real PSP games for use with PPSSPP, see [this article](docs/getting-started/dumping-games).
 
 ## PPSSPP is awesome! How do I donate to the project?
 
@@ -143,7 +143,7 @@ Where it is depends on the platform:
 
 * Windows: Either in the directory "memstick" in PPSSPP, or in your documents directory. There's also an additional shortcut, just choose "File->Open Memstick Folder..." to find it.
 * Mac/Linux: Look in .config/ppsspp in your home directory. Some distributions may have it in other places.
-* Android: In older versions it was always in the /PSP directory at the root of your shared storage. In Android 11 and later with PPSSPP 1.12 or later, it's configurable. [More information here](/docs/getting-started/save-data-and-storage.md).
+* Android: In older versions it was always in the /PSP directory at the root of your shared storage. In Android 11 and later with PPSSPP 1.12 or later, it's configurable. [More information here](/docs/getting-started/save-data-and-storage).
 
 ## What are the PC CPU and GPU requirements?
 

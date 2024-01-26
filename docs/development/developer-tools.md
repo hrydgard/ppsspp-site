@@ -13,7 +13,7 @@ A large amount of obscure settings and test screens that have been added over th
 This is due to graduate out to the normal settings soon, although, "Save new textures" kind of still belongs here
 so not sure what to do.
 
-See [Texture replacement](/docs/reference/texture-replacement.md) and [Using replacement textures](/docs/reference/use-texture-replacement.md) for more detailed information.
+See [Texture replacement](/docs/reference/texture-replacement) and [Using replacement textures](/docs/reference/use-texture-replacement) for more detailed information.
 
 ### Save new textures
 

@@ -182,7 +182,7 @@ Lower resolution for effects forces images other than the main render targets to
 
 The different levels just represents a series of checks we add to identify this situation, with varying confidence.
 
-For more details, see [The Bloom Problem](/docs/troubleshooting/the-bloom-problem.md).
+For more details, see [The Bloom Problem](/docs/troubleshooting/the-bloom-problem).
 
 ## Overlay Information
 
