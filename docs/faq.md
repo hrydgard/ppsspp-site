@@ -217,6 +217,12 @@ Chromebooks can run the Android version of PPSSPP. However, it's not tested very
 
 From version 1.17, yes.
 
+## The texture replacement pack for Tactics Ogre doesn't work on Steam Deck!
+
+This is due to a mistake by the makers of the texture pack, and the case-sensitivity of the file system on the deck.
+
+Simply rename the UI folder to ui, and the Profile folder to profile, and it will work just fine.
+
 ## My SD card won't work for loading games after upgrading to Android 13!
 
 There have been a couple of reports of this, and one person reported being able to solve the problem by reformatting the SD card from scratch, and copying back the stuff on it. Still unclear what was going on.
