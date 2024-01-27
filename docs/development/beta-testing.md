@@ -18,6 +18,8 @@ If you make a save state in a beta build, it will not load if you go back to the
 
 On Android 11 or higher, make sure you are using a manually-selected folder for memstick data. [More information](/docs/getting-started/save-data-and-storage).
 
+If you have installed PPSSPP through an APK previously, for example from the buildbot, you will have to uninstall, and install again from Google Play, in order to get your automatic beta updates.
+
 ## Joining the beta test
 
 Click the appropriate link to join:
