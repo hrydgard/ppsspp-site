@@ -77,13 +77,19 @@ pub fn add_meta_from_markdown(
 }
 
 // Markdown post-processing. This is for linking github issues.
-pub fn postprocess_markdown(md: &str, config: &Config) -> String {
+pub fn preprocess_markdown(md: &str, doc_name: &str, config: &Config) -> anyhow::Result<String> {
+    anyhow::ensure!(
+        !md.contains(".md)"),
+        "Markdown {} contains bad link",
+        doc_name
+    );
+
     let issue_regex = regex::Regex::new(r"\[#(\d+)\]").unwrap();
-    issue_regex
+    Ok(issue_regex
         .replace_all(md, |captures: &regex::Captures<'_>| {
             let issue_number = captures.get(1).unwrap().as_str();
             format!("[#{}]({}{})", issue_number, config.github_url, issue_number)
             // Construct the replacement with the GitHub URL
         })
-        .to_string()
+        .to_string())
 }

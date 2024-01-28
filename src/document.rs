@@ -239,7 +239,7 @@ impl Document {
             meta.contains_code = true;
         }
 
-        let md = post_process::postprocess_markdown(&md, config);
+        let md = post_process::preprocess_markdown(&md, &meta.title, config)?;
 
         let html = markdown::to_html_with_options(&md, &config.markdown_options)
             .map_err(anyhow::Error::msg)?;
