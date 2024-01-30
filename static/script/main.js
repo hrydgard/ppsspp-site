@@ -596,7 +596,7 @@ function translateForward(forward, reason) {
             forward = null;
             break;
         case "downloadgold":
-            forward = "downloads";
+            forward = "download";
             break;
     }
     if (forward) {
