@@ -98,6 +98,10 @@ Disabling it, and thus skipping rendering of everything that's not rendering dir
 
 The PSP will cull triangles that are outside a 4096x4096 clipping box, and also triangles crossing the Z=1 plane if clipping is enabled. Some games rely on this, but there are a few games where we get this subtly wrong. It can be useful to experiment with turning this off if you see missing or flickering geometry.
 
+### Vertex Cache
+
+As of 1.17, this setting no longer exists. Previously, we used hashing to try to avoid decoding the same vertex data over and over again. But I managed to optimize things enough that the benefit was very small or negative, and given the graphical glitches that this setting caused, I deleted it.
+
 ## Spline/Bezier curves quality
 
 The PSP is capable of drawing curves using splines and bezier curves. This is not widely used but there are a few games out there that use it heavily, like Pursuit Force and Loco Roco.
