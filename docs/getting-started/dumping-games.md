@@ -21,6 +21,8 @@ To read a game disc into an ISO is called "dumping" for historical reasons - it'
 
 There are tools to turn ISO files into CSO (compressed ISO) files to save space, such as [maxcso](https://github.com/unknownbrackets/maxcso/releases) by \[Unknown\].
 
+If you want to use CHD for compression, perhaps for consistency with the rest of your library (I still recommend CSO), use `chdman createdvd`. CHDs created using `chdman createcd` will not perform well, and PPSSPP 1.17.1 or later will warn you about it.
+
 ## Digital downloads
 
 If you have digital downloads on your real PSP, they can be used directly on PPSSPP. Just copy the `EBOOT.PBP` over. Note that this has not been tested as much as ISO loading so there may still be issues with some games.
