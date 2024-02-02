@@ -24,11 +24,11 @@ Still not much of a resolution.
 It's known that disabling various accessibility settings can fix it, such as:
 
 * Accessibility / Magnification / Magnification Shortcut
-* QuickCursor
+* QuickCursor (and other apps that layer themselves on top of other apps)
 * Longshot
 * One-handed mode
-* Just any accessibility option
+* Just about any accessibility option
 
 It can also be that input comes on unexpected "axis". Go to the control mapping screen and re-map your stick and d-pad to make sure they're right.
 
-Also try rebooting the phone, because why not..
+Also try rebooting the phone, it can't hurt.

@@ -65,6 +65,10 @@ if (majorVersion < 40) {
 
 Fixed in the latest Adreno drivers since some time, supposedly fixed by Mali (but not yet confirmed).
 
+#### Lost device when writing to gl_FragDepth with depth test set to NEVER
+
+The workaround for the above bug eventually led to this one - UFC 2010 does the stencil+discard thing, with depth test set to NEVER.
+
 ### Color mask not applied
 
 The color mask controls which channels of a color attachment are written. It's possible to write to only the depth buffer while still having both a color buffer and a depth buffer bound by setting the color mask to 0. Unfortunately, on Adreno 500, this does not produce the expected results.

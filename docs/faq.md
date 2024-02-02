@@ -49,9 +49,9 @@ This is also why PPSSPP will not show the cross media bar (XMB) interface of the
 
 <a name="gold"></a>
 
-## Can PPSSPP play PSX/PS2/PS3 games?
+## Can PPSSPP play PS1/PS2/PS3/PS4/PS5 games? Can it play GTA 5? Can I play my old PC games?
 
-No.
+No. PSP games only.
 
 ## Can I use my gamepad to control PPSSPP?
 
@@ -60,13 +60,13 @@ On Android, many Bluetooth gamepads like iPega Red Knight work just fine, someti
 
 ## My XBox or PlayStation joystick doesn't work on Android
 
-Apparently, some accessibility options can interfere with joystick functionality. Try turning any accessibility settings off in Android settings. This behavior has been seen on Google Pixel phones.
+Apparently, some accessibility options can interfere with joystick functionality. Try turning any accessibility settings off in Android settings. This behavior has been seen on Google Pixel phones. [More details here](/docs/troubleshooting/control-stick-problems).
 
 It seems like apps like Quick Cursor that draw over other apps can also cause this, by seemingly taking over joystick input.
 
 The bug has been reported to Google, still no fix: [issue report](https://issuetracker.google.com/issues/163120692?pli=1)
 
-## What's the use for the second analog stick?
+## What's the use for the bindable second analog stick?
 
 No variant of the PSP itself ever had a second analog stick, but there are patches for a few games that allow it to be used for camera control. This is not something that can be done generically, of course.
 
