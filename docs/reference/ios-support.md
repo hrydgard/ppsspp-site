@@ -11,9 +11,10 @@ However, there are some ways to install it.
 
 ## Unofficial installation guide
 
-IMPORTANT: This guide is unofficial - the project is not responsible for any negative results, and will not answer questions about it. You're on your own!
+IMPORTANT: This guide is unofficial - the project is not responsible for any negative results, and will not answer
+questions about it. You're on your own!
 
-Also, this is one way to install it. There may be others.
+Also, this is just one way to install it. There may be others.
 
 [Sugoyga's SideStore guide for PPSSPP on iOS](https://suyogya.link/installing-sidestore-and-ppsspp-on-ios/)
 
@@ -24,3 +25,14 @@ The iOS build is missing a few features:
 * Virtual keyboard input
 * Camera input
 * Microphone
+
+## Logging in to RetroAchievements
+
+Due to the missing keyboard, this is not possible. You'll have to login on another device, then transfer your login manually.
+
+You'll have to figure out the exact paths yourself, can't help you with this.
+
+What you need to transfer, to the corresponding place on the iOS device is:
+
+* PSP/SYSTEM/ppsspp_retroachievements.dat
+* In PSP/SYSTEM/ppsspp.ini, from the section `[Achievements]`, the line starting with `AchievementsUserName`

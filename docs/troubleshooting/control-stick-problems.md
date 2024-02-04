@@ -1,8 +1,8 @@
 # Game controller problems?
 
-Some steps to try if you have problems with your gamepad or joystick.
+Some steps to try if you have problems with your gamepad, joystick or touch controls.
 
-## Not getting any input at all?
+## Not getting any controller input at all!
 
 Things to check:
 
@@ -12,6 +12,22 @@ Things to check:
 * If the above worked, you should be able to go to Settings/Controls/Control Mapping and use Auto mapping.
 * If Auto mapping didn't work, try manually mapping the inputs one by one. Click "O" and then press the
   button you want to use for that, for example.
+
+## It's difficult to rotate the stick on the touch screen or with a controller
+
+The God of War games have a few events where you need to rotate the stick a few full laps. Doing that on the touchscreen
+can be a little tricky but there's another way.
+
+* If you are using a controller, just map two buttons to "Rotate Analog (CW)" and CCW. CW refers to clockwise,
+  CCW to counter-clockwise. Then press and hold the mapped buttons to rotate the stick.
+
+* If you are using only touchscreen, try this:
+
+  1. Go to Settings/Controls/Edit touch control layout.../Customize
+  1. Check the checkboxes next to Custom 1 and Custom 2 (or whichever ones you want)
+  1. For each of these, click it, give them an icon of your choosing, and check Rotate Analog (CW) for one and CCW for the other
+  1. Back out to the `Edit touch control layout...` screen, and place them on the touchscreen somewhere.
+  1. In the game, press and hold to spin the stick. This should let you pass the event.
 
 ## D-Pad and analog stick won't work on Android
 
