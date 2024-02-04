@@ -43,13 +43,19 @@ chdman createdvd -i game.iso -o game.chd
 
 Just replace "game" with the name of your iso file.
 
-PPSSPP 1.17.1 also supports an additional mode, using zstd for compression:
+PPSSPP 1.17.1 also supports an additional mode, using zstd for compression, which might perform slightly better:
 
 ```sh
 chdman createdvd -i game.iso -o game.chd -c zstd
 ```
 
 IMPORTANT! DO NOT use the `createcd` or `createraw` commands. `createdvd` is what you want to use.
+
+If you want to turn your .chd back into an ISO file, here's the command:
+
+```sh
+chdman extractdvd -i game.chd -o game.iso
+```
 
 ## Digital downloads
 
