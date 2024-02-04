@@ -18,6 +18,11 @@ Things to check:
 The God of War games have a few events where you need to rotate the stick a few full laps. Doing that on the touchscreen
 can be a little tricky but there's another way.
 
+IMPORTANT: Before doing the below, check that you have disabled Frameskipping on the Graphics tab in settings - this can
+interfere with the move. This might make it possible for you to perform the move without issue.
+
+Anyway, here are the steps to enable doing it the easy way:
+
 * If you are using a controller, just map two buttons to "Rotate Analog (CW)" and CCW. CW refers to clockwise,
   CCW to counter-clockwise. Then press and hold the mapped buttons to rotate the stick.
 
