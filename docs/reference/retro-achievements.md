@@ -12,19 +12,17 @@ From 1.16.1, you can find RetroAchievements under Tools in settings, previously 
 
 First, create an account on the RetroAchievements website. Then, in PPSSPP's RetroAchievements settings, enter the same username and password.
 
-After that, simply run games, and if they have achievement sets made for them, they'll be activated. Also, you might want to enable Challenge Mode, see below.
+After that, simply run games, and if they have achievement sets made for them, they'll be activated. Also, you might want to enable Hardcore Mode, see below.
 
 ## Settings documentation
 
-### Challenge/Hardcore Mode
+### Hardcore Mode
 
-In Challenge/Hardcore Mode, a number of the emulator's features that are particularly prone to cheating are disabled, such as save states and slowing down time. Speeding up time is still allowed.
+In Hardcore Mode, a number of the emulator's features that are particularly prone to cheating are disabled, such as save states and slowing down time. Speeding up time is still allowed.
 
-Leaderboards are only available in Challenge/Hardcore mode.
+NOTE: Leaderboards are only available in Hardcore mode.
 
-Challenge Mode is known as Hardcore Mode in some other emulators and on the website, but due to the various associations of the word, and how restrictive the Play Store reviewers can be, we've renamed it to Challenge Mode, much like DuckStation or PCSX2.
-
-From 1.17, we decided to change to Hardcore mode to match the other emulators. Let's see how it goes.
+We previously called it Challenge Mode, but we have now switched to the RetroAchievements standard, which is Hardcore mode.
 
 ### Encore Mode
 
