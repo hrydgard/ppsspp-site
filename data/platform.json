@@ -1,7 +1,7 @@
 [
     {
         "title": "Android",
-        "platform_badge": "android-36.png",
+        "platform_badge": "android.svg",
         "platform_key": "android",
         "downloads": [
             {
@@ -29,7 +29,7 @@
     },
     {
         "title": "Windows",
-        "platform_badge": "windows-36-white.png",
+        "platform_badge": "windows.svg",
         "platform_key": "windows",
         "downloads": [
             {
@@ -81,7 +81,7 @@
     },
     {
         "title": "macOS",
-        "platform_badge": "apple-36.png",
+        "platform_badge": "macos.svg",
         "platform_key": "macos",
         "downloads": [
             {
@@ -117,7 +117,7 @@
     },
     {
         "title": "Linux",
-        "platform_badge": "linux-36.png",
+        "platform_badge": "linux_simple_min.svg",
         "platform_key": "linux",
         "downloads": [
             {
@@ -131,7 +131,7 @@
     },
     {
         "title": "iOS",
-        "platform_badge": "apple-36.png",
+        "platform_badge": "ios.svg",
         "platform_key": "ios",
         "description": "PPSSPP for iOS is not officially supported but working builds can be found.",
         "downloads": [
@@ -149,6 +149,7 @@
     },
     {
         "title": "VR APK for Quest and Pico",
+        "platform_badge": "vr.svg",
         "platform_key": "vr",
         "downloads": [
             {

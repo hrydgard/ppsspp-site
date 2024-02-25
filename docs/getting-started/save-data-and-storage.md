@@ -21,7 +21,7 @@ The setup I recommend is to simply create a PSP folder at the root of your stora
 
 Here's a step by step guide for how to create the folder:
 
-First, when PPSSPP starts (or later in Settings/System/Memory Stick Location), choose "Create or use existing folder". You'll get the below folder picker.
+First, when PPSSPP starts (or later in Settings/System/Memory Stick Location), choose "Create or use existing folder". You'll get the below folder picker. (If you don't, and instead get a red error message, [click here](/docs/troubleshooting/cant-pick-folder)).
 
 Make sure you're in the root of storage - you can see this since it'll say "Can't use this folder".
 
@@ -34,3 +34,11 @@ If not, follow the red markings in the below pictures.
 ![Enter a name for the new folder. PSP suggested.](/static/img/guide_folder/step2.png)
 
 ![Click "Use this folder"](/static/img/guide_folder/step3.png)
+
+## Pitfalls
+
+If your folder is named PSP, PPSSPP will not create a subdirectory called PSP inside it, and instead use the folder directly as the PSP directory in the root of the virtual memstick.
+
+As a result, if you rename your folder from PSP to say PSP2 and then pick it again in PPSSPP, you won't see anything that's inside it. Instead, it will create a new subfolder inside it called PSP and use that. This can be really confusing!
+
+To fix it, either rename the folder back, or move all the contents into the PSP subfolder.
