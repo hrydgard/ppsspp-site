@@ -38,6 +38,7 @@
 }
 
 img.icon-container-36,
+img.icon-container-32,
 img.icon-container-24 {
     display: inline-flex;
     justify-content: center;
@@ -49,6 +50,11 @@ img.icon-container-24 {
 img.icon-container-36 {
     height: 36px;
     width: 36px;
+}
+
+img.icon-container-32 {
+    height: 32px;
+    width: 32px;
 }
 
 img.icon-container-24 {
