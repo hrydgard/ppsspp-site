@@ -37,6 +37,7 @@
     overflow: hidden;
 }
 
+img.icon-48,
 img.icon-36,
 img.icon-32,
 img.icon-24 {
@@ -45,6 +46,11 @@ img.icon-24 {
     vertical-align: middle;
     max-width: 100%;
     max-height: 100%;
+}
+
+img.icon-48 {
+    height: 48px;
+    width: 48px;
 }
 
 img.icon-36 {
