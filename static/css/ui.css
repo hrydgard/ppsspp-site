@@ -37,19 +37,11 @@
     overflow: hidden;
 }
 
-.gold-link {
-    color: #FFC800FF;
-}
-
 .icon-container-36,
-.icon-container-24,
-.icon-container-288,
-.icon-container-144,
-.icon-container-72 {
+.icon-container-24 {
     display: flex;
     justify-content: center;
     align-items: center;
-    /*border: 1px solid;*/
 }
 
 .icon-container-36 {
@@ -62,27 +54,8 @@
     width: 24px;
 }
 
-.icon-container-288 {
-    height: 288px;
-    width: 288px;
-}
-
-.icon-container-144 {
-    height: 144px;
-    width: 144px;
-}
-
-.icon-container-72 {
-    height: 72px;
-    width: 72px;
-}
-
 .icon-container-36 img,
-.icon-container-24 img,
-.icon-container-288,
-img,
-.icon-container-144 img,
-.icon-container-72 img {
+.icon-container-24 img {
     max-width: 100%;
     max-height: 100%;
 }
