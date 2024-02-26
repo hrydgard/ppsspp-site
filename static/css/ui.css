@@ -37,27 +37,23 @@
     overflow: hidden;
 }
 
-.icon-container-36,
-.icon-container-24 {
-    display: flex;
+img.icon-container-36,
+img.icon-container-24 {
+    display: inline-flex;
     justify-content: center;
-    align-items: center;
+    vertical-align: middle;
+    max-width: 100%;
+    max-height: 100%;
 }
 
-.icon-container-36 {
+img.icon-container-36 {
     height: 36px;
     width: 36px;
 }
 
-.icon-container-24 {
+img.icon-container-24 {
     height: 24px;
     width: 24px;
-}
-
-.icon-container-36 img,
-.icon-container-24 img {
-    max-width: 100%;
-    max-height: 100%;
 }
 
 .download-button .button-contents {
