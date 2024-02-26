@@ -32,7 +32,7 @@
                             }}href="{{url}}" {{ /if }} {{ #if download_url }}href="{{download_url}}" {{ /if }}>
                             <div class="button-contents">
                                 {{ #if icon }}
-                                <img src="/static/img/platform/{{icon}}" width="32" height="32">&nbsp;
+                                <img src="/static/img/platform/{{icon}}" class="icon-32">&nbsp;
                                 {{ /if }}
                                 {{ #if url }}{{name}}{{ /if }}
                                 {{ #if download_url }}{{name}}{{ /if }}
@@ -95,7 +95,7 @@
                     <td>
                         {{ #each downloads }}
                         {{ #if icon }}
-                        <img src="/static/img/icons/{{icon}}" width="24" height="24">
+                        <img src="/static/img/icons/{{icon}}" class="icon-24">
                         {{ /if }}
                         {{ #if short_name }}
                         <a href="{{download_url}}">{{short_name}}</a>
