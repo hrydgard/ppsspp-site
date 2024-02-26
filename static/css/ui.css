@@ -37,6 +37,18 @@
     overflow: hidden;
 }
 
+.gold-link {
+    color: var(--color-gold-border);
+    background-color: var(--color-gold);
+    border: var(--button-border-width) solid var(--color-gold-border);
+}
+
+.gold-link:hover {
+    color: var(--color-gold-border-hover);
+    background-color: var(--color-gold-hover);
+    border-color: var(--color-gold-border-hover);
+}
+
 img.icon-48,
 img.icon-36,
 img.icon-32,
