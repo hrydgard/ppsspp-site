@@ -14,36 +14,22 @@
     display: none;
 }
 
-.button-block {
-    display: block;
-    width: 100%;
-}
-
-.download-button {
-    display: block;
-    background-color: var(--button-background-color);
-    border: var(--button-border-width) solid var(--button-border-color);
-    border-radius: var(--button-border-radius);
-    color: var(--color-text-inverse);
-    cursor: pointer;
-    font-size: calc(.875rem*var(--button-size-multiplier));
-    font-weight: var(--button-font-weight);
-    line-height: 1.5;
-    padding: var(--button-padding-vertical) var(--button-padding-horizontal);
-    margin: 8px 0px;
-    text-align: center;
-    user-select: none;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.gold-link {
-    color: var(--color-gold-border);
+/*
+    Reusing existing vars for now.
+    If we keep download-link-gold in the long run, it may be worth defining its own vars.
+*/
+a.download-link-gold {
+    color: var(--color-gold-border-hover);
     background-color: var(--color-gold);
     border: var(--button-border-width) solid var(--color-gold-border);
+    border-radius: var(--button-border-radius);
+    font-weight: var(--button-font-weight);
+    padding: 4px;
+    margin: 0px 4px;
+    user-select: none;
 }
 
-.gold-link:hover {
+a.download-link-gold:hover {
     color: var(--color-gold-border-hover);
     background-color: var(--color-gold-hover);
     border-color: var(--color-gold-border-hover);
@@ -78,6 +64,29 @@ img.icon-32 {
 img.icon-24 {
     height: 24px;
     width: 24px;
+}
+
+.button-block {
+    display: block;
+    width: 100%;
+}
+
+.download-button {
+    display: block;
+    background-color: var(--button-background-color);
+    border: var(--button-border-width) solid var(--button-border-color);
+    border-radius: var(--button-border-radius);
+    color: var(--color-text-inverse);
+    cursor: pointer;
+    font-size: calc(.875rem*var(--button-size-multiplier));
+    font-weight: var(--button-font-weight);
+    line-height: 1.5;
+    padding: var(--button-padding-vertical) var(--button-padding-horizontal);
+    margin: 8px 0px;
+    text-align: center;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .download-button .button-contents {
