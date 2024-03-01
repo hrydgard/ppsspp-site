@@ -232,6 +232,7 @@ async function applyDOMVisibility() {
     setDisplayMode("not-login-key-only", g_userData.loginType != "key" ? "block" : "none");
 
     setDisplayMode("gold-only", g_userData.goldUser ? "block" : "none");
+    setDisplayMode("gold-only-inline", g_userData.goldUser ? "inline" : "none");
     setDisplayMode("no-gold-only", g_userData.goldUser ? "none" : "block");
 
     // Update various textual fields if present on the page.
