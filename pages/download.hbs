@@ -94,13 +94,15 @@
                     <td>{{version}}</td>
                     <td>
                         {{ #each downloads }}
-                        {{ #if icon }}
-                        <img src="/static/img/icons/{{icon}}" class="icon-24">
-                        {{ /if }}
-                        {{ #if short_name }}
-                        <a href="{{download_url}}">{{short_name}}</a>
-                        {{ /if }}
-                        |
+                        <span {{ #if gold_only }} class="gold-only-inline" {{ /if }}>
+                            {{ #if icon }}
+                            <img src="/static/img/icons/{{icon}}" class="icon-24">
+                            {{ /if }}
+                            {{ #if short_name }}
+                            <a href="{{download_url}}">{{short_name}}</a>
+                            {{ /if }}
+                            |
+                        </span>
                         {{ /each }}
                     </td>
                 </tr>
