@@ -675,6 +675,50 @@ async function pollPurchase() {
     }
 }
 
+const tmplShowCommitList = `
+<div class="col-12">
+{{@each(it) => version}}
+{{@if(version.builds)}}
+<div class="card">
+<div class="card-title">
+    <h2 class="no-icon">{{version.description}}</h2>
+</div>
+<p></p>
+{{@if(version.pr)}}
+<p>Merge <a href="https://github.com/hrydgard/ppsspp/pull/{{version.pr.number}}">PR {{version.pr.number}}</a> by <a href="https://github.com/{{version.pr.author_username}}">{{version.pr.author_username}}</a> on {{version.date}}:</p>
+<p><strong>{{version.message}}</strong></p>
+{{/if}}
+{{@foreach(version.builds) => platform, files}}
+<p>{{platform}}:
+{{@each(files) => file}}
+<a href="https://builds.ppsspp.org/builds/{{version.description}}/{{file}}">{{file}}</a>
+{{/each}}
+</p>
+{{/foreach}}
+</div>
+{{/if}}
+{{/each}}
+</div>
+`;
+
+async function loadDownloads() {
+    console.log("Loading downloads...");
+
+    const builds = document.getElementById("latestBuilds");
+    if (builds) {
+        const statusData = await fetch("https://builds.ppsspp.org/meta/status.json").then(response => response.json()).catch(error => console.error("Error fetching json: " + error));
+        console.log(statusData);
+
+        builds.innerHTML = Sqrl.render(tmplShowCommitList, [statusData.latest]);
+    }
+
+    const twentyBuilds = document.getElementById("twentyBuilds");
+    if (twentyBuilds) {
+        const historyData = await fetch("https://builds.ppsspp.org/meta/history.json").then(response => response.json()).catch(error => console.error("Error fetching json: " + error));
+        twentyBuilds.innerHTML = Sqrl.render(tmplShowCommitList, historyData);
+    }
+}
+
 function setupCollapsibles() {
     // UI utilities
     // See the collapsible css styles in ui.css.
@@ -701,6 +745,10 @@ function onLoadPage() {
     if (g_thankYouPage) {
         window.setTimeout(pollPurchase, g_pollInterval);
     }
+    if (g_downloadPage) {
+        window.setTimeout(loadDownloads, 1);
+    }
+
     if (typeof hljs !== 'undefined') {
         console.log("highlighting");
         hljs.highlightAll();

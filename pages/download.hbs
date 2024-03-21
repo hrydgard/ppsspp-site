@@ -68,12 +68,6 @@
     <p>Want to try new builds early, to help testing and debugging of new releases? <a
             href="/docs/development/beta-testing/">Click here for information!</a></p>
 
-    <h2>Development builds</h2>
-    <p>Download fresh development builds from <a href="https://buildbot.orphis.net/ppsspp/index.php">Orphis'
-            Buildbot</a>, also included below.</p>
-    <p>Please note that these development builds can be unstable - if one doesn't work, try an earlier one. And backup
-        your save games!</p>
-
     <h2>Legacy builds and other downloads</h2>
     <p><a href="/legacybuilds">A page where you can download</a> cube.elf, and builds for Switch, Blackberry, Meego and
         other esoteric or old platforms.</p>
@@ -113,11 +107,24 @@
 
     <h2>Development builds</h2>
 
-    <div class="alert alert-error">
+    <p>Download fresh development builds from <a href="https://buildbot.orphis.net/ppsspp/index.php">Orphis'
+            Buildbot</a>, also included below.</p>
+    <p>Please note that these development builds can be unstable - if one doesn't work, try an earlier one. And backup
+        your save games!</p>
+
+    <div class="alert alert-warning">
         Orphis' build server is currently down due to hardware issues.<br />
-        Development builds will be available again soon.
+        In the meantime, the latest build is available for some platforms below.
     </div>
 
+    <div id="latestBuilds">
+    </div>
+
+    <a href="/devbuilds">See more development builds</a>
+
+    <script>
+        g_downloadPage = true;
+    </script>
     <!--
 <iframe seamless="true" src="https://buildbot.orphis.net/ppsspp/"
     style="border-width: 0px; background-color: transparent; padding: 0px; overflow: hidden; width: 100%; height: 2000px"></iframe>
