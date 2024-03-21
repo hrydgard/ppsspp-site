@@ -31,14 +31,14 @@ The best tool to compress tools to CSO is [maxcso](https://github.com/unknownbra
 
 ### CHD
 
-CHD is supported from PPSSPP 1.17, and stands for Compressed Hard Drive. It's MAME's format, originally made for archiving arcade game hard drives, but later repurposed for disc-based systems. It has a slightly better compression ratio than CSO, but to perform properly, PSP ISOs need to be compressed to CHD in the DVD mode (`createdvd`).
+CHD is supported from PPSSPP 1.17, and stands for Compressed Hard Drive. It's MAME's format, originally made for archiving arcade game hard drives, but later repurposed for disc-based systems. It has a slightly better compression ratio than CSO, but to perform properly, PSP ISOs need to be compressed to CHD in the DVD mode (`createdvd`), and with 2048-byte "hunk" (sector) size. Other sector sizes may get better support in the future.
 
 The tool to create CHD files is called `chdman` and is distributed with [MAME](https://www.mamedev.org/release.php). You want to use a recent version to compress PSP ISOs.
 
 Here's the command line for compressing a PSP ISO to CHD with chdman, once you have acquired the tool:
 
 ```sh
-chdman createdvd -i game.iso -o game.chd
+chdman createdvd -hs 2048 -i game.iso -o game.chd
 ```
 
 Just replace "game" with the name of your iso file.
@@ -46,7 +46,7 @@ Just replace "game" with the name of your iso file.
 PPSSPP 1.17.1 also supports an additional mode, using zstd for compression, which might perform slightly better:
 
 ```sh
-chdman createdvd -i game.iso -o game.chd -c zstd
+chdman createdvd -hs 2048 -i game.iso -o game.chd -c zstd
 ```
 
 IMPORTANT! DO NOT use the `createcd` or `createraw` commands. `createdvd` is what you want to use.
@@ -54,7 +54,7 @@ IMPORTANT! DO NOT use the `createcd` or `createraw` commands. `createdvd` is wha
 If you want to turn your .chd back into an ISO file, here's the command:
 
 ```sh
-chdman extractdvd -i game.chd -o game.iso
+chdman extractdvd -hs 2048 -i game.chd -o game.iso
 ```
 
 ## Digital downloads
