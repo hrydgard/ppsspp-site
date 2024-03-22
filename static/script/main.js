@@ -683,9 +683,11 @@ const tmplShowCommitList = `
 <div class="card-title">
     <h2 class="no-icon">{{version.description}}</h2>
 </div>
-<p></p>
 {{@if(version.pr)}}
-<p>Merge <a href="https://github.com/hrydgard/ppsspp/pull/{{version.pr.number}}">PR {{version.pr.number}}</a> by <a href="https://github.com/{{version.pr.author_username}}">{{version.pr.author_username}}</a> on {{version.date}}:</p>
+<p>Merge <a href="https://github.com/hrydgard/ppsspp/pull/{{version.pr.number}}">pull request {{version.pr.number}}</a> by <a href="https://github.com/{{version.pr.author_username}}">{{version.pr.author_username}}</a> on {{version.date}}:</p>
+<p><strong>{{version.message}}</strong></p>
+{{#else}}
+<p><a href="https://github.com/hrydgard/ppsspp/commit/{{version.hash_short}}">Commit {{version.hash_short}}</a> by {{version.author_name}}</p>
 <p><strong>{{version.message}}</strong></p>
 {{/if}}
 {{@foreach(version.builds) => platform, files}}
