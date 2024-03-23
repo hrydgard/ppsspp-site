@@ -681,7 +681,7 @@ const tmplShowCommitList = `
 {{@if(version.builds)}}
 <div class="card">
 <div class="card-title">
-    <h2 class="no-icon">{{version.description}}</h2>
+    <h2 class="no-icon">{{version.tag}}-{{version.revs_since_tag}}</h2>
 </div>
 {{@if(version.pr)}}
 <p>Merge <a href="https://github.com/hrydgard/ppsspp/pull/{{version.pr.number}}">pull request {{version.pr.number}}</a> by <a href="https://github.com/{{version.pr.author_username}}">{{version.pr.author_username}}</a> on {{version.date}}:</p>
@@ -703,16 +703,54 @@ const tmplShowCommitList = `
 </div>
 `;
 
+const tmplBuildbotStatus = `
+<div class="col-12">
+<div class="card">
+<div class="card-title">
+    <h2 class="no-icon">Buildbot Status</h2>
+</div>
+{{@if(it.building)}}
+<p>Building {{it.tag}}-{{it.revs}} for {{it.building}} ({{it.commit_date}})</p>
+{{#else}}
+<p>Idle</p>
+{{/if}}
+<p>Last updated: {{it.lastUpdated}}</p>
+</div>
+</div>
+`;
+
 async function loadDownloads() {
     console.log("Loading downloads...");
 
-    const builds = document.getElementById("latestBuilds");
-    if (builds) {
+    const latest = document.getElementById("latestBuilds");
+    const status = document.getElementById("buildbotStatus");
+    if (latest || status) {
         const statusData = await fetch("https://builds.ppsspp.org/meta/status.json").then(response => response.json()).catch(error => console.error("Error fetching json: " + error));
         console.log(statusData);
 
-        builds.innerHTML = Sqrl.render(tmplShowCommitList, [statusData.latest]);
+        if (latest) {
+            latest.innerHTML = Sqrl.render(tmplShowCommitList, [statusData.latest]);
+        }
+        if (status) {
+            let unix = Date.now() / 1000;
+            let ago = unix - statusData.unix_time;
+            let lastUpdated = Math.floor(ago) + " seconds ago";
+            var data;
+            if (statusData.building) {
+                data = {
+                    "building": statusData.building_platform,
+                    "tag": statusData.building.tag,
+                    "revs": statusData.building.revs_since_tag,
+                    "commit_date": statusData.building.date,
+                    "lastUpdated": lastUpdated
+                };
+            } else {
+                data = { "building": null, "lastUpdated": lastUpdated };
+            }
+            status.innerHTML = Sqrl.render(tmplBuildbotStatus, data);
+        }
     }
+
 
     const twentyBuilds = document.getElementById("twentyBuilds");
     if (twentyBuilds) {
