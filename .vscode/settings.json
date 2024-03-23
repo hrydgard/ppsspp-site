@@ -4,7 +4,7 @@
         "package-lock.json": true,
     },
     "editor.formatOnSave": true,
-    "rust-analyzer.checkOnSave.command": "clippy",
+    "rust-analyzer.check.command": "clippy",
     "files.trimTrailingWhitespace": true,
     "cSpell.words": [
         "Adreno",
