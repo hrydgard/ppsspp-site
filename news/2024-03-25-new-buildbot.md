@@ -23,3 +23,7 @@ By using the halving or bisection method, you can often track down errors over h
 ## Android builds now include VR
 
 From build v1.17.1-60, our Android builds are cross-compatible between phones and VR setups like the Quest 2. So there's no longer any need for a separate downloadable VR app.
+
+## Mac builds now also available on the buildbot
+
+For now, only the most recent builds will be there, and due to logistical issues, this buildbot will be less reliable.
