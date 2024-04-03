@@ -1,10 +1,10 @@
 # I can't pick a folder on Android
 
-If you, when trying to pick a folder to store PSP data in, get something that looks like this:
+If, when trying to pick a folder to store PSP data in, you get something that looks like this:
 
 ![Big red Java exception](/static/img/cant_pick_folder/exception.jpg)
 
-Then, either your device is missing a folder picker entirely (which is unlikely if it's a phone, but likely on Android TV), or it has been disabled somehow.
+Then, either your device is missing a folder picker entirely (which is unlikely if it's a phone, but likely on Android TV), or it's provided by a default app that has been disabled somehow.
 
 I have not been able to figure out how this happens, but a user sent in these screenshots (in Portuguese), showing how he managed to enable it again:
 
