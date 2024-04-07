@@ -5,12 +5,11 @@ authors: hrydgard
 tags: [releases]
 ---
 
-Due to a 3+ week downtime of Orphis' buildbot, I went ahead and set up my own to cover.
+Due to a 3+ week downtime of Orphis' buildbot, I went ahead and set up my own.
 
 The builds that it produces can be found here: [Development builds](/devbuilds).
 
-Currently, it builds for Android, Windows and Windows for ARM64 processors. More platforms will be added
-in the future.
+Currently, it builds for Android, Windows and Windows for ARM64 processors. More platforms will be added in the future.
 
 Due to using different signing keys, you can't directly upgrade from an Orphis-build to these, but you can upgrade from an official release APK downloaded from this website to a buildbot build.
 

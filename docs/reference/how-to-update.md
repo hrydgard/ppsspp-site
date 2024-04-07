@@ -11,7 +11,7 @@ However, if you installed the APK downloaded from ppsspp.org, it will not automa
 In summary:
 
 * If you updated by Google Play last time, do the same now.
-* If you installed an APK from the [build bot](https://buildbot.orphis.net/ppsspp/), you'll have to install another one from the build bot.
+* If you installed an APK from the [buildbot](/devbuilds), you'll have to install another one from the build bot.
 * Or if you downloaded an APK directly from the [Downloads page](/download), do that again.
 
 If you want to install by another method than before, or downgrade to an older version, you need to uninstall first (in which case you should make sure to [backup your save games](/docs/getting-started/save-data-and-storage)), since the digital signatures are not compatible.
