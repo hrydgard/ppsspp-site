@@ -2,12 +2,13 @@
 
 ## Why buy PPSSPP Gold?
 
-PPSSPP Gold has everything that the free version also has:
+PPSSPP and PPSSPP Gold have everything you'd want in a PSP emulator:
 
-* Fast emulation and more platforms than any other PSP emulator
+* Fast emulation, compatible with nearly all PSP games
 * Save states
-* Enhanced high-resolution graphics with upscaled textures
+* Enhanced high-resolution graphics, texture upscaling
 * Turbo button for those slow-to-play RPGs
+* Much more
 
 PPSSPP Gold also:
 
@@ -23,7 +24,7 @@ PPSSPP Gold also:
 
 PPSSPP Gold is currently available for Android, Windows and macOS.
 
-It is not currently available for Linux or iOS.
+It is not currently available for Linux or [iOS](/docs/reference/ios-support/).
 
 More platforms are planned to be added in the future, but as these are by far the most popular two, they got done first.
 

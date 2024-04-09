@@ -15,4 +15,6 @@ Since we don't own the rights to PSP games, we can't offer them as in-app downlo
 
 If it turns out that the rules now allow emulators with ISO/ROM pickers, PPSSPP will come to the App Store later this year. If not, well, it won't!
 
-(JIT permissions have also been debated, and don't look likely. However, PPSSPP doesn't need JIT to perform well on modern Apple CPUs.)
+(JIT permissions have also been debated, and don't look likely to be approved. However, PPSSPP doesn't need JIT to perform well on modern Apple CPUs.)
+
+[The current status of the iOS port](/docs/reference/ios-support/)
