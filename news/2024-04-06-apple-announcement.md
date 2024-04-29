@@ -1,6 +1,6 @@
 ---
 slug: apple-announcement-comment
-title: About the Apple announcement
+title: About the Apple announcement (updated)
 authors: hrydgard
 tags: [releases]
 ---
@@ -18,3 +18,7 @@ If it turns out that the rules now allow emulators with ISO/ROM pickers, PPSSPP 
 (JIT permissions have also been debated, and don't look likely to be approved. However, PPSSPP doesn't need JIT to perform well on modern Apple CPUs.)
 
 [The current status of the iOS port](/docs/reference/ios-support/)
+
+## UPDATE (2024-04-29)
+
+The successful release of the Delta multisystem emulator seems to confirm that proper emulators can now pass App Store review. In the near future, an attempt will be made to submit PPSSPP to the App Store.
