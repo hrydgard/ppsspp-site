@@ -677,6 +677,7 @@ async function pollPurchase() {
 
 const tmplShowCommitList = `
 <div class="col-12">
+<div>Latest {{it.length}} builds:</div>
 {{@each(it) => version}}
 {{@if(version.builds)}}
 <div class="card">
@@ -754,8 +755,21 @@ async function loadDownloads() {
 
     const twentyBuilds = document.getElementById("twentyBuilds");
     if (twentyBuilds) {
+        const historyData = await fetch("https://builds.ppsspp.org/meta/history-20.json").then(response => response.json()).catch(error => console.error("Error fetching json: " + error));
+        twentyBuilds.innerHTML = Sqrl.render(tmplShowCommitList, historyData);
+    }
+}
+
+async function loadAllBuilds() {
+    const twentyBuilds = document.getElementById("twentyBuilds");
+    if (twentyBuilds) {
         const historyData = await fetch("https://builds.ppsspp.org/meta/history.json").then(response => response.json()).catch(error => console.error("Error fetching json: " + error));
         twentyBuilds.innerHTML = Sqrl.render(tmplShowCommitList, historyData);
+
+        const showAllButton = document.getElementById("showAllButton");
+        if (showAllButton) {
+            showAllButton.style.display = "none";
+        }
     }
 }
 

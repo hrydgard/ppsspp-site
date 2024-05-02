@@ -50,9 +50,13 @@ Turn on hardcore mode.
 
 All existing achievements were created for the PPSSPP core in [RALibRetro](https://github.com/RetroAchievements/RALibretro), which has the same timing and plugins as RetroArch. Unfortunately, due to deficiencies in libretro's design, achievement checks don't run at the correct time in RALibRetro or RetroArch - so if your achievement works correctly in RetroArch and not in PPSSPP standalone, the achievement is broken.
 
-## Developing achievements for PPSSPP
+## Developing achievements for PPSSPP using RAIntegration
 
-Achievements are best developed with emulators supporting something called [RAIntegration](https://github.com/RetroAchievements/RAIntegration). PPSSPP does not yet do that, unfortunately, so your best bet is still RALibRetro. RAIntegration support will be added to PPSSPP in the future, but I can't give a time frame - things are in flux with regards to RAIntegration vs rcheevos, and I don't want to implement a solution that will become outdated.
+Achievements are best developed with emulators supporting something called [RAIntegration](https://github.com/RetroAchievements/RAIntegration). The official builds of PPSSPP will start supporting that in version 1.18, but it's already available in the latest [development builds](/devbuilds).
+
+To use RAIntegration, you need a fresh version of the DLL. Drop it next to PPSSPPWindows64.exe, then enable RAIntegration support in `Settings/Tools/RetroAchievements/Development/Enable RAIntegration`. Then restart the emulator.
+
+There are sometimes some drawing issues with the RA menu, which should show up next to the Help menu. If it's not there but should be, try just clicking in the empty space next to "Help".
 
 ## How do I register?
 
