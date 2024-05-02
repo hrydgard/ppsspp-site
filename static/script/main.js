@@ -770,6 +770,10 @@ async function loadAllBuilds() {
         if (showAllButton) {
             showAllButton.style.display = "none";
         }
+        const showAllButton2 = document.getElementById("showAllButton2");
+        if (showAllButton2) {
+            showAllButton2.style.display = "none";
+        }
     }
 }
 

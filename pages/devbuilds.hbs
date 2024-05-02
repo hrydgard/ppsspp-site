@@ -11,10 +11,18 @@
     </div>
     <p>Development builds for more platforms will be added soon.</p>
     <p><a href="/buildbotstatus">Buildbot status</a></p>
-    <button onclick="loadAllBuilds()" id="showAllButton" className="button button--primary">Show all</button>
+    <div>
+        <button onclick="loadAllBuilds()" id="showAllButton" className="button button--primary">Show all</button>
+    </div>
     <div id="twentyBuilds"></div>
+    <div>
+        <button onclick="loadAllBuilds()" id="showAllButton2" className="button button--primary">Show all</button>
+        <br />
+    </div>
 </div>
 
 <script>
     g_downloadPage = true;
 </script>
+
+{{> common_footer this}}
