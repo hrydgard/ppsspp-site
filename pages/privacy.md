@@ -18,6 +18,13 @@ ever uploaded anywhere.
 The only data collected is voluntary compatibility reports. This data is collected completely
 anonymously, only when manually enabled, and no personal data is ever collected or stored.
 
+## Privacy Policy for PPSSPP for iOS
+
+### Information collection and use
+
+The only data collected is voluntary compatibility reports. This data is collected completely
+anonymously, only when manually enabled, and no personal data is ever collected or stored.
+
 ## Privacy Policy for PPSSPP for Windows and other platforms
 
 ### Information collection and use
