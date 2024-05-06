@@ -1,13 +1,15 @@
 ---
 position: 5
 ---
-# How to move PSP games to your Android device
+# How to move PSP games to your mobile device
 
 This guide requires a PC.
 
 First, make sure you have your games as ISO files. See [How to get games](how-to-get-games) and [How to dump games](dumping-games).
 
 The following instructions apply identically for PPSSPP and PPSSPP Gold.
+
+## Android
 
 1. First, [install the PPSSPP app](/download). (There will be a link to a separate guide here soon).
 
@@ -34,3 +36,17 @@ The following instructions apply identically for PPSSPP and PPSSPP Gold.
     ![Create a new folder](/static/img/guide_files/step5.png)
 
 8. Finally, after starting PPSSPP on your device, you'll be able to either directly browse to it (Android 10 or older, or old installs), or you'll be able to click Browse... and select it.
+
+## iOS
+
+The below instructions require a Mac. I don't know of a way to do it with a PC.
+
+1. Install PPSSPP on your iOS device. [Unofficial guide](/docs/reference/ios-support).
+
+2. Connect your iOS device (iPhone or iPad) via USB to your PC.
+
+3. Open the device in Finder. Click the Files tab, then you should see PPSSPP and/or PPSSPP Gold listed.
+
+4. Drag your ISO files into the app.
+
+After this, the ISO files will be located on the virtual "memory stick". Just pick them from the Games tab (click Home if you can't find the files).

@@ -1,8 +1,5 @@
-use std::io::Write;
-
 use crate::config::Config;
 use crate::document::Document;
-use anyhow::Context;
 use serde::Serialize;
 
 #[derive(Clone, Serialize)]
@@ -34,9 +31,11 @@ impl SitemapGenerator {
     }
     pub fn generate(
         &self,
-        config: &Config,
-        handlebars: &mut handlebars::Handlebars<'_>,
+        _config: &Config,
+        _handlebars: &mut handlebars::Handlebars<'_>,
     ) -> anyhow::Result<()> {
+        //use anyhow::Context;
+        // use std::io::Write;
         // let xml = handlebars.render("sitemap_xml", &self)?;
         // let target_path = config.out_dir.join("sitemap.xml");
         // let mut file = std::fs::File::create(target_path).context("sitemap.xml")?;
