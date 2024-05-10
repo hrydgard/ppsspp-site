@@ -5,6 +5,8 @@ authors: hrydgard
 tags: [releases]
 ---
 
+## 2024-04-06
+
 Apple just added a few lines to their [iOS App Store review guidelines](https://developer.apple.com/app-store/review/guidelines/), including this:
 
 > “Additionally, retro game console emulator apps can offer to download games,"

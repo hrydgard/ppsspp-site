@@ -1,5 +1,11 @@
 # PPSSPP for iOS
 
+## UPDATE
+
+It looks like things are changing. See [here](/news/apple-announcement-comment).
+
+# Old explanation
+
 Apple does not allow emulators in their App Store (though, it seems they [may be reconsidering](/news/apple-announcement-comment)), and does not support side-loading like Android does,
 so installing PPSSPP on iOS requires an ever-changing set of hacks.
 
