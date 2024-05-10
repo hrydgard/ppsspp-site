@@ -1,6 +1,6 @@
 ---
 slug: apple-announcement-comment
-title: About the Apple announcement (updated)
+title: About the Apple announcement (update 2)
 authors: hrydgard
 tags: [releases]
 ---
@@ -22,3 +22,7 @@ If it turns out that the rules now allow emulators with ISO/ROM pickers, PPSSPP 
 ## UPDATE (2024-04-29)
 
 The successful release of the Delta multisystem emulator seems to confirm that proper emulators can now pass App Store review. In the near future, an attempt will be made to submit PPSSPP to the App Store.
+
+## UPDATE 2 (2024-05-10)
+
+I'm doing final preparations for review now. Hopefully things go well.
