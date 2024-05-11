@@ -1,6 +1,6 @@
 ---
 slug: apple-announcement-comment
-title: About the Apple announcement (update 2)
+title: About the Apple announcement (update 3)
 authors: hrydgard
 tags: [releases]
 ---
@@ -28,3 +28,7 @@ The successful release of the Delta multisystem emulator seems to confirm that p
 ## UPDATE 2 (2024-05-10)
 
 I'm doing final preparations for review now. Hopefully things go well.
+
+## UPDATE 3 (2024-05-11)
+
+Waiting for review.
