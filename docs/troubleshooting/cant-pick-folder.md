@@ -6,7 +6,19 @@ If, when trying to pick a folder to store PSP data in, you get something that lo
 
 Then, either your device is missing a folder picker entirely (which is unlikely if it's a phone, but likely on Android TV), or it's provided by a default app that has been disabled somehow.
 
-I have not been able to figure out how this happens, but a user sent in these screenshots (in Portuguese), showing how he managed to enable it again:
+## Things to try
+
+### Android TV
+
+If you have an Android TV and are getting this message, you may be out of luck for now since many ship without a proper file browser app. I'm considering making a special build for these older TVs that target andolder API version. This will need to be side-loaded over USB.
+
+### Android phones and other devices
+
+The problem seems to most often be that the "Files" app has been uninstalled somehow. This seems to be possible on some phones, although it shouldn't be allowed.
+
+But, one user reported success with an app called [Brevent](https://play.google.com/store/apps/details?id=me.piebridge.brevent), which can help you reinstall the "Files" ("Arquivos") app if it's missing.
+
+Another user sent in these screenshots (in Portuguese), showing how he managed to enable it again:
 
     It was the files app that got disabled. But for some reason,
     differently of other disabled apps that could be reactivated, I
