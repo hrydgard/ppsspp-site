@@ -2,7 +2,7 @@
 
 ## UPDATE
 
-It looks like things are changing. See [here](/news/apple-announcement-comment).
+[Click here for the release announcement](live-on-app-store)
 
 # Old explanation
 
