@@ -1,6 +1,6 @@
 ---
 slug: apple-announcement-comment
-title: About the Apple announcement (update 3)
+title: About the Apple announcement (update 4)
 authors: hrydgard
 tags: [releases]
 ---
@@ -32,3 +32,7 @@ I'm doing final preparations for review now. Hopefully things go well.
 ## UPDATE 3 (2024-05-11)
 
 Waiting for review.
+
+## UPDATE 4 (2024-05-14)
+
+The apps are being reviewed.
