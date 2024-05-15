@@ -136,6 +136,19 @@
         "description": "PPSSPP for iOS is not officially supported but working builds can be found.",
         "downloads": [
             {
+                "name": "PPSSPP Gold for iOS",
+                "icon": "ppsspp-icon-gold.png",
+                "url": "https://apps.apple.com/us/app/ppsspp-gold-psp-emulator/id6502287918",
+                "service_alt": "Get it on App Store",
+                "gold": true
+            },
+            {
+                "name": "PPSSPP for iOS (free)",
+                "icon": "ppsspp-icon.png",
+                "url": "https://apps.apple.com/us/app/ppsspp-psp-emulator/id6496972903",
+                "service_alt": "Get it on App Store"
+            },
+            {
                 "name": "W.MS' latest .IPA",
                 "url": "https://pbot.w-ms.cn/getipa?PPSSPPORG"
             },
