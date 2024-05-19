@@ -22,14 +22,14 @@ PPSSPP Gold also:
 
 ## What platforms is PPSSPP Gold available for?
 
-PPSSPP Gold is currently available for Android, Windows and macOS.
+PPSSPP Gold is currently available for Android, Windows, macOS and iOS.
 
-It is not currently available for Linux or [iOS](/docs/reference/ios-support/).
+It is not currently available for Linux (or Steam Deck), for example.
 
-More platforms are planned to be added in the future, but as these are by far the most popular two, they got done first.
+More platforms are planned to be added in the future, but as these are by far the most popular four, they got done first.
 
 Whether you own PPSSPP Gold for one of those platforms or not, feel free to use the free version on any platforms you have, as much as you want.
 
-## Why do I need to enter my phone number when making a purchase?
+## Why do I need to enter my phone number when making a purchase of the PC/Mac versions?
 
 A: The payment provider uses the phone number in its algorithms to prevent credit card fraud. It is not actually used - you will not get calls from anyone.

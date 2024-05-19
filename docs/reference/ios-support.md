@@ -1,21 +1,19 @@
 # PPSSPP for iOS
 
-## UPDATE
+Sometime in April-May 2024, Apple changed their App Store policy to allow emulator apps in the App Store. This finally made it possible to [release](/news/live-on-app-store)
+ an official iOS version of PPSSPP!
 
-[Click here for the release announcement](live-on-app-store)
+This also means that going forward, the iOS version will be prioritized pretty much as highly as the Android and PC versions for features and performance work.
 
-# Old explanation
+## Limitations
 
-Apple does not allow emulators in their App Store (though, it seems they [may be reconsidering](/news/apple-announcement-comment)), and does not support side-loading like Android does,
-so installing PPSSPP on iOS requires an ever-changing set of hacks.
+The one serious limitation of functionality that PPSSPP (and other emulators) are still subject to on iOS is the inability to "JIT", that is, to generate machine code at runtime and run it. This is very useful when emulating foreign CPU architectures such as the PSP's CPU (known as Allegrex). Fortunately, the PSP does not require a JIT compiler to be emulated at full speed on modern iOS devices, although it would reduce battery consumption to be able to do it.
 
-Due to this, PPSSPP for iOS is not officially supported - though, we do try to keep it building. If it works, it works.
+## Sideloading
 
-It's highly recommended that if you are interested in emulation on mobile, use Android instead.
+Before the policy change, you had to "sideload" PPSSPP onto an iPhone, which there are many ways to do. You still have to do this if you want JIT functionality, but since as mentioend it's not that critical for PSP emulation performance, I expect fewer people will pick this option.
 
-However, there are some ways to install it.
-
-## Unofficial installation guide
+## Unofficial sideload installation guide
 
 IMPORTANT: This guide is unofficial - the project is not responsible for any negative results, and will not answer
 questions about it. You're on your own!

@@ -14,7 +14,7 @@ Here's an incomplete list of platforms that PPSSPP could or could not be ported 
 | Android | Done | |
 | Linux | Done | |
 | macOS | Done | Limited native UI |
-| iOS | Done | JIT works sometimes. Not allowed in Apple Store. Unmaintained |
+| iOS | Done | JIT works but not on the App Store builds |
 | Nintendo Switch | Done | by m4xw! |
 | Raspberry Pi | Done | R4+ recommended |
 | Windows UWP/Xbox One/WinPhone10 | Done | Windows Phone support is discontinued |

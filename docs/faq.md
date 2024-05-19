@@ -27,7 +27,7 @@ Why not? The domain name ppsspp.org was available, unlike the corresponding doma
 
 ## Where can I get PPSSPP for iOS?
 
-PPSSPP can run on most modern iOS versions. On some versions, the JIT works. See the [Downloads page](/download) for more info.
+PPSSPP can run on most modern iOS versions, and is now available on the App Store, in addition to sideloading. On sideloaded versions, the JIT works, but the App Store versions are generally fine too. See the [Downloads page](/download) for links and more info.
 
 <a name="vita"></a>
 
