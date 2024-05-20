@@ -1,6 +1,6 @@
 ---
 slug: live-on-app-store
-title: PPSSPP is approved for the App Store!
+title: PPSSPP is live on the App Store!
 authors: hrydgard
 tags: [releases]
 ---
@@ -23,7 +23,7 @@ However, the JIT compiler cannot be restored without a change in Apple’s rules
 
 Anyway, enjoy this new way of playing PPSSPP! And stay tuned for updates.
 
-As I'm writing this, the app is in status "Processing for distribution". These two links should be active in the next 24h, if they aren't already by the time you are reading this:
+Buy the Gold version if you want to support development!
 
 [Buy PPSSPP Gold for iOS](https://apps.apple.com/us/app/ppsspp-gold-psp-emulator/id6502287918)
 
