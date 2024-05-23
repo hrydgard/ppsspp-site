@@ -64,7 +64,7 @@ Turn off any programs that might cause issues
 
 ### For Android/iOS
 
-Turn off any apps that might cause issues
+Turn off any apps that might cause issues. Turn off accessibility settings.
 
 Restart your Device
 

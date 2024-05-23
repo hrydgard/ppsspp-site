@@ -49,7 +49,7 @@ This is also why PPSSPP will not show the cross media bar (XMB) interface of the
 
 <a name="gold"></a>
 
-## Can PPSSPP play PS1/PS2/PS3/PS4/PS5 games? Can it play GTA 5? Can I play my old PC games?
+## Can PPSSPP play PS1/PS2/PS3/PS4/PS5/Vita games? Can it play PSX EBOOTs? Can it play GTA 5? Can I play my old PC games?
 
 No. PSP games only.
 
@@ -169,7 +169,7 @@ You can either [help out with fixing it](/docs/development), or wait until someo
 
 To emulate advanced systems like the PSP fast, the emulator needs to translate the machine code language of the PSP to the machine code language of your PC or mobile device at runtime. This is done with a **"Just-In-Time recompiler"** or JIT, also known as a Dynarec. PPSSPP has JITs for x86 and ARM, 32-bit and 64-bit.
 
-For a JIT to function, an app needs to have the ability to generate machine code at runtime. This is allowed on Windows, Mac, Linux and Android, while it is disallowed on many versions of iOS.
+For a JIT to function, an app needs to have the ability to generate machine code at runtime. This is allowed on Windows, Mac, Linux and Android, while it is disallowed in App Store apps on iOS.
 
 ## How do I turn off buffered rendering in PPSSPP 1.14 or later?
 
