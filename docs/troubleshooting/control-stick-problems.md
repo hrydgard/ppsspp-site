@@ -15,11 +15,9 @@ Things to check:
 
 ## It's difficult to rotate the stick on the touch screen or with a controller
 
-The God of War games have a few events where you need to rotate the stick a few full laps. Doing that on the touchscreen
-can be a little tricky but there's another way.
+The God of War games have a few events where you need to rotate the stick a few full laps. Doing that on the touchscreen, or especially with keyboard inputs, can be a little tricky but there's another way.
 
-IMPORTANT: Before doing the below, check that you have disabled Frameskipping on the Graphics tab in settings - this can
-interfere with the move. This might make it possible for you to perform the move without issue.
+IMPORTANT: Before doing the below, check that you have disabled Frameskipping on the Graphics tab in settings - this can interfere with the move. This might make it possible for you to perform the move without issue.
 
 Anyway, here are the steps to enable doing it the easy way:
 

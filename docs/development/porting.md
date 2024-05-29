@@ -2,8 +2,6 @@
 
 It's great to see PPSSPP ported to new platforms, feel free to give it a go.
 
-One of the next interesting main porting-related tasks will be to implement a JIT compiler for RISC-V processors, as they are expected to become popular in devices in the relatively near future.
-
 ## Platforms
 
 Here's an incomplete list of platforms that PPSSPP could or could not be ported to (last updated 2024):
@@ -12,7 +10,7 @@ Here's an incomplete list of platforms that PPSSPP could or could not be ported 
 | --------- | ----- | -------- |
 | Windows | Done | |
 | Android | Done | |
-| Linux | Done | |
+| Linux | Done | x86-32/64, ARM32/64, RISCV-64 |
 | macOS | Done | Limited native UI |
 | iOS | Done | JIT works but not on the App Store builds |
 | Nintendo Switch | Done | by m4xw! |

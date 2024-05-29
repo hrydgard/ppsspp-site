@@ -10,6 +10,12 @@ A few weeks before each new official release, a beta release will be rolled out 
 
 We only have a beta testing program for Android since Google Play provides convenient tools to automatically roll out new builds to participants. We don't have anything like that yet on the other platforms. On PC, if you want to help testing stuff before release, download the latest development build from the [buildbot](/devbuilds) and report results.
 
+# Beta Testing on iOS through TestFlight
+
+The beta testing program for iOS is now open as well! [Join here](https://testflight.apple.com/join/uNlhFG0m).
+
+This applies to the regular non-gold PPSSPP only.
+
 ## Important information
 
 Beta builds can have bugs and instabilities, but will usually be usable. If you see unexpected behavior or odd crashes, please report them, as explained below.
