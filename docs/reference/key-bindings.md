@@ -16,6 +16,10 @@ Runs emulation as fast as possible. This is useful to quickly get past unskippab
 
 Lets you temporarily switch the function of the analog stick and the d-pad. This is useful for controllers with a limited amount of sticks or buttons.
 
+## RightAn.Left/Right/Up/Down
+
+These are controller bindings for the right analog stick. The PSP doesn't actually have one, but support for one can be added via [plugins](docs/reference/plugins). A few plugins are available currently.
+
 ## Hold
 
 From [the forums](https://github.com/hrydgard/ppsspp/pull/16293#issuecomment-1295237338):
