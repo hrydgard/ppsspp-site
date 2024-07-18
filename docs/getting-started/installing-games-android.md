@@ -43,7 +43,7 @@ The below instructions require a Mac. I don't know of a way to do it with a PC.
 
 1. Install PPSSPP on your iOS device. [Unofficial guide](/docs/reference/ios-support).
 
-2. Connect your iOS device (iPhone or iPad) via USB to your PC.
+2. Connect your iOS device (iPhone or iPad) via USB to your Mac.
 
 3. Open the device in Finder. Click the Files tab, then you should see PPSSPP and/or PPSSPP Gold listed.
 

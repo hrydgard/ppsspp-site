@@ -24,6 +24,8 @@ NOTE: Leaderboards are only available in Hardcore mode.
 
 We previously called it Challenge Mode, but we have now switched to the RetroAchievements standard, which is Hardcore mode.
 
+Loading states is strictly disallowed, but it can sometimes be useful to save state, especially for development or confirming missed achievements. For this case, we have an option in the RetroAchievements developer settings, "Allow Save State in Hardcore Mode (but not Load State)".
+
 ### Encore Mode
 
 Lets you unlock achievements again. Note that this does not affect the real unlock status - you'll just get the notification again if you fulfill the conditions, such as completing a level or whatever it was. This is mainly useful for development - for regular gameplay, it gets confusing.
