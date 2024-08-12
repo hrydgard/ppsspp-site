@@ -10,8 +10,8 @@ markdown = "1.0.0-alpha.16"
 anyhow = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-handlebars = "5.0"
-env_logger = "0.10"
+handlebars = "6.0"
+env_logger = "0.11"
 axum = "0.7.3"
 axum-extra = "0.9.1"
 hyper = { version = "1.0.0", features = ["full"] }
