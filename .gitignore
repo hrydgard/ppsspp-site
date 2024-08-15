@@ -1,16 +1,7 @@
-# Dependencies
 /node_modules
 
 # Production
 /build
-
-# Config
-env.js
-env.prod.js
-
-# Generated files
-.docusaurus
-.cache-loader
 
 # Misc
 .DS_Store
