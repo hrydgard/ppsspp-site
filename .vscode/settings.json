@@ -3,7 +3,7 @@
         "**/.docusaurus": true,
         "package-lock.json": true,
     },
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": false,
     "rust-analyzer.check.command": "clippy",
     "files.trimTrailingWhitespace": true,
     "cSpell.words": [

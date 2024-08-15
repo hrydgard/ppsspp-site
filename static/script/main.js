@@ -677,7 +677,7 @@ async function pollPurchase() {
 
 const tmplShowCommitList = `
 <div class="col-12">
-<div>Latest {{it.length}} builds:</div>
+<div>Latest {{it.length}} build(s):</div>
 {{@each(it) => version}}
 {{@if(version.builds)}}
 <div class="card">
