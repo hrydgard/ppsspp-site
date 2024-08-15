@@ -10,7 +10,7 @@ Then, either your device is missing a folder picker entirely (which is unlikely 
 
 ### Android TV
 
-If you have an Android TV and are getting this message, you may be out of luck for now since many ship without a proper file browser app. I'm considering making a special build for these older TVs that target andolder API version. This will need to be side-loaded over USB.
+If you have an Android TV and are getting this message, you may be out of luck for now since many ship without a proper file browser app. I'm considering making a special build for these older TVs that target an olde Android API version. This will need to be side-loaded over USB.
 
 ### Android phones and other devices
 

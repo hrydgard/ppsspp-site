@@ -49,7 +49,7 @@ PPSSPP 1.17.1 also supports an additional mode, using zstd for compression, whic
 chdman createdvd -hs 2048 -i game.iso -o game.chd -c zstd
 ```
 
-IMPORTANT! DO NOT use the `createcd` or `createraw` commands. `createdvd` is what you want to use.
+Preferably, don't use the `createcd` or `createraw` commands. `createdvd` is what you want to use for best performance.
 
 If you want to turn your .chd back into an ISO file, here's the command:
 

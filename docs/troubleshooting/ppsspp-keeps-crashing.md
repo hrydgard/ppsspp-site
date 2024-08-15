@@ -15,7 +15,7 @@ Otherwise, try turning off (in order):
 * Enable cheats (under System)
 * Enable networking/WLAN (under Network)
 * Fast memory (under System)
-* Locked CPU clock speed (under System)
+* Change CPU Clock speed (under System)
 * Retain changed textures (under Graphics)
 * Disable slow framebuffer effects (under Graphics - uncheck it to turn off disabling)
 * Anything under hacks in Audio or Graphics
