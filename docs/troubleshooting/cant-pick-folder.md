@@ -10,7 +10,7 @@ Then, either your device is missing a folder picker entirely (which is unlikely 
 
 ### Android TV
 
-If you have an Android TV and are getting this message, you may be out of luck for now since many ship without a proper file browser app. I'm considering making a special build for these older TVs that target an olde Android API version. This will need to be side-loaded over USB.
+If you have an Android TV and are getting this message, you may be out of luck for now since many ship without a proper file browser app. However, if you know how to install APKs, you can now work around the problem entirely using the [PPSSPP Legacy](/docs/reference/legacy-edition) build!
 
 ### Android phones and other devices
 
@@ -32,3 +32,5 @@ Another user sent in these screenshots (in Portuguese), showing how he managed t
 ![Settings screen 1](/static/img/cant_pick_folder/settings1.jpg)
 
 ![Settings screen 2](/static/img/cant_pick_folder/settings2.jpg)
+
+As a last resort, see the Android TV workaround above.

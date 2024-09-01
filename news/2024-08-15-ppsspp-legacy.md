@@ -1,13 +1,13 @@
 ---
 slug: ppsspp-legacy
-title: PPSSPP Legacy is available (for Android devices without folder browsers)
+title: PPSSPP Legacy APK is now available
 authors: hrydgard
 tags: [releases]
 ---
 
 ![Legacy Logo](/static/img/platform/ppsspp-icon-legacy.png)
 
-PPSSPP Legacy is now available on the [buildbot](/devbuilds).
+PPSSPP Legacy for Android is now available as an APK on the [buildbot](/devbuilds), as AndroidLegacy.
 
 This special Android APK targets an older SDK version than the official builds, and is thus unaffected by the Scoped Storage API requirement. This can help various Android TV devices where you are currently unable to pick a folder to load an ISO from.
 

@@ -54,6 +54,8 @@ All existing achievements were created for the PPSSPP core in [RALibRetro](https
 
 Achievements are best developed with emulators supporting something called [RAIntegration](https://github.com/RetroAchievements/RAIntegration). The official builds of PPSSPP will start supporting that in version 1.18, but it's already available in the latest [development builds](/devbuilds).
 
+RAIntegration is (so far) Windows-only.
+
 To use RAIntegration, you need a fresh version of the DLL. Drop it next to PPSSPPWindows64.exe, then enable RAIntegration support in `Settings/Tools/RetroAchievements/Development/Enable RAIntegration`. Then restart the emulator.
 
 There are sometimes some drawing issues with the RA menu, which should show up next to the Help menu. If it's not there but should be, try just clicking in the empty space next to "Help".

@@ -189,6 +189,12 @@ This means that your Android TV is missing a file browser app. These should norm
 
 It may work to install this app: [AnExplorer on Google Play](https://play.google.com/store/apps/details?id=com.tooltorule.filemanager.pro&hl=en&gl=US). Thanks to AMoose84 for the tip.
 
+## How can I set a background image?
+
+Settings/System/Set background image.
+
+This is, however, currently not available on iOS due to current lack of support for the OS image file picker. Instead, you can use some file manager to copy your image to PSP/SYSTEM inside the PPSSPP app folder.
+
 ## My app is on the PPSSPP Homebrew Store and I do not approve!
 
 Shoot me an e-mail (hrydgard at gmail dot com) and I'll remove it.
