@@ -16,6 +16,8 @@ For some background on the demoscene, [read up here](https://en.wikipedia.org/wi
 
 ## List of entries
 
+List currently incomplete.
+
 <a name="cavestory"></a>
 
 ### Cave Story
@@ -23,6 +25,14 @@ For some background on the demoscene, [read up here](https://en.wikipedia.org/wi
 Pixel originally released the game for free and allowed clones. Nicalis then bought the game from him, but does not seem to mind distribution of the original ports.
 
 [Fan site](https://www.cavestory.org).
+
+<a name="MegaDrops"></a><a name="MegaDrops2"></a>
+
+### Mega Drops/Mega Drops 2
+
+Available on gamebrew: [MegaDrops](https://www.gamebrew.org/wiki/Mega_Drops_PSP), [MegaDrops 2](https://www.gamebrew.org/wiki/Mega_Drops_2_PSP)
+
+By "daaa", freely redistributable.
 
 <a name="Ozone"></a>
 
@@ -98,17 +108,29 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 YRoT is a demoscene production, and thus freely redistributable. See above.
 
+<a name="flower"></a>
+
+### PSP-flower
+
+PSP-flower is a demoscene production (by Moppi Productions), and thus freely redistributable. See above.
+
+[pouet.net link](https://www.pouet.net/prod.php?which=19256).
+
 <a name="Planet_Hively"></a>
 
 ### Planet Hively
 
-Planet Hively is a demoscene production, and thus freely redistributable. See above.
+Planet Hively is a demoscene production (a "musicdisk"), and thus freely redistributable. See above.
+
+[pouet.net link](https://www.pouet.net/prod.php?which=49931)
 
 <a name="SuicideBarbie"></a>
 
 ### Suicide Barbie
 
 Suicide Barbie is a demoscene production, and thus freely redistributable - however, technically, the song does include a short audio sample that some might consider iffy. Otherwise see above.
+
+[pouet.net link](https://www.pouet.net/prod.php?which=30284)
 
 <a name="TrigWars"></a>
 
@@ -125,3 +147,11 @@ The original website, now defunct, can be found [here on archive.org](https://we
 Chuckie Egg is freely available from [gamebrew.org](https://www.gamebrew.org/wiki/Chuckie_Egg_PSP_by_Richard_Rose). It's a rewrite of an old BBC Micro game by Richard Rose
 
 However, I don't know if Richard had permission, so this one is not available in the iOS app store and will not be.
+
+<a name="PSPRev_v03a"></a>
+
+### PSP Revolution
+
+A DDR work-alike. No copyrighted songs are included, so this is fine to redistribute.
+
+[archive.org link](https://archive.org/details/pspr.-7z)
