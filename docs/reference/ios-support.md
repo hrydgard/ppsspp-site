@@ -1,9 +1,8 @@
 # PPSSPP for iOS
 
-Sometime in April-May 2024, Apple changed their App Store policy to allow emulator apps in the App Store. This finally made it possible to [release](/news/live-on-app-store)
- an official iOS version of PPSSPP!
+Sometime in April-May 2024, Apple changed their App Store policy to allow emulator apps in the App Store. This finally made it possible to [release](/news/live-on-app-store) an official iOS version of PPSSPP!
 
-This also means that going forward, the iOS version will be prioritized pretty much as highly as the Android and PC versions for features and performance work.
+This also means that going forward, the iOS version will be prioritized about as highly as the Android and PC versions for features and performance work.
 
 ## Limitations
 
@@ -26,17 +25,12 @@ Also, this is just one way to install it. There may be others.
 
 The iOS build is missing a few features:
 
-* Virtual keyboard input
 * Camera input
 * Microphone
+* Background image replacement (though you can work around this by putting background.jpg in PSP/SYSTEM in your app folder)
 
-## Logging in to RetroAchievements
+## Previously missing features
 
-Due to the missing keyboard, this is not possible. You'll have to login on another device, then transfer your login manually.
+These have been fixed:
 
-You'll have to figure out the exact paths yourself, can't help you with this.
-
-What you need to transfer, to the corresponding place on the iOS device is:
-
-* PSP/SYSTEM/ppsspp_retroachievements.dat
-* In PSP/SYSTEM/ppsspp.ini, from the section `[Achievements]`, the line starting with `AchievementsUserName`
+* UI keyboard input (now works, so RetroAchivement login works too)

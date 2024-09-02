@@ -16,12 +16,11 @@ This initial App Store release of PPSSPP has some limitations compared to the ea
 * The JIT recompiler is not supported
 * RetroAchievements is temporarily disabled
 
-In future updates, MoltenVK will be re-enabled (and I might even write a native Metal backend), and the Magic Keyboard will be supported through another method (the old method was using an undocumented API, so not usable in the App Store). RetroAchievements
-will be back as well, with a better login UI.
+In future updates, MoltenVK will be re-enabled (and I might even write a native Metal backend), and the Magic Keyboard will be supported through another method (the old method was using an undocumented API, so not usable in the App Store). RetroAchievements will be back as well, with a better login UI.
 
 However, the JIT compiler cannot be restored without a change in Apple’s rules. The loss of the JIT is unfortunate since without it, our CPU emulation performance is reduced. Fortunately, iOS devices are generally fast enough to run nearly all PSP games at full speed anyway, as the PSP CPU is not that expensive to emulate, thanks to our efficient IR-based caching interpreter, which also has further room for improvement.
 
-Anyway, enjoy this new way of playing PPSSPP! And stay tuned for updates.
+Anyway, enjoy this new way of playing PPSSPP! And stay tuned for updates. [Additional information is available here](/docs/reference/ios-support).
 
 Buy the Gold version if you want to support development!
 
