@@ -4,9 +4,13 @@ Some of these may or may not be available on iOS, depending on the license.
 
 This page was added at the request of Apple. To the Apple App Store reviewer, please check only the entries here that are also actually visible in the iOS PPSSPP Homebrew Store.
 
+<a name="homebrew"></a>
+
 ## Homebrew
 
-Traditionally, homebrew apps (unofficial games and apps, created for game consoles by garage enthusiasts) are simply released for free with no distribution restrictions. Since source code is generally not released, and most PSP homebrew was released many years ago, licensing is usually an afterthought and not mentioned at all - so effectively, it's freeware. Homebrew software is distributed freely by many legit websites, such as [DCEmu](www.dcemu.co.uk), [Brewology](https://www.brewology.com/).
+Traditionally, homebrew apps (unofficial games and apps, created for game consoles by garage enthusiasts) are simply released for free with no distribution restrictions. Since source code is generally not released, and most PSP homebrew was released many years ago, all of it simply for free download, there are no explicit licenses. Homebrew software is distributed freely by many legit websites, such as [DCEmu](www.dcemu.co.uk), [Brewology](https://www.brewology.com/).
+
+<a name="demoscenes"></a>
 
 ## Demoscene productions
 
@@ -22,7 +26,7 @@ List currently incomplete.
 
 ### Cave Story
 
-Pixel originally released the game for free and allowed clones. Nicalis then bought the game from him, but does not seem to mind distribution of the original ports.
+Pixel originally released the game for free and allowed clones. Nicalis then bought the game from him, but does not seem to mind distribution of the original ports. Freely available for <a href="https://www.cavestory.org/download/cave-story.php">download</a>.
 
 [Fan site](https://www.cavestory.org).
 
@@ -30,9 +34,9 @@ Pixel originally released the game for free and allowed clones. Nicalis then bou
 
 ### Mega Drops/Mega Drops 2
 
-Available on gamebrew: [MegaDrops](https://www.gamebrew.org/wiki/Mega_Drops_PSP), [MegaDrops 2](https://www.gamebrew.org/wiki/Mega_Drops_2_PSP)
+Freely available on gamebrew: [MegaDrops](https://www.gamebrew.org/wiki/Mega_Drops_PSP), [MegaDrops 2](https://www.gamebrew.org/wiki/Mega_Drops_2_PSP)
 
-By "daaa", freely redistributable.
+By "daaa", <a href="#homebrew">freely redistributable</a>s.
 
 <a name="Ozone"></a>
 
@@ -40,7 +44,7 @@ By "daaa", freely redistributable.
 
 Ozone was released for free download [here](https://www.dcemu.co.uk/vbulletin/threads/68208-Release-Ozone-PSP).
 
-No restrictions on distribution are mentioned.
+No restrictions on distribution. Standard <a href="#homebrew">homebrew</a> terms.
 
 <a name="Kosmodrones"></a>
 
@@ -48,13 +52,15 @@ No restrictions on distribution are mentioned.
 
 Kosmodrones is available for free download [on kosmodrones.com](https://www.kosmodrones.com).
 
-No restrictions on distribution are mentioned.
+No restrictions on distribution. Standard <a href="#homebrew">homebrew</a> terms.
 
 <a name="webfest"></a>
 
 ### Webfest
 
 Webfest is freely available from [James' PSP programming page](https://https://jum.pdroms.de/PSP/pspprog.html).
+
+No restrictions on distribution. Standard <a href="#homebrew">homebrew</a> terms.
 
 <a name="bg3"></a>
 
@@ -106,31 +112,33 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ### Yellow Rose of Texas
 
-YRoT is a demoscene production, and thus freely redistributable. See above.
+YRoT is a <a href="#demoscene">demoscene</a> production, and thus freely redistributable.
+
+[pouet.net link](https://www.pouet.net/prod.php?which=10562), with free download.
 
 <a name="flower"></a>
 
 ### PSP-flower
 
-PSP-flower is a demoscene production (by Moppi Productions), and thus freely redistributable. See above.
+PSP-flower is a <a href="#demoscene">demoscene</a> production (by Moppi Productions), and thus freely redistributable.
 
-[pouet.net link](https://www.pouet.net/prod.php?which=19256).
+[pouet.net link](https://www.pouet.net/prod.php?which=19256), with free download.
 
 <a name="Planet_Hively"></a>
 
 ### Planet Hively
 
-Planet Hively is a demoscene production (a "musicdisk"), and thus freely redistributable. See above.
+Planet Hively is a <a href="#demoscene">demoscene</a> production (a "musicdisk"), and thus freely redistributable. See above.
 
-[pouet.net link](https://www.pouet.net/prod.php?which=49931)
+[pouet.net link](https://www.pouet.net/prod.php?which=49931), with free download
 
 <a name="SuicideBarbie"></a>
 
 ### Suicide Barbie
 
-Suicide Barbie is a demoscene production, and thus freely redistributable - however, technically, the song does include a short audio sample that some might consider iffy. Otherwise see above.
+Suicide Barbie is a <a href="#demoscene">demoscene</a> production, and thus freely redistributable - however, technically, the song does include a short audio sample that some might consider iffy. Otherwise see above.
 
-[pouet.net link](https://www.pouet.net/prod.php?which=30284)
+[pouet.net link](https://www.pouet.net/prod.php?which=30284), with free download
 
 <a name="TrigWars"></a>
 
@@ -138,7 +146,7 @@ Suicide Barbie is a demoscene production, and thus freely redistributable - howe
 
 Trigonometry Wars is freely available from [gamebrew.org](https://www.gamebrew.org/wiki/TrigWars_PSP).
 
-The original website, now defunct, can be found [here on archive.org](https://web.archive.org/web/20090302012919/http://www.easy-monkey.co.uk/TrigWars). It was offered up for free.
+The original website, now defunct, can be found [here on archive.org](https://web.archive.org/web/20090302012919/http://www.easy-monkey.co.uk/TrigWars). It was offered up for free download.
 
 <a name="ChuckieEgg"></a>
 
@@ -153,5 +161,7 @@ However, I don't know if Richard had permission, so this one is not available in
 ### PSP Revolution
 
 A DDR work-alike. No copyrighted songs are included, so this is fine to redistribute.
+
+No general restrictions on distribution. Standard <a href="#homebrew">homebrew</a> terms.
 
 [archive.org link](https://archive.org/details/pspr.-7z)
