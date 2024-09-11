@@ -4,9 +4,9 @@
 
 Ported to the Nintendo Switch by m4xw! See [m4xw's Patreon](https://www.patreon.com/m4xwdev).
 
-You'll need a Switch enabled for homebrew to run this (and a 7z unpacker). You won't find an explanation about that here :)
+You'll need a Switch enabled for homebrew to run this (and a 7z unpacker). You won't find an explanation about that here!
 
-NOTE: This is an old builds, newer versions are coming.
+[Download PPSSPP 1.17.x for Switch](https://www.ppsspp.org/files/Switch/Release_PPSSPP_Standalone_11.09.2024.7z) (Sept 9, 2024 - new!)
 
 [Download PPSSPP 1.9.3+ for Switch](https://www.ppsspp.org/files/Switch/20200311_Release_PPSSPP_Standalone.7z)
 
