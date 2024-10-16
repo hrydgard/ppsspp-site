@@ -107,6 +107,10 @@ hash = quick
 # Clip logos to actual texture size.
 0x090056d0,256,256 = 176,160
 0x0900c4d0,256,64 = 208,56
+
+[filtering]
+# You can enforce specific filtering modes with this. Available modes are linear, nearest, auto. See the docs.
+# Example: 08d3961000000909ba70b2af = nearest
 ```
 
 ## Compatibility with Windows, Android, Linux, Mac, etc.
@@ -184,6 +188,10 @@ The "original size" image is "mip level 0", and every size after that must be *e
 KTX2 and DDS files can include multiple mipmaps in one file. See the section about texture image formats below. I recommend using KTX2 files as much as possible.
 
 You don't need a full set of mip levels.  Even a few will often help, especially if the player has anisotropic texturing enabled.
+
+## Filter mode override
+
+As documented in the ini file example above, texture filtering can be overridden on a per-hash basis. This works even if you don't actually replace the texture. This can be useful for enforcing nearest filtering on thing that look good pixellated, for example.
 
 ## Zipped texture packs
 
