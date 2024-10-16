@@ -8,7 +8,7 @@ Custom firmware is also important when reverse-engineering the PSP in order to f
 
 ## Installation guides
 
-THere are many models of the PSP and several types of custom firmware that are compatible depending on the model and have varying features. There are permanent versions, and others that disappear when you reboot your PSP.
+There are many models of the PSP and several types of custom firmware that are compatible depending on the model and have varying features. There are permanent versions, and others that disappear when you reboot your PSP.
 
 For purposes of UMD dumping, you probably don't need to install a permanent CFW.
 

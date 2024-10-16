@@ -7,7 +7,7 @@ To read a game disc into an ISO is called "dumping" for historical reasons - it'
 
 ## Prerequisites
 
-- A PSP with custom firmware.
+- A PSP with [custom firmware](/docs/reference/psp-custom-firmware).
 - A PC or other device with a USB port that can copy files through it
 - A USB cable with a USB-Mini connector (to fit the PSP).
 
@@ -15,7 +15,7 @@ To read a game disc into an ISO is called "dumping" for historical reasons - it'
 
 1. Insert the UMD into your PSP.
 1. Connect your PSP to your PC with a USB cable.
-1. At the PSP main menu, press Select. In the menu that pops up (only on Custom Firmware), choose to UMD as USB Device.
+1. At the PSP main menu, press Select. In the menu that pops up (only on [custom firmware](/docs/reference/psp-custom-firmware)), choose to UMD as USB Device.
 1. Still in the PSP menu, choose USB Connection in the Settings menu (to the left).
 1. On your PC, a folder will open automatically, containing a virtual ISO file representing the disc contents. To copy the game to your PC, simply drag this file to somewhere on your hard drive and the copy will start. When the copy is done, rename the file to the name of the game, and it's ready for use.
 
@@ -25,7 +25,7 @@ PPSSPP can play files directly from these formats without decompressing them fir
 
 ### CSO
 
-CSO is the oldest and most well-tested compressed ISO format for PSP, and it's compatible with various custom firmwares for the real PSP, so the files are playable from a memory stick on hardware. It has a good compression ratio, performs very well in PPSSPP, practically as fast or faster than ISO, depending on how slow the drive is you're reading from.
+CSO is the oldest and most well-tested compressed ISO format for PSP, and it's compatible with various [custom firmwares](/docs/reference/psp-custom-firmware) for the real PSP, so the files are playable from a memory stick on hardware. It has a good compression ratio, performs very well in PPSSPP, practically as fast or faster than ISO, depending on how slow the drive is you're reading from.
 
 The best tool to compress tools to CSO is [maxcso](https://github.com/unknownbrackets/maxcso/releases) by \[Unknown\].
 
