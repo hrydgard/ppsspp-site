@@ -2,7 +2,7 @@
 
 Sometime in April-May 2024, Apple changed their App Store policy to allow emulator apps in the App Store. This finally made it possible to [release](/news/live-on-app-store) an official iOS version of PPSSPP!
 
-This also means that going forward, the iOS version will be prioritized about as highly as the Android and PC versions for features and performance work.
+This also means that going forward, the iOS version will be prioritized about as highly as the Android and PC versions for features and performance work. However - updates may be delayed, sometimes severely, due to Apple's rather unpredicatable review process.
 
 ## Limitations
 

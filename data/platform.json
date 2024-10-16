@@ -24,6 +24,14 @@
                 "icon": "ppsspp-icon.png",
                 "filename": "ppsspp.apk",
                 "short_name": "APK"
+            },
+            {
+                "name": "F-Droid",
+                "short_name": "F-Droid",
+                "icon": "ppsspp-icon.png",
+                "url": "https://f-droid.org/packages/org.ppsspp.ppsspp/",
+                "service_image": "/static/img/platform/fdroid-badge.png",
+                "service_alt": "Get it on F-Droid"
             }
         ]
     },
