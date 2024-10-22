@@ -14,6 +14,58 @@
     display: none;
 }
 
+/*
+    Reusing existing vars for now.
+    If we keep download-link-gold in the long run, it may be worth defining its own vars.
+*/
+a.download-link-gold {
+    color: var(--color-gold-border-hover);
+    background-color: var(--color-gold);
+    border: var(--button-border-width) solid var(--color-gold-border);
+    border-radius: var(--button-border-radius);
+    font-weight: var(--button-font-weight);
+    padding: 4px;
+    margin: 0px 4px;
+    user-select: none;
+}
+
+a.download-link-gold:hover {
+    color: var(--color-gold-border-hover);
+    background-color: var(--color-gold-hover);
+    border-color: var(--color-gold-border-hover);
+}
+
+a.prev-ver-item,
+img.prev-ver-item {
+    margin: 0px 4px;
+}
+
+img.icon-48,
+img.icon-36,
+img.icon-32,
+img.icon-24 {
+    display: inline-flex;
+    justify-content: center;
+    vertical-align: middle;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+img.icon-48 { height: 48px; width: 48px; }
+img.icon-36 { height: 36px; width: 36px; }
+img.icon-32 { height: 32px; width: 32px; }
+img.icon-24 { height: 24px; width: 24px; }
+
+img.icon-link {
+    display: inline-flex;
+    justify-content: center;
+    vertical-align: text-top;
+    max-width: 100%;
+    max-height: 100%;
+    height: 15px;
+    width: 15px;
+}
+
 .button-block {
     display: block;
     width: 100%;
@@ -34,56 +86,6 @@
     text-align: center;
     user-select: none;
     overflow: hidden;
-}
-
-.gold-link {
-    color: #FFC800FF;
-}
-
-.icon-container-36,
-.icon-container-24,
-.icon-container-288,
-.icon-container-144,
-.icon-container-72 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /*border: 1px solid;*/
-}
-
-.icon-container-36 {
-    height: 36px;
-    width: 36px;
-}
-
-.icon-container-24 {
-    height: 24px;
-    width: 24px;
-}
-
-.icon-container-288 {
-    height: 288px;
-    width: 288px;
-}
-
-.icon-container-144 {
-    height: 144px;
-    width: 144px;
-}
-
-.icon-container-72 {
-    height: 72px;
-    width: 72px;
-}
-
-.icon-container-36 img,
-.icon-container-24 img,
-.icon-container-288,
-img,
-.icon-container-144 img,
-.icon-container-72 img {
-    max-width: 100%;
-    max-height: 100%;
 }
 
 .download-button .button-contents {

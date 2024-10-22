@@ -16,7 +16,7 @@
             <div class="card">
                 <div class="card-title">
                     {{ #if platform_badge }}
-                    <img src="/static/img/icons/{{platform_badge}}" class="icon-container-36">
+                    <img src="/static/img/icons/{{platform_badge}}" class="icon-36">
                     {{ /if}}
                     <h2>{{ title }}</h2>
                 </div>
@@ -32,7 +32,7 @@
                             }}href="{{url}}" {{ /if }} {{ #if download_url }}href="{{download_url}}" {{ /if }}>
                             <div class="button-contents">
                                 {{ #if icon }}
-                                <img src="/static/img/platform/{{icon}}" width="32" height="32">&nbsp;
+                                <img src="/static/img/platform/{{icon}}" class="icon-32">&nbsp;
                                 {{ /if }}
                                 {{ #if url }}{{name}}{{ /if }}
                                 {{ #if download_url }}{{name}}{{ /if }}
@@ -90,12 +90,12 @@
                         {{ #each downloads }}
                         <span {{ #if gold_only }} class="gold-only-inline" {{ /if }}>
                             {{ #if icon }}
-                            <img src="/static/img/icons/{{icon}}" width="24" height="24">
+                            <img src="/static/img/icons/{{icon}}" class="icon-24 prev-ver-item">
                             {{ /if }}
                             {{ #if short_name }}
-                            <a href="{{download_url}}">{{short_name}}</a>
+                            <a {{ #if gold_only }} class="download-link-gold" {{ else }} class="prev-ver-item" {{ /if }}
+                                href="{{download_url}}">{{short_name}}</a>
                             {{ /if }}
-                            |
                         </span>
                         {{ /each }}
                     </td>

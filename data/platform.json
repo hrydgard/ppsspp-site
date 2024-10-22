@@ -49,16 +49,16 @@
                 "login_prompt": true
             },
             {
-                "name": "PPSSPP Gold (ZIP)",
-                "short_name": "Gold (ZIP)",
+                "name": "PPSSPP Gold ZIP",
+                "short_name": "ZIP",
                 "icon": "ppsspp-icon-gold.png",
                 "filename": "PPSSPPWindowsGold.zip",
                 "gold_only": true,
                 "gold": true
             },
             {
-                "name": "PPSSPP Gold (Installer)",
-                "short_name": "Gold (installer)",
+                "name": "PPSSPP Gold installer",
+                "short_name": "Installer",
                 "icon": "ppsspp-icon-gold.png",
                 "filename": "PPSSPPGoldSetup.exe",
                 "gold_only": true,
@@ -79,11 +79,11 @@
             },
             {
                 "name": "ZIP file for ARM64",
-                "short_name": "ZIP (ARM64)",
+                "short_name": "ARM64",
                 "icon": "ppsspp-icon.png",
                 "filename": "PPSSPPWindowsARM64.zip",
                 "whats_this_url": "/docs/faq#arm64win",
-                "whats_this": "What's this?"
+                "whats_this": "ARM64 information"
             }
         ]
     },
@@ -115,7 +115,7 @@
                 "icon": "ppsspp-icon.png",
                 "filename": "PPSSPP_macOS.dmg",
                 "whats_this_url": "/docs/reference/mac",
-                "whats_this": "Mac information"
+                "whats_this": "macOS information"
             },
             {
                 "name": "Download from Github CI",
@@ -169,7 +169,7 @@
         ]
     },
     {
-        "title": "VR APK for Quest and Pico",
+        "title": "VR APK for Quest and PICO",
         "platform_badge": "vr.svg",
         "platform_key": "vr",
         "downloads": [
