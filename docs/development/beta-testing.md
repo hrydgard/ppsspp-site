@@ -10,11 +10,19 @@ A few weeks before each new official release, a beta release will be rolled out 
 
 We only have a beta testing program for Android since Google Play provides convenient tools to automatically roll out new builds to participants. We don't have anything like that yet on the other platforms. On PC, if you want to help testing stuff before release, download the latest development build from the [buildbot](/devbuilds) and report results.
 
+## Joining the Android beta test
+
+Click the appropriate link to join:
+
+<img src="/static/img/platform/ppsspp-icon.png" width="32" alt="icon"> [Join the beta test!](https://play.google.com/apps/testing/org.ppsspp.ppsspp)
+
+<img src="/static/img/platform/ppsspp-icon-gold.png" width="32" alt="icon">[Join the beta test for PPSSPP Gold!](https://play.google.com/apps/testing/org.ppsspp.ppssppgold)
+
 # Beta Testing on iOS through TestFlight
 
-The beta testing program for iOS is now open as well! [Join here](https://testflight.apple.com/join/uNlhFG0m).
+The beta testing program for iOS is now open as well (although only for the free version currently)!
 
-This applies to the regular non-gold PPSSPP only.
+[Join here](https://testflight.apple.com/join/uNlhFG0m).
 
 ## Important information
 
@@ -25,14 +33,6 @@ If you make a save state in a beta build, it will not load if you go back to the
 On Android 11 or higher, make sure you are using a manually-selected folder for memstick data. [More information](/docs/getting-started/save-data-and-storage).
 
 If you have installed PPSSPP through an APK previously, for example from the buildbot, you will have to uninstall, and install again from Google Play, in order to get your automatic beta updates.
-
-## Joining the beta test
-
-Click the appropriate link to join:
-
-<img src="/static/img/platform/ppsspp-icon.png" width="32" alt="icon"> [Join the beta test!](https://play.google.com/apps/testing/org.ppsspp.ppsspp)
-
-<img src="/static/img/platform/ppsspp-icon-gold.png" width="32" alt="icon">[Join the beta test for PPSSPP Gold!](https://play.google.com/apps/testing/org.ppsspp.ppssppgold)
 
 ## Reporting bugs and issues
 
