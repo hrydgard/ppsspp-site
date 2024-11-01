@@ -37,6 +37,29 @@ isn't always running).
 
 To see options, `cargo run -- --help`.
 
+### Testing in cloud
+
+If you don't want to install Rust on your computer, you can also use a Chromium based web browser (such as Edge)
+for testing through Codespaces on the GitHub website (for a limited time).
+
+1. [Create a new codespace.](https://docs.github.com/en/codespaces/developing-in-a-codespace/creating-a-codespace-for-a-repository#creating-a-codespace-for-a-repository)
+
+2. Once the shell is ready, download and run the Rust installer:  
+`curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`  
+When prompted, press enter to proceed with standard installation.
+
+3. When installation is finished, source the env file to the shell:  
+`. "$HOME/.cargo/env"`  
+(Mind the dot!)
+
+5. To build and run the website: `cargo run`  
+When the website is running, a [pop-up](https://docs.github.com/assets/cb-17218/mw-1440/images/help/codespaces/quickstart-port-toast.webp) will appear in the bottom right corner of the screen, prompting you to
+open it in your browser.  
+Alternatively, you can open it from the [Ports tab](https://docs.github.com/assets/cb-25086/mw-1440/images/help/codespaces/quickstart-forward-port.webp) by hovering on forwarded address and clicking on the globe
+icon.
+
+To stop the website go back into the Terminal and press `Ctrl+C`.
+
 ## Deploy instructions
 
 NOTE: Currently, only hrydgard does this.
