@@ -801,6 +801,32 @@
       ]
     },
     {
+      "name": "1_18",
+      "is_dir": true,
+      "children": [
+        {
+          "name": "ppsspp_vr.apk",
+          "is_dir": false
+        },
+        {
+          "name": "PPSSPP_macOS.dmg",
+          "is_dir": false
+        },
+        {
+          "name": "ppsspp.apk",
+          "is_dir": false
+        },
+        {
+          "name": "PPSSPPSetup.exe",
+          "is_dir": false
+        },
+        {
+          "name": "ppsspp_win.zip",
+          "is_dir": false
+        }
+      ]
+    },
+    {
       "name": "1_16_2",
       "is_dir": true,
       "children": [
@@ -1612,6 +1638,10 @@
       "name": "Switch",
       "is_dir": true,
       "children": [
+        {
+          "name": "Release_PPSSPP_Standalone_11.09.2024.7z",
+          "is_dir": false
+        },
         {
           "name": "20200311_Release_PPSSPP_Standalone.7z",
           "is_dir": false
