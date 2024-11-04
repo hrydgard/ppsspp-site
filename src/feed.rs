@@ -66,7 +66,7 @@ pub fn write_feed(
     format: FeedFormat,
     handlebars: &mut handlebars::Handlebars<'_>,
 ) -> anyhow::Result<()> {
-    let base_path = format!("https://www.ppssspp.org/{folder}");
+    let base_path = format!("https://www.ppsspp.org/{folder}");
     let rss = Rss {
         version: "2.0".to_string(),
         channel: Channel {
