@@ -23,3 +23,9 @@ build_test_headless_alpine:
     image: alpine:latest
     options: --shm-size=8g
 ```
+
+## Compat.ini on Android
+
+It's inconvenient to directly edit compat.ini since it's built into the APK's asset subdirectory,
+but you can put a separate compat.ini in your PSP/SYSTEM directory. It will be automatically merged
+with the one from assets in the APK.
