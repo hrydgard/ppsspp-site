@@ -1,3 +1,4 @@
+/*
 @font-face {
   font-family: 'DroidSans';
   src: url('/static/fonts/droid_sans.woff2') format('woff2');
@@ -8,6 +9,7 @@
   src: url('/static/fonts/droid_sans_bold.woff2') format('woff2');
   font-weight: bold;
 }
+  */
 
 html,
 body {
@@ -33,7 +35,7 @@ pre {
 
 p,
 pre {
-  padding-bottom: 9px;
+  padding-bottom: 12px;
 }
 
 li {
@@ -44,11 +46,11 @@ h1,
 h2,
 h3,
 h4 {
-  padding: 12px 9px 0 0;
+  padding: 12px 0 9px 0;
 }
 
 h1 {
-  font-size: 26pt;
+  font-size: 23pt;
 }
 
 h2 {
