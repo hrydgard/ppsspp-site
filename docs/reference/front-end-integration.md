@@ -4,13 +4,17 @@ If you need this you know what it is, most others won't need to bother. This is 
 
 The action is of course `android.intent.action.VIEW`.
 
-The activity name is:
+The activity name for the free edition is:
 
 `org.ppsspp.ppsspp/org.ppsspp.ppsspp.PpssppActivity`
 
 For PPSSPP Gold, use the following activity name:
 
 `org.ppsspp.ppssppgold/org.ppsspp.ppsspp.PpssppActivity`
+
+And for [PPSSPP Legacy](/docs/reference/legacy-edition), use this one instead:
+
+`org.ppsspp.ppsspplegacy/org.ppsspp.ppsspp.PpssppActivity`
 
 ## Exiting directly to the frontend from the pause menu
 

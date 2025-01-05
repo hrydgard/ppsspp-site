@@ -32,4 +32,4 @@ Whether you own PPSSPP Gold for one of those platforms or not, feel free to use 
 
 ## Why do I need to enter my phone number when making a purchase of the PC/Mac versions?
 
-A: The payment provider uses the phone number in its algorithms to prevent credit card fraud. It is not actually used - you will not get calls from anyone.
+A: The payment provider uses the phone number in its algorithms to prevent credit card fraud. It is not actually used - you will not get calls from anyone and it's not stored.

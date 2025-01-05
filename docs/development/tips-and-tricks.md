@@ -29,3 +29,7 @@ build_test_headless_alpine:
 It's inconvenient to directly edit compat.ini since it's built into the APK's asset subdirectory,
 but you can put a separate compat.ini in your PSP/SYSTEM directory. It will be automatically merged
 with the one from assets in the APK.
+
+## Checking your code optimizations
+
+The quickest way to check what machine code was generated when you compiled some C++ function, is to, in Visual Studio, set a breakpoint on the code, then run until it gets hit, and then press Ctrl+Alt+D to show disassembly. Best used to verify that your SIMD instrinsics don't do something silly, like reload a matrix for every vertex for example...
