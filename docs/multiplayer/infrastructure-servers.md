@@ -6,7 +6,7 @@
 
 Most or all of these have long since been shut down, but people have been creating their own replacements. If you know of other ones not listed, e-mail hrydgard+ppsspp@gmail.com, and put "Infrastructure" somewhere in the subject line.
 
-Please note that the below services are not supported in the current official release of PPSSPP, but hopefully we'll be able to get it to work in the main builds soon.
+NOTE! The below services are not currently supported in the current official release of PPSSPP, but hopefully we'll be able to get it to work in the next official version.
 
 ### PS Rewired
 
@@ -18,4 +18,17 @@ Their DNS is 67.222.156.250.
 
 The [Antigravity Racing Foundation](https://agracingfoundation.org/)!
 
-A project to keep Wipeout Pulse, Wipeout 2048 and Wipeout HD multiplayer alive by the use of custom infrastructure servers. Made for real PSPs/PS3s, but works with some custom versions of PPSSPP. In the future, we can hopefully support this in official builds.
+A project to keep Wipeout Pulse, Wipeout 2048 and Wipeout HD multiplayer alive by the use of custom infrastructure servers. Made for real PSPs/PS3s, but works with some custom versions of PPSSPP.
+
+Motorstorm: Artic Edge also works.
+
+### Others
+
+More documentation will be added later here, in the meantime here's a list of projects:
+
+* [Openspy](https://openspy.net/)
+* [PSORG](https://github.com/PSOnlineReturnalGaming)
+* LittleBigRefresh
+* PS3 Reborn (Discord group)
+* [MOHH Revival](https://mohh-revival.pages.dev/)
+* Outrun2006 Tweaks
