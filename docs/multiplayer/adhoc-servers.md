@@ -1,7 +1,16 @@
-# Ad-Hoc Servers
+---
+position: 3
+---
 
-In the future there will be a written guide here for how to use AdHoc multiplayer.
+# Ad-Hoc Server List
 
-Until then, here's a list of known working servers, now that coldbird lost the original domain:
+For more information about Ad-Hoc play, see [How to play Ad-Hoc Multiplayer](/docs/multiplayer/how-to-play).
+
+Here's a list of known working servers:
 
 [socom.cc](http://socom.cc)
+
+Some older servers that no longer work, listed here in order to appear in search results:
+
+* coldbird
+* myneighborsushicat (yes really).

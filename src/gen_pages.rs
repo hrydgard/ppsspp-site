@@ -9,6 +9,8 @@ pub fn generate_pages(
     folder: &str,
     handlebars: &mut handlebars::Handlebars<'_>,
 ) -> anyhow::Result<Vec<Document>> {
+    println!("Generating pages from {folder}...");
+
     let root_folder = config.in_dir.join(folder);
     anyhow::ensure!(root_folder.exists());
     // pages are generated directly into the root.

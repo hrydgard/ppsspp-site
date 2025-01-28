@@ -367,14 +367,18 @@ impl Category {
                 // Check file extension to figure out what to do.
                 match os_str.to_str().unwrap() {
                     "md" => {
-                        let doc = Document::from_md(&path, config)?;
-                        if name == "_category_.md" {
-                            meta = doc.meta.clone();
-                            html = doc.html;
-                            // let mut _ate_title;
-                            //(meta, _ate_title) = Document::read_dash_meta(&mut reader)?;
-                        } else {
-                            documents.push(doc);
+                        match Document::from_md(&path, config) {
+                            Ok(doc) => {
+                                if name == "_category_.md" {
+                                    meta = doc.meta.clone();
+                                    html = doc.html;
+                                    // let mut _ate_title;
+                                    //(meta, _ate_title) = Document::read_dash_meta(&mut reader)?;
+                                } else {
+                                    documents.push(doc);
+                                }
+                            }
+                            Err(err) => anyhow::bail!("Failed to parse {}: {}", path.display(), err.to_string()),
                         }
                     }
                     _ => {

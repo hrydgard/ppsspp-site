@@ -50,11 +50,12 @@ pub fn generate_doctree(
     folder: &str,
     handlebars: &mut handlebars::Handlebars<'_>,
 ) -> anyhow::Result<Vec<Document>> {
+    println!("Generating doctree from {folder}...");
     // First, build the tree and convert all the markdown to html and metadata.
     let root_folder = config.in_dir.join(folder);
     anyhow::ensure!(root_folder.exists());
     let out_root_folder = config.out_dir.clone();
-    let mut root_cat = document::Category::from_folder_tree(&root_folder, config)?;
+    let mut root_cat = document::Category::from_folder_tree(&root_folder, config).context("from_folder_tree")?;
 
     let mut crumbs = vec![DocLink {
         title: "Docs".to_owned(),
@@ -80,7 +81,7 @@ pub fn generate_doctree(
         // We apply the template right here.
         let mut context = PageContext::from_document(doc, &config.global_meta);
         context.sidebar = Some(generate_docnav_html(&root_cat, 0, &doc.meta.breadcrumbs));
-        let html = context.render("doc", handlebars)?;
+        let html = context.render("doc", handlebars).context("render")?;
 
         util::write_file_as_folder_with_index(&target_path, html, true)?;
     }
@@ -90,7 +91,7 @@ pub fn generate_doctree(
     // Generate search index. Could be done in parallel to writing out the files.
     for doc in &docs {
         if let Some(markdown) = &doc.markdown {
-            index.add_md(&config.markdown_options, markdown, &doc.meta)?;
+            index.add_md(&config.markdown_options, markdown, &doc.meta).context("add_md")?;
         }
     }
 

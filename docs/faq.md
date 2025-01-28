@@ -234,3 +234,9 @@ Simply rename the UI folder to ui, and the Profile folder to profile, and it wil
 There have been a couple of reports of this, and one person reported being able to solve the problem by reformatting the SD card from scratch, and copying back the stuff on it. Still unclear what was going on.
 
 In general, SD cards are a bit iffy on the more recent Android versions and can have some really strange problems, unfortunately.
+
+## Why is the screen shaking in Gran Turismo?
+
+The game attempts to use the blurriness of the PSP's screen to implement an early form of TAA (temporal anti aliasing) by shaking the screen by half a pixel every frame.
+
+This can be turned off inside the game itself, by going to "Options -> Display Settings -> Video Output" and enabling "External Video Output".

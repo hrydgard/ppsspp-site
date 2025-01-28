@@ -29,6 +29,8 @@ pub fn generate_blog(
     title: &str,
     handlebars: &mut handlebars::Handlebars<'_>,
 ) -> anyhow::Result<Vec<Document>> {
+    println!("Generating blog from {folder}...");
+
     // For the blog
 
     let root_folder = config.in_dir.join(folder);
