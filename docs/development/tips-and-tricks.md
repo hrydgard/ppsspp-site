@@ -33,3 +33,35 @@ with the one from assets in the APK.
 ## Checking your code optimizations
 
 The quickest way to check what machine code was generated when you compiled some C++ function, is to, in Visual Studio, set a breakpoint on the code, then run until it gets hit, and then press Ctrl+Alt+D to show disassembly. Best used to verify that your SIMD instrinsics don't do something silly, like reload a matrix for every vertex for example...
+
+## Launch.json in vscode
+
+Here's a quick `.vscode/launch.json` one for debugging on Mac:
+
+```
+{
+        "version": "0.2.0",
+        "configurations": [
+                {
+                        "name": "(lldb) Launch",
+                        "type": "cppdbg",
+                        "request": "launch",
+                        "program": "",
+                        "osx": {
+                                "program": "${workspaceFolder}/build/PPSSPPSDL.app/Contents/MacOS/PPSSPPSDL"
+                        },
+                        "linux": {
+                                "program": "${workspaceRoot}/build/PPSSPPSDL"
+                        },
+                        "args": [],
+                        "stopAtEntry": false,
+                        "cwd": "${workspaceFolder}",
+                        "environment": [],
+                        "externalConsole": false,
+                        "MIMode": "lldb"
+                }
+        ]
+}
+```
+
+Can be improved a lot, like currently it doesn't even perform the build.
