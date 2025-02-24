@@ -8,7 +8,7 @@ As mentioned [here](https://github.com/hrydgard/ppsspp/issues/16934), we follow 
 
 ## Reverb effect far from accurate
 
-Our audio reverb implementation is basically modeled on old PSX emulators - we know that the PSP's reverb effect is different but it's very hard to know exactly in what way.
+Our audio reverb implementation is modeled on the PSX reverb function - we know that the PSP's reverb effect is different in some way, as the result is sometimes too loud, sometimes too weak, but it's very hard to know exactly how.
 
 ## Fonts can be a little off
 
@@ -16,9 +16,9 @@ The PSP firmware includes a set of fonts, that a small percentage of games use f
 
 ## CPU caches are not emulated
 
-The MIPS CPU in the PSP has separate data and instruction caches. The data cache can be easily bypassed by game code by doing `| 0x40000000` to any pointer. This is mainly useful for writing data all the way out to RAM immediately so that the GPU can still read it. There's also a full set of cache invalidation instructions and soon.
+The MIPS CPU in the PSP has separate data and instruction caches. The data cache can be easily bypassed by game code by doing `| 0x40000000` to any pointer. This is mainly useful for writing data all the way out to RAM immediately so that the GPU can read it immediately, without any need for cache flushing. There's also a full set of cache invalidation instructions and other cache control functions.
 
-PPSSPP just pretends the caches are invisible, which they should be if games use it correct. Which they don't always do - it's believed that a graphical glitch with fires in the Prince of Persia games is caused by some kind of cache misuse.
+PPSSPP just pretends the caches are invisible, which they should be if games use them correctly. Which they don't always do - it's believed that a graphical glitch with fires in the Prince of Persia games is caused by some kind of cache misuse.
 
 ## VFPU math functions are not fully bit-accurate
 
@@ -33,6 +33,10 @@ The Media Engine APIs are not very well documented and our implementation of the
 ## Color depth is not emulated accurately
 
 The PSP often renders at 16-bit color depth (either RGB555 or RGB565), but PPSSPP always renders with 32-bit color (full RGBA8888).
+
+## The OS is simulated, not emulated
+
+All of the PSP operating systems, like file I/O, GPU display list submission, kernel APIs like threading, timer access, and so on, are simulated. We don't run the actual OS code. This simulation is of course not 100% correct, there are differences in timing, error handling etc. We try to make it as close as possible, but it isn't really possible to get to 100%.
 
 ## And so much more...
 
