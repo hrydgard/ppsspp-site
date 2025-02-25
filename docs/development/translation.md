@@ -10,7 +10,7 @@ If you'd like to contribute to translation, the easiest way to get started and t
 
 Alternatively, you can directly to go to [the assets/lang folder on GitHub](https://github.com/hrydgard/ppsspp/tree/master/assets/lang) and start editing the .ini file for the language you know.
 
-Once happy with your changes, you can submit a pull request on Github, or just email the finished .ini file to [the maintainer](hrydgard+translations@gmail.com).
+Once happy with your changes, you can submit a pull request on GitHub, or just email the finished .ini file to [the maintainer](hrydgard+translations@gmail.com).
 
 ## Ini file editing
 

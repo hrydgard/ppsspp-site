@@ -12,34 +12,34 @@ Here's an incomplete list of platforms that PPSSPP could or could not be ported 
 | Android | Done | |
 | Linux | Done | x86-32/64, ARM32/64, RISCV-64 |
 | macOS | Done | Limited native UI |
-| iOS | Done | JIT works but not on the App Store builds |
+| iOS | Done | JIT works but not on the App Store builds. |
 | Nintendo Switch | Done | by m4xw! |
 | Raspberry Pi | Done | R4+ recommended |
-| Windows UWP/Xbox One/WinPhone10 | Done | Windows Phone support is discontinued, too slow |
+| Windows UWP / Xbox One / Windows Phone 10 | Done | Windows Phone support is discontinued, too slow. |
 
 These platforms were supported once, but aren't anymore due to lack of maintainer interest:
 
 | Platform  | State | Comments |
 | --------- | ----- | -------- |
-| Blackberry 10 | Worked | JIT for ARM |
+| BlackBerry 10 | Worked | JIT for ARM |
 | Symbian | Worked | JIT for ARM |
 | Pandora | Worked | |
 | DragonBox Pyra | Worked | |
-| Meego | Worked | |
+| MeeGo | Worked | |
 | Wii U | Proof-of-concept | |
-| Xbox 360 | Proof-of-concept | Hacked consoles only |
+| Xbox 360 | Proof-of-concept | Hacked consoles only. |
 
 These are ports that never happened or are deemed impossible:
 
 | Platform  | State | Comments |
 | --------- | ----- | -------- |
-| Playstation 3 | Barely possible | Hacked consoles only. Unlikely to happen |
-| Windows Phone 7.x | NOT POSSIBLE | No native code support |
-| Windows Phone 8 | NOT POSSIBLE | JIT not allowed, way too slow |
-| Wii | NOT POSSIBLE | Not enough RAM |
-| Xbox Original | NOT POSSIBLE | Not enough RAM. Weak CPU? |
-| Playstation 2 | NOT POSSIBLE | Not enough RAM, weak CPU. |
-| Gamecube | NOT POSSIBLE | Not enough RAM, weak CPU. |
+| PlayStation 3 | Barely possible | Hacked consoles only. Unlikely to happen. |
+| Windows Phone 7.x | NOT POSSIBLE | No native code support. |
+| Windows Phone 8 | NOT POSSIBLE | JIT not allowed, way too slow. |
+| Wii | NOT POSSIBLE | Not enough RAM. |
+| Xbox original | NOT POSSIBLE | Not enough RAM. Weak CPU? |
+| PlayStation 2 | NOT POSSIBLE | Not enough RAM, weak CPU. |
+| GameCube | NOT POSSIBLE | Not enough RAM, weak CPU. |
 | Dreamcast | NOT POSSIBLE | Not enough RAM, weak CPU. |
 
 ### Why not the PlayStation 3?

@@ -2,7 +2,7 @@
 
 ## Links about developing for the PSP
 
-- [PPSSPP on Github](https://github.com/hrydgard/ppsspp)
+- [PPSSPP on GitHub](https://github.com/hrydgard/ppsspp)
 - [PPSSPP Development Wiki](https://github.com/hrydgard/ppsspp/wiki)
 - [PSP Dev Wiki](https://playstationdev.wiki/pspdevwiki/index.php/Main_Page)
 - [forums.ps2dev.org](https://forums.ps2dev.org/) Also has PSP information.
