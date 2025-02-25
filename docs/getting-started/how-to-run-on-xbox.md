@@ -1,8 +1,8 @@
-# How to run on XBox using the UWP version
+# How to run on Xbox using the UWP version
 
 More and better information is coming here in the future.
 
-You need to be able to switch your XBox One, S or X into development mode.
+You need to be able to switch your Xbox One, S or X into development mode.
 
 For now, here's a [guide](https://wiki.xboxdev.store/en/PPSSPPSetupGuide) on wiki.xboxdev.store.
 

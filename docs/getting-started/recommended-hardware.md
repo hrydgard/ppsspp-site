@@ -25,7 +25,7 @@ PPSSPP is compatible with almost any game controller. This page lists some thing
 
 ### Controllers for Android
 
-- Basically any bluetooth controllers, including iPega, XBox One/X/S and Playstation 4/5 controllers
+- Basically any Bluetooth controllers, including iPega, Xbox One/X/S and PlayStation 4/5 controllers
 - Moga controllers work.
 
 ## Controllers for Windows

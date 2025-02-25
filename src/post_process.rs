@@ -76,7 +76,7 @@ pub fn add_meta_from_markdown(
     Ok(())
 }
 
-// Markdown post-processing. This is for linking github issues.
+// Markdown post-processing. This is for linking GitHub issues.
 pub fn preprocess_markdown(md: &str, doc_name: &str, config: &Config) -> anyhow::Result<String> {
     anyhow::ensure!(
         !md.contains(".md)"),

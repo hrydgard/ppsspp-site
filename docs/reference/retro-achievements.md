@@ -1,6 +1,6 @@
 # RetroAchievements - setup and use
 
-[RetroAchievements](https://retroachievements.org/) are similar to XBox achievements or PlayStation trophies, except that they're created and defined by a volunteer community. Just like other retro consoles, the PSP itself has no native concept of achievement/trophies. However, this can be added with emulation!
+[RetroAchievements](https://retroachievements.org/) are similar to Xbox achievements or PlayStation trophies, except that they're created and defined by a volunteer community. Just like other retro consoles, the PSP itself has no native concept of achievement/trophies. However, this can be added with emulation!
 
 Not only achievements are supported, but also global leaderboards in games that have scores or times.
 

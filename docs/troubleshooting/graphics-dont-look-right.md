@@ -57,4 +57,4 @@ PPSSPP often gets fixes and updates.  Even if you're using the latest stable ver
 
 At this point, it seems that you're out of luck and it might be a bug in PPSSPP.
 
-Go to [PPSSPP on Github](https://github.com/hrydgard/ppsspp/issues) and search for the game you're playing. There might be some issue report already describing your problem - if not, get a github account if you don't have one already, then click New Issue and make a report. It will be looked at!
+Go to [PPSSPP on GitHub](https://github.com/hrydgard/ppsspp/issues) and search for the game you're playing. There might be some issue report already describing your problem - if not, get a github account if you don't have one already, then click New Issue and make a report. It will be looked at!

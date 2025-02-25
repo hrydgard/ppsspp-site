@@ -36,10 +36,10 @@ If you have installed PPSSPP through an APK previously, for example from the bui
 
 ## Reporting bugs and issues
 
-Either report bugs using our [Github issue tracker](https://github.com/hrydgard/ppsspp/issues), or join
+Either report bugs using our [GitHub issue tracker](https://github.com/hrydgard/ppsspp/issues), or join
 the discord ([instructions here](/contact)) and report your issues in the #general channel.
 
-But before reporting, please do a search of the Github issue tracker to see if your problem is already known!
+But before reporting, please do a search of the GitHub issue tracker to see if your problem is already known!
 
 ## Upcoming features in 1.17
 
