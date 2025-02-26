@@ -43,7 +43,8 @@ img.prev-ver-item {
 img.icon-48,
 img.icon-36,
 img.icon-32,
-img.icon-24 {
+img.icon-24,
+img.icon-author {
     display: inline-flex;
     justify-content: center;
     vertical-align: middle;
@@ -55,6 +56,18 @@ img.icon-48 { height: 48px; width: 48px; }
 img.icon-36 { height: 36px; width: 36px; }
 img.icon-32 { height: 32px; width: 32px; }
 img.icon-24 { height: 24px; width: 24px; }
+
+img.icon-author {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+}
+
+i.icon-author {
+    display: inline;
+    vertical-align: middle;
+    font-size: 24px;
+}
 
 img.icon-link {
     display: inline-flex;

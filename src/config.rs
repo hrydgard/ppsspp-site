@@ -15,6 +15,8 @@ pub struct Author {
     url: String,
     image_url: String,
     title: String,
+    twitter_url: String,
+    github_url: String,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]

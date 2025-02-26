@@ -2,7 +2,9 @@
   "hrydgard": {
     "name": "Henrik Rydgård",
     "title": "PPSSPP Creator",
-    "url": "https://github.com/hrydgard",
-    "image_url": "https://github.com/hrydgard.png"
+    "image_url": "https://github.com/hrydgard.png",
+    "url": "https://www.henrikrydgard.com/",
+    "twitter_url": "https://x.com/henrikrydgard",
+    "github_url": "https://github.com/hrydgard"
   }
 }
