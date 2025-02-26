@@ -14,7 +14,7 @@ When PPSSPP can't create files next to the program (usually because it's in Prog
 
 The memstick is just the same as your storage - it's meant to be just like the PSP.
 
-### Mac OS X and Linux
+### macOS and Linux
 
 The memstick is found in your "home" or "user" folder, inside `~/.config/ppsspp` (you can select Go To and paste that path into the Finder or other file manager.)
 

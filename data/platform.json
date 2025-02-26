@@ -118,7 +118,7 @@
                 "whats_this": "macOS information"
             },
             {
-                "name": "Download from Github CI",
+                "name": "Download from GitHub CI",
                 "url": "https://github.com/hrydgard/ppsspp/releases/latest"
             }
         ]

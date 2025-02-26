@@ -39,7 +39,7 @@ Do look into the [Vita3K](https://vita3k.org/) project though! They are making g
 
 ## How do I install game DLC?
 
-Install it exactly the same way as you would on a PSP, that is, copy the files to PSP/GAME or PSP/SAVEDATA (depending on the DLC) on the memory stick. In the Android version of PPSSPP, the memory stick is simply the SD card or USB storage of your phone, PPSSPP will create a PSP folder in the root of that. On Windows without installer, the memory stick is the "memstick" subdirectory in the PPSSPP folder. On iOS, it's in /User/Documents/PSP/ . On Mac and Linux, it's in ~/.config/PPSSPP.
+Install it exactly the same way as you would on a PSP, that is, copy the files to `PSP/GAME` or `PSP/SAVEDATA` (depending on the DLC) on the memory stick. In the Android version of PPSSPP, the memory stick is simply the SD card or USB storage of your phone, PPSSPP will create a PSP folder in the root of that. On Windows without installer, the memory stick is the "memstick" subdirectory in the PPSSPP folder. On iOS, it's in `/User/Documents/PSP/`. On Mac and Linux, it's in `~/.config/PPSSPP`.
 
 ## Do I need a BIOS file to run PPSSPP, like I would with PSX/PS1 and PS2 emulators?
 
@@ -58,7 +58,7 @@ No. PSP games only.
 Yes, PPSSPP has built-in XInput and DirectInput support on Windows so it will "just work" with any Xbox 360 pad and most other pads that you plug into your PC.
 On Android, many Bluetooth gamepads like iPega Red Knight work just fine, sometimes with a few limitations.
 
-## My XBox or PlayStation joystick doesn't work on Android
+## My Xbox or PlayStation joystick doesn't work on Android
 
 Apparently, some accessibility options can interfere with joystick functionality. Try turning any accessibility settings off in Android settings. This behavior has been seen on Google Pixel phones. [More details here](/docs/troubleshooting/control-stick-problems).
 
@@ -87,7 +87,7 @@ Yes, although it's not a super smooth experience. Follow this:
 
 Sharing controls between the two instances can be an issue though..
 
-## Can I access and login to the Playstation Store from within PPSSPP?
+## Can I access and login to the PlayStation Store from within PPSSPP?
 
 No, this is unfortunately not possible.
 
@@ -142,8 +142,8 @@ If you have PPSSPP 1.12 or later and are on desktop, you can open it directly fr
 Where it is depends on the platform:
 
 * Windows: Either in the directory "memstick" in PPSSPP, or in your documents directory. There's also an additional shortcut, just choose "File->Open Memstick Folder..." to find it.
-* Mac/Linux: Look in .config/ppsspp in your home directory. Some distributions may have it in other places.
-* Android: In older versions it was always in the /PSP directory at the root of your shared storage. In Android 11 and later with PPSSPP 1.12 or later, it's configurable. [More information here](/docs/getting-started/save-data-and-storage).
+* Mac/Linux: Look in `.config/ppsspp` in your home directory. Some distributions may have it in other places.
+* Android: In older versions it was always in the `/PSP` directory at the root of your shared storage. In Android 11 and later with PPSSPP 1.12 or later, it's configurable. [More information here](/docs/getting-started/save-data-and-storage).
 
 ## What are the PC CPU and GPU requirements?
 
@@ -155,7 +155,7 @@ Any reasonably modern CPU will be just fine, and any GPU that can handle OpenGL 
 
 ## What are CSO files?
 
-CSO are compressed ISO files that can be played directly, decompressing on the fly. Very useful to save space on your Android device, for example. [MaxCSO](https://github.com/unknownbrackets/maxcso/releases) is a great program to create CSO files. Of course, there are others around the web, too.
+CSO are compressed ISO files that can be played directly, decompressing on the fly. Very useful to save space on your Android device, for example. [maxcso](https://github.com/unknownbrackets/maxcso/releases) is a great program to create CSO files. Of course, there are others around the web, too.
 
 ## I've managed to fix a bug, how do I get the fix into PPSSPP?
 
@@ -193,7 +193,7 @@ It may work to install this app: [AnExplorer on Google Play](https://play.google
 
 Settings/System/Set background image.
 
-This is, however, currently not available on iOS due to current lack of support for the OS image file picker. Instead, you can use some file manager to copy your image to PSP/SYSTEM inside the PPSSPP app folder.
+This is, however, currently not available on iOS due to current lack of support for the OS image file picker. Instead, you can use some file manager to copy your image to `PSP/SYSTEM` inside the PPSSPP app folder.
 
 ## My app is on the PPSSPP Homebrew Store and I do not approve!
 
