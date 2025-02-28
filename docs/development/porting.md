@@ -4,27 +4,27 @@ It's great to see PPSSPP ported to new platforms, feel free to give it a go.
 
 ## Platforms
 
-Here's an incomplete list of platforms that PPSSPP could or could not be ported to (last updated 2024):
+Here's an incomplete list of platforms that PPSSPP could or could not be ported to (last updated 2025):
 
 | Platform  | State | Comments |
 | --------- | ----- | -------- |
-| Windows | Done | |
-| Android | Done | |
+| Windows | Done | [XP](https://github.com/hrydgard/ppsspp/pull/11995) support is discontinued. |
+| Android | Done | [x86-32](https://github.com/hrydgard/ppsspp/pull/17908) support is discontinued. |
 | Linux | Done | x86-32/64, ARM32/64, RISCV-64 |
 | macOS | Done | Limited native UI |
 | iOS | Done | JIT works but not on the App Store builds. |
-| Nintendo Switch | Done | by m4xw! |
+| Nintendo Switch | Done | Homebrew enabled consoles only. |
 | Raspberry Pi | Done | R4+ recommended |
-| Windows UWP / Xbox One / Windows Phone 10 | Done | Windows Phone support is discontinued, too slow. |
+| Windows UWP,<br>Xbox Series X\|S,<br>Xbox One,<br>Windows 10&nbsp;Mobile | Done | W10&nbsp;Mobile support is discontinued, too slow. |
 
 These platforms were supported once, but aren't anymore due to lack of maintainer interest:
 
 | Platform  | State | Comments |
 | --------- | ----- | -------- |
+| DragonBox Pyra | Worked | |
+| Pandora | Worked | |
 | BlackBerry 10 | Worked | JIT for ARM |
 | Symbian | Worked | JIT for ARM |
-| Pandora | Worked | |
-| DragonBox Pyra | Worked | |
 | MeeGo | Worked | |
 | Wii U | Proof-of-concept | |
 | Xbox 360 | Proof-of-concept | Hacked consoles only. |
@@ -34,8 +34,8 @@ These are ports that never happened or are deemed impossible:
 | Platform  | State | Comments |
 | --------- | ----- | -------- |
 | PlayStation 3 | Barely possible | Hacked consoles only. Unlikely to happen. |
-| Windows Phone 7.x | NOT POSSIBLE | No native code support. |
 | Windows Phone 8 | NOT POSSIBLE | JIT not allowed, way too slow. |
+| Windows Phone 7.x | NOT POSSIBLE | No native code support. |
 | Wii | NOT POSSIBLE | Not enough RAM. |
 | Xbox original | NOT POSSIBLE | Not enough RAM. Weak CPU? |
 | PlayStation 2 | NOT POSSIBLE | Not enough RAM, weak CPU. |
