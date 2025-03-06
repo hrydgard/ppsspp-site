@@ -162,9 +162,9 @@ fn build(opt: &Args) -> anyhow::Result<()> {
         "sitemap_xml",
     ];
     for tmpl in templates {
-        handlebars.register_template_file(tmpl, &format!("template/{tmpl}.hbs"))?;
+        handlebars.register_template_file(tmpl, &format!("template/{tmpl}.hbs")).context("register_template")?;
     }
-    handlebars.register_template_file("link_icon", "template/icons/link_icon.hbs")?;
+    handlebars.register_template_file("link_icon", "template/icons/link_icon.hbs").context("register_last_template")?;
 
     println!("PPSSPP website generator");
 
@@ -180,7 +180,7 @@ fn build(opt: &Args) -> anyhow::Result<()> {
     .to_string();
 
     let top_nav: Vec<DocLink> =
-        serde_json::from_str(&std::fs::read_to_string("data/top_nav.json")?)?;
+        serde_json::from_str(&std::fs::read_to_string("data/top_nav.json")?).context("json")?;
 
     let current_time: DateTime<Utc> = Utc::now();
 
