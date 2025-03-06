@@ -26,11 +26,11 @@ The point (hah) of the latter two is that that is stable across execution of mul
 
 Visual explanation of working with memory addresses in Cheat Engine (Windows x64):
 
-<img src="/static/img/"process-hacking/PPSSPP_CE.png">
+<img src="/static/img/process-hacking/PPSSPP_CE.png">
 
 Scripting example (use Copy PSP memory base address to fill in the base pointer):
 
-<img src="/static/img/"process-hacking/PPSSPP_CE_Pointer_Lua.png">
+<img src="/static/img/process-hacking/PPSSPP_CE_Pointer_Lua.png">
 
 ### CheatEngine script for getting the base address
 
