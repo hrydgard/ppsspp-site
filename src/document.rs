@@ -235,7 +235,7 @@ impl Document {
 
         post_process::add_meta_from_markdown(&md, &mut meta, config)?;
 
-        if md.contains("```c") || md.contains("```rust") {
+        if md.contains("```") {
             meta.contains_code = true;
         }
 
