@@ -10,7 +10,7 @@ Then, either your device is missing a folder picker entirely (which is unlikely 
 
 ### Android TV
 
-If you have an Android TV and are getting this message, you may be out of luck for now since many ship without a proper file browser app. However, if you know how to install APKs, you can now work around the problem entirely using the [PPSSPP Legacy](/docs/reference/legacy-edition) build!
+If you have an Android TV and are getting this message, you may be out of luck for now since many ship without a proper file browser app. However, if you know how to install APKs, you can now work around the problem entirely using the [PPSSPP Legacy](/docs/reference/legacy-edition) build! This can also be useful on older phones, as I/O performs slightly better - but you'll lose out on Google Play auto updates, etc.
 
 ### Android phones and other devices
 
