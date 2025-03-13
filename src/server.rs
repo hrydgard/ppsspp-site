@@ -31,10 +31,10 @@ async fn server(port: u16) {
         hyper_util::client::legacy::Client::<(), ()>::builder(TokioExecutor::new())
             .build(HttpConnector::new());
 
-    let app = Router::new().nest_service("/", ServeDir::new("build"));
+    let app = Router::new().fallback_service(ServeDir::new("build"));
     let app = app
         .route(
-            "/api/*path",
+            "/api/{*path}",
             on(
                 MethodFilter::GET.or(MethodFilter::POST),
                 reverse_proxy_handler,
