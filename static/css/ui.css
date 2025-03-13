@@ -365,6 +365,8 @@ code {
     padding: .2em .4em;
     margin: 0;
     background-color: var(--color-gray-800);
+    word-break: break-word;
+    text-align: left;
 }
 
 .collapsible {

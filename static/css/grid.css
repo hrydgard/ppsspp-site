@@ -201,7 +201,6 @@ video {
 .doc-contents pre {
     white-space: pre-wrap;
     word-wrap: break-word;
-    text-align: justify;
 }
 
 /* The squeezy phase, before we hit max width */
