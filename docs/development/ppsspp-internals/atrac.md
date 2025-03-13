@@ -1,6 +1,6 @@
 # Atrac3, Atrac3+ and other codecs
 
-The PSP's (hidden) media engine processor handles decoding of formats like Atrac3+, Aac and so forth. This processor is not directly accessed by games, instead they go through libraries like sceAtrac, sceAac and so on. Atrac3+ is Sony's proprietary format, and the format used for background music in 99% of all games (except those that use MIDI/sequenced music). Mainly "minis" use other formats.
+The PSP's (hidden) media engine processor handles decoding of formats like Atrac3+, Aac and so forth. This processor is not directly accessed by games, instead they go through libraries like sceAtrac, sceAac and so on. Atrac3+ is Sony's proprietary format, and the format used for background music in 99% of all games (except those that use MIDI/sequenced music). Mainly "minis" use other formats like MP3 and AAC.
 
 Emulating the sceAtrac library isn't easy, it's a complex high-level library with many different modes and behaviors.
 
@@ -121,7 +121,8 @@ This is called after GetBufferInfoForResetting and then filling the buffers acco
 
 ### `sceAtracGetStreamDataInfo`
 
-Call this to figure out what data to read, do it, and then call sceAtracAddStreamData
+Call this to figure out what data to read from the file and where in the main buffer to put it.
+Then call `sceAtracAddStreamData` to notify sceAtrac about how much data you actually added.
 
 ### `sceAtracAddStreamData`
 
@@ -131,7 +132,7 @@ Note: It's OK to "add" a smaller amount of data than `sceAtracGetStreamDataInfo`
 
 ### `sceAtracSetSecondBuffer(id, buffer, bufSize)`
 
-This informs sceAtrac about where we want a second buffer to be place. This is read from in a few circumstances like when we are looping with a tail.
+This informs sceAtrac about where we want a second buffer to be placed. This is read from in a few circumstances like when looping with a tail (that gets played after the last loop).
 
 ### `sceAtracGetChannel(id, *outPtr)`
 
@@ -143,17 +144,13 @@ Gets the length of the track and the extents of the loop (if any, otherwise -1),
 
 ### `sceAtracReleaseAtracID(id)`
 
-Obvious.
+Releases the Atrac context, free-ing up a bit of memory.
 
 ### `_sceAtracGetContextAddress(id)`
 
 Returns a pointer to the internal context data.
 
-The previous Atrac3+ implementation only copied some variables back to this. The new one uses it to hold most state.
-
-### `sceAtracGetNextDecodePosition`
-
-This seems to be busted (at least it doesn't do what it says on the tin).
+The previous Atrac3+ implementation only copied some variables back to this. The new one uses it directly to hold most state.
 
 ## General calling pattern
 
@@ -177,9 +174,9 @@ It just can't work! Well, that was my first reaction. But there's a nasty hack g
 
 The first time around when we set up a buffer for streaming using sceAtracSetDataAndGetID(), sceAtrac isn't able to give us any advice on how much data to write, in order to avoid splitting packets. So, what it does is, it'll accept say 0x8000 bytes. As it turns out, at that size, offset 0x8000 is right in the middle of a packet, so it simply copies the first half of the packet right on top of the headers it just read, at the beginning of the buffer.
 
-Subsequently, the next time we call sceAtracGetStreamInfo, it'll apply the appropriate offset, and we'll end up completing the packet! So when decoding comes along, it won't have to read a split packet. However, if you supply less data than asked, you can still create split packets... Need to test that in detail.
+Subsequently, the next time we call sceAtracGetStreamInfo, it'll apply the appropriate offset, and we'll end up completing the packet! So when decoding comes along, it won't have to read a split packet.
 
-In future laps around the streaming buffer, sceAtracGetStreamInfo is in control and it'll ask us to not completely fill the buffer in order to avoid the problem the second time around, no more split packets happen after that.
+However, if you supply less data than asked, you can still create split packets temporarily, though you should complete them before decoding gets there.
 
 ## Usage patterns by games
 
@@ -212,12 +209,12 @@ In future laps around the streaming buffer, sceAtracGetStreamInfo is in control 
 
 ## Streaming with looping
 
-* Daxter main menu song
-* Patapon main menu song
+* Daxter main menu music
+* Patapon main menu music
 
 ### Low-level decoding
 
-In this case, the game just submits packets to decode, there's little logic. This is the easiest mode to emulate and has worked for a long time.
+In this case, the game just submits packets to decode to the decoder, sceAtrac doesn't really do anything. This is the easiest mode to emulate and has worked reliably for a long time.
 
 ### sceSas integration
 
@@ -244,7 +241,7 @@ They will be replaced later.
 
 `STREAMED_WITHOUT_LOOP`
 
-```
+```text
 0=sceAtracSetDataAndGetID(09ef9f00, 00040000)
 0=sceAtracGetRemainFrame(0, 09ffee24[0000015f])
 0=sceAtracGetMaxSample(0, 09ffee3c[00000800])
@@ -260,7 +257,7 @@ goto loop
 
 `ALL_DATA_LOADED`
 
-```
+```text
 0=sceAtracSetData(0, 0952e700, 00177dac)
 0=sceAtracSetLoopNum(0, -1)
 0=sceAtracDecodeData(0, 09fe1680, 09fdb664[00000180], 09fdb660[00000000], 09fdb668[-1])
@@ -273,7 +270,7 @@ goto loop
 
 Uses an unusually small buffer. We match this in our stream.prx test.
 
-```
+```text
 0=sceAtracSetDataAndGetID(092bd940, 00010000)
 0=sceAtracSetLoopNum(0, -1)
 0=sceAtracGetRemainFrame(0, 09fdea78[00000056])
@@ -298,7 +295,7 @@ Later, it seems to run out of data just before refilling, even though there shou
 
 This never worked before (see below), but the new implementation fixes this just fine!
 
-```
+```text
 0=sceAtracSetDataAndGetID(08b89d40, 00001000)
 0=sceAtracGetChannel(0, 09fdee70[00000002])
 0=sceAtracGetBitrate(0, 09fdee74[00000060])
