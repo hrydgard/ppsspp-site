@@ -47,7 +47,7 @@ The internal state variables uses all these coordinate systems for various thing
 
 ## Main function documentation
 
-### `sceAtracSetHalfwayBufferAndGetID(id, bufferPtr, validDataSize, bufferSize)`
+### `sceAtracSetHalfwayBufferAndGetID(bufferPtr, validDataSize, bufferSize)`
 
 Tells the library that you'll supply a partially filled buffer.
 
