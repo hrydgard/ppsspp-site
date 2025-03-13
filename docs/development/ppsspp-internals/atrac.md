@@ -24,6 +24,16 @@ An Atrac3+ stream is usually stored in a standard WAVE file, which uses the RIFF
 
 It contains looping information.
 
+There are multiple "coordinate systems" for offsets to be aware of.
+
+* File offsets - Just plain offsets into the .at3 file we're reading or streaming from.
+* Frame byte offsets - Like file offsets, but with an additional offset added to skip the header and reach the actual frame data.
+* Sample offsets - Offsets measured in *decoded* audio samples, from the first byte of decoded data. Loop points are specified in this system. You can convert from encoded byte offsets to these by dividing by the encoded frame size and multiplying by the decoded frame size.
+* Actually played sample offsets - The first X samples are actually skipped and will not be played back. This value is computed in a pretty awkward way, to be documented
+* Byte offsets into the memory buffer(s). For the `ALL_DATA_LOADED` and `HALFWAY_BUFFER` modes, these correspond exactly to file offsets. However, when streaming, there's no simple mapping, it's treated like a circular buffer of "frames", and there's a second buffer for the "tail" when looping an internal segment of a file.
+
+The internal state variables uses all these coordinate systems for various things.
+
 ## Internal states
 
 * `NO_DATA` = 1: Not yet initialized
@@ -83,6 +93,8 @@ Returns the maximum possible value that `sceAtracGetNextSample` can return (use 
 
 Returns the sample position (NOT frame position) in the decoded audio track of the next frame to be decoded. Usually not very useful, although is quite suitable for synchronizing events to the audio playback.
 
+Note that at the start of the song, this will have some value like 0x970 because the decoder always skips a certain number of samples at the start before writing them out.
+
 ### `sceAtracDecodeData(id, *outPtr, *outNumSamples, *outFinishFlag, *outRemainFrames)`
 
 Decodes some audio data to memory, reading from the previously provided data (if outPtr is null, the decoded data is simply discarded, processing happens as normal).
@@ -99,6 +111,8 @@ if (firstFrame && samples < maxSamples) {
 ```
 
 Note that we need to check for firstFrame, otherwise we might do this to the last frame, which can also be short! In the latter case, you might want to zero the rest of the buffer, or maintain your own ring buffers and feed that to `sceAudioOutputBlocking` (this is necessary for smooth looping, too).
+
+Although of course you don't actually need a bool to determine the first frame, you can also just call `sceAtracGetNextDecodePosition`, though the return value isn't super easy to interpret.
 
 If the end is reached and looping is off, *outFinishFlag is set to 1, otherwise 0 is written (including when looping).
 
