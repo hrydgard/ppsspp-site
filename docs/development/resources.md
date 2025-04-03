@@ -4,7 +4,7 @@
 
 - [PPSSPP on GitHub](https://github.com/hrydgard/ppsspp)
 - [PPSSPP Development Wiki](https://github.com/hrydgard/ppsspp/wiki)
-- [PSP Dev Wiki](https://playstationdev.wiki/pspdevwiki/index.php/Main_Page)
+- [PSP Dev Wiki](https://www.psdevwiki.com/psp/)
 - [forums.ps2dev.org](https://forums.ps2dev.org/) Also has PSP information.
 - [PSP Homebrew Community Discord](https://discord.gg/bePrj9W) (invite link)
 - [Minimalist PSP SDK for Windows](https://github.com/pmlopes/minpsp)

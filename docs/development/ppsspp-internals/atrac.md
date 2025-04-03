@@ -9,6 +9,8 @@ Below is my attempt at documenting how the library is used by games, in the hope
 A lot of the below applies to both Atrac3+ and Atrac3 - the same library is used. Some details differ though like frame sizes,
 auxiliary data in the file, etc (Atrac3+ doesn't have any).
 
+Actually, this work ended up resulting in a full solution, that seems to work 100%. But I'm leaving this up anyway.
+
 ## History of sceAtrac emulation
 
 We first started by using an external library, which required buffering up audio in memory in order to decode, rather than feeding a decoder individual packets. This is bad because we had to fake a lot of the behavior.
@@ -18,11 +20,56 @@ Mostly because I didn't realize back then that the entire context is convenientl
 
 But now, finally, we're getting accurate emulation of the buffering, which is critical for some games that use the library in slightly unusual ways, such as Flatout.
 
+## Loading the sceAtrac library
+
+Some games use sceUtilityLoadModule, and others supply their own libatrac3plus.prx library on disk.
+
+In the latter case, in theory, we could just run the native library (since it talks to sceAudioCodec to do its decoding, and we mostly know how to emulate that) instead of HLE-emulating the library.
+
+However, it wouldn't work with the sceSas integration, and also would be limited to games that supply their own prx. So it's still necessary to have a good HLE implementation.
+
+### Games that use sceUtilityLoadModule:
+
+* Wipeout Pulse
+* Many more....
+
+### Games that use sceUtilityLoadAvModule
+
+This was previously not hooked up properly. Worked anyway because our sceAtrac impl doesn't require initialization.
+
+* MotoGP
+* Many more....
+
+### Games that supply their own:
+
+* Burnout Legends (1.1)
+* Gitaroo Man (1.2)
+* Daxter (1.3)
+* Flatout (1.5)
+* Many more....
+
+### Different versions of the library
+
+Early sceAtrac versions seems to have supported only 4, while the current versions support 6.
+
+Or possibly, earlier versions used smaller structs... Needs investigation.
+
+The decoder contexts are stored in an array of 256-byte structs (where the first 128 bytes is the raw codec, the second is the playback state) inside the "BSS" section of the `libatrac3plus.prx` library.
+
+Notably, this requires 0x600 bytes (6 * 256), but an early version of `libatrac3plus.prx` only has 0x520 bytes of BSS...
+
+- 1.1: BSS=0x520 bytes (4 contexts, different data layout)
+- 1.2: BSS=0x67c bytes
+- 1.3: BSS=0x67c bytes
+- 1.5: BSS=0x644 bytes (6 contexts, firmware, gets loaded by `sceUtility*LoadModule`)
+
 ## Atrac3+
 
 An Atrac3+ stream is usually stored in a standard WAVE file, which uses the RIFF container format.
 
 It contains looping information.
+
+## Coordinate systems for offsets
 
 There are multiple "coordinate systems" for offsets to be aware of.
 
@@ -34,14 +81,18 @@ There are multiple "coordinate systems" for offsets to be aware of.
 
 The internal state variables uses all these coordinate systems for various things.
 
-## Internal states
+There's also a "frame skipping" concept, where (presumably) to warm up the decoder, after initializing and seeking, the decoder will skip a frame or two (depending on the seek position within a frame - and that also depends on the codec!) before actually returning data. This causes a lot of complications in the buffering code.
+
+## Internal state
+
+The status field can have the following values:
 
 * `NO_DATA` = 1: Not yet initialized
 * `ALL_DATA_LOADED` = 2: The entire size of the audio data, and filled with audio data
 * `HALFWAY_BUFFER` = 3: The entire size is allocated in memory, but only partially filled so far
-* `STREAMED_WITHOUT_LOOP` = 4: Streaming through a small buffer, without any loop
-* `STREAMED_WITH_LOOP_AT_END` = 5: Streaming through a small buffer, sliding with a loop at the end
-* `STREAMED_WITH_SECOND_BUF` = 6: Smaller with a second buffer to help with a loop in the middle
+* `STREAMED_WITHOUT_LOOP` = 4: Streaming through a small circular buffer, without any loop
+* `STREAMED_WITH_LOOP_AT_END` = 5: Streaming through a small circular buffer, with the "loop end" at the end of the file
+* `STREAMED_WITH_SECOND_BUF` = 6: Streaming through a small circular buffer, with a tail after the loop end (which is contained in the second buffer)
 * `LOW_LEVEL` = 8: Not managed, decoding using "low level" API (one packet at a time). Manual looping if needed. By far the easiest to emulate.
 * `RESERVED` = 16: Not managed, reserved externally - possibly by sceSas
 
@@ -49,7 +100,7 @@ The internal state variables uses all these coordinate systems for various thing
 
 ### `sceAtracSetHalfwayBufferAndGetID(bufferPtr, validDataSize, bufferSize)`
 
-Tells the library that you'll supply a partially filled buffer.
+Tells the library that you'll supply a partially filled buffer (validDataSize out of bufferSize).
 
 Use the combination `sceAtracGetRemainFrame/(last output of sceAtracDecodeData)`/`sceAtracGetStreamDataInfo`/`sceAtracAddStreamData` to progressively fill it up while it's being played.
 
@@ -129,9 +180,13 @@ value goes below a game-specific threshold, the game will load more data into me
 Note, this same value is also returned through the last parameter to `sceAtracDecodeData`, so it's usually not necessary
 to call this one on its own.
 
+### `sceAtracGetBufferInfoForResetting`
+
+This one is a lot less innocent than it looks! It returns the data range it wants you to read in order to call sceAtracResetPlayPosition, but also, if there are any frames to skip, it'll go ahead and skip it, for no apparent reason. It makes no sense that this happens, given that the next thing that gets called actually resets everything again.
+
 ### `sceAtracResetPlayPosition(id, buffer, bytesWrittenFirstBuffer, bytesWrittenSecondBuffer)`
 
-This is called after GetBufferInfoForResetting and then filling the buffers accordingly.
+This is called after `sceAtracGetBufferInfoForResetting` and then filling the buffers accordingly.
 
 ### `sceAtracGetStreamDataInfo`
 
@@ -166,10 +221,13 @@ Returns a pointer to the internal context data.
 
 The previous Atrac3+ implementation only copied some variables back to this. The new one uses it directly to hold most state.
 
+### `sceAtracReinit`
+
+Don't really understand the purpose of this.
+
 ## General calling pattern
 
-During init, you should call sceAtracGetMaxSample to figure out your audio channel buffer size. You need to round-robin these, not sure if 2 or 3 are needed,
-I've seen games use both I think. This gets passed into the second argument of `sceAudioChReserve`.
+During init, you should call sceAtracGetMaxSample to figure out your audio channel buffer size. For use with `sceAudioOutputBlocking` you need to round-robin these, not sure if 2 or 3 are needed, I've seen games use both I think. This gets passed into the second argument of `sceAudioChReserve`.
 
 `sceAtracGetNextSample` returns how many audio samples will be written by the next call to `sceAtracDecodeData`. If it's less than `sceAtracGetMaxSample()` you probably want to offset the output a bit to line up with the next frame to avoid a small glitch.
 
@@ -207,10 +265,9 @@ However, if you supply less data than asked, you can still create split packets 
   - GTA - Vice City Stories
 
 - Good ones for testing (early)
+  - Burnout Legends (no loop, 0x1800 buffer size, uses irregular AddData sizes)
   - Everybody's Golf 2 (0x2000 buffer size, loop from end)
-  - Burnout Legends (no loop, 0x1800 buffer size)
-  - Suicide Barbie
-  - Burnout Legends (uses irregular AddData sizes)
+  - Suicide Barbie (simple stream, no loop)
 
 - Others
   - Bleach
@@ -230,26 +287,46 @@ However, if you supply less data than asked, you can still create split packets 
 
 In this case, the game just submits packets to decode to the decoder, sceAtrac doesn't really do anything. This is the easiest mode to emulate and has worked reliably for a long time.
 
+* Digimon Adventures
+* Hunter X Hunter
+
+### AA3 file format
+
+As mentioned before, Atrac3+ streams are usually stored in RIFF WAVE containers, but there's also AA3, which is one possible extension for "Sony OpenMG Music". This is used by very, very few games though:
+
+* Mod Nation Racers
+* Beats
+* A few more, can't find the list anymore
+
 ### sceSas integration
 
 There's a way to use Atrac3+ audio as a sound channel in the sceSas software mixer, by using the `__sceSasSetVoiceATRAC3` function.
 
-This is rare, known game using it:
+Some also use __sceSasConcatenateATRAC3(08876d00, 31, 09e77978, 32768) to perform streaming progressive loading. Similarly to normal Atrac, it gets into this mode when you use SetData to set a smaller buffer than can fit the whole file, and then do __sceSasSetVoiceATRAC3 on it. It checks the state for != 2 (so, not fully loaded).
 
-- Sol Trigger.
-- Mad Blocker Alpha (mini?)
+When you call this function, secondBuffer is set to the pointer you passed in. Not sure exactly when, but later when it starts running out of data, secondBuffer is changed to 0xFFFFFFFF (after a call to sasCore). This is your clue to call __sceSasConcatenateATRAC3 again, providing it with more data.
+
+Note: It seems the buffer you feed it from using Concatenate.. has to be double-buffered, you cannot re-use the same one over and over.
+
+This is not that common, known games that are using it:
+
+- Sol Trigger
+- Mad Blocker Alpha (mini)
+- L.A Gridlock (mini)
+- Actually, a bunch more according to reports:
+  - https://report.ppsspp.org/logs/kind/193  SetVoice
+  - https://report.ppsspp.org/logs/kind/197  Concatenate
 
 ### Not using Atrac3+, but instead sequenced MIDI music
 
 - Bust-a-Move Deluxe
 - Breath of Fire III
 - Every Extend Extra
+- ... quite a few more, especially PSX ports.
 
 ## Detailed game cases
 
-NOTE: Logs below are from PPSSPP (and the old sceAtrac implementation), not hardware.
-
-They will be replaced later.
+NOTE: Logs below are from PPSSPP's old sceAtrac implementation, not hardware.
 
 ### Suicide Barbie (homebrew)
 
@@ -333,4 +410,4 @@ SCE_KERNEL_ERROR_SCE_ERROR_ATRAC_NO_LOOP_INFORMATION=sceAtracSetLoopNum(0, 0): n
 
 Uses sceAtracSetHalfwayBufferAndGetID with a very small readSize, and a buffer much smaller
 than the size of the file. This results in a streaming state, not a "halfway" state, but differently
-initialized. This is now implemented and working in Atrac2.
+initialized. This is now implemented and working in the new sceAtrac implementation.

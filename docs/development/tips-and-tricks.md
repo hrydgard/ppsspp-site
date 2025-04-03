@@ -65,3 +65,9 @@ Here's a quick `.vscode/launch.json` one for debugging on Mac:
 ```
 
 Can be improved a lot, like currently it doesn't even perform the build.
+
+## Running in WSL2 with full graphics support
+
+See this stackoverflow post: https://stackoverflow.com/questions/79151910/how-to-fix-errors-in-wsl-gui
+
+With this, both OpenGL and Vulkan will work in WSL. The latter works through dzn, a Vulkan-on-top-of-DX12 wrapper.
