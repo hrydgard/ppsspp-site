@@ -1,6 +1,6 @@
-# Atrac3, Atrac3+ and other codecs
+# sceAtrac: Atrac3 and Atrac3+
 
-The PSP's (hidden) media engine processor handles decoding of formats like Atrac3+, Aac and so forth. This processor is not directly accessed by games, instead they go through libraries like sceAtrac, sceAac and so on. Atrac3+ is Sony's proprietary format, and the format used for background music in 99% of all games (except those that use MIDI/sequenced music). Mainly "minis" use other formats like MP3 and AAC.
+The PSP's (hidden) media engine processor handles decoding of formats like Atrac3+, AAC, h.264, MP3 and so forth. This processor is not directly accessed by games, instead they go through libraries like sceAtrac, sceAac etc. Atrac3+ is Sony's proprietary format, and the format used for background music in 99% of all games (except those that use MIDI/sequenced music). Mainly "minis" use other formats like MP3 and AAC.
 
 Emulating the sceAtrac library isn't easy, it's a complex high-level library with many different modes and behaviors.
 
@@ -9,7 +9,7 @@ Below is my attempt at documenting how the library is used by games, in the hope
 A lot of the below applies to both Atrac3+ and Atrac3 - the same library is used. Some details differ though like frame sizes,
 auxiliary data in the file, etc (Atrac3+ doesn't have any).
 
-Actually, this work ended up resulting in a full solution, that seems to work 100%. But I'm leaving this up anyway.
+EDIT: Actually, this work ended up resulting in a full solution, that seems to work 100%. But I'm leaving this up anyway.
 
 ## History of sceAtrac emulation
 
@@ -50,7 +50,7 @@ This was previously not hooked up properly. Worked anyway because our sceAtrac i
 
 ### Different versions of the library
 
-Early sceAtrac versions seems to have supported only 4, while the current versions support 6.
+Early sceAtrac versions seems to have supported only 4 simultaneous codec contexts, while the current versions support 6.
 
 Or possibly, earlier versions used smaller structs... Needs investigation.
 
@@ -65,9 +65,9 @@ Notably, this requires 0x600 bytes (6 * 256), but an early version of `libatrac3
 
 ## Atrac3+
 
-An Atrac3+ stream is usually stored in a standard WAVE file, which uses the RIFF container format.
+An Atrac3+ stream is usually stored in a standard WAVE file, which uses the RIFF container format. There's also the possibility of storing it in an AA3 file, a proprietary and simpler format.
 
-It contains looping information.
+WAVE files contain standard looping information. Only the first loop is used.
 
 ## Coordinate systems for offsets
 

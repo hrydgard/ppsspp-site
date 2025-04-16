@@ -8,7 +8,9 @@ A lot of games use video clips for things like title screens and also cutscenes,
 
 To this end, there's a system library called `sceMpeg`.
 
-For audio, the Sony proprietary Atrac3+ codec is used. Playback is done directly through an owned sceAudioCodec context, rather than going through [sceAtrac](/docs/development/ppsspp-internals/atrac).
+For audio, the Sony proprietary Atrac3+ codec is used. Playback is done directly through an owned sceAudiocodec context, rather than going through [sceAtrac](/docs/development/ppsspp-internals/atrac).
+
+Video (h.264 or "AVC") is decoded using the sceVideocodec library. Unlike sceAudiocodec (which I've mostly figured out how it works), the details of sceVideocodec are entirely unknown at this point.
 
 ## scePsmf / scePsmfPlayer
 
@@ -16,9 +18,7 @@ For audio, the Sony proprietary Atrac3+ codec is used. Playback is done directly
 
 `scePsmf` is a simple format parser, and `scePsmfPlayer` is a full-on player utility library that uses `scePsmf` and also delegates all the actual decoding work to sceMpeg.
 
-I think it would actually be possible to simply allow games to load `scePsmf` and `scePsmfPlayer` from disc (they are only shipped with games, not present in the firmware) and just run them, if we can get all the details correct. Experimenting with this: #20200
-
-
+Since #20200 was merged, we simply allow games to load `scePsmf` and `scePsmfPlayer` from disc (they are only shipped with games, not present in the firmware) and just run them directly. That way, we don't need to emulate them, and they are completely accurate. They forward the task of actual decoding to sceMpeg, so remaining video playback problems are related to our sceMpeg emulation.
 
 ## Example game usage
 

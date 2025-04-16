@@ -12,7 +12,17 @@ Then run:
 adb install android/build/outputs/apk/normal/optimized/android-normal-optimized.apk
 ```
 
-# Running PPSSPPHeadless in Docker
+## Better ADB logs
+
+Use the following very long command line to cleanly filter out PPSSPP-relevant logs:
+
+```sh
+adb logcat -s DEBUG AndroidRuntime PPSSPPNativeActivity PPSSPP NativeGLView NativeRenderer NativeSurfaceView PowerSaveModeReceiver InputDeviceState PpssppActivity CameraHelper
+```
+
+More instructions [here](/docs/troubleshooting/gettings-logs).
+
+## Running PPSSPPHeadless in Docker on github CI
 
 Here's an example setup. Note that `--shm-size=8g` (or bigger) is critically important!
 
