@@ -125,7 +125,7 @@
     },
     {
         "title": "Linux",
-        "platform_badge": "linux_simple_min.svg",
+        "platform_badge": "linux.svg",
         "platform_key": "linux",
         "downloads": [
             {
