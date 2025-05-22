@@ -7,7 +7,7 @@ position: 1
 
 ## About PPSSPP
 
-PPSSPP is a PSP emulator written in C++. It translates PSP CPU instructions directly into optimized x86, x64, ARM or ARM64 machine code, using JIT recompilers (dynarecs).
+PPSSPP is a PSP emulator written in C++. It translates PSP CPU instructions directly into optimized x86, x64, ARM, ARM64 or RISC-V machine code, using JIT recompilers (dynarecs).
 
 PPSSPP can thus run on quite low-spec hardware, including stronger **ARM-based phones and tablets**, as long as there's OpenGL ES 2.0 support.
 
