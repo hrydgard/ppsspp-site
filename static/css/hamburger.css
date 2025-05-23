@@ -1,0 +1,41 @@
+.burger-sidebar {
+    background-color: var(--color-gray-900);
+    display: block;
+    position: absolute;
+    width: 50%;
+    z-index: 800;
+    border: 2px solid var(--color-gray-800);
+    border-bottom: none;
+    box-shadow: 0 5px 8px var(--shadow-color);
+}
+
+.burger-sidebar.hidden {
+    display: none;
+}
+
+.burger-sidebar ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+.burger-sidebar li {
+    border-bottom: 2px solid var(--color-gray-800);
+    padding: 0px;
+}
+
+.burger-sidebar li:hover {
+    background-color: var(--color-gray-700);
+}
+
+.burger-sidebar li a {
+    padding: 8px 8px;
+    display: block;
+    color: var(--color-text);
+}
+
+.burger-sidebar li #loginItem a,
+.burger-sidebar li #darkItem a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
