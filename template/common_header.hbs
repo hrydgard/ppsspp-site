@@ -41,10 +41,6 @@
     {{#if contains_code}}
     <script src="/static/script/highlight.min.js" defer></script>
     {{/if}}
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/fontawesome.min.js" crossorigin="anonymous" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/solid.min.js" crossorigin="anonymous" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/brands.min.js" crossorigin="anonymous" defer></script>
 </head>
 
 <body>
@@ -64,7 +60,7 @@
                         external}}{{> link_icon }}{{/if}}</a></li>
                 {{/each}}
                 <li>
-                    <div onclick="switchTheme()" style="display:inline"><i class="fas fa-moon"></i></div>
+                    <div onclick="switchTheme()" style="display:inline"><i class="icon-ui icon-ui-moon"></i></div>
                 </li>
             </ul>
             <div id="loginCorner" style="display:inline"><a href="/login">Login</a></div>
@@ -86,7 +82,7 @@
                     </li>
                     <li>
                         <a id="darkItem" class="switch-theme" onclick="switchTheme()">
-                            <i class="fas fa-moon"></i>&nbsp;Dark Mode
+                            <i class="icon-ui icon-ui-moon"></i>&nbsp;Dark Mode
                         </a>
                     </li>
                 </ul>

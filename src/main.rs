@@ -228,6 +228,7 @@ fn build(opt: &Args) -> anyhow::Result<()> {
             "gallery.css",
             "hero.css",
             "highlight-dark.min.css",
+            "icons.css",
         ],
         &config.out_dir.join("static/css/all.css"),
         !opt.minify,

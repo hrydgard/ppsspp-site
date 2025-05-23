@@ -14,10 +14,6 @@
     display: none;
 }
 
-/*
-    Reusing existing vars for now.
-    If we keep download-link-gold in the long run, it may be worth defining its own vars.
-*/
 a.download-link-gold {
     color: var(--color-gold-border-hover);
     background-color: var(--color-gold);
@@ -38,41 +34,6 @@ a.download-link-gold:hover {
 a.prev-ver-item,
 img.prev-ver-item {
     margin: 0px 4px;
-}
-
-img.icon-48,
-img.icon-36,
-img.icon-32,
-img.icon-24,
-img.icon-author {
-    display: inline-flex;
-    justify-content: center;
-    vertical-align: middle;
-    max-width: 100%;
-    max-height: 100%;
-}
-
-img.icon-48 { height: 48px; width: 48px; }
-img.icon-36 { height: 36px; width: 36px; }
-img.icon-32 { height: 32px; width: 32px; }
-img.icon-24 { height: 24px; width: 24px; }
-
-img.icon-author {
-    height: 24px;
-    width: 24px;
-    border-radius: 50%;
-}
-
-i.icon-author {
-    display: inline;
-    vertical-align: middle;
-    font-size: 24px;
-}
-
-svg.icon-link {
-    display: inline;
-    vertical-align: text-top;
-    font-size: 12px;
 }
 
 .button-block {
