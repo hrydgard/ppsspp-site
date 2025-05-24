@@ -1,0 +1,83 @@
+/* Common PNG and SVG icons */
+img.icon-48,
+img.icon-36,
+img.icon-32,
+img.icon-24,
+img.icon-pfp {
+    display: inline-flex;
+    justify-content: center;
+    vertical-align: middle;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+img.icon-pfp {
+    border-radius: 50%;
+}
+
+.icon-48 { height: 48px !important; width: 48px !important; }
+.icon-36 { height: 36px !important; width: 36px !important; }
+.icon-32 { height: 32px !important; width: 32px !important; }
+.icon-24 { height: 24px !important; width: 24px !important; }
+
+/* UI glyphs */
+i.icon-ui {
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+    height: 1em;
+    width: 1em;
+    background-color: var(--color-text);
+    --icon-path: none;
+    -webkit-mask-image: var(--icon-path);
+    mask-image: var(--icon-path);
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
+
+i.icon-ui-external {
+    --icon-path: url(/static/img/icons/ui/external-link.svg);
+    vertical-align: top;
+}
+
+i.icon-ui-clock {
+    --icon-path: url(/static/img/icons/ui/fas-clock.svg);
+}
+
+i.icon-ui-folder {
+    --icon-path: url(/static/img/icons/ui/fas-folder.svg);
+}
+
+i.icon-ui-link {
+    --icon-path: url(/static/img/icons/ui/fas-link.svg);
+}
+
+i.icon-ui-moon {
+    --icon-path: url(/static/img/icons/ui/fas-moon.svg);
+}
+
+i.icon-ui-user {
+    --icon-path: url(/static/img/icons/ui/fas-circle-user.svg);
+}
+
+i.icon-ui-discord {
+    --icon-path: url(/static/img/icons/ui/fab-discord.svg);
+}
+
+i.icon-ui-github {
+    --icon-path: url(/static/img/icons/ui/fab-github.svg);
+}
+
+i.icon-ui-github-alt {
+    --icon-path: url(/static/img/icons/ui/fab-github-alt.svg);
+}
+
+i.icon-ui-x-twitter {
+    --icon-path: url(/static/img/icons/ui/fab-x-twitter.svg);
+}
+
+i.icon-ui-youtube {
+    --icon-path: url(/static/img/icons/ui/fab-youtube.svg);
+}
