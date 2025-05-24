@@ -240,3 +240,7 @@ In general, SD cards are a bit iffy on the more recent Android versions and can 
 The game attempts to use the blurriness of the PSP's screen to implement an early form of TAA (temporal anti aliasing) by shaking the screen by half a pixel every frame.
 
 This can be turned off inside the game itself, by going to "Options -> Display Settings -> Video Output" and enabling "External Video Output".
+
+## Why can't I see the MSAA setting on my device?
+
+MSAA is only supported when the Backend setting is set to Vulkan. Also, the Vulkan driver on your device must be modern enough to support the `VK_KHR_depth_stencil_resolve` extension - if it doesn't, the setting won't show up.
