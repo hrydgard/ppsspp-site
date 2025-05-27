@@ -44,6 +44,10 @@ with the one from assets in the APK.
 
 The quickest way to check what machine code was generated when you compiled some C++ function, is to, in Visual Studio, set a breakpoint on the code, then run until it gets hit, and then press Ctrl+Alt+D to show disassembly. Best used to verify that your SIMD instrinsics don't do something silly, like reload a matrix for every vertex for example...
 
+## Profiling on Android
+
+In Android Studio, go Run->"Profiler: Run Android as profilable" (low overhead). Then choose "Find CPU Hotspots".
+
 ## Launch.json in vscode
 
 Here's a quick `.vscode/launch.json` one for debugging on Mac:
