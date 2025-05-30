@@ -70,7 +70,7 @@ pub fn generate_doctree(
 
     // Write out all the docs. Don't need recursion here so we can linearize.
     // Note that we also generate the categories as documents in `all_documents`.
-    let mut docs = root_cat.all_documents(handlebars, &config.global_meta)?;
+    let mut docs = root_cat.all_documents(handlebars, &config)?;
     Category::add_prev_next_links(&mut docs);
 
     for doc in &docs {
@@ -79,7 +79,7 @@ pub fn generate_doctree(
         util::create_folder_if_missing(&target_path)?;
 
         // We apply the template right here.
-        let mut context = PageContext::from_document(doc, &config.global_meta);
+        let mut context = PageContext::from_document(doc, &config);
         context.sidebar = Some(generate_docnav_html(&root_cat, 0, &doc.meta.breadcrumbs));
         let html = context.render("doc", handlebars).context("render")?;
 

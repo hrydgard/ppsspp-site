@@ -35,7 +35,7 @@ pub fn generate_pages(
             "hbs" => {
                 file_name.set_extension("html");
                 (
-                    Document::from_hbs(&config.global_meta, &name, &path, handlebars)?,
+                    Document::from_hbs(&config, &name, &path, handlebars)?,
                     false,
                 )
             }
@@ -52,7 +52,7 @@ pub fn generate_pages(
         let fname = util::filename_to_string(&entry.file_name());
 
         let html = if apply_doc_template {
-            let mut context = PageContext::from_document(&document, &config.global_meta);
+            let mut context = PageContext::from_document(&document, &config);
             context.globals = Some(&config.global_meta);
             if let Some(ref mut meta) = &mut context.meta {
                 meta.url = format!(
