@@ -1,3 +1,4 @@
+use chrono::{Datelike, Utc};
 use serde::{Deserialize, Serialize};
 use std::{collections::HashMap, path::PathBuf};
 
@@ -119,6 +120,7 @@ pub struct GlobalMeta {
     pub authors: HashMap<String, Author>,
     pub screenshots: Vec<Screenshot>,
     pub latest_news: Vec<DocLink>,
+    pub build_year: i32,
 }
 
 fn download_path(url_base: &str, version: &str, filename: &str) -> String {
@@ -185,6 +187,8 @@ impl GlobalMeta {
 
         let version_downloads = boil(url_base, &version_binaries, &platforms);
 
+        let build_year = Utc::now().year();
+
         //println!("{:#?}", version_binaries);
         //println!("{:#?}", file_versions);
         //println!("{:#?}", platforms);
@@ -209,6 +213,7 @@ impl GlobalMeta {
             top_nav,
             screenshots,
             latest_news: vec![],
+            build_year,
         })
     }
 }
