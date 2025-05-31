@@ -103,7 +103,7 @@
 )]
 #![allow(clippy::too_many_arguments)]
 
-use chrono::{DateTime, Utc};
+use chrono::{Datelike, DateTime, Utc};
 use std::{
     path::{Path, PathBuf},
     sync::mpsc,
@@ -196,6 +196,7 @@ fn build(opt: &Args) -> anyhow::Result<()> {
         markdown_options,
         global_meta: GlobalMeta::new(opt.prod, &url_base, top_nav)?,
         build_date: formatted_time,
+        build_year: current_time.year(),
         github_url: "https://github.com/hrydgard/ppsspp/issues/",
     };
 

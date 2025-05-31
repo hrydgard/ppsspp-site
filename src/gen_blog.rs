@@ -122,14 +122,14 @@ pub fn generate_blog(
     }
 
     for doc in &documents {
-        let context = PageContext::from_document(doc, &config.global_meta);
+        let context = PageContext::from_document(doc, &config);
 
         // First, render the blog post itself, without the surrounding chrome. This is so that we can add on
         // more blog posts underneath later for a more continuous experience.
         let post_html = handlebars.render("blog_post", &context)?;
         let sidebar = generate_blog_sidebar(title, &doc.meta.url, &filtered_documents, handlebars)?;
 
-        let mut context = PageContext::from_document(doc, &config.global_meta);
+        let mut context = PageContext::from_document(doc, &config);
         // Now, use that as contents and render into a doc template.
         context.contents = Some(post_html);
         context.sidebar = Some(sidebar);
@@ -230,7 +230,7 @@ fn generate_blog_page(
     let post_html = filtered_documents
         .iter()
         .map(|doc| {
-            let context = PageContext::from_document(doc, &config.global_meta);
+            let context = PageContext::from_document(doc, &config);
             // Now, use that as contents and render into a doc template.
             context.render("blog_post", handlebars).unwrap()
         })
@@ -238,7 +238,7 @@ fn generate_blog_page(
         .join("\n");
 
     let mut context =
-        PageContext::new(Some(title.to_owned()), Some(post_html), &config.global_meta);
+        PageContext::new(Some(title.to_owned()), Some(post_html), &config);
     context.sidebar = Some(sidebar);
     context.tags = all_tags;
     context.meta = Some(documents[0].meta.clone());

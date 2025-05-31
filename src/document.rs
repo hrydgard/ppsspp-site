@@ -79,32 +79,32 @@ pub struct PageContext<'a> {
 }
 
 impl<'a> PageContext<'a> {
-    pub fn new(title: Option<String>, contents: Option<String>, globals: &'a GlobalMeta) -> Self {
+    pub fn new(title: Option<String>, contents: Option<String>, config: &'a Config) -> Self {
         Self {
             title,
             contents,
             sidebar: None,
-            year: 2024,
+            year: config.build_year,
             children: vec![],
             meta: None,
-            globals: Some(globals),
+            globals: Some(&config.global_meta),
             tags: &[],
             contains_code: false,
-            top_nav: globals.top_nav.clone(),
+            top_nav: config.global_meta.top_nav.clone(),
         }
     }
-    pub fn from_document(document: &Document, globals: &'a GlobalMeta) -> Self {
+    pub fn from_document(document: &Document, config: &'a Config) -> Self {
         Self {
             title: Some(document.meta.title.clone()),
             contents: Some(document.html.clone()),
             sidebar: None,
-            year: 2024,
+            year: config.build_year,
             children: vec![],
             meta: Some(document.meta.clone()),
-            globals: Some(globals),
+            globals: Some(&config.global_meta),
             tags: &[],
             contains_code: document.meta.contains_code,
-            top_nav: globals.top_nav.clone(),
+            top_nav: config.global_meta.top_nav.clone(),
         }
     }
     pub fn render(
@@ -255,14 +255,14 @@ impl Document {
 
     // The document itself is the template so we apply it immediately. Used for pages.
     pub fn from_hbs(
-        globals: &GlobalMeta,
+        config: &Config,
         name: &str,
         hbs_path: &Path,
         handlebars: &mut handlebars::Handlebars<'_>,
     ) -> anyhow::Result<Self> {
         let hbs = std::fs::read_to_string(hbs_path)?;
-        let mut context = PageContext::new(None, None, globals);
-        context.globals = Some(globals);
+        let mut context = PageContext::new(None, None, config);
+        context.globals = Some(&config.global_meta);
         let meta = DocumentMeta {
             url: format!("/{name}"),
             ..Default::default()
@@ -295,9 +295,9 @@ impl Document {
     pub fn from_category(
         category: &Category,
         handlebars: &mut handlebars::Handlebars<'_>,
-        globals: &GlobalMeta,
+        config: &Config,
     ) -> anyhow::Result<Self> {
-        let mut context = PageContext::new(Some(category.meta.title.clone()), None, globals);
+        let mut context = PageContext::new(Some(category.meta.title.clone()), None, config);
 
         context.children = category
             .documents
@@ -445,15 +445,15 @@ impl Category {
     pub fn all_documents(
         &self,
         handlebars: &mut handlebars::Handlebars<'_>,
-        globals: &GlobalMeta,
+        config: &Config,
     ) -> anyhow::Result<Vec<Document>> {
         let mut all_docs = vec![];
-        all_docs.push(Document::from_category(self, handlebars, globals)?);
+        all_docs.push(Document::from_category(self, handlebars, config)?);
         for doc in &self.documents {
             all_docs.push(doc.clone());
         }
         for cat in &self.sub_categories {
-            all_docs.extend(cat.all_documents(handlebars, globals)?);
+            all_docs.extend(cat.all_documents(handlebars, config)?);
         }
         Ok(all_docs)
     }
