@@ -37,6 +37,10 @@ i.icon-ui {
     mask-repeat: no-repeat;
 }
 
+a:hover i.icon-ui {
+   background-color: var(--color-a-hover);
+}
+
 i.icon-ui-external {
     --icon-path: url(/static/img/icons/ui/external-link.svg);
     vertical-align: top;

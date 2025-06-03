@@ -33,6 +33,10 @@
     color: var(--color-text);
 }
 
+.burger-sidebar li a:hover i.icon-ui {
+    background-color: var(--color-text);
+}
+
 .burger-sidebar li #loginItem a,
 .burger-sidebar li #darkItem a {
     display: flex;
