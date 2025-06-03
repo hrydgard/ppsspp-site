@@ -37,25 +37,29 @@ i.icon-ui {
     mask-repeat: no-repeat;
 }
 
+a:hover i.icon-ui {
+   background-color: var(--color-a-hover);
+}
+
 i.icon-ui-external {
     --icon-path: url(/static/img/icons/ui/external-link.svg);
     vertical-align: top;
 }
 
 i.icon-ui-clock {
-    --icon-path: url(/static/img/icons/ui/fas-clock.svg);
+    --icon-path: url(/static/img/icons/ui/clock.svg);
 }
 
 i.icon-ui-folder {
-    --icon-path: url(/static/img/icons/ui/fas-folder.svg);
+    --icon-path: url(/static/img/icons/ui/folder.svg);
 }
 
 i.icon-ui-link {
-    --icon-path: url(/static/img/icons/ui/fas-link.svg);
+    --icon-path: url(/static/img/icons/ui/hyperlink.svg);
 }
 
 i.icon-ui-moon {
-    --icon-path: url(/static/img/icons/ui/fas-moon.svg);
+    --icon-path: url(/static/img/icons/ui/moon.svg);
 }
 
 i.icon-ui-user {
