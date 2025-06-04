@@ -8,24 +8,29 @@ Here's an incomplete list of platforms that PPSSPP could or could not be ported 
 
 | Platform  | State | Comments |
 | --------- | ----- | -------- |
-| Windows | Done | [XP](https://github.com/hrydgard/ppsspp/pull/11995) support is discontinued. |
-| Android | Done | [x86-32](https://github.com/hrydgard/ppsspp/pull/17908) support is discontinued. |
-| Linux | Done | x86-32/64, ARM32/64, RISCV-64 |
+| Windows[^w1] | Done | x86&#x2011;32/&NoBreak;64, ARM64 |
+| Android | Done | x86&#x2011;64, ARM32/&NoBreak;64 [^a1] |
+| Linux | Done | x86&#x2011;32/&NoBreak;64, ARM32/&NoBreak;64, RISCV&#x2011;64 |
 | macOS | Done | Limited native UI |
 | iOS | Done | JIT works but not on the App Store builds. |
 | Nintendo Switch | Done | Homebrew enabled consoles only. |
 | Raspberry Pi | Done | R4+ recommended |
-| Windows UWP,<br>Xbox Series X\|S,<br>Xbox One,<br>Windows 10&nbsp;Mobile | Done | W10&nbsp;Mobile support is discontinued, too slow. |
+| Windows UWP,<br />Xbox Series X\|&NoBreak;S,<br />Xbox One,<br />Windows 10&nbsp;Mobile[^u1] | Done | |
+
+[^w1]: Windows 7 or newer. [XP](https://github.com/hrydgard/ppsspp/pull/11995) support is discontinued. Vista compatibility is not tested.
+[^a1]: [x86&#x2011;32](https://github.com/hrydgard/ppsspp/pull/17908) and [ARMv6 (legacy armeabi)](https://github.com/hrydgard/ppsspp/issues/4798) support on Android is discontinued.
+[^u1]: Windows 10&nbsp;Mobile support is discontinued, too slow.
 
 These platforms were supported once, but aren't anymore due to lack of maintainer interest:
 
 | Platform  | State | Comments |
 | --------- | ----- | -------- |
-| DragonBox Pyra | Worked | |
+| DragonBox Pyra | Proof-of-concept | |
 | Pandora | Worked | |
 | BlackBerry 10 | Worked | JIT for ARM |
 | Symbian | Worked | JIT for ARM |
 | MeeGo | Worked | |
+| Maemo 5 | Worked | |
 | Wii U | Proof-of-concept | |
 | Xbox 360 | Proof-of-concept | Hacked consoles only. |
 
