@@ -81,7 +81,7 @@ pub fn write_feed(
                 .iter()
                 .map(|x| Item {
                     title: x.meta.title.clone(),
-                    link: format!("{base_path}{}", x.meta.url),
+                    link: format!("{base_path}/{}", x.meta.slug),
                     description: x
                         .meta
                         .summary
