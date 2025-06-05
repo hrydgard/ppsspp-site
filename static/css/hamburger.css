@@ -13,32 +13,36 @@
     display: none;
 }
 
-.burger-sidebar ul {
+.burger-menu {
     list-style: none;
     padding-left: 0px;
 }
 
-.burger-sidebar li {
+.burger-menu li {
     border-bottom: 2px solid var(--color-gray-800);
     padding: 0px;
 }
 
-.burger-sidebar li:hover {
+.burger-menu li:hover {
     background-color: var(--color-gray-700);
 }
 
-.burger-sidebar li a {
+.burger-menu li a {
     padding: 8px 8px;
     display: block;
     color: var(--color-text);
 }
 
-.burger-sidebar li a:hover i.icon-ui {
+.burger-menu li a:hover i.icon-ui {
     background-color: var(--color-text);
 }
 
-.burger-sidebar li #loginItem a,
-.burger-sidebar li #darkItem a {
+.burger-menu li a.switch-theme:hover {
+    cursor: pointer;
+}
+
+.burger-menu li #loginItem a,
+.burger-menu li #darkItem a {
     display: flex;
     flex-direction: row;
     align-items: center;
