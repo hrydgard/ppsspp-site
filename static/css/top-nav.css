@@ -47,6 +47,10 @@
     border-bottom: 3px solid var(--color-primary);
 }
 
+.menu>li a.switch-theme:hover {
+    cursor: pointer;
+}
+
 .menu-button-container {
     display: none;
     height: 100%;
