@@ -28,11 +28,19 @@ This IP will also redirect to other servers for some games, such as the below AG
 
 The [Antigravity Racing Foundation](https://agracingfoundation.org/)!
 
-DNS: 145.239.30.230
+DNS: 147.135.213.57
 
 A project to keep Wipeout Pulse, Wipeout 2048 and Wipeout HD multiplayer alive by the use of custom infrastructure servers. Made for real PSPs/PS3s, but works with some custom versions of PPSSPP.
 
 Motorstorm: Artic Edge also works on this server.
+
+## MOHH Revival
+
+The [MOHH Revival project](https://mohh-revival.pages.dev/)
+
+DNS: 81.49.107.142
+
+A project replicating `Medal of Honor: Heroes` servers.
 
 ### Others
 
@@ -42,7 +50,6 @@ More documentation will be added later here, in the meantime here's a list of pr
 * [PSORG](https://github.com/PSOnlineReturnalGaming)
 * LittleBigRefresh
 * PS3 Reborn (Discord group)
-* [MOHH Revival](https://mohh-revival.pages.dev/)
 * Outrun2006 Tweaks
 
 ## Game compatibility list
