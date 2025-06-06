@@ -4,6 +4,10 @@ Sometime in April-May 2024, Apple changed their App Store policy to allow emulat
 
 This also means that going forward, the iOS version will be prioritized nearly as highly as the Android and PC versions for features and performance work.
 
+## PPSSPP Gold for iOS
+
+[See here for information](/buygold_ios).
+
 ## Limitations
 
 The one serious limitation of functionality that PPSSPP (and other emulators) are still subject to on iOS is the inability to "JIT", that is, to generate machine code at runtime and run it. This is very useful when emulating foreign CPU architectures such as the PSP's CPU (known as Allegrex). Fortunately, the PSP does not require a JIT compiler to be emulated at full speed on modern iOS devices, although it would reduce battery consumption to be able to do it.
