@@ -5,7 +5,11 @@ authors: hrydgard
 tags: [ppsspp]
 ---
 
-In short, the Gold version of PPSSPP for iOS is stuck in review, and I am thus unable to update it at *all*, and I am also unable to update any aspect of the store presence, like the description. For now, I recommend all iOS users to use the free version of PPSSPP, even if you paid for Gold.
+# UPDATE!!!
+
+The separate Gold app has now been retired, and replaced with an in-app purchase. [More information here](/news/ios-changes).
+
+# Previous article below
 
 ## The App Store situation
 

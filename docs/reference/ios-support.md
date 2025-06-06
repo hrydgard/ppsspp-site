@@ -2,7 +2,7 @@
 
 Sometime in April-May 2024, Apple changed their App Store policy to allow emulator apps in the App Store. This finally made it possible to [release](/news/live-on-app-store) an official iOS version of PPSSPP!
 
-This also means that going forward, the iOS version will be prioritized about as highly as the Android and PC versions for features and performance work. However - updates may be delayed, sometimes severely, due to Apple's rather unpredicatable review process.
+This also means that going forward, the iOS version will be prioritized nearly as highly as the Android and PC versions for features and performance work.
 
 ## Limitations
 
@@ -10,7 +10,7 @@ The one serious limitation of functionality that PPSSPP (and other emulators) ar
 
 ## Sideloading
 
-Before the policy change, you had to "sideload" PPSSPP onto an iPhone, which there are many ways to do. You still have to do this if you want JIT functionality, but since as mentioend it's not that critical for PSP emulation performance, I expect fewer people will pick this option.
+Before the policy change, you had to "sideload" PPSSPP onto an iPhone, which there are many ways to do. You still have to do this if you want JIT functionality, but since as mentioend it's not that critical for PSP emulation performance, I expect fewer people will pick this option. Currently, no ipa build with JIT is officially maintained so you're on your own.
 
 ## Unofficial sideload installation guide
 
@@ -27,10 +27,10 @@ The iOS build is missing a few features:
 
 * Camera input
 * Microphone
-* Background image replacement (though you can work around this by putting background.jpg in PSP/SYSTEM in your app folder)
 
 ## Previously missing features
 
 These have been fixed:
 
 * UI keyboard input (now works, so RetroAchivement login works too)
+* Background image replacement
