@@ -164,6 +164,7 @@ fn build(opt: &Args) -> anyhow::Result<()> {
     for tmpl in templates {
         handlebars.register_template_file(tmpl, &format!("template/{tmpl}.hbs")).context("register_template")?;
     }
+    handlebars.register_template_file("buygold_inapp", "template/icons/buygold_inapp.hbs").context("register_template")?;
     handlebars.register_template_file("link_icon", "template/icons/link_icon.hbs").context("register_last_template")?;
 
     println!("PPSSPP website generator");

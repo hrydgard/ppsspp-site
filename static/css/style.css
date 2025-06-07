@@ -130,3 +130,25 @@ footer {
   background-color: var(--color-header-footer);
   color: var(--color-text)
 }
+
+/*
+  These values work well for both inline code and blocks.
+  Highlight script changes them for clode blocks where necessary.
+*/
+code {
+  font-family: monospace;
+  font-size: 95%;
+  display: inline-block;
+  border-radius: 6px;
+  padding: .2em .4em;
+  margin: 0;
+  background-color: var(--color-gray-800);
+  word-break: break-word;
+  text-align: left;
+}
+
+.inapp {
+  font-family: Roboto, sans-serif;
+  font-size: 110%;
+  font-weight: bold;
+}
