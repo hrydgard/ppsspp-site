@@ -1,4 +1,4 @@
-{{> common_header this title="Download" description="Download PPSSPP for Android, Windows, Mac, iOS"}}
+{{> common_header this title="Download" description="Download PPSSPP for Android, Windows, macOS, Linux, iOS" }}
 
 <div class="container">
     <h1>Download PPSSPP</h1>
@@ -10,7 +10,6 @@
     </div>
 
     <div class="row">
-        {{!-- We now over the platforms --}}
         {{#each globals.platforms}}
         <div class="col-4">
             <div class="card">
@@ -107,15 +106,11 @@
 
     <h2>Development builds</h2>
 
-    <p>Please note that these development builds can be unstable - if one doesn't work, try an earlier one. And backup
-        your save games!</p>
-    <p>Development builds for more platforms will be added soon.</p>
-
     <div class="alert alert-warning">
-        The Android APKs here are not compatible with the builds from Orphis' old build server - meaning
-        that you probably have to uninstall and reinstall to switch to these builds. Make sure you have
-        backed up your save games.
+        Please note that these development builds can be unstable - if one doesn't work, try an earlier one.
+        Always backup your save games!
     </div>
+    <p>Development builds for more platforms will be added soon.</p>
 
     <p><a href="/devbuilds">Full list of development builds</a></p>
 
@@ -127,4 +122,4 @@
     </script>
 </div>
 
-{{> common_footer this}}
+{{> common_footer this }}
