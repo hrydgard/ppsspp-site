@@ -1,11 +1,21 @@
+/* App service badges */
+img.badge {
+    vertical-align: middle;
+    min-height: 40px; /* App Store badge minimum */
+    max-height: 60px; /* Google Play badge requires equal height */
+}
+
+a.download-button>img.badge {
+    /* extra space inside vertical download button */
+    margin-top: var(--button-padding-vertical);
+}
+
 /* Common PNG and SVG icons */
 img.icon-48,
 img.icon-36,
 img.icon-32,
 img.icon-24,
 img.icon-pfp {
-    display: inline-flex;
-    justify-content: center;
     vertical-align: middle;
     max-width: 100%;
     max-height: 100%;

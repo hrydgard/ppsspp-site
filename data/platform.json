@@ -8,7 +8,7 @@
                 "name": "PPSSPP Gold for Android",
                 "icon": "ppsspp-icon-gold.png",
                 "url": "https://play.google.com/store/apps/details?id=org.ppsspp.ppssppgold",
-                "service_image": "/static/img/platform/google-play-badge.png",
+                "service_image": "/static/img/platform/googleplay-badge.svg",
                 "service_alt": "Get it on Google Play",
                 "gold": true
             },
@@ -16,7 +16,7 @@
                 "name": "PPSSPP for Android (free)",
                 "icon": "ppsspp-icon.png",
                 "url": "https://play.google.com/store/apps/details?id=org.ppsspp.ppsspp",
-                "service_image": "/static/img/platform/google-play-badge.png",
+                "service_image": "/static/img/platform/googleplay-badge.svg",
                 "service_alt": "Get it on Google Play"
             },
             {
@@ -30,7 +30,7 @@
                 "short_name": "F-Droid",
                 "icon": "ppsspp-icon.png",
                 "url": "https://f-droid.org/packages/org.ppsspp.ppsspp/",
-                "service_image": "/static/img/platform/fdroid-badge.png",
+                "service_image": "/static/img/platform/fdroid-badge.svg",
                 "service_alt": "Get it on F-Droid"
             }
         ]
@@ -132,8 +132,8 @@
                 "name": "PPSSPP Flatpak package",
                 "icon": "ppsspp-icon.png",
                 "url": "https://flathub.org/apps/details/org.ppsspp.PPSSPP",
-                "service_image": "/static/img/platform/flathub-badge-en.png",
-                "service_alt": "Download on Flathub"
+                "service_image": "/static/img/platform/flathub-badge.svg",
+                "service_alt": "Get it on Flathub"
             }
         ]
     },
@@ -147,8 +147,8 @@
                 "name": "PPSSPP for iOS",
                 "icon": "ppsspp-icon.png",
                 "url": "https://apps.apple.com/us/app/ppsspp-psp-emulator/id6496972903",
-                "service_image": "/static/img/platform/app-store-badge.svg",
-                "service_alt": "Get it on App Store (and upgrade to Gold inside)"
+                "service_image": "/static/img/platform/appstore-badge.svg",
+                "service_alt": "Download on the App Store"
             },
             {
                 "name": "W.MS' latest .IPA",
