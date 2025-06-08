@@ -64,6 +64,10 @@ img.prev-ver-item {
     align-items: center;
 }
 
+.button-contents img {
+    margin-right: 1ch;
+}
+
 .hero-button {
     box-shadow: 0 0 10px var(--shadow-color);
     margin: 14px 0px;

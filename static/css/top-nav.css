@@ -27,6 +27,10 @@
     color: var(--color-a-hover);
 }
 
+.top-nav img {
+    margin-right: 1ch;
+}
+
 .menu {
     display: flex;
     flex-direction: row;

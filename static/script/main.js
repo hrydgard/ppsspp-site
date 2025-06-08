@@ -195,7 +195,7 @@ src="/static/img/platform/ppsspp-icon-gold.png"
 {{#else}}
 src="/static/img/platform/ppsspp-icon.png"
 {{/if}}
-class="icon-24">&nbsp;{{it.name}}
+aria-hidden="true" class="icon-24">{{it.name}}
 {{#else}}
 Login
 {{/if}}
@@ -212,7 +212,7 @@ src="/static/img/platform/ppsspp-icon-gold.png"
 {{#else}}
 src="/static/img/platform/ppsspp-icon.png"
 {{/if}}
-class="icon-24">&nbsp;{{it.name}}
+aria-hidden="true" class="icon-24">{{it.name}}
 {{#else}}
 Login
 {{/if}}
