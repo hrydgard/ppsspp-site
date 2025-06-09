@@ -141,8 +141,13 @@
         "title": "iOS",
         "platform_badge": "ios.svg",
         "platform_key": "ios",
-        "description": "PPSSPP for iOS is not officially supported but working builds can be found.",
         "downloads": [
+            {
+                "name": "Buy PPSSPP Gold",
+                "icon": "ppsspp-icon-gold.png",
+                "url": "/buygold_ios",
+                "gold": true
+            },
             {
                 "name": "PPSSPP for iOS",
                 "icon": "ppsspp-icon.png",
