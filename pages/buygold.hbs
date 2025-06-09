@@ -1,5 +1,4 @@
-{{> common_header this title="Buy PPSSPP Gold" description="Buy PPSSPP Gold" fastspring="true"
-noAds="true" }}
+{{> common_header this title="Buy PPSSPP Gold" description="Buy PPSSPP Gold" fastspring="true" noAds="true" }}
 
 <div class="container">
     <h1>Buy PPSSPP Gold {{ globals.app_version }}</h1>
@@ -12,7 +11,7 @@ noAds="true" }}
     </div>
 
     <h2 class="center-vertical">Buy PPSSPP Gold for Android&nbsp;<img src="/static/img/icons/android.svg"
-            alt="android icon" class="icon-36"></h2>
+            aria-hidden="true" class="icon-36"></h2>
     <a href="https://play.google.com/store/apps/details?id=org.ppsspp.ppssppgold"
         class="download-button button-gold button-block">
         <div class="button-contents"><img src="/static/img/platform/googleplay-badge.svg"
@@ -21,14 +20,16 @@ noAds="true" }}
     </a>
 
     <h2 class="center-vertical">Buy PPSSPP Gold for iOS&nbsp;<img src="/static/img/icons/ios.svg"
-            alt="ios icon" class="icon-36"></h2>
+            aria-hidden="true" class="icon-36"></h2>
 
-    <p>From 1.19, PPSSPP Gold for iOS is an in-app purchase in the regular PPSSPP app, so just
-    <a href="https://apps.apple.com/us/app/ppsspp-psp-emulator/id6496972903">download that</a> and click the Buy PPSSPP Gold button!</p>
+    <p>Starting from 1.19, PPSSPP Gold for iOS is an in-app purchase in the regular PPSSPP app, so just
+        <a href="https://apps.apple.com/us/app/ppsspp-psp-emulator/id6496972903">download that</a>
+        and click the {{> buygold_inapp }} button!
+    </p>
 
     <h2 class="center-vertical">Buy PPSSPP
-        Gold for Windows/macOS&nbsp;<img src="/static/img/icons/windows.svg" alt="windows icon" class="icon-36">
-            &nbsp;<img src="/static/img/icons/macos.svg" alt="mac os icon" class="icon-36"/></h2>
+        Gold for Windows/macOS&nbsp;<img src="/static/img/icons/windows.svg" aria-hidden="true" class="icon-36">
+            &nbsp;<img src="/static/img/icons/macos.svg" aria-hidden="true" class="icon-36"/></h2>
 
     <p></p>
 
@@ -64,4 +65,4 @@ noAds="true" }}
 
 </div>
 
-{{> common_footer this}}
+{{> common_footer this }}

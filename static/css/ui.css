@@ -64,6 +64,10 @@ img.prev-ver-item {
     align-items: center;
 }
 
+.button-contents img {
+    margin-right: 1ch;
+}
+
 .hero-button {
     box-shadow: 0 0 10px var(--shadow-color);
     margin: 14px 0px;
@@ -312,22 +316,6 @@ a.nav-tree-item.selected {
 
 .alert.alert-hidden {
     display: none;
-}
-
-/*
-    These values work well for both inline code and blocks.
-    Highlight script changes them for clode blocks where necessary.
-*/
-code {
-    font-family: monospace;
-    font-size: 95%;
-    display: inline-block;
-    border-radius: 6px;
-    padding: .2em .4em;
-    margin: 0;
-    background-color: var(--color-gray-800);
-    word-break: break-word;
-    text-align: left;
 }
 
 .collapsible {

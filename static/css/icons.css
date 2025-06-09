@@ -54,6 +54,7 @@ a:hover i.icon-ui {
 i.icon-ui-external {
     --icon-path: url(/static/img/icons/ui/external-link.svg);
     vertical-align: top;
+    margin-left: 0.5ch;
 }
 
 i.icon-ui-clock {
