@@ -172,6 +172,18 @@
                 "icon": "ppsspp-icon.png",
                 "short_name": "APK",
                 "filename": "ppsspp_vr.apk"
+            },
+            {
+                "name": "APK for Quest",
+                "short_name": "Quest",
+                "filename": "ppsspp_vr_quest.apk",
+                "old_build_only": true
+            },
+            {
+                "name": "APK for PICO",
+                "short_name": "PICO",
+                "filename": "ppsspp_vr_pico.apk",
+                "old_build_only": true
             }
         ]
     }

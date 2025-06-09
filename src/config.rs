@@ -39,6 +39,8 @@ pub struct DownloadInfo {
     gold_only: bool,
     #[serde(default)]
     login_prompt: bool,
+    #[serde(default)]
+    old_build_only: bool,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
