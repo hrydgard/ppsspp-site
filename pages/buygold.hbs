@@ -4,10 +4,10 @@
     <h1>Buy PPSSPP Gold {{ globals.app_version }}</h1>
 
     <div class="gold-only">
-        <h2>Gold already!</h2>
-        <p class="magenta">You are already a Gold user, are you looking for <a href="/download">the
-                downloads</a>?</p>
-        <p>Of course, feel free to purchase again if you'd like to support PPSSPP even more.</a>
+        <h2>Gold already!&nbsp;<img src="/static/img/platform/ppsspp-icon-gold.png" aria-hidden="true" class="icon-36"></h2>
+        <div class="alert alert-warning">You are already a Gold user, are you looking for
+            <a href="/download">the downloads</a>?</div>
+        <p>Of course, feel free to purchase again if you'd like to support PPSSPP even more.</p>
     </div>
 
     <h2 class="center-vertical">Buy PPSSPP Gold for Android&nbsp;<img src="/static/img/icons/android.svg"
@@ -31,13 +31,9 @@
         Gold for Windows/macOS&nbsp;<img src="/static/img/icons/windows.svg" aria-hidden="true" class="icon-36">
             &nbsp;<img src="/static/img/icons/macos.svg" aria-hidden="true" class="icon-36"/></h2>
 
-    <p></p>
-
     <p>Buy PPSSPP Gold to support the project! Choose your level of contribution:</p>
 
-    <div class="alert alert-hidden" id="fastspring-error-alert">
-
-    </div>
+    <div class="alert alert-hidden" id="fastspring-error-alert"></div>
 
     <div class="row" id="product-cards">
         {{> product_card title="Hangaround" description="A show of support." productId="ppsspp-gold-l1" }}
