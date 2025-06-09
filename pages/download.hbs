@@ -22,30 +22,33 @@
                 <div class="card-contents">
                     {{ #each downloads }}
 
-                    <div {{ #if gold_only }} class="gold-only" {{ /if }}>
-                        {{ #if title }}
-                        <h3>{{ title }}</h3>
-                        {{ /if }}
-
-                        <a class="download-button button-block {{#if gold}}button-gold{{/if}}" {{#if url
-                            }}href="{{url}}" {{ /if }} {{ #if download_url }}href="{{download_url}}" {{ /if }}>
-                            <div class="button-contents">
-                                {{ #if icon }}
-                                <img src="/static/img/platform/{{icon}}" aria-hidden="true" class="icon-32">
+                        {{ #unless old_build_only true }}
+                            <div {{ #if gold_only }} class="gold-only" {{ /if }}>
+                                {{ #if title }}
+                                <h3>{{ title }}</h3>
                                 {{ /if }}
-                                {{ #if url }}{{name}}{{ /if }}
-                                {{ #if download_url }}{{name}}{{ /if }}
+
+                                <a class="download-button button-block {{#if gold}}button-gold{{/if}}" {{#if url
+                                    }}href="{{url}}" {{ /if }} {{ #if download_url }}href="{{download_url}}" {{ /if }}>
+                                    <div class="button-contents">
+                                        {{ #if icon }}
+                                        <img src="/static/img/platform/{{icon}}" aria-hidden="true" class="icon-32">
+                                        {{ /if }}
+                                        {{ #if url }}{{name}}{{ /if }}
+                                        {{ #if download_url }}{{name}}{{ /if }}
+                                    </div>
+                                    {{ #if service_image }}
+                                    <img src="{{service_image}}" alt="{{service_alt}}" class="badge">
+                                    {{ /if }}
+                                </a>
+
+                                {{ #if whats_this_url }}
+                                <a href="{{whats_this_url}}">{{whats_this}}</a><br />
+                                {{ /if }}
+
                             </div>
-                            {{ #if service_image }}
-                            <img src="{{service_image}}" alt="{{service_alt}}" class="badge">
-                            {{ /if }}
-                        </a>
+                        {{ /unless }}
 
-                        {{ #if whats_this_url }}
-                        <a href="{{whats_this_url}}">{{whats_this}}</a><br />
-                        {{ /if }}
-
-                    </div>
                     {{ /each }}
                 </div>
             </div>
