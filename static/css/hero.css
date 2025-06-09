@@ -30,6 +30,12 @@
   padding-bottom: 5px;
 }
 
+.hero-button {
+    box-shadow: 0 0 10px var(--shadow-color);
+    margin: 14px 0px;
+    font-size: 14pt;
+}
+
 ul.feature-list li {
   /* set font size of list item and bullet here */
   list-style-type: square;

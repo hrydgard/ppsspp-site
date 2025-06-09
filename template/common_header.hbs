@@ -5,9 +5,15 @@
 <head>
     <title>{{title}} - PPSSPP</title>
 
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"/>
+    <meta name="description" content="PPSSPP is a free and open-source PSP emulator with a focus on performance and portability.
+Play PSP games on your phone in high resolution with improved graphics.
+Continue from your PSP saves. Save and restore game state anytime.
+Play multiplayer with your friends. Download for Android, Windows PC, macOS, iOS, Linux and more."/>
+    <meta name="keywords" content="PSP, emulator">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PEQLDV0155"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -60,7 +66,9 @@
                         external}}{{> link_icon }}{{/if}}</a></li>
                 {{/each}}
                 <li>
-                    <a class="switch-theme" onclick="switchTheme()"><i alt="Dark Mode" class="icon-ui icon-ui-moon"></i></a>
+                    <div class="switch-theme" onclick="switchTheme()">
+                        <i aria-label="Dark Mode" class="icon-ui icon-ui-moon"></i>
+                    </div>
                 </li>
             </ul>
             <div id="loginCorner"><a href="/login">Login</a></div>
@@ -79,9 +87,9 @@
                         <div id="loginItem"><a href="/login">Login</a></div>
                     </li>
                     <li>
-                        <a id="darkItem" class="switch-theme" onclick="switchTheme()">
+                        <div id="darkItem" class="switch-theme" onclick="switchTheme()">
                             <i aria-hidden="true" class="icon-ui icon-ui-moon"></i>Dark Mode
-                        </a>
+                        </div>
                     </li>
                 </ul>
             </div>
