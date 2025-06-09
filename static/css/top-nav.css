@@ -51,8 +51,14 @@
     border-bottom: 3px solid var(--color-primary);
 }
 
-.menu>li a.switch-theme:hover {
+.menu>li .switch-theme:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
     cursor: pointer;
+}
+
+.menu>li .switch-theme:hover i.icon-ui {
+    background-color: var(--color-a-hover);
 }
 
 .menu-button-container {

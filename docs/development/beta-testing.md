@@ -16,13 +16,13 @@ We only have a beta testing program for Android since Google Play provides conve
 
 Click the appropriate link to join:
 
-<img src="/static/img/platform/ppsspp-icon.png" width="32" alt="icon"> [Join the beta test!](https://play.google.com/apps/testing/org.ppsspp.ppsspp)
+<img src="/static/img/platform/ppsspp-icon.png" aria-hidden="true" class="icon-32"> [Join the beta test!](https://play.google.com/apps/testing/org.ppsspp.ppsspp)
 
-<img src="/static/img/platform/ppsspp-icon-gold.png" width="32" alt="icon">[Join the beta test for PPSSPP Gold!](https://play.google.com/apps/testing/org.ppsspp.ppssppgold)
+<img src="/static/img/platform/ppsspp-icon-gold.png" aria-hidden="true" class="icon-32"> [Join the beta test for PPSSPP Gold!](https://play.google.com/apps/testing/org.ppsspp.ppssppgold)
 
 ## Beta Testing on iOS through TestFlight
 
-The beta testing program for iOS is now open as well (although only for the free version currently)!
+The beta testing program for iOS is now open as well!
 
 [Join here](https://testflight.apple.com/join/uNlhFG0m).
 

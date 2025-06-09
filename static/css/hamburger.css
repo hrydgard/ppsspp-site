@@ -32,7 +32,7 @@
 }
 
 .burger-menu>li a {
-    padding: 8px 8px;
+    padding: 8px;
     display: block;
     color: var(--color-text);
 }
@@ -41,17 +41,22 @@
     background-color: var(--color-text);
 }
 
-.burger-menu>li a.switch-theme:hover {
+.burger-menu>li .switch-theme {
+    padding: 8px;
+}
+
+.burger-menu>li .switch-theme:hover {
+    text-decoration: underline;
     cursor: pointer;
 }
 
 .burger-menu>li #loginItem a,
-.burger-menu>li #darkItem a {
+.burger-menu>li #darkItem {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.burger-menu>li #darkItem i {
+.burger-menu>li #darkItem i.icon-ui {
     margin-right: 0.5ch;
 }
