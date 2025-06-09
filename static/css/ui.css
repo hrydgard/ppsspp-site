@@ -68,12 +68,6 @@ img.prev-ver-item {
     margin-right: 1ch;
 }
 
-.hero-button {
-    box-shadow: 0 0 10px var(--shadow-color);
-    margin: 14px 0px;
-    font-size: 14pt;
-}
-
 .download-button.button-gold {
     background-color: var(--color-gold);
     border-color: var(--color-gold-border);
