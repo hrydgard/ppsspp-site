@@ -44,8 +44,6 @@
 
 .burger-menu>li .switch-theme {
     padding: 8px;
-    display: block;
-    color: var(--color-text);
 }
 
 .burger-menu>li .switch-theme:hover {
