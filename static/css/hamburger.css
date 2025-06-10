@@ -1,0 +1,62 @@
+.burger-sidebar {
+    background-color: var(--color-gray-900);
+    display: block;
+    position: absolute;
+    width: 50%;
+    z-index: 800;
+    border: 2px solid var(--color-gray-800);
+    border-bottom: none;
+    box-shadow: 0 5px 8px var(--shadow-color);
+}
+
+.burger-sidebar.hidden {
+    display: none;
+}
+
+.burger-sidebar img {
+    margin-right: 1ch;
+}
+
+.burger-menu {
+    list-style: none;
+    padding-left: 0px;
+}
+
+.burger-menu>li {
+    border-bottom: 2px solid var(--color-gray-800);
+    padding: 0px;
+}
+
+.burger-menu>li:hover {
+    background-color: var(--color-gray-700);
+}
+
+.burger-menu>li a {
+    padding: 8px;
+    display: block;
+    color: var(--color-text);
+}
+
+.burger-menu>li a:hover i.icon-ui {
+    background-color: var(--color-text);
+}
+
+.burger-menu>li .switch-theme {
+    padding: 8px;
+}
+
+.burger-menu>li .switch-theme:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.burger-menu>li #loginItem a,
+.burger-menu>li #darkItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.burger-menu>li #darkItem i.icon-ui {
+    margin-right: 0.5ch;
+}
