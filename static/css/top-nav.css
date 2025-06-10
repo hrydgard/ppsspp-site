@@ -176,7 +176,8 @@
         width: auto;
         border-bottom: none;
         text-align: center;
-        list-style-type: none !important;
+        list-style-type: none;
+        display: block;
     }
 
     .menu>li a {
