@@ -30,7 +30,6 @@ Play multiplayer with your friends. Download for Android, Windows PC, macOS, iOS
         crossorigin="anonymous"></script>
     {{/unless}}
     <script>
-        // Special behaviors. There's probably a better way.
         var g_loginByKey = false;
         var g_thankYouPage = false;
         var g_downloadPage = false;
@@ -59,7 +58,7 @@ Play multiplayer with your friends. Download for Android, Windows PC, macOS, iOS
                 <a href="/" class="center-vertical"><img src="/static/img/platform/ppsspp-icon.png" aria-hidden="true"
                         class="icon-32">PPSSPP</a>
             </div>
-            <ul class="menu">
+            <ul class="menu clean-list">
                 {{#each top_nav}}
                 <li><a href="{{url}}"
                         class="{{#if selected}}selected{{/if}}{{#if external}} external{{/if}}">{{{title}}}{{#if
@@ -76,8 +75,7 @@ Play multiplayer with your friends. Download for Android, Windows PC, macOS, iOS
 
         <section class="contents">
             <div class="burger-sidebar hidden" id="rootSidebar">
-                {{!-- We repeat all the same stuff again, but add Login. Better than crazy CSS tricks... --}}
-                <ul class="burger-menu">
+                <ul class="burger-menu clean-list">
                     {{#each top_nav}}
                     <li><a href="{{url}}"
                             class="{{#if selected}}selected{{/if}}{{#if external}} external{{/if}}">{{{title}}}{{#if

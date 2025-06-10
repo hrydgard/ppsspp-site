@@ -140,7 +140,7 @@
         display: none !important;
     }
     .show-on-mobile {
-        display: list-item !important;
+        display: block !important;
     }
 
     #loginCorner {
@@ -176,7 +176,7 @@
         width: auto;
         border-bottom: none;
         text-align: center;
-        list-style-type: none;
+        list-style-type: none !important;
     }
 
     .menu>li a {

@@ -18,13 +18,14 @@
 }
 
 .burger-menu {
-    list-style: none;
+    list-style: none !important;
     padding-left: 0px;
 }
 
 .burger-menu>li {
     border-bottom: 2px solid var(--color-gray-800);
     padding: 0px;
+    list-style-type: none;
 }
 
 .burger-menu>li:hover {
@@ -43,10 +44,12 @@
 
 .burger-menu>li .switch-theme {
     padding: 8px;
+    display: block;
+    color: var(--color-text);
 }
 
 .burger-menu>li .switch-theme:hover {
-    text-decoration: underline;
+    text-decoration: none;
     cursor: pointer;
 }
 
