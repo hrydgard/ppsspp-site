@@ -49,7 +49,7 @@
 }
 
 .burger-menu>li .switch-theme:hover {
-    text-decoration: none;
+    text-decoration: underline;
     cursor: pointer;
 }
 
