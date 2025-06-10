@@ -30,7 +30,7 @@ anonymously, only when manually enabled, and no personal data is ever collected 
 ### Information collection and use
 
 The only data collected is voluntary compatibility reports. This data is collected completely
-anonymously only when manually enabled,  and no personal data is ever collected or stored.
+anonymously only when manually enabled, and no personal data is ever collected or stored.
 
 ## Privacy Policy for PPSSPP.org
 

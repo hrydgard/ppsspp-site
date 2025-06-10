@@ -10,7 +10,7 @@ rm -rf build
 
 echo Building...
 
-cargo run -- --skip-serve --$1
+cargo run --release -- --skip-serve --$1
 
 echo deploying to www@main:/srv/www/ppsspp.org/$1
 
