@@ -71,10 +71,14 @@
     transition: background-color 0.2s ease;
 }
 
-.slideshow-dot.active,
 .slideshow-dot:hover {
+    background-color: var(--color-primary);
+    cursor: pointer;
+}
+
+.slideshow-dot.active {
     background-color: #717171;
-    text-decoration: none;
+    margin-bottom: 2px;
 }
 
 /* Fading animation */
