@@ -108,11 +108,9 @@ html[data-theme='light'] {
     --color-danger-contrast-background: rgb(255, 235, 236);
     --color-danger-contrast-foreground: rgb(75, 17, 19);
 
-}
-
-:root {
     /* UI parts, derived colors */
     --color-header-footer: var(--color-gray-1000);
+    --color-header-footer-transparent: rgba(28, 30, 33, 0.85);
     --color-contents-background: var(--color-gray-900);
     --color-text: var(--color-gray-100);
     --color-text-inverse: var(--color-gray-900);

@@ -97,38 +97,88 @@ a:hover {
   text-align: center;
 }
 
+footer {
+  background: #111;
+  color: var(--color-gray-400);
+  padding: 4em 2em;
+  font-size: 0.9em;
+  position: relative;
+  overflow: hidden;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(45deg, var(--color-primary-darkest), #111);
+  background-size: 200% 200%;
+  animation: gradient-animation 15s ease infinite;
+  z-index: 0;
+}
+
+@keyframes gradient-animation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+footer .container {
+  position: relative;
+  z-index: 1;
+}
+
+.footer-col {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 2em;
+  border-radius: var(--card-border-radius);
+  height: 100%;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.footer-col:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-5px);
+}
+
 footer a {
-  color: var(--color-text);
+  color: var(--color-gray-300);
+  text-decoration: none;
+  transition: color 0.2s;
 }
 
 footer a:hover {
-  color: var(--color-a-hover);
+  color: var(--color-primary);
+  text-decoration: none;
 }
 
 footer h2 {
-  font-size: 14pt;
-  padding-bottom: 12px;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: var(--color-gray-100);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1.5em;
+  padding-bottom: 0;
 }
 
 .footer-bottom-text {
-  padding: 10px;
+  padding-top: 3em;
+  margin-top: 3em;
+  border-top: 1px solid var(--color-gray-800);
+  color: var(--color-gray-500);
 }
 
 .footer-bottom-text a {
-  color: var(--color-primary);
+  color: var(--color-gray-300);
 }
 
 .contents {
   flex-grow: 1;
   background-color: var(--color-contents-background);
-  color: var(--color-text)
-}
-
-footer {
-  flex-grow: 0;
-  flex-shrink: 0;
-  background-color: var(--color-header-footer);
-  color: var(--color-text)
+  color: var(--color-text);
 }
 
 /*

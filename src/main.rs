@@ -225,7 +225,6 @@ fn build(opt: &Args) -> anyhow::Result<()> {
             "style.css",
             "top-nav.css",
             "ui.css",
-            "hamburger.css",
             "gallery.css",
             "hero.css",
             "highlight-dark.min.css",

@@ -275,13 +275,33 @@ async function applyDOMVisibility() {
     }
 }
 
+function setupScrollEffect() {
+    const nav = document.querySelector('.top-nav');
+    if (nav) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    }
+}
+
 async function updatePlayCodesStats() {
-    const data = await jsonFetch("googleplaycodeadmin", {});
-    if (data) {
-        console.log(data);
-        playCodesStats.innerHTML = Sqrl.render(tmplPlayCodes, data);
+    let stats = await jsonFetch("getPlayCodesStats");
+    if (stats) {
+        console.log(stats);
+        playCodesStats.innerHTML = Sqrl.render(tmplPlayCodes, stats);
     } else {
         console.log("got no play codes stats");
+    }
+    setupCollapsibles();
+    setupEmailLinks();
+    setupScrollEffect();
+
+    if (g_loginByKey) {
+        handleLoginByKey();
     }
 }
 
@@ -800,6 +820,23 @@ function onLoadPage() {
     loadCredentials();
     applyDOMVisibility();
     setupCollapsibles();
+    setupEmailLinks();
+
+    const nav = document.querySelector('.top-nav');
+    if (nav) {
+        // Initial state
+        if (window.scrollY > 10) {
+            nav.classList.add('scrolled');
+        }
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    }
+
     if (g_thankYouPage) {
         window.setTimeout(pollPurchase, g_pollInterval);
     }
@@ -829,6 +866,10 @@ function onLoadPage() {
             rootSidebar.classList.add('hidden');
         }
     });
+
+    if (g_loginByKey) {
+        handleLoginByKey();
+    }
 }
 
 function burgerClick() {

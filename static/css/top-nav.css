@@ -9,22 +9,41 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    background-color: var(--color-header-footer);
+    background-color: transparent;
     color: var(--color-text);
     height: 60px;
-    padding: 1em;
-    border-style: none none solid;
-    border-color: var(--color-primary);
-    border-width: 0 0 3px;
-    font-size: 12pt;
+    padding: 0 2em;
+    border-bottom: 2px solid var(--color-primary);
+    font-size: 13pt;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1001;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.top-nav.scrolled {
+    background-color: var(--color-header-footer-transparent);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
 .top-nav a {
     color: var(--color-gray-0);
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    padding: 0.5em 0.75em;
+    border-radius: 6px;
+}
+
+.top-nav a i.icon-ui {
+    margin-right: 0.5em;
+    vertical-align: -0.15em;
 }
 
 .top-nav a:hover {
     color: var(--color-a-hover);
+    background-color: var(--color-gray-800);
 }
 
 .top-nav img {
@@ -41,14 +60,14 @@
 }
 
 .menu>li {
-    margin: 0 0.45rem;
+    margin: 0 0.25rem;
     overflow: hidden;
     padding-bottom: 0px;
-    font-size: 12pt;
 }
 
 .menu>li .selected {
-    border-bottom: 3px solid var(--color-primary);
+    background-color: var(--color-gray-700);
+    border-bottom: none;
 }
 
 .menu>li a.switch-theme:hover {
@@ -66,6 +85,7 @@
     padding: 25px;
     /* hackety hack */
     margin-left: -12px;
+    z-index: 1002;
 }
 
 #menu-toggle {
@@ -99,6 +119,10 @@
     display: none;
 }
 
+.show-on-mobile {
+    display: none !important;
+}
+
 @media (min-width: 800px) {
     .menu .external {
         display: flex;
@@ -111,9 +135,14 @@
     align-items: center;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 799px) {
+    .hide-on-mobile {
+        display: none !important;
+    }
+    .show-on-mobile {
+        display: list-item !important;
+    }
 
-    /* Hide the login corner */
     #loginCorner {
         display: none;
     }
@@ -122,37 +151,69 @@
         display: flex;
     }
 
-    .menu .external {
+    .menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(20, 20, 20, 0.95);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        z-index: 1000;
+    }
+
+    #menu-toggle:checked ~ .menu {
         display: flex;
     }
 
-    .menu {
-        z-index: 289;
-        position: absolute;
-        top: 0;
-        margin-top: 50px;
-        left: 0;
-        flex-direction: column;
-        width: 100%;
-        justify-content: left;
-        align-items: top;
-    }
-
     .menu>li {
-        display: none;
-        text-align: left;
-        margin: 0;
-        padding: 0.5em 0;
-        width: 100%;
-        color: white;
-        background-color: #222;
+        margin: 1em 0;
+        padding: 0;
+        width: auto;
+        border-bottom: none;
+        text-align: center;
+        list-style-type: none;
     }
 
     .menu>li a {
-        display: block;
+        padding: 1em 2em;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        font-size: 1.5em;
+        align-items: center;
     }
 
-    .menu>li:not(:last-child) {
-        border-bottom: 1px solid #444;
+    .menu>li a:hover {
+        background-color: var(--color-gray-700);
     }
+
+    .menu>li #darkItem i {
+        margin-right: 0.5ch;
+    }
+
+    #menu-toggle:checked ~ label.menu-button-container .menu-button::before {
+        transform: rotate(45deg) translate(3px, -5px);
+        width: 20px;
+    }
+    #menu-toggle:checked ~ label.menu-button-container .menu-button {
+        background-color: transparent;
+    }
+    #menu-toggle:checked ~ label.menu-button-container .menu-button::after {
+        transform: rotate(-45deg) translate(3px, 5px);
+        width: 20px;
+    }
+}
+
+/* New class for the hidden checkbox */
+.hidden-but-used-by-css {
+    display: none;
+}
+
+.page-wrapper {
+    padding-top: 60px;
 }
