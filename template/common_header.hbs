@@ -65,17 +65,31 @@ Play multiplayer with your friends. Download for Android, Windows PC, macOS, iOS
                         class="{{#if selected}}selected{{/if}}{{#if external}} external{{/if}}">{{{title}}}{{#if
                         external}}{{> link_icon }}{{/if}}</a></li>
                 {{/each}}
-                <li class="show-on-mobile"><div id="loginItem"><a href="/login">Login</a></div></li>
-                <li class="show-on-mobile">
-                    <a id="darkItem" class="switch-theme" onclick="switchTheme()">
-                        <i aria-hidden="true" class="icon-ui icon-ui-moon"></i>Dark Mode
-                    </a>
-                </li>
-                <li class="hide-on-mobile">
-                    <a class="switch-theme" onclick="switchTheme()"><i alt="Dark Mode" class="icon-ui icon-ui-moon"></i></a>
+                <li>
+                    <div class="switch-theme" onclick="switchTheme()">
+                        <i aria-label="Dark Mode" class="icon-ui icon-ui-moon"></i>
+                    </div>
                 </li>
             </ul>
             <div id="loginCorner" class="hide-on-mobile"><a href="/login">Login</a></div>
         </nav>
 
         <section class="contents">
+            <div class="burger-sidebar hidden" id="rootSidebar">
+                {{!-- We repeat all the same stuff again, but add Login. Better than crazy CSS tricks... --}}
+                <ul class="burger-menu">
+                    {{#each top_nav}}
+                    <li><a href="{{url}}"
+                            class="{{#if selected}}selected{{/if}}{{#if external}} external{{/if}}">{{{title}}}{{#if
+                            external}}{{> link_icon }}{{/if}}</a></li>
+                    {{/each}}
+                    <li>
+                        <div id="loginItem"><a href="/login">Login</a></div>
+                    </li>
+                    <li>
+                        <div id="darkItem" class="switch-theme" onclick="switchTheme()">
+                            <i aria-hidden="true" class="icon-ui icon-ui-moon"></i>Dark Mode
+                        </div>
+                    </li>
+                </ul>
+            </div>
