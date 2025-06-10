@@ -209,12 +209,20 @@ fn build(opt: &Args) -> anyhow::Result<()> {
         config.out_dir.join("static"),
         opt.minify,
         &["css"], // We mash the css files together, so don't copy them.
-    )?;
+    ).context("copy static")?;
+
     // Move the favicon into place.
     std::fs::copy(
         config.in_dir.join("static/img/favicon.ico"),
         config.out_dir.join("favicon.ico"),
-    )?;
+    ).context("copy favicon")?;
+
+    // Move the robots.txt.
+    std::fs::copy(
+        config.in_dir.join("static/robots.txt"),
+        config.out_dir.join("robots.txt"),
+    ).context("copy robots.txt")?;
+
     // Concat the CSS files.
     util::concat_files(
         &config.in_dir.join("static/css"),
