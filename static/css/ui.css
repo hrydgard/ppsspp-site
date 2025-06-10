@@ -324,11 +324,6 @@ a.nav-tree-item.selected {
     font-size: 15px;
 }
 
-.active,
-.collapsible:hover {
-    background-color: #555;
-}
-
 .collapsible:after {
     content: '\002B';
     color: white;
@@ -337,7 +332,12 @@ a.nav-tree-item.selected {
     margin-left: 5px;
 }
 
-.active:after {
+.collapsible.active {
+    color: white;
+    background-color: #555;
+}
+
+.collapsible.active:after {
     content: "\2212";
 }
 

@@ -5,7 +5,7 @@ authors: hrydgard
 tags: [releases]
 ---
 
-![Legacy Logo](/static/img/platform/ppsspp-icon-legacy.png)
+![PPSSPP Legacy Edition icon](/static/img/platform/ppsspp-icon-legacy.png)
 
 PPSSPP Legacy for Android is now available as an APK on the [buildbot](/devbuilds), as AndroidLegacy.
 

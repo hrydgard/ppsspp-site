@@ -1,8 +1,14 @@
 /* Slideshow container */
 .slideshow-container {
-    max-width: 1000px;
+    display: flex;
     position: relative;
-    margin: auto;
+    aspect-ratio: 1920 / 1088;
+    margin-bottom: 30px;
+}
+
+.slideshow-container img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 /* Hide the images by default */
@@ -71,10 +77,14 @@
     transition: background-color 0.2s ease;
 }
 
-.slideshow-dot.active,
 .slideshow-dot:hover {
+    background-color: var(--color-primary);
+    cursor: pointer;
+}
+
+.slideshow-dot.active {
     background-color: #717171;
-    text-decoration: none;
+    margin-bottom: 2px;
 }
 
 /* Fading animation */
