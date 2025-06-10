@@ -7,7 +7,7 @@
         {{!-- Full-width images with number and caption text --}}
         {{#each globals.screenshots}}
         <div class="mySlides fade">
-            <img src="/static/img/screenshots/{{filename}}" style="width:100%" onclick="plusSlides(1)">
+            <img src="/static/img/screenshots/{{filename}}" alt="screenshot of {{description}}" style="width:100%" onclick="plusSlides(1)">
             <div class="text">{{description}}</div>
         </div>
         {{/each}}
@@ -25,11 +25,11 @@
     </div>
 
     <h2>Videos</h2>
-    <iframe class="video" src="https://www.youtube.com/embed/10_i9cQdQA0" title="PPSSPP: PSP emulator" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    <iframe class="video" src="https://www.youtube.com/embed/10_i9cQdQA0" title="PPSSPP - PSP emulator for Android, PC and more!"
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen></iframe>
-    <iframe class="video" src="https://www.youtube.com/embed/y3dgEeDW5Xw" title="YouTube video player" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    <iframe class="video" src="https://www.youtube.com/embed/y3dgEeDW5Xw" title="PPSSPP VR - Trailer"
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen></iframe>
 </div>
 
