@@ -20,6 +20,7 @@ html[data-theme='dark'] {
 
     --background-surface-color: var(--color-gray-800);
     --shadow-color: var(--color-gray-1000);
+    --color-header-footer-transparent: rgba(28, 30, 33, 0.85);
 }
 
 html[data-theme='light'] {
@@ -42,6 +43,7 @@ html[data-theme='light'] {
 
     --background-surface-color: var(--color-gray-700);
     --shadow-color: var(--color-gray-300);
+    --color-header-footer-transparent: rgba(245, 246, 247, 0.85);
 }
 
 :root {
@@ -110,7 +112,6 @@ html[data-theme='light'] {
 
     /* UI parts, derived colors */
     --color-header-footer: var(--color-gray-1000);
-    --color-header-footer-transparent: rgba(28, 30, 33, 0.85);
     --color-contents-background: var(--color-gray-900);
     --color-text: var(--color-gray-100);
     --color-text-inverse: var(--color-gray-900);

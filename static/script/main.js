@@ -275,19 +275,6 @@ async function applyDOMVisibility() {
     }
 }
 
-function setupScrollEffect() {
-    const nav = document.querySelector('.top-nav');
-    if (nav) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 10) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-    }
-}
-
 async function updatePlayCodesStats() {
     let stats = await jsonFetch("getPlayCodesStats");
     if (stats) {
@@ -298,7 +285,6 @@ async function updatePlayCodesStats() {
     }
     setupCollapsibles();
     setupEmailLinks();
-    setupScrollEffect();
 
     if (g_loginByKey) {
         handleLoginByKey();
@@ -816,26 +802,12 @@ function setupCollapsibles() {
     }
 }
 
+
 function onLoadPage() {
     loadCredentials();
     applyDOMVisibility();
     setupCollapsibles();
     setupEmailLinks();
-
-    const nav = document.querySelector('.top-nav');
-    if (nav) {
-        // Initial state
-        if (window.scrollY > 10) {
-            nav.classList.add('scrolled');
-        }
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 10) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-    }
 
     if (g_thankYouPage) {
         window.setTimeout(pollPurchase, g_pollInterval);
@@ -939,3 +911,5 @@ if (curTheme) {
 // Error messages
 const BAD_EMAIL_ADDRESS = "Not a valid e-mail address ";
 const MISSING_PASSWORD = "Please enter a password";
+
+

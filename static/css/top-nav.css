@@ -9,7 +9,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    background-color: transparent;
+    background-color: var(--color-gray-900);
     color: var(--color-text);
     height: 60px;
     padding: 0 2em;
@@ -20,30 +20,68 @@
     left: 0;
     right: 0;
     z-index: 1001;
-    transition: background-color 0.3s ease-in-out;
 }
 
-.top-nav.scrolled {
-    background-color: var(--color-header-footer-transparent);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
+html[data-theme='light'] .top-nav {
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.top-nav a {
+/* Efek hover yang seragam untuk semua elemen navbar */
+.top-nav a,
+.menu > li a,
+.menu > li .switch-theme,
+#loginCorner a {
     color: var(--color-gray-0);
-    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    transition: all 0.25s ease;
     padding: 0.5em 0.75em;
     border-radius: 6px;
+    position: relative;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
 }
 
-.top-nav a i.icon-ui {
+.top-nav a:hover,
+.menu > li a:hover,
+.menu > li .switch-theme:hover,
+#loginCorner a:hover {
+    color: var(--color-primary);
+    background-color: var(--color-gray-800);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+}
+
+html[data-theme='light'] .top-nav a,
+html[data-theme='light'] .menu > li a,
+html[data-theme='light'] .menu > li .switch-theme,
+html[data-theme='light'] #loginCorner a {
+    color: var(--color-gray-300);
+}
+
+html[data-theme='light'] .top-nav a:hover,
+html[data-theme='light'] .menu > li a:hover,
+html[data-theme='light'] .menu > li .switch-theme:hover,
+html[data-theme='light'] #loginCorner a:hover {
+    color: var(--color-primary);
+    background-color: rgba(240, 240, 240, 0.8);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Ikon */
+.top-nav a i.icon-ui,
+.menu > li a i.icon-ui,
+.menu > li .switch-theme i.icon-ui {
     margin-right: 0.5em;
     vertical-align: -0.15em;
+    transition: transform 0.2s ease;
 }
 
-.top-nav a:hover {
-    color: var(--color-a-hover);
-    background-color: var(--color-gray-800);
+.top-nav a:hover i.icon-ui,
+.menu > li a:hover i.icon-ui,
+.menu > li .switch-theme:hover i.icon-ui {
+    transform: scale(1.1);
 }
 
 .top-nav img {
@@ -63,15 +101,49 @@
     margin: 0 0.25rem;
     overflow: hidden;
     padding-bottom: 0px;
+    position: relative;
 }
 
-.menu>li .selected {
+.menu>li::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.menu>li:hover::after {
+    width: 80%;
+}
+
+.menu>li a.selected {
     background-color: var(--color-gray-700);
     border-bottom: none;
 }
 
-.menu>li a.switch-theme:hover {
+html[data-theme='light'] .menu>li a.selected {
+    background-color: rgba(240, 240, 240, 0.9);
+}
+
+.menu>li .switch-theme {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
+}
+
+.menu>li .switch-theme:hover {
+    background-color: var(--color-gray-800);
+    transform: translateY(-1px);
+}
+
+html[data-theme='light'] .menu>li .switch-theme:hover {
+    background-color: rgba(240, 240, 240, 0.8);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .menu-button-container {
@@ -207,6 +279,10 @@
     #menu-toggle:checked ~ label.menu-button-container .menu-button::after {
         transform: rotate(-45deg) translate(3px, 5px);
         width: 20px;
+    }
+
+    .menu>li:hover::after {
+        width: 0;
     }
 }
 
