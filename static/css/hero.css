@@ -7,7 +7,7 @@
   background-position: center right;
   background-repeat: no-repeat;
   /* Do not repeat the image */
-  background-size: contain;
+  background-size: auto 100%;
 }
 
 .hero-banner {
