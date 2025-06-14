@@ -36,6 +36,36 @@
         ]
     },
     {
+        "title": "iOS",
+        "platform_badge": "ios.svg",
+        "platform_key": "ios",
+        "downloads": [
+            {
+                "name": "Buy PPSSPP Gold",
+                "icon": "ppsspp-icon-gold.png",
+                "url": "/buygold_ios",
+                "gold": true
+            },
+            {
+                "name": "PPSSPP for iOS",
+                "icon": "ppsspp-icon.png",
+                "url": "https://apps.apple.com/us/app/ppsspp-psp-emulator/id6496972903",
+                "service_image": "/static/img/platform/appstore-badge.svg",
+                "service_alt": "Download on the App Store"
+            },
+            {
+                "name": "W.MS' latest .IPA",
+                "url": "https://pbot.w-ms.cn/getipa?PPSSPPORG"
+            },
+            {
+                "name": "W.MS' latest .deb",
+                "url": "https://pbot.w-ms.cn/getdeb?PPSSPPORG",
+                "whats_this_url": "/docs/reference/ios-support/",
+                "whats_this": "iOS information"
+            }
+        ]
+    },
+    {
         "title": "Windows",
         "platform_badge": "windows.svg",
         "platform_key": "windows",
@@ -134,36 +164,6 @@
                 "url": "https://flathub.org/apps/details/org.ppsspp.PPSSPP",
                 "service_image": "/static/img/platform/flathub-badge.svg",
                 "service_alt": "Get it on Flathub"
-            }
-        ]
-    },
-    {
-        "title": "iOS",
-        "platform_badge": "ios.svg",
-        "platform_key": "ios",
-        "downloads": [
-            {
-                "name": "Buy PPSSPP Gold",
-                "icon": "ppsspp-icon-gold.png",
-                "url": "/buygold_ios",
-                "gold": true
-            },
-            {
-                "name": "PPSSPP for iOS",
-                "icon": "ppsspp-icon.png",
-                "url": "https://apps.apple.com/us/app/ppsspp-psp-emulator/id6496972903",
-                "service_image": "/static/img/platform/appstore-badge.svg",
-                "service_alt": "Download on the App Store"
-            },
-            {
-                "name": "W.MS' latest .IPA",
-                "url": "https://pbot.w-ms.cn/getipa?PPSSPPORG"
-            },
-            {
-                "name": "W.MS' latest .deb",
-                "url": "https://pbot.w-ms.cn/getdeb?PPSSPPORG",
-                "whats_this_url": "/docs/reference/ios-support/",
-                "whats_this": "iOS information"
             }
         ]
     },
