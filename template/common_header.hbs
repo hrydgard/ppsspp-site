@@ -62,9 +62,9 @@ Play multiplayer with your friends. Download for Android, Windows PC, macOS, iOS
             </div>
             <ul class="menu">
                 {{#each top_nav}}
-                <li><a href="{{url}}"
-                        class="{{#if selected}}selected{{/if}}{{#if external}} external{{/if}}">{{{title}}}{{#if
-                        external}}{{> link_icon }}{{/if}}</a></li>
+                <li {{#if external}}class="external"{{/if}}>
+                    <a href="{{url}}" {{#if selected}}class="selected"{{/if}}>{{{title}}}{{#if external}}{{> link_icon }}{{/if}}</a>
+                </li>
                 {{/each}}
                 <li>
                     <div class="switch-theme" onclick="switchTheme()">
@@ -80,9 +80,7 @@ Play multiplayer with your friends. Download for Android, Windows PC, macOS, iOS
                 {{!-- We repeat all the same stuff again, but add Login. Better than crazy CSS tricks... --}}
                 <ul class="burger-menu">
                     {{#each top_nav}}
-                    <li><a href="{{url}}"
-                            class="{{#if selected}}selected{{/if}}{{#if external}} external{{/if}}">{{{title}}}{{#if
-                            external}}{{> link_icon }}{{/if}}</a></li>
+                    <li><a href="{{url}}" {{#if selected}}class="selected"{{/if}}>{{{title}}}{{#if external}}{{> link_icon }}{{/if}}</a></li>
                     {{/each}}
                     <li>
                         <div id="loginItem"><a href="/login">Login</a></div>
