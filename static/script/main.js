@@ -123,7 +123,7 @@ const tmplUserInfo = `
 </p>
 <p>Email: {{it.email}}.</p>
 {{ @if (it.goldUser) }}
-<p>Gold status!</p>
+<p>Gold status! <img src="/static/img/platform/ppsspp-icon-gold.png" aria-hidden="true" class="icon-24"></p>
 {{ /if }}
 <p><a href="/changepassword">Change password</a></p>
 </div>
@@ -207,30 +207,17 @@ const tmplPlayCodes = `
 const tmplLoginCorner = `
 <a href='/login' class="center-vertical">
 {{@if(it.loggedIn)}}
-<img
-{{@if(it.goldUser)}}
-src="/static/img/platform/ppsspp-icon-gold.png"
-{{#else}}
-src="/static/img/platform/ppsspp-icon.png"
-{{/if}}
-aria-hidden="true" class="icon-24">{{it.name}}
+<i aria-label="Profile" class="icon-ui icon-ui-user"></i>
 {{#else}}
 Login
 {{/if}}
 </a>
 `;
 
-
 const tmplLoginItem = `
 <a href='/login'>
 {{@if(it.loggedIn)}}
-<img
-{{@if(it.goldUser)}}
-src="/static/img/platform/ppsspp-icon-gold.png"
-{{#else}}
-src="/static/img/platform/ppsspp-icon.png"
-{{/if}}
-aria-hidden="true" class="icon-24">{{it.name}}
+<i aria-hidden="true" class="icon-ui icon-ui-user"></i>{{it.name}}
 {{#else}}
 Login
 {{/if}}
@@ -254,22 +241,23 @@ async function applyDOMVisibility() {
     setDisplayMode("no-gold-only", g_userData.goldUser ? "none" : "block");
 
     // Update various textual fields if present on the page.
-    const loginName = document.getElementById("displayName");
-    if (loginName) {
-        loginName.innerHTML = "<a href='/login'>" + g_userData.name + "</a>";
-    }
-    const loginEmail = document.getElementById("displayEmail");
-    if (loginEmail) {
-        loginEmail.innerText = g_userData.email;
+    // Top navigation bar
+    const navbarIcon = document.getElementById("navbarIcon");
+    if (navbarIcon) {
+        navbarIcon.src = g_userData.goldUser ? "/static/img/platform/ppsspp-icon-gold.png" : "/static/img/platform/ppsspp-icon.png";
     }
     const loginCorner = document.getElementById("loginCorner");
     if (loginCorner) {
         loginCorner.innerHTML = Sqrl.render(tmplLoginCorner, g_userData);
     }
+
+    // Hamburger menu
     const loginItem = document.getElementById("loginItem");
     if (loginItem) {
         loginItem.innerHTML = Sqrl.render(tmplLoginItem, g_userData);
     }
+
+    // Login page
     const loginInfo = document.getElementById("loginInfo");
     if (loginInfo) {
         loginInfo.innerHTML = Sqrl.render(tmplUserInfo, g_userData);
