@@ -77,6 +77,24 @@
       ]
     },
     {
+      "name": "1_19_2",
+      "is_dir": true,
+      "children": [
+        {
+          "name": "PPSSPPWindowsGold.zip",
+          "is_dir": false
+        },
+        {
+          "name": "PPSSPPGold_macOS.dmg",
+          "is_dir": false
+        },
+        {
+          "name": "PPSSPPGoldSetup.exe",
+          "is_dir": false
+        }
+      ]
+    },
+    {
       "name": "1_11_2",
       "is_dir": true,
       "children": [
