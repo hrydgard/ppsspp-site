@@ -108,6 +108,12 @@
                 "filename": "ppsspp_win.zip"
             },
             {
+                "name": "ZIP file for x86-64",
+                "short_name": "x64",
+                "filename": "ppsspp_win64.zip",
+                "old_build_only": true
+            },
+            {
                 "name": "ZIP file for ARM64",
                 "short_name": "ARM64",
                 "icon": "ppsspp-icon.png",
