@@ -221,7 +221,7 @@ Chromebooks can run the Android version of PPSSPP. However, it's not tested very
 
 ## Is the .CHD file format supported for ISOs?
 
-From version 1.17, yes.
+From version 1.17, yes. See the [Dumping games](/docs/getting-started/dumping-games) page.
 
 ## The texture replacement pack for Tactics Ogre doesn't work on Steam Deck!
 

@@ -31,11 +31,11 @@ The best tool to compress tools to CSO is [maxcso](https://github.com/unknownbra
 
 ### CHD
 
-CHD is supported from PPSSPP 1.17, and stands for Compressed Hard Drive. It's MAME's format, originally made for archiving arcade game hard drives, but later repurposed for disc-based systems. It has a slightly better compression ratio than CSO, but to perform properly, PSP ISOs need to be compressed to CHD in the DVD mode (`createdvd`), and with 2048-byte "hunk" (sector) size. Other sector sizes may get better support in the future.
+CHD is supported from PPSSPP 1.17, and stands for Compressed Hard Drive. It's MAME's format, originally made for archiving arcade game hard drives, but later repurposed for disc-based systems. It has a slightly better compression ratio than CSO, but to perform optimally, PSP ISOs should be compressed CHD in the DVD mode (`createdvd`). In 1.17, a 2048-byte "hunk" (sector) size was the only option that performed decently (`-hs 2048`), but this was later fixed so it's no longer so critical how you create the CHD.
 
 The tool to create CHD files is called `chdman` and is distributed with [MAME](https://www.mamedev.org/release.php). You want to use a recent version to compress PSP ISOs.
 
-Here's the command line for compressing a PSP ISO to CHD with chdman, once you have acquired the tool:
+Here's a command line for compressing a PSP ISO to CHD with chdman, once you have acquired the tool:
 
 ```sh
 chdman createdvd -hs 2048 -i game.iso -o game.chd
@@ -54,7 +54,7 @@ Preferably, don't use the `createcd` or `createraw` commands. `createdvd` is wha
 If you want to turn your .chd back into an ISO file, here's the command:
 
 ```sh
-chdman extractdvd -hs 2048 -i game.chd -o game.iso
+chdman extractdvd -i game.chd -o game.iso
 ```
 
 ## Digital downloads
