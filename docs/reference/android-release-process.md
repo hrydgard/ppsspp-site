@@ -1,4 +1,4 @@
-# The Android release process
+# Android release process
 
 ## Why do Android users get the updates later?
 
@@ -8,7 +8,7 @@ This is because unlike on PC, on Android we are able to do something called a ro
 
 They look like this:
 
-![Screenshot of Play Console]("/static/img/blog/1.17-release/play-console-1.png")
+![Screenshot of Play Console](/static/img/blog/1.17-release/play-console-1.png)
 
 ANR means "Application Not Responding", that is, a hang. These can be tricky to figure out.
 
@@ -18,7 +18,7 @@ Anyway, with these reports, we can easily see if there's some new serious crash 
 
 Once things look good, we turn the rollout up to a 100%, and you will receive your update within the next day or whenever you check for updates.
 
-## What's different in 1.17 and later?
+## What's different since 1.17?
 
 We started a [beta program](/docs/development/beta-testing), so you can now sign up to be an early tester of new versions. We now have enough that we've been able to fix a whole bunch of bugs before the release.
 
