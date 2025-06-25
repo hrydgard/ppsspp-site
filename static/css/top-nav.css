@@ -66,7 +66,7 @@
     display: none;
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 850px) {
     .menu>li.external {
         display: flex;
     }
@@ -118,7 +118,11 @@
     align-items: center;
 }
 
-@media (max-width: 850px) {
+#loginCorner i.icon-ui {
+    font-size: 24px;
+}
+
+@media (max-width: 699px) {
     /* Hide the login corner */
     #loginCorner {
         display: none;
