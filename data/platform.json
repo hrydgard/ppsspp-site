@@ -170,6 +170,10 @@
                 "url": "https://flathub.org/apps/details/org.ppsspp.PPSSPP",
                 "service_image": "/static/img/platform/flathub-badge.svg",
                 "service_alt": "Get it on Flathub"
+            },
+            {
+                "name": "Download from GitHub CI",
+                "url": "https://github.com/hrydgard/ppsspp/releases/latest"
             }
         ]
     },
