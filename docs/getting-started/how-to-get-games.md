@@ -7,18 +7,8 @@ PSP games are games originally created for the Sony PlayStation Portable, or PSP
 
 PSP games that have been downloaded from PSN onto a real PSP can be copied off the PSP through USB and played directly.
 
-If you are running the PC version of PPSSPP and you have the game you want to run as an ISO, just do File-Load, or use the Games tab to navigate to your game. Clicking the up arrow moves up a directory level.
+You can also download [demo and homebrew games](/docs/getting-started/how-to-get-demos-and-homebrew), these are available for free.
 
-## How do I get them onto my Android device?
+See here [how to move your games to your mobile](/docs/getting-started/installing-games-android).
 
-If you want to play on your Android device (or other portable), then follow these steps:
-
-* Install PPSSPP on your Android device
-
-* Connect the device to your PC where you are storing the ISO or CSO file. Android devices can be easily connected via USB cable.
-
-* The device should show up in Windows Explorer. Now simply copy over the files to somewhere easy to remember - for example, create a folder called "PSP ISO" and copy your ISO and CSO files there.
-
-* Now, start PPSSPP, navigate to your new ISOs on the Games tab, then click the game, which now should show up with an icon.
-
-* The game should now start. That's it!
+If you are running the PC version of PPSSPP and you have the game you want to run as an ISO, just select `File -> Load` from the menubar, or use the <b class="inapp">Games</b> tab to navigate to your game. Clicking the up arrow moves up a directory level.

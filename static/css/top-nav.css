@@ -61,6 +61,17 @@
     background-color: var(--color-a-hover);
 }
 
+.menu>li.external {
+    /* Hide external list items */
+    display: none;
+}
+
+@media (min-width: 1000px) {
+    .menu>li.external {
+        display: flex;
+    }
+}
+
 .menu-button-container {
     display: none;
     height: 100%;
@@ -101,34 +112,19 @@
     margin-top: 8px;
 }
 
-.menu .external {
-    display: none;
-}
-
-@media (min-width: 800px) {
-    .menu .external {
-        display: flex;
-    }
-}
-
 #loginCorner {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-@media (max-width: 600px) {
-
+@media (max-width: 850px) {
     /* Hide the login corner */
     #loginCorner {
         display: none;
     }
 
     .menu-button-container {
-        display: flex;
-    }
-
-    .menu .external {
         display: flex;
     }
 
