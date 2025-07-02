@@ -2,7 +2,7 @@
 
 If, when trying to pick a folder to store PSP data in, you get something that looks like this:
 
-![Big red Java exception](/static/img/cant_pick_folder/exception.jpg)
+![Big red Java exception](/static/img/docs/cant_pick_folder/exception.jpg)
 
 Then, either your device is missing a folder picker entirely (which is unlikely if it's a phone, but likely on Android TV), or it's provided by a default app that has been disabled somehow.
 
@@ -29,8 +29,8 @@ Another user sent in these screenshots (in Portuguese), showing how he managed t
     for a long time, and yet the problem happen just now, anyway, that
     solved the problem.
 
-![Files app settings screen](/static/img/cant_pick_folder/settings1.jpg)
+![Files app settings screen](/static/img/docs/cant_pick_folder/settings1.jpg)
 
-![Reenabling the Files app](/static/img/cant_pick_folder/settings2.jpg)
+![Reenabling the Files app](/static/img/docs/cant_pick_folder/settings2.jpg)
 
 As a last resort, see the Android TV workaround above.
