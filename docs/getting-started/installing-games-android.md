@@ -17,23 +17,23 @@ The following instructions apply identically for PPSSPP and PPSSPP Gold.
 
 3. On your device, pull down the menu and click the circled arrow:
 
-    ![Open the notification about charging the device via USB.](/static/img/guide_files/step1.png)
+    ![Open the notification about charging the device via USB.](/static/img/docs/move_games_android/step1.jpg)
 
 4. Then click the circled item, "Tap for more options".
 
-    ![Tap on the notification.](/static/img/guide_files/step2.png)
+    ![Tap on the notification.](/static/img/docs/move_games_android/step2.jpg)
 
 5. Next, you'll be at this screen, where you can now enable USB file sharing:
 
-    ![Select File transfer.](/static/img/guide_files/step3.png)
+    ![Select File transfer.](/static/img/docs/move_games_android/step3.jpg)
 
 6. On your PC, you'll now be able to see the device's storage in Explorer:
 
-    ![Open device storage in Explorer.](/static/img/guide_files/step4.png)
+    ![Open device storage in Explorer.](/static/img/docs/move_games_android/step4.jpg)
 
-    ![Open Internal shared storage.](/static/img/guide_files/step5.png)
+    ![Open Internal shared storage.](/static/img/docs/move_games_android/step5.jpg)
 
-7. You can now create a new folder to store your ISOs in, if you haven't already (it's recommended that it's separate from the "PSP" folder where system files and save games go, but it does work to use the same folder). A quick way is by pressing ´Ctrl+Shift+N´ and typing the name of your new folder.
+7. You can now create a new folder to store your ISOs in, if you haven't already (it's recommended that it's separate from the "PSP" folder where system files and save games go, but it does work to use the same folder). A quick way is by pressing `Ctrl+Shift+N` and typing the name of your new folder.
 
 8. Finally, after starting PPSSPP on your device, you'll be able to either directly browse to it (Android 10 or older, or old installs), or you'll be able to click Browse... and select it.
 
