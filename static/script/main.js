@@ -60,12 +60,30 @@ async function jsonFetch(apiName, requestBody) {
         },
         body: requestBody ? JSON.stringify(requestBody) : null,
     }).then(data => {
-        statusCodeAction(data.status);
+        if (apiName != "logout") {
+            console.log("Calling statusCodeAction for " + apiName + " with status " + data.status);
+            statusCodeAction(data.status);
+        } else {
+            console.log("Logout request failed!");
+        }
         if (data.status == 200) {
             return data.json();
         } else {
+            console.log("data.status was " + data.status + ", not 200, returning null");
             return null;
         }
+    });
+}
+
+async function jsonFetchGetCode(apiName, requestBody) {
+    return fetch('/api/' + apiName, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: requestBody ? JSON.stringify(requestBody) : null,
+    }).then(data => {
+        return data.status;
     });
 }
 
@@ -571,6 +589,7 @@ function loadCredentials() {
         }
     } else {
         console.log("No credentials, not logged in.");
+        g_userData = defaultUserContext;
     }
 
     if (g_loginByKey) {
@@ -796,6 +815,38 @@ function setupCollapsibles() {
     }
 }
 
+async function checkStillLoggedIn() {
+    try {
+        // 2. Use 'await' to wait for the fetch request to complete
+        const code = await jsonFetchGetCode("testValidated");
+        switch (code) {
+        case 200:
+            console.log("checkStillLoggedIn: user is still logged in");
+            break;
+        case 500:
+        case 501:
+        case 502:
+        case 503:
+        case 504:
+        case 511:
+            console.log("server error, let's not log out the user");
+            break;
+        case 400:
+        case 401:
+        case 403:
+            // Bad return values. User is not logged in.
+            console.log("checkStillLoggedIn: user is not logged in (status " + code + "), logging out");
+            logoutUser();
+            window.location.href = '/login'; // Or any other URL
+            break;
+        }
+        // ... do something with the data ...
+    } catch (error) {
+        // 4. If the fetch fails, this block will run
+        console.error('Fetch failed:', error);
+    }
+}
+
 function onLoadPage() {
     loadCredentials();
     applyDOMVisibility();
@@ -803,8 +854,18 @@ function onLoadPage() {
     if (g_thankYouPage) {
         window.setTimeout(pollPurchase, g_pollInterval);
     }
-    if (g_downloadPage) {
+    if (g_buildbotPage) {
+        console.log("Buildbot page detected")
         window.setTimeout(loadDownloads, 1);
+    }
+    if (g_downloadPage) {
+        console.log("Download page detected")
+        if (g_userData.loggedIn) {
+            console.log("Checking logged-in state with server");
+            window.setTimeout(checkStillLoggedIn, 1);
+        } else {
+            console.log("Not logged in, not checking server");
+        }
     }
 
     if (typeof hljs !== 'undefined') {
