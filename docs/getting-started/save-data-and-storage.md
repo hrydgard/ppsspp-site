@@ -29,11 +29,11 @@ If you already have a PSP folder from an older installation of PPSSPP, just pick
 
 If not, follow the red markings in the below pictures.
 
-![Tap on Create new folder.](/static/img/guide_folder/step1.png)
+![Tap on Create new folder.](/static/img/docs/storage_android/step1.jpg)
 
-![Enter a name for the new folder. PSP suggested.](/static/img/guide_folder/step2.png)
+![Enter a name for the new folder. PSP suggested.](/static/img/docs/storage_android/step2.jpg)
 
-![Tap on Use this folder.](/static/img/guide_folder/step3.png)
+![Tap on Use this folder.](/static/img/docs/storage_android/step3.jpg)
 
 ## Pitfalls
 
