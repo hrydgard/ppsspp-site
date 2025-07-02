@@ -65,7 +65,7 @@ Memory addresses in Cheat Engine can be saved either in static address format or
 Pointer format is preferred, because it will keep the memory address valid throughout multiple sessions, as long as you don't switch PPSSPP versions.
 
 Here is an illustration of memory addresses using the terminology above:
-<img src="/static/img/process-hacking/PPSSPP_CE.png" alt="Visual illustration of Cheat Engine memory addresses using the aforementioned terminology">
+<img src="/static/img/docs/process_hacking/PPSSPP_CE.png" alt="Visual illustration of Cheat Engine memory addresses using the aforementioned terminology">
 
 ### Working with ingame pointers and objects
 
@@ -74,10 +74,10 @@ The pointer to the start of an object can be saved as such, but in order to calc
 
 In the example below we have the object members saved as dummy memory addresses, all children of a Lua script.
 The idea is to calculate the addresses of the object members and display the memory addresses when the Lua script is activated.
-<img src="/static/img/process-hacking/PPSSPP_CE_Dummy_Addresses.png" alt="Ingame object members saved in Cheat Engine as dummy memory addresses">
+<img src="/static/img/docs/process_hacking/PPSSPP_CE_Dummy_Addresses.png" alt="Ingame object members saved in Cheat Engine as dummy memory addresses">
 
 Here is the said Lua script:
-<img src="/static/img/process-hacking/PPSSPP_CE_Pointer_Lua.png" alt="Example of a Lua script to calculate the addresses of object members">
+<img src="/static/img/docs/process_hacking/PPSSPP_CE_Pointer_Lua.png" alt="Example of a Lua script to calculate the addresses of object members">
 (In the screenshot the base pointer is calculated using a manually retrieved base offset.)
 
 This method will work throughout mutliple sessions.
