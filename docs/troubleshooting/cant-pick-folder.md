@@ -29,8 +29,8 @@ Another user sent in these screenshots (in Portuguese), showing how he managed t
     for a long time, and yet the problem happen just now, anyway, that
     solved the problem.
 
-![Settings screen 1](/static/img/cant_pick_folder/settings1.jpg)
+![Files app settings screen](/static/img/cant_pick_folder/settings1.jpg)
 
-![Settings screen 2](/static/img/cant_pick_folder/settings2.jpg)
+![Reenabling the Files app](/static/img/cant_pick_folder/settings2.jpg)
 
 As a last resort, see the Android TV workaround above.

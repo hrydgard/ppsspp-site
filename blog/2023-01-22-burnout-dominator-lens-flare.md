@@ -75,8 +75,8 @@ And we reach the final moment, where the coverage value sits properly in the alp
 
 Finally, we have:
 
-<img src="/static/img/blog/burnout-dominator-lens-flare/subtle.png" alt="Subtle working lens flare" width="200" loading="lazy">
-<img src="/static/img/blog/burnout-dominator-lens-flare/stronger_flare.png" alt="Bright working lens flare" width="200" loading="lazy">
+<img src="/static/img/blog/burnout-dominator-lens-flare/subtle.png" alt="Subtle working lens flare" width="200" height="184" loading="lazy">
+<img src="/static/img/blog/burnout-dominator-lens-flare/stronger_flare.png" alt="Bright working lens flare" width="200" height="184.6" loading="lazy">
 
 And a video:
 
