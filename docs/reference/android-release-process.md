@@ -8,7 +8,7 @@ This is because unlike on PC, on Android we are able to do something called a ro
 
 They look like this:
 
-![Screenshot of Play Console]("/static/img/blog/1.17-release/play-console-1.png")
+![Screenshot of Play Console](/static/img/docs/android_build_process/play-console.jpg)
 
 ANR means "Application Not Responding", that is, a hang. These can be tricky to figure out.
 
