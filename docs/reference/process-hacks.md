@@ -3,14 +3,14 @@
 If you want to search the memory of the emulated PSP using external tools by attaching to the PPSSPP process' memory space in Windows, you're gonna need a pointer to the base address.
 
 To get it, you can use one of the following methods:
-- read it from the log
+- read it from the debug log (enable the `MEMMAP` logging channel)
 - select `Debug -> Copy PSP memory base address` from the menubar <sup>[(since 1.15)](https://github.com/hrydgard/ppsspp/pull/16994)</sup>
 - run [NABN00B's AutoHotkey script](https://github.com/NABN00B/AutoHotkey.PPSSPP/blob/main/ppsspp_WM.ahk) <sup>(for 1.14 and above)</sup>
 - request it programmatically:
-  - via the [WebSocket debugger API](/docs/reference/websocket-api) [^ws] <sup>[(since 1.7)](https://github.com/hrydgard/ppsspp/blob/9317fbdd5e8304de7fc0351b95cefbcc53228834/Core/Debugger/WebSocket/DisasmSubscriber.cpp#L255-L267)</sup>
+  - by sending the `memory.base`[^ws_bug] event via the [WebSocket debugger API](/docs/reference/websocket-api) <sup>[(since 1.7)](https://github.com/hrydgard/ppsspp/blob/9317fbdd5e8304de7fc0351b95cefbcc53228834/Core/Debugger/WebSocket/DisasmSubscriber.cpp#L255-L267)</sup>
   - by sending the `WM_USER_GET_BASE_POINTER` window message <sup>[(since 1.14)](https://github.com/hrydgard/ppsspp/pull/15748)</sup>
 
-[^ws]: Note: The WebSocket debugger API request returns 8&nbsp;bytes for 32bit PPSSPPWindows process on 64bit Windows. Before v1.15, the return value was **bugged** and the upper 32 bits contained the value of another variable, so you need to get rid of that manually e.g. with `& 0xFFFF_FFFF`. See [#17266].
+[^ws_bug]: Note: the WebSocket debugger API request returns 8&nbsp;bytes for 32bit `PPSSPPWindows.exe` process on 64bit Windows. Before v1.15, the return value for the `memory.base` event was **bugged** and the upper 32 bits contained the value of another variable, so you need to get rid of that manually e.g. with `& 0xFFFF_FFFF`. See [#17266].
 
 ## Useful window messages
 
@@ -47,17 +47,18 @@ const UINT WM_USER_GET_EMULATION_STATE = WM_APP + 0x3119; // 0xB119
 Note that all of the addresses and offsets below represent a `PPSSPPWindows64.exe` process running on x86-64 Windows.
 A `PPSSPPWindows.exe` process running on x86-64 Windows has addressess and offsets that look "similar" enough to be recognizable, but they are all in 32 bits.
 
-- **PSP Memory Base Address**: the address in Windows memory where the emulated PSP's memory starts from (`0x0` in PSP memory). Usually something like `0x0000_01??_????_???` or `0x0000_02??_????_????`.
+- **PSP Memory Base Address**: the address in Windows memory where the emulated PSP's memory starts from (`0x0` in PSP memory). Usually something like `0x0000_01??_????_????` or `0x0000_02??_????_????`.
 
 - **PSP Memory Base Pointer**: the pointer to PSP Memory Base Address. The address where the value is the address in Windows memory where the emulated PSP's memory starts from. Its value is the `PSP Memory Base Address`. Its address is usually something like `0x0000_7ff?_????_????`.
 
-- **PSP User Memory Address**: the address `0x0880_0000` in the emulated PSP's memory where game data starts from. (Mind the different characters!) The addresses of game variables (**offset1** in pointer paths) are higher than this (already contain `0x0880_0000`).
+- **PSP User Memory Address**: the address `0x0880_0000` in the emulated PSP's memory where game data starts from. (Mind the different characters!) The addresses of game variables (**offset1** in pointer paths) are bigger than this (already contain `0x0880_0000`).
 
 - **PPSSPP Process Base Address**: the address in Windows memory where the memory of a `PPSSPPWindows64.exe` process starts from. Often referred to as **PPSSPPWindows64.exe**. Usually something like `0x0000_7ff?_????_????`.
 
-- **PPSSPP Base Offset (to PSP Memory Base Pointer)**: the offset in Windows memory, such that
-`PPSSPP Process Base Address + PPSSPP Process Base Offset == address of PSP Memory Base Pointer`.
-Seems to be between `0x00A0_0000` and `0x0100_0000`. A constant that is usually different for each build.
+- **PPSSPP Base Offset (to PSP Memory Base Pointer)**: the offset in Windows memory, such that:
+`PPSSPP Process Base Address + PPSSPP Process Base Offset == address of PSP Memory Base Pointer`
+Seems to be bigger than `0x00A0_0000`.
+A constant that is usually different for each build.
 
 ### Saving memory addresses
 
@@ -65,28 +66,9 @@ Memory addresses in Cheat Engine can be saved either in static address format or
 Pointer format is preferred, because it will keep the memory address valid throughout multiple sessions, as long as you don't switch PPSSPP versions.
 
 Here is an illustration of memory addresses using the terminology above:
-<img src="/static/img/docs/process_hacking/PPSSPP_CE.png" alt="Visual illustration of Cheat Engine memory addresses using the aforementioned terminology">
+<img src="/static/img/docs/process_hacking/ce_memory_address.png" alt="Visual illustration of Cheat Engine memory addresses using the aforementioned terminology">
 
-### Working with ingame pointers and objects
-
-Members of ingame composite data types (such as structs and objects) cannot be saved as memory addresses in a way that they would remain valid throughout multiple sessions.
-The pointer to the start of an object can be saved as such, but in order to calculate the address of any object member we need to delve into Lua scripting.
-
-In the example below we have the object members saved as dummy memory addresses, all children of a Lua script.
-The idea is to calculate the addresses of the object members and display the memory addresses when the Lua script is activated.
-<img src="/static/img/docs/process_hacking/PPSSPP_CE_Dummy_Addresses.png" alt="Ingame object members saved in Cheat Engine as dummy memory addresses">
-
-Here is the said Lua script:
-<img src="/static/img/docs/process_hacking/PPSSPP_CE_Pointer_Lua.png" alt="Example of a Lua script to calculate the addresses of object members">
-(In the screenshot the base pointer is calculated using a manually retrieved base offset.)
-
-This method will work throughout mutliple sessions.
-
-Things to keep in mind:
-- The memory addresses of object members become invalid whenever the object is deleted by the game.
-- The script needs to be reactivated whenever the object is recreated by the game, in order to recalculate the addresses of object members.
-
-### Cheat Engine script for getting the PPSSPP Process Base Address
+### Cheat Engine script for getting the PSP Memory Base Address
 
 ```lua
 -- By "25094" on GitHub
@@ -112,8 +94,52 @@ end
 
 You can add this inside of any auto assembler script at the start or inside the enable part and it should run fine if you remember to add `{$lua}` before the code.
 
+### Working with ingame pointers and objects
+
+Members of ingame composite data types (such as structs and objects) cannot be saved as memory addresses in a way that they would remain valid throughout multiple sessions.
+The pointer to the start of an object can be saved as such, but in order to calculate the address of any object member we need to delve into scripting.
+
+In the example below we have the object members saved as dummy cheat entries, all children of an auto assembler script.
+The idea is to calculate the addresses of the object members and display the cheat entries when the script is activated.
+<img src="/static/img/docs/process_hacking/ce_dummy_entries.png" alt="Ingame object members saved in Cheat Engine as dummy cheat entries">
+
+Here is the said script written in Lua:
+<img src="/static/img/docs/process_hacking/ce_pointer_script.png" alt="Example of a Lua script to calculate the addresses of object members">
+
+Copy-pasteable version:
+```lua
+{$lua}
+function GetEmuBase()
+	-- see above for function definition
+end
+
+function GtavcsSetPlayerAddress(pPlayer)
+	getAddressList().getMemoryRecordByDescription("GTAVCS Player PositionX").Address = pPlayer + 0x30
+	getAddressList().getMemoryRecordByDescription("GTAVCS Player PositionY").Address = pPlayer + 0x34
+	getAddressList().getMemoryRecordByDescription("GTAVCS Player PositionZ").Address = pPlayer + 0x38
+end
+
+[ENABLE]
+BaseAddress = GetEmuBase()
+GtavcsPlayerPtr = readInteger(BaseAddress + 0x8BC7F10)
+
+if (GtavcsPlayerPtr and GtavcsPlayerPtr ~= 0)
+then
+	GtavcsSetPlayerAddress(BaseAddress + GtavcsPlayerPtr)
+end
+
+[DISABLE]
+```
+
+This method will work throughout mutliple sessions.
+
+Things to keep in mind:
+- The memory addresses of object members become invalid whenever the object is deleted by the game.
+- The script needs to be reactivated whenever the object is recreated by the game, in order to recalculate the addresses of object members.
+
 ## Additional resources
 
-- **[AutoHotkey.PPSSPP](https://github.com/NABN00B/AutoHotkey.PPSSPP)** -- A collection of (work-in-progress) AutoHotkey scripts to manipulate PPSSPP memory.
+- **[emu-help](https://github.com/Jujstme/emu-help-v3)** -- A C# library intended to provide easy access to memory addresses in console games being run via emulators.
+
 
 More will be added in the future.
