@@ -1,6 +1,6 @@
-# PPSSPP Websocket API
+# WebSocket API
 
-PPSSPP has a built-in websocket API that you can use to do various things.
+PPSSPP has a built-in WebSocket API that you can use to do various things.
 
 More information will be added here, but in the meantime, some links:
 
@@ -10,4 +10,6 @@ More information will be added here, but in the meantime, some links:
 
 [Forum thread](https://forums.ppsspp.org/showthread.php?tid=27771)
 
-[Source](https://github.com/hrydgard/ppsspp/blob/master/Core/Debugger/WebSocket.cpp) [Subscribers](https://github.com/hrydgard/ppsspp/tree/master/Core/Debugger/WebSocket)
+[Source](https://github.com/hrydgard/ppsspp/blob/master/Core/Debugger/WebSocket.cpp)
+
+[Subscribers](https://github.com/hrydgard/ppsspp/tree/master/Core/Debugger/WebSocket)
