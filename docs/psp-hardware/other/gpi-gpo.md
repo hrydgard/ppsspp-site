@@ -11,6 +11,6 @@ From 1.18, PPSSPP can return custom settings for the GPI switches, and display t
 ## Known games with GPI/GPO functionality
 
 * GhostBusters: The Video Game will enable a debug overlay if you turn on some GPI switches
-* Parappa The Rapper: Displays a metronome on the GPO LEDs.
+* PaRappa the Rapper: Displays a metronome on the GPO LEDs.
 * LocoRoco/LocoRoco 2: Enables extra debug logging if you turn on some GPI switches
 * Need for Speed Carbon: Own The City: Turn on GPI Switch 5 to get some performance debug info on-screen.

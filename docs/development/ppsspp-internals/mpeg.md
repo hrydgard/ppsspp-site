@@ -29,10 +29,10 @@ scePsmf:
   * Jackass
   * LocoRoco 2
   * Socom Fireteam Bravo 3 (#18094)
-  * Parappa The Rapper
+  * PaRappa the Rapper
   * Machi: Unmei no Kousaten (ULJM05111)
 
 sceMpeg:
-  * GTA: Vice City Stories (initial logos)
+  * Grand Theft Auto: Vice City Stories (initial logos)
   * Crisis Core
   * Wipeout Pulse

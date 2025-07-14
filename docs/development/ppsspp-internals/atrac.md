@@ -269,7 +269,7 @@ However, if you supply less data than asked, you can still create split packets 
 ### Streaming
 
 - Starts with a halfway initialized buffer:
-  - GTA - Vice City Stories
+  - Grand Theft Auto: Vice City Stories
 
 - Good ones for testing (early)
   - Burnout Legends (no loop, 0x1800 buffer size, uses irregular AddData sizes)
@@ -413,7 +413,7 @@ SCE_KERNEL_ERROR_SCE_ERROR_ATRAC_NO_LOOP_INFORMATION=sceAtracSetLoopNum(0, 0): n
 0=sceAtracGetRemainFrame(0, 09fe1980[000000ae])
 ```
 
-### GTA Vice City
+### Grand Theft Auto: Vice City Stories
 
 Uses sceAtracSetHalfwayBufferAndGetID with a very small readSize, and a buffer much smaller
 than the size of the file. This results in a streaming state, not a "halfway" state, but differently
