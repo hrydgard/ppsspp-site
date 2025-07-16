@@ -88,6 +88,10 @@ a:hover {
   align-items: center;
 }
 
+.center-vertical img {
+  margin-left: 0.5ch;
+}
+
 .clean-list {
   padding-inline-start: 0px;
   list-style: none;

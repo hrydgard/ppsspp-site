@@ -121,9 +121,9 @@ const tmplUserInfo = `
 <strong>&nbsp;(ADMIN)</strong>
 {{ /if }}
 </p>
-<p>Email: {{it.email}}.</p>
+<p>E-mail: {{it.email}}</p>
 {{ @if (it.goldUser) }}
-<p>Gold status!</p>
+<p class="center-vertical">Gold status!<img src="/static/img/platform/ppsspp-icon-gold.png" aria-hidden="true" class="icon-24"></p>
 {{ /if }}
 <p><a href="/changepassword">Change password</a></p>
 </div>
