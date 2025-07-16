@@ -26,7 +26,7 @@
                 "filename": "ppsspp.apk"
             },
             {
-                "name": "F-Droid repository",
+                "name": "F-Droid package",
                 "icon": "ppsspp-icon.png",
                 "url": "https://f-droid.org/packages/org.ppsspp.ppsspp/",
                 "service_image": "/static/img/platform/fdroid-badge.svg",
