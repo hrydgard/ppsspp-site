@@ -27,7 +27,8 @@
     color: var(--color-a-hover);
 }
 
-.top-nav img {
+.top-nav .center-vertical img {
+    margin-left: 0;
     margin-right: 1ch;
 }
 
