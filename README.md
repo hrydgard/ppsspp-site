@@ -77,4 +77,6 @@ Use one of the below as appropriate:
 
 ## Resources
 
-https://dev.to/madsstoumann/dark-mode-in-3-lines-of-css-and-other-adventures-1ljj
+- [Dark mode guide by Mads Stoumann](https://dev.to/madsstoumann/dark-mode-in-3-lines-of-css-and-other-adventures-1ljj)
+- [Source of homepage's background animation by Warren Davies](https://alvarotrigo.com/blog/animated-backgrounds-css/)
+- [Unused image for article headers](https://www.zupimages.net/up/22/08/uitq.png)
