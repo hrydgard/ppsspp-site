@@ -1,0 +1,189 @@
+/* Article / doc stuff */
+.feed-links {
+    margin-top: 12px;
+}
+
+.article {
+    /* General */
+    display: block;
+}
+
+.article .article-infos ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.article .article-infos ul li {
+    display: inline-block;
+    font-size: 14px;
+    margin: 0 1rem 0 0;
+    padding: 0;
+}
+
+.article .article-infos ul li a {
+    color: var(--color-text);
+}
+
+.article .article-infos i {
+    color: var(--color-gray-300);
+}
+
+a.next {
+    text-align: right;
+}
+
+.nav-link-container {
+    display: table;
+    width: 100%;
+    border-spacing: 3px;
+    table-layout: fixed;
+}
+
+a.nav-link {
+    display: table-cell;
+    border-width: 2px;
+    border-color: var(--color-gray-700);
+    border-radius: 10px;
+    border-style: solid;
+    margin: 20px 0px 10px 0px;
+    padding: 10px;
+    width: 48%;
+}
+
+a.nav-link:hover {
+    border-color: var(--color-primary);
+}
+
+a.nav-link .direction {
+    margin: 3px;
+    color: var(--color-text);
+}
+
+a.nav-link:hover {
+    text-decoration: none;
+}
+
+a.nav-link .title {
+    margin: 3px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Style the list */
+ul.breadcrumb {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 10px;
+    list-style: none;
+    margin-top: 12px;
+    margin-left: -5px;
+    background-color: var(--color-gray-800);
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+    display: inline;
+    font-size: 14pt;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li+li:before {
+    padding: 8px;
+    color: var(--color-text);
+    content: "/\00a0";
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+    text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+    text-decoration: underline;
+}
+
+ul.tag-list {
+    display: inline-block;
+    padding: 4px 0px;
+    list-style: none;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+ul.tag-list li {
+    display: inline;
+    font-size: 14pt;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+ul.tag-list li a {
+    border-radius: 7px;
+    background-color: var(--color-gray-800);
+    padding: 8px;
+    box-shadow: 0 3px 5px var(--shadow-color);
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+ul.tag-list li a:hover {
+    color: var(--color-primary);
+    background-color: var(--color-gray-700);
+    text-decoration: none;
+}
+
+ul.tag-list li.selected a {
+    color: var(--color-primary);
+    background-color: var(--color-gray-700);
+    text-decoration: none;
+}
+
+.doc-sidebar a {
+    float: none;
+    display: block;
+    color: var(--color-text);
+}
+
+.doc-sidebar a.selected {
+    color: var(--color-primary);
+}
+
+.doc-sidebar a:hover {
+    color: var(--color-primary);
+}
+
+/* */
+ul.nav-tree-items {
+    list-style: none;
+    padding: 0px;
+    margin-right: 0px;
+    margin-bottom: 7px;
+}
+
+ul.nav-tree-items .level-1,
+ul.nav-tree-items .level-2,
+ul.nav-tree-items .level-3 {
+    padding-left: 15px;
+}
+
+a.nav-tree-category {
+    display: block;
+    font-weight: bold;
+    padding-left: 5px;
+    margin-bottom: 5px;
+}
+
+a.nav-tree-item {
+    display: block;
+    padding-left: 5px;
+    margin-bottom: 0px;
+}
+
+a.nav-tree-category.selected,
+a.nav-tree-item.selected {
+    background-color: var(--color-gray-800);
+}
