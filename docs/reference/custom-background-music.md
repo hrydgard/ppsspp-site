@@ -61,12 +61,13 @@ Homebrew are not listed.
     In the future, this will be possible by creating a <code>ROOT</code> folder in the <code>PSP</code> folder to simulate this.
 </div>
 
-Find the custom music folder for your game here: <sup>table is not yet complete</sup>
+Find the custom music folder for your game here: <sup>(table is not yet complete!)</sup>
 | Game | Folder | Notes |
 | --- | --- | --- |
 | Beats | `ms:/PSP/MUSIC` | |
 | Crazy Taxi: Fare Wars | `ms:/MUSIC` | |
 | Gran Turismo | `ms:/MUSIC` | unlockable feature;<br />subfolder selection supported |
+| SD Gundam G Generation Overworld | `ms:/MUSIC/OVERWORLD` | [explanation video](https://www.youtube.com/watch?v=LiNSQdUVjfU) |
 | Surf's Up | `ms:/MUSIC/SURFSUP` | bitrate (kb/s): 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192;<br />sample rate: 44.1khz;<br />max 20 songs supported |
 | TOCA Race Driver 3 Challenge,<br />DTM Race Driver 3 Challenge,<br />V8 Supercars Australia 3: Shootout | `ms:/PSP/MUSIC` | subfolder selection supported |
 | Ultimate Board Game Collection | `ms:/PSP/MUSIC`,<br />`ms:/MUSIC` | subfolders supported |
@@ -75,42 +76,41 @@ Find the custom music folder for your game here: <sup>table is not yet complete<
 In Gran Turismo to unlock custom music you must first [clear all Driving Challenges in blocks A and B](https://gran-turismo.fandom.com/wiki/Driving_Challenges_(GTPSP)), the rating doesn't matter.
 Then it will be available through the options menu.
 
-<div class="alert alert-info">Games might have trouble reading non-standard MP3 files.
-    If you suspect that your file is impaired, try opening and exporting it with a constant bitrate using <a href="https://www.audacityteam.org/">Audacity</a>.
+<div class="alert alert-info">Some games might have trouble reading MP3 files that have a sample rate different from 44,100 Hz.
+    If you suspect that your file is affected, try opening and exporting it with 44,100 Hz sample rate using <a href="https://www.audacityteam.org/">Audacity</a>.
 </div>
 
-## Games that read Atrac3+ files
+## Games that read ATRAC files
 
-Some games read Atrac3+ encoded files instead of MP3's for custom music.
+Some games read Atrac3 / Atrac3+ encoded files instead of MP3's for custom music.
 For these games you need to convert your songs to the proper format first.
 The guide here requires a Windows PC.
 
 Originally tools such as **[Exact Audio Copy PSP Edition](https://archive.org/details/codemasters-eacsetup)** by Codemasters or **[Rockstar Custom Tracks](https://thegtaplace.com/downloads/f1123-rockstar-custom-tracks)** by Rockstar Games were intended to be used.
-However, EAC doesn't work on modern Windows and RCT only supports conversion from audio CD's.
+The two are essentially the same, however, RCT is limited to accepting only commercial audio CD's as input, while EACPE can convert MP3 files as well.
 
-Nowadays we can also use **[ATRACTool Reloaded](https://github.com/XyLe-GBP/ATRACTool-Reloaded)** for this purpose.
-It can encode Waveform Audio File Format (`.WAV`) audio into Atrac3+ (`.at3`) and other Sony formats.
+The issue with both however, is that they require your computer to have either a physical or an emulated optical disc drive, otherwise they freeze upon launch.
+(Using the built-in Windows feature to mount a disk image is not sufficient.)
+
+Nowadays we can just use **[ATRACTool Reloaded](https://github.com/XyLe-GBP/ATRACTool-Reloaded)** instead.
+It can convert various audio formats into Waveform Audio File Format (`.WAV`) and then encode it into Atrac3+ (`.at3`).
 
 Simply download and install the tool, along with the adequate .NET Desktop Runtime version.
 You can safely ignore the warning about OpenMG upon starting it.
 
-ATRACTool Reloaded works with both mono and stereo `.WAV` files with most of the common bitrates.
-However, the file must be encoded in 16-bit PCM mode with a sample rate of 44,100 Hz (44.1 kHz).
+For the sake of convenience, enable these two settings under `Config -> Preferences` from the menubar:
 
-![ATRACTool Reloaded failed to encode the ATRAC file. Log: Not Supported Param](/static/img/docs/custom_background_music/custombgm_atrac3_atractool_fail.jpg)
+![Enable the "Fixed output format for Wave conversion" setting and select the 44.1kHz from the list. Also enable the "Force conversion even if only wave files are read" setting.](/static/img/docs/custom_background_music/atractool_preferences.png)
 
-If you get an error while loading or encoding a file, it either means that it's not in `.WAV` format or that it's encoded differently.
-You have to re-encode it to such yourself, e.g. via [Audacity](https://www.audacityteam.org/).
-Simply open the file, and select `File -> Export Audio...` from the menubar.
-
-![When exporting to WAV, make sure to set Channels either to "Mono" or "Stereo", Sample Rate to "44100 Hz" and Encoding to "Signed 16-bit PCM".](/static/img/docs/custom_background_music/custombgm_atrac3_audacity_export.jpg)
+In the scenario you have the `Force conversion even if only wave files are read` setting disabled and you want to load `.WAV` files directly, they must be encoded in 16-bit PCM mode with a sample rate of 44,100 Hz (44.1 kHz)!
+If you get an error while loading or encoding a `.WAV` file, it means that it's encoded differently.
 
 In case you want to try out the feature first before you commit yourself to encoding your files, we provide 2 songs for you, already in Atrac3+:
 - [eu-short.at3](/static/img/docs/custom_background_music/eu-short.at3)
 - [We_Wish_You_a_Merry_Christmas.at3](/static/img/docs/custom_background_music/We_Wish_You_a_Merry_Christmas.at3)
 
-<div class="alert alert-info">Tip: Some games have their official soundtrack encoded in Atrac3+.
-    Try extracting a radio station file from GTA and loading it as a custom song in TOCA Race Driver 2.
+<div class="alert alert-info">Tip: Some games have their official soundtrack encoded in Atrac3 / Atrac3+.
+    Try extracting a music file from Test Drive Unlimited and loading it as a custom song in GTA or TOCA Race Driver 2.
 </div>
 
 ### Grand Theft Auto: Liberty City Stories & Vice City Stories
