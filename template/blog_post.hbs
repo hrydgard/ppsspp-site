@@ -1,50 +1,26 @@
-<div>
-    <div class="article">
-        {{ #if picture_title }}
-        {{!-- unused --}}
-        <div class="ms-article-picture">
-            <img src="https://www.zupimages.net/up/22/08/uitq.png" aria-hidden="true">
-            <div class="ms-article-picture-overlay"></div>
-            <div class="ms-article-picture-title">
-                <a href="">{{ picture_title}}</a>
-            </div>
-        </div>
-        {{ /if }}
-        <div class="article-infos">
-            <ul>
-                {{#with (lookup globals.authors meta.author)}}
-                <li>
-                    {{#if image_url}}<img src="{{image_url}}" alt="author" class="icon-pfp icon-24">
-                    {{else}}<i role="img" aria-label="author" class="icon-ui icon-ui-user icon-24"></i>
-                    {{/if}}
-                    <b>{{name}}</b>
-                </li>
-                <li><i role="img" aria-label="tagged as" class="icon-ui icon-ui-folder"></i> <b>{{#each ../meta.tags}}<a
-                            href="/{{../../meta.section}}/tags/{{this}}">{{this}}</a> {{/each}} </b></li>
-                <li><i role="img" aria-label="dated" class="icon-ui icon-ui-clock"></i> <b>{{ ../meta.date }}</b></li>
-                {{#if url}}<li><a href="{{url}}"><i aria-label="personal webpage" class="icon-ui icon-ui-link"></i></a></li>{{/if}}
-                {{#if twitter_url}}<li><a href="{{twitter_url}}"><i aria-label="X profile" class="icon-ui icon-ui-x-twitter"></i></a></li>{{/if}}
-                {{#if github_url}}<li><a href="{{github_url}}"><i aria-label="GitHub profile" class="icon-ui icon-ui-github-alt"></i></a></li>{{/if}}
-                {{/with}}
-            </ul>
-        </div>
-        <div class="ms-article-title">
-            <h1>{{ title }}</h1>
-        </div>
-        <div class="ms-article-text">
-            {{{ contents }}}
-        </div>
-        <div class="ms-user ms-compact ms-borderless">
-            {{ #if author_image }}
-            <div class="ms-avatar">
-                <img class="ms-avatar-img" src="{{ author_image }}" aria-hidden="true">
-            </div>
-            {{ /if }}
-            <div class="ms-user-info">
-                <p>
-                    <b>{{ author }}</b><br />
-                </p>
-            </div>
-        </div>
+<div class="article">
+    <div class="article-infos">
+        <ul>
+            {{#with (lookup globals.authors meta.author)}}
+            <li>
+                {{#if image_url}}<img src="{{ image_url }}" alt="author" class="icon-pfp icon-24">
+                {{else}}<i role="img" aria-label="author" class="icon-ui icon-ui-user icon-24"></i>
+                {{/if}}
+                <b>{{name}}</b>
+            </li>
+            <li><i role="img" aria-label="tagged as" class="icon-ui icon-ui-folder"></i> <b>{{#each ../meta.tags}}<a
+                        href="/{{ ../../meta.section }}/tags/{{ this }}">{{ this }}</a> {{/each}} </b></li>
+            <li><i role="img" aria-label="dated" class="icon-ui icon-ui-clock"></i> <b>{{ ../meta.date }}</b></li>
+            {{#if url}}<li><a href="{{ url }}"><i aria-label="personal website" class="icon-ui icon-ui-link"></i></a></li>{{/if}}
+            {{#if twitter_url}}<li><a href="{{ twitter_url }}"><i aria-label="X profile" class="icon-ui icon-ui-x-twitter"></i></a></li>{{/if}}
+            {{#if github_url}}<li><a href="{{ github_url }}"><i aria-label="GitHub profile" class="icon-ui icon-ui-github-alt"></i></a></li>{{/if}}
+            {{/with}}
+        </ul>
+    </div>
+    <div>
+        <h1>{{ title }}</h1>
+    </div>
+    <div>
+        {{{ contents }}}
     </div>
 </div>
