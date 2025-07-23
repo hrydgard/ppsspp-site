@@ -205,3 +205,29 @@ The following version of the game **DOES NOT** support custom music:
 | TOCA Race Driver 2 | Japan | ULJM05160 |
 
 The European and Japanese versions of the game are also known as **TOCA Race Driver 2: Ultimate Racing Simulator**.
+
+## Custom sound and music in Beaterator
+
+Beaterator is a unique game in the sense that it revolves around creating new songs.
+For this reason, it supports reading the more professional Waveform Audio File Format (`.WAV`) and MIDI (`.MID`) files.
+The game itself is rather complex, so it won't be explained in detail here.
+
+All custom sound and music files go into the `ms:/MUSIC/BEATERATOR` folder.
+
+The game allows you to import `.WAV` files as sounds to use when creating or editing drum, melody and audio loops.
+They must be encoded in 16-bit PCM mode with a sample rate of either 22,050 Hz (22.05 kHz) or 44,100 Hz (44.1 kHz)!
+
+The game also allows you to record new sounds using the microphone when creating or editing loops.
+
+<div class="alert alert-warning">Recording audio for the game using the microphone currently doesn't work in PPSSPP.
+    The resulting sound will be junk.
+    Until <a href="https://github.com/hrydgard/ppsspp/issues/19528">issue #19528</a> is resolved, this feature shouldn't be used.
+</div>
+
+You can also export your loops onto the memory stick in `.MID` format (with limitations).
+
+The game also allows you to import `.MID` files (with limitations) as songs to play or edit.
+
+You can also export your songs onto the memory stick in `.WAV` and (with limitations) in `.MID` formats.
+
+All exported sound and music files are written into the `ms:/MUSIC/BEATERATOR` folder.
