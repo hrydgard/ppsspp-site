@@ -4,7 +4,9 @@ On the PSP, some games have support for playing audio files that you put on the 
 
 Usually they require putting the music in a specific folder and then enabling the feature through the ingame sound options menu.
 
-Some games also support selecting between the main folder and its subfolders.
+To find the location of your memory stick on your device, navigate to <b class="inapp">Settings -> System -> PSP Memory Stick -> Show Memory Stick folder</b>.
+
+Some games also have the option of selecting to play music from subfolders.
 This can be used to organize your songs into playlists or albums.
 
 If you know some details that are missing below, [contact me](/contact).
@@ -15,11 +17,11 @@ More and better information will be available on this page over time.
 
 This list should be pretty close to complete:
 - ATV Offroad Fury: Blazin' Trails
-- Beats
-- Boom Beats
-- Crazy Taxi: Fare Wars
+- Beaterator
+- Beats / Shouten Beat
+- Crazy Taxi: Fare Wars / Crazy Taxi: Double Punch
 - Dead or Alive Paradise
-- Elminage Original (with patch 1.01)
+- Elminage Original<small> (with patch 1.01)</small>
 - Gran Turismo
 - Grand Theft Auto: Liberty City Stories
 - Grand Theft Auto: Vice City Stories
@@ -45,14 +47,30 @@ This list should be pretty close to complete:
 - Pro Evolution Soccer 2014 / World Soccer: Winning Eleven 2014
 - SD Gundam G Generation Overworld
 - Surf's Up
-- Test Drive Unlimited <sup>(how? there's no option?)</sup>
 - TOCA Race Driver 2 / DTM Race Driver 2 / V8 Supercars Australia 2 / Race Driver 2006
 - TOCA Race Driver 3 Challenge / DTM Race Driver 3 Challenge / V8 Supercars Australia 3: Shootout
 - Ultimate Board Game Collection
-- Untold Legends: The Warrior's Code <sup>(how? there's no option?)</sup>
 - WipEout Pulse
 
 Homebrew are not listed.
+
+<!--
+### List of bogus games
+
+The following games DO NOT actually support custom music:
+- ATV Offroad Fury Pro
+- Boom Beats
+- MX vs. ATV Reflex
+- MX vs. ATV Unleashed: On the Edge
+- MX vs. ATV Untamed / MX vs. ATV Extreme Limite
+- Test Drive Unlimited
+- <small>the Japanese release of </small>TOCA Race Driver 2<small> (maybe it's possible to patch the game to unlock it?)</small>
+- Untold Legends: Brotherhood of the Blade
+- Untold Legends: The Warrior's Code
+- WipEout Pure<small> and </small>WipEout Pure: Stealth Edition
+
+If someone claims otherwise, they should be asked to provide evidence and detailed instructions.
+-->
 
 ## Games that read MP3 files
 
@@ -64,20 +82,17 @@ Homebrew are not listed.
 Find the custom music folder for your game here: <sup>(table is not yet complete!)</sup>
 | Game | Folder | Notes |
 | --- | --- | --- |
-| Beats | `ms:/PSP/MUSIC` | |
-| Crazy Taxi: Fare Wars | `ms:/MUSIC` | |
-| Gran Turismo | `ms:/MUSIC` | unlockable feature;<br />subfolder selection supported |
+| Beats,<br />Shouten Beat | `ms:/PSP/MUSIC`,<br />`ms:/MUSIC` | &#x26A0;&#xFE0F;&nbsp;see issue [#14812];<br />subfolders supported;<br />ATRAC also supported |
+| Crazy Taxi: Fare Wars,<br />Crazy Taxi: Double Punch | <small>primary:</small>`ms:/MUSIC/CRAZYTAXI`<br /><small>fallback:</small>`ms:/MUSIC` | &#x26A0;&#xFE0F;&nbsp;see issue [#15509];<br />fallback folder is only checked if no MP3 files found in primary folder |
+| Gran Turismo | `ms:/MUSIC` | you must first [clear all Driving Challenges in blocks A and B](https://gran-turismo.fandom.com/wiki/Driving_Challenges_(GTPSP)) (the rating doesn't matter);<br />subfolder selection supported |
 | SD Gundam G Generation Overworld | `ms:/MUSIC/OVERWORLD` | [explanation video](https://www.youtube.com/watch?v=LiNSQdUVjfU) |
-| Surf's Up | `ms:/MUSIC/SURFSUP` | bitrate (kb/s): 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192;<br />sample rate: 44.1khz;<br />max 20 songs supported |
+| Surf's Up | `ms:/MUSIC/SURFSUP` | bitrate (kb/s): 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192;<br />sample rate: 44.1khz;<br />only the first 20 files are loaded |
 | TOCA Race Driver 3 Challenge,<br />DTM Race Driver 3 Challenge,<br />V8 Supercars Australia 3: Shootout | `ms:/PSP/MUSIC` | subfolder selection supported |
 | Ultimate Board Game Collection | `ms:/PSP/MUSIC`,<br />`ms:/MUSIC` | subfolders supported |
 | WipEout Pulse | `ms:/MUSIC/WIPEOUT` | |
 
-In Gran Turismo to unlock custom music you must first [clear all Driving Challenges in blocks A and B](https://gran-turismo.fandom.com/wiki/Driving_Challenges_(GTPSP)), the rating doesn't matter.
-Then it will be available through the options menu.
-
-<div class="alert alert-info">Some games might have trouble reading MP3 files that have a sample rate different from 44,100 Hz.
-    If you suspect that your file is affected, try opening and exporting it with 44,100 Hz sample rate using <a href="https://www.audacityteam.org/">Audacity</a>.
+<div class="alert alert-info">Games might have trouble reading MP3 files that have a sample rate different from 44,100 Hz.
+    If your song is playing in incorrect pitch or speed, try opening and exporting it with 44,100 Hz sample rate using <a href="https://www.audacityteam.org/">Audacity</a>.
 </div>
 
 ## Games that read ATRAC files
@@ -87,7 +102,7 @@ For these games you need to convert your songs to the proper format first.
 The guide here requires a Windows PC.
 
 Originally tools such as **[Exact Audio Copy PSP Edition](https://archive.org/details/codemasters-eacsetup)** by Codemasters or **[Rockstar Custom Tracks](https://thegtaplace.com/downloads/f1123-rockstar-custom-tracks)** by Rockstar Games were intended to be used.
-The two are essentially the same, however, RCT is limited to accepting only commercial audio CD's as input, while EACPE can convert MP3 files as well.
+The two are essentially the same, but RCT is limited to accepting only commercial audio CD's as input, while EACPE can convert MP3 files as well.
 
 The issue with both however, is that they require your computer to have either a physical or an emulated optical disc drive, otherwise they freeze upon launch.
 (Using the built-in Windows feature to mount a disk image is not sufficient.)
@@ -110,7 +125,33 @@ In case you want to try out the feature first before you commit yourself to enco
 - [We_Wish_You_a_Merry_Christmas.at3](/static/img/docs/custom_background_music/We_Wish_You_a_Merry_Christmas.at3)
 
 <div class="alert alert-info">Tip: Some games have their official soundtrack encoded in Atrac3 / Atrac3+.
-    Try extracting a music file from Test Drive Unlimited and loading it as a custom song in GTA or TOCA Race Driver 2.
+    Try extracting a music file from Test Drive Unlimited and loading it as a custom song in any of the games below.
+</div>
+
+### ATV Offroad Fury: Blazin' Trails
+
+Custom music files go into a special folder next to the save data folders.
+
+The filenames must contain a dash `-` character in the middle, otherwise the game ignores the songs!
+The game uses this to tell apart the name of the artist from the title of the song.
+Make sure to rename your files accordingly, e.g. `United_States_Navy_Band-We_Wish_You_a_Merry_Christmas.at3`!
+
+Find the music folder for your game version here:
+| Game Version | Serial | Folder |
+| --- | --- | --- |
+| American | UCUS98603 | `ms:/PSP/SAVEDATA/UCUS98603MUSIC` |
+| European | ULES00155 | `ms:/PSP/SAVEDATA/ULES00155MUSIC` |
+
+
+### Beats
+
+Custom music files go into `ms:/PSP/MUSIC`, `ms:/MUSIC` and any of their subfolders.
+
+The game also supports reading MP3 files, ~~so there's little reason to convert your files to Atrac3+~~.
+You can play the soundtrack of other PSP games though.
+
+<div class="alert alert-warning">The game currently doesn't work well with custom MP3 files in PPSSPP.
+    Until <a href="https://github.com/hrydgard/ppsspp/issues/14812">issue #14812</a> is resolved, ATRAC format should be used.
 </div>
 
 ### Grand Theft Auto: Liberty City Stories & Vice City Stories
@@ -123,7 +164,7 @@ Make sure to rename your files accordingly, e.g. `We_Wish_You_a_Merry_Christmas.
 The games ignore songs that are shorter than 5 seconds.
 
 Find the custom tracks folder for your Liberty City Stories version here:
-| Game Version | Game Serial | Folder |
+| Game Version | Serial | Folder |
 | --- | --- | --- |
 | American,<br />Korean | ULUS10041 | `ms:/PSP/SAVEDATA/ULUS10041CUSTOMTRACKS` |
 | European | ULES00151 | `ms:/PSP/SAVEDATA/ULES00151CUSTOMTRACKS` |
@@ -132,7 +173,7 @@ Find the custom tracks folder for your Liberty City Stories version here:
 | Sindacco Chronicles (romhack, all versions) | ULUS01826 | `ms:/PSP/SAVEDATA/ULUS01826CUSTOMTRACKS` |
 
 Find the custom tracks folder for your Vice City Stories version here:
-| Game Version | Game Serial | Folder |
+| Game Version | Serial | Folder |
 | --- | --- | --- |
 | American | ULUS10160 | `ms:/PSP/SAVEDATA/ULUS10160CUSTOMTRACKS` |
 | European | ULES00502 | `ms:/PSP/SAVEDATA/ULES00502CUSTOMTRACKS` |
@@ -158,7 +199,7 @@ Find the save folder for your game version here:
 | DTM Race Driver 2 | Germany | ULES00041 | `ms:/PSP/SAVEDATA/ULES000410000` |
 | V8 Supercars Australia 2 | Australia | ULES00042 | `ms:/PSP/SAVEDATA/ULES000420000` |
 
-The following versions of the game **DO NOT** support custom music:
+The following version of the game **DOES NOT** support custom music:
 | Game Title | Region | Serial |
 | --- | --- | --- |
 | TOCA Race Driver 2 | Japan | ULJM05160 |
