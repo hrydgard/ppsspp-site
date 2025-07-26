@@ -1,21 +1,22 @@
 # Creating texture replacement packs
 
+## Dumping your textures
+
 You can create texture replacement packs in PPSSPP to replace textures.
 
-It's also possible to include a textures.ini file to customize them, but defaults are used if the file doesn't exist. It's recommended to have one though. Creating one is
-easy, just open your game, press ESC and go into settings, tools, developer tools and choose "Create/Open textures.ini file for your game".
+(If you're looking for information on how to use existing texture packs instead of how to create new ones, [click here](/docs/reference/use-texture-replacement).)
 
-If you're looking for information on how to use existing texture packs instead of how to create new ones, [click here](/docs/reference/use-texture-replacement).
+Anyway, start by creating a textures.ini file. This can be done automatically: Just load up your game, press ESC and go into settings, tools, developer tools, texture replacement, and choose "Create/Open textures.ini file for your game".
+
+In the ini file, you should probably set hash="xxh64" and ignoreAddress="true" for the best tradeoff between robustness and speed.
+
+Then enable "Save textures" and play the game to get the textures dumped. They'll collect in the "new" subfolder in your texture pack. Then move them out from there into the main texture pack folder, or in subfolders if you create ini file entries for them, see below. Then you can start editing them.
+
+When you restart the game now with texture replacement enabled, they should show up.
 
 ## Supported image file formats
 
 When saving textures, they'll be written to disk in png format. While png is okay, it's not the fastest to load, plus it decompresses to full RGBA8888 format in video memory, which is a little wasteful.
-
-PPSSPP also supports ".zim" which is a custom format consisting of a short header detailing format and dimensions, followed by the raw image compressed with Zstd. It loads a lot faster than png, but keep reading, from 1.15 there will be better alternatives.
-
-The ZIM format converter might be made available for download soon. In the meantime, here's instructions to build and use the tool: [link](https://github.com/hrydgard/ppsspp/issues/12332#issuecomment-846764577).
-
-Using pngquant / pngyu to reduce the size of PNGs will also make PNG files load faster. See [this post](https://github.com/hrydgard/ppsspp/issues/12059#issuecomment-1436104606) for reference.
 
 From 1.15, PPSSPP supports multiple efficient GPU-native [texture compression formats](https://en.wikipedia.org/wiki/Texture_compression). Here's the current list:
 
@@ -25,13 +26,9 @@ From 1.15, PPSSPP supports multiple efficient GPU-native [texture compression fo
 Basis and UASTC are "intermediate" formats that can be efficiently transcoded to
 commonly supported native formats (BC1 and ETC2 in case of Basis, BC7 and ASTC 4x4 in case of UASTC). The main advantage is of course that the same texture pack can work on both mobile and desktop with this technology.
 
-### Limitations and properties of compressed texture formats
+PPSSPP also has a native ".zim" format which is similar to .png but much faster to load. However given the above, it's no longer very useful. If you do want to use it, see [link](https://github.com/hrydgard/ppsspp/issues/12332#issuecomment-846764577).
 
-* These formats are supported in PPSSPP 1.15 or later only.
-* Basis is RGB-only, no alpha (but consumes half the memory - just 0.5 bytes per pixel). It also generally doesn't look very good, so only use on textures where you don't need the best quality.
-* UASTC supports full RGBA at excellent quality, not far from native BC7 or ASTC. The data size is bigger than basis though at 1 byte per pixel. Still a huge win over raw RGBA with 4 bytes per pixel...
-* DDS will load marginally faster than KTX2 since no transcoding is needed, but these formats are generally not supported on mobile. So there's a tradeoff.
-* UASTC is not natively supported on D3D9 or OpenGL ES 2.0, it will be transcoded to raw RGBA, eating up the benefits (still usable though).
+If you want to stick with .png for compatibility with very old PPSSPP versions, or just the ease of use, using pngquant / pngyu to reduce the size of PNGs will also make PNG files load faster. See [this ost](https://github.com/hrydgard/ppsspp/issues/12059#issuecomment-1436104606) for reference.
 
 ### Texture compression tools and recommendations
 
@@ -61,6 +58,14 @@ For textures that are not supposed to wrap around (like title screens, menu piec
 
 Then just refer to the .ktx2 files instead of .png files in the ini. You can delete the png files after compressing to ktx2, or keep them around if you want, but you don't have to ship them in your pack if you ship the ktx2 files. Note that both these formats are somewhat lossy so if you plan further editing, keep the .png files around somewhere.
 
+### Limitations and properties of KTX2/DDS compressed texture formats
+
+* These formats are supported in PPSSPP 1.15 or later only.
+* Basis is RGB-only, no alpha (but consumes half the memory - just 0.5 bytes per pixel). It also generally doesn't look very good, so only use on textures where you don't need the best quality.
+* UASTC supports full RGBA at excellent quality, not far from native BC7 or ASTC. The data size is bigger than basis though at 1 byte per pixel. Still a huge win over raw RGBA with 4 bytes per pixel...
+* DDS will load marginally faster than KTX2 since no transcoding is needed, but these formats are generally not supported on mobile. So there's a tradeoff.
+* UASTC is not natively supported on D3D9 or OpenGL ES 2.0, it will be transcoded to raw RGBA, eating up the benefits (still usable though).
+
 #### Thumbnails in Windows Explorer
 
 If you want to see thumbnails for KTX2 textures in Explorer, try the [Kram thumbnailer](https://github.com/alecazam/kram/tree/main/kram-thumb-win). (note: I have not tested this yet)
@@ -71,9 +76,10 @@ If you want to see thumbnails for KTX2 textures in Explorer, try the [Kram thumb
 [options]
 # 1 is the only version, as of writing
 version = 1
-# Quick is the default hash.  Other options: xxh32, xxh64 (better hashes, but slower)
+# 'quick' is the default hash.  Other options: xxh32, xxh64 (better hashes, but slower)
 # ALL hashes will change if you change this option, so pick one at the beginning and stick with it.
-hash = quick
+hash = xxh64
+ignoreAddress="true"
 
 # By default, a file with .png at the end of the hash is used.
 # Override below to share filenames or use custom filenames.
