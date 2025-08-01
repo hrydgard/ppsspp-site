@@ -25,16 +25,22 @@ Also, this is just one way to install it. There may be others.
 
 [Sugoyga's SideStore guide for PPSSPP on iOS](https://suyogya.link/installing-sidestore-and-ppsspp-on-ios/)
 
-## Missing features
+## Missing and upcoming features
+
+### Planned features
+
+* Device rotation is coming in 1.20.
+
+### Missing features
 
 The iOS build is missing a few features:
 
 * Camera input
 * Microphone
 
-## Previously missing features
+### Previously missing features
 
 These have been fixed:
 
 * UI keyboard input (now works, so RetroAchivement login works too)
-* Background image replacement
+* Background image replacement (the easy way) (1.19).

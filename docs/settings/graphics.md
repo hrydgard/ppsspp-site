@@ -25,7 +25,7 @@ We have implemented support for a few of the most common graphics APIs:
 Sets the resolution to render at as a multiplier of the PSP's original resolution. Setting it to higher values
 than 1x can affect performance, depending on your hardware, but will create a much nicer and sharper image.
 
-4x is almost exactly equal to 1080p (1920x1288 vs 1920x1280), and if you have your monitor set to that, PPSSPP will automatically cut off 4 pixels at the top and bottom of the screen to make it fit.
+4x is almost exactly equal to 1080p (1920x1088 vs 1920x1080), and if you have your monitor set to that, PPSSPP will automatically cut off 4 pixels at the top and bottom of the screen to make it fit.
 
 You might get a bit of extra antialiasing by setting the resolution higher than what your monitor can do, and letting the emulator downscale, there are also a few postprocessing filters that do a good job helping out with that. But it's better to use MSAA in Vulkan.
 
@@ -83,6 +83,12 @@ more predictable manner than using the unlimited fast-forward key.
 
 Unfortunately due to how the way this works, audio will glitch and crackle at any other speed than 100%.
 
+## Lens flare occlusion
+
+Some games implement lens flare effects by having the CPU read directly from the Z buffer to check whether a pixel is occupied by say a building, or if the lens flare should be drawn. Reading from the Z buffer like this asynchronously using the CPU is not possible on PC or Android, it requires us to read back the entire Z buffer image to RAM which is very slow.
+
+For this reason, we have implemented a Z-only software renderer that runs on the CPU, which lets these readbacks work. This takes quite a bit of CPU though so it's only enabled in affected games, like Wipeout Pure. If you rather have inaccurate lens flares than spend CPU on these, you can turn this setting down here.
+
 ## Speedhacks
 
 These are settings that can speed things up in games. The effect ranges from none to large, depending
@@ -93,6 +99,10 @@ on which game you're trying to play, and the hardware you're trying to play it o
   The PSP can render to any location in its VRAM and use as either the scanout buffer (what you see on the screen) or textures. Many games use this to implement various special effects. We simulate this by representing each detected PSP framebuffer with a native framebuffer image.
 
 Disabling it, and thus skipping rendering of everything that's not rendering directly to the backbuffer, is a speed hack, that may or may not speed up some games, and may cause severe graphical artifacts and/or screen flickering.
+
+### Skip GPU Readbacks
+
+Similarly to the lens flare problem described above, some games use the CPU to read color buffers. Motorstorm uses it for its brightness adaptation effect, for example. Sometimes games will still run fine or have only minor graphical distortions with these turned off, so we provide a Skip setting here to make the tradeoff. Some games may work by having readbacks copy to another texture instead of reading all the way back to CPU accessible RAM - for this, you can experiment with the "Copy to texture" setting, which is much faster, but doesn't work for Motorstorm's problem, for example.
 
 ### Disable culling
 
@@ -133,6 +143,10 @@ The PSP has some rather different behavior than PC GPUs about at what depth and 
 Modern PC GPUs lets us emulate these behaviors efficiently if they support clip and cull planes, but not all GPUs do. For those that don't, we have added this option to use "geometry shaders" to get the same behavior. Unfortunately these have some performance overhead, so we offer the option to turn them off - most games don't in fact need this, though some do - if weird geometry is obscuring the camera, you're going to want to enable this.
 
 This option is not visible if the hardware has the sufficient clip and cull plane features.
+
+### Lazy texture caching
+
+PPSSPP needs to convert PSP-format textures to host GPU textures. To avoid doing this every frame, we cache them. This skips some checks that textures have changed before reusing textures from the cache. Enabling this setting may improve performance slightly, but may break some things like text rendering in certain games.
 
 ## Texture Scaling
 

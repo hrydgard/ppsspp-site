@@ -25,15 +25,15 @@ First, when PPSSPP starts (or later in Settings/System/Memory Stick Location), c
 
 Make sure you're in the root of storage - you can see this since it'll say "Can't use this folder".
 
-If you already have a PSP folder from an older installation of PPSSPP, just pick it, and click Use this folder. You're done.
+If you already have a PSP folder from an older installation of PPSSPP, just pick it, and tap on "Use this folder". You're done.
 
 If not, follow the red markings in the below pictures.
 
-![Click "Create new folder"](/static/img/guide_folder/step1.png)
+![Tap on Create new folder.](/static/img/docs/storage_android/step1.jpg)
 
-![Enter a name for the new folder. PSP suggested.](/static/img/guide_folder/step2.png)
+![Enter a name for the new folder. PSP suggested.](/static/img/docs/storage_android/step2.jpg)
 
-![Click "Use this folder"](/static/img/guide_folder/step3.png)
+![Tap on Use this folder.](/static/img/docs/storage_android/step3.jpg)
 
 ## Pitfalls
 

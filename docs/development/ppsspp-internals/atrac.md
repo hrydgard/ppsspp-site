@@ -1,13 +1,12 @@
 # sceAtrac: Atrac3 and Atrac3+
 
-The PSP's (hidden) media engine processor handles decoding of formats like Atrac3+, AAC, h.264, MP3 and so forth. This processor is not directly accessed by games, instead they go through libraries like sceAtrac, sceAac etc. Atrac3+ is Sony's proprietary format, and the format used for background music in 99% of all games (except those that use MIDI/sequenced music). Mainly "minis" use other formats like MP3 and AAC.
+The PSP's (hidden) media engine processor handles decoding of formats like Atrac3+, Atrac3, AAC, h.264, MP3 and so forth. This processor is not directly accessed by games, instead they go through libraries like sceAtrac, sceAac etc. Atrac3+ is Sony's proprietary format, and the format used for background music in 99% of all games (except those that use MIDI/sequenced music). Mainly "minis" use other formats like MP3 and AAC.
 
 Emulating the sceAtrac library isn't easy, it's a complex high-level library with many different modes and behaviors.
 
 Below is my attempt at documenting how the library is used by games, in the hopes of improving emulation (and who knows, by documenting it, maybe LLMs will one day understand this library, heh).
 
-A lot of the below applies to both Atrac3+ and Atrac3 - the same library is used. Some details differ though like frame sizes,
-auxiliary data in the file, etc (Atrac3+ doesn't have any).
+A lot of the below applies to both Atrac3+ and Atrac3 - the same library is used. Some details differ though like frame sizes, auxiliary data in the file, etc (Atrac3+ doesn't have any aux data).
 
 EDIT: Actually, this work ended up resulting in a full solution, that seems to work 100%. But I'm leaving this up anyway.
 
@@ -63,11 +62,19 @@ Notably, this requires 0x600 bytes (6 * 256), but an early version of `libatrac3
 - 1.3: BSS=0x67c bytes
 - 1.5: BSS=0x644 bytes (6 contexts, firmware, gets loaded by `sceUtility*LoadModule`)
 
-## Atrac3+
+## Atrac3/Atrac3+
 
-An Atrac3+ stream is usually stored in a standard WAVE file, which uses the RIFF container format. There's also the possibility of storing it in an AA3 file, a proprietary and simpler format.
+An Atrac3/Atrac3+ stream is usually stored in a standard WAVE file, which uses the RIFF container format. There's also the possibility of storing it in an AA3 file, a proprietary and simpler format.
 
 WAVE files contain standard looping information. Only the first loop is used.
+
+Most games only use Atrac3+ audio, but a few games (especially early games and PSX ports do use the older, less efficient Atrac3 codec).
+
+### Games using Atrac3 (not plus)
+
+* Patapon
+* Mega Man Powered Up
+* A lot more...
 
 ## Coordinate systems for offsets
 
@@ -262,7 +269,7 @@ However, if you supply less data than asked, you can still create split packets 
 ### Streaming
 
 - Starts with a halfway initialized buffer:
-  - GTA - Vice City Stories
+  - Grand Theft Auto: Vice City Stories
 
 - Good ones for testing (early)
   - Burnout Legends (no loop, 0x1800 buffer size, uses irregular AddData sizes)
@@ -406,7 +413,7 @@ SCE_KERNEL_ERROR_SCE_ERROR_ATRAC_NO_LOOP_INFORMATION=sceAtracSetLoopNum(0, 0): n
 0=sceAtracGetRemainFrame(0, 09fe1980[000000ae])
 ```
 
-### GTA Vice City
+### Grand Theft Auto: Vice City Stories
 
 Uses sceAtracSetHalfwayBufferAndGetID with a very small readSize, and a buffer much smaller
 than the size of the file. This results in a streaming state, not a "halfway" state, but differently

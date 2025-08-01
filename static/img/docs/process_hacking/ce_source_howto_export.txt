@@ -1,0 +1,10 @@
+When exporting the images in draw.io, the resulting files' size will be ~30% larger compared to MS Paint.
+I assume this is because of all the anti-aliasing the canvas does.
+It can't easily be reduced with GIMP either.
+
+Here's how to circumvent this:
+1. Set a solid background color, disable grid and set zoom level to 100%.
+2. Print screen around the drawing and paste it into MS Paint. (Yes, really.)
+3. Zoom in 400% or more, press Ctrl+A to select the image, and carefully move the drawing into the top left corner.
+4. Carefully crop the right and bottom borders of the canvas.
+5. Fix up any remaining issues (e.g. missing background on the border) and save as PNG.

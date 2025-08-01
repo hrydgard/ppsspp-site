@@ -2,11 +2,21 @@
 
 The PSP GPU, known as the GE (graphics engine), while at first glance looking like a conventional small fixed-function GPU not unlike something like the original Geforce (but without multitexturing support), is actually a quite strange and interesting little beast.
 
-Unlike the PS2's GPU which is more of a pure rasterizer, it has a T&L (transform and lighting) vertex pipeline, so you give it world, view and projection matrixes with the vertex data, and it'll automatically get transformed and lit, if enabled.
+Unlike the PS2's GS which is a pure rasterizer, it has a T&L (transform and lighting) vertex pipeline, so you give it world, view and projection matrixes with the vertex data, and it'll automatically get transformed and lit, if enabled.
 
 It also has (mostly) conventional blend modes with a few special additions, and it supports all the regular depth and stencil operations.
 
 However, it does differ from modern GPUs on modern OSs in a number of ways, some of which make it a bit tricky to emulate:
+
+## Evolution from the PS2's GS
+
+The PSP has a rasterizer that's pretty similar to the GS in some ways. But the frontend is completely different. The PSP put a traditional T&L engine, command list queue and vertex fetch in front, removing all the PS2's highly complex VIF/GIF/VU stuff and making it feel very different.
+
+In comparison to the famously tricky GS, the PSP's rasterizer has far less crazy tiling/swizzling formats, and explicit support for "channel shuffle" - it adds 32-bit and 16-bit CLUT formats where you get to specify shift and mask before the actual 8-bit lookup, so you don't have to actually exploit wacky tiling formats and draw thin rectangles, you can just specify your shuffle and lookup directly and go.
+
+So overally it's easier to emulate (although still not entirely easy, and the T&L pipe is not trivial).
+
+The blender is also much more standard (although still has a few hard-to-emulate modes).
 
 ## Differences from PC GPUs
 
