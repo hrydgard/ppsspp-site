@@ -246,7 +246,7 @@ fn build(opt: &Args) -> anyhow::Result<()> {
 
     let docs = gen_doctree::generate_doctree(&config, "docs", &mut handlebars)?;
 
-    let blog = gen_blog::generate_blog(&config, "blog", "Development blog", &mut handlebars)?;
+    let blog = gen_blog::generate_blog(&config, "blog", "Development Blog", &mut handlebars)?;
     let news = gen_blog::generate_blog(&config, "news", "Release News", &mut handlebars)?;
 
     config.global_meta.latest_news = news

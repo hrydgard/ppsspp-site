@@ -4,22 +4,26 @@
 
     <div class="doc-sidebar" id="localSidebar">
 
-        {{{ sidebar }}}
+        <nav class="nav-tree">
+            {{{ sidebar }}}
+        </nav>
 
     </div>
 
     <div class="doc-contents">
         {{#if meta.breadcrumbs}}
-        <ul class="breadcrumb" vocab="https://schema.org/" typeof="BreadcrumbList">
-            {{#each meta.breadcrumbs}}
-            <li property="itemListElement" typeof="ListItem">
-                {{#if url}}<a href="{{url}}" property="item" typeof="WebPage">{{/if}}
-                    <span property="name">{{title}}</span>
-                    {{#if url}}</a>{{/if}}
-                <meta property="position" content="{{position}}">
-            </li>
-            {{/each}}
-        </ul>
+        <nav>
+            <ul class="breadcrumb" vocab="https://schema.org/" typeof="BreadcrumbList">
+                {{#each meta.breadcrumbs}}
+                <li property="itemListElement" typeof="ListItem">
+                    {{#if url}}<a href="{{url}}" property="item" typeof="WebPage">{{/if}}
+                        <span property="name">{{title}}</span>
+                        {{#if url}}</a>{{/if}}
+                    <meta property="position" content="{{position}}">
+                </li>
+                {{/each}}
+            </ul>
+        </nav>
         {{/if}}
 
         {{{ contents }}}
@@ -30,7 +34,7 @@
 
         {{> unit}}
 
-        <div class="nav-link-container">
+        <nav class="nav-link-container">
             {{ #if meta.prev }}
             <a href="{{ meta.prev.url }}" class="nav-link">
                 <div class="direction">
@@ -51,7 +55,7 @@
                 </div>
             </a>
             {{ /if }}
-        </div>
+        </nav>
     </div>
 
 </div>

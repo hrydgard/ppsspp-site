@@ -1,5 +1,5 @@
 ---
-title: PSP hardware
+title: PSP Hardware
 position: 6
 ---
 These are some scattered notes about the PSP's hardware.

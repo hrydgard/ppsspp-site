@@ -6,7 +6,7 @@ use std::io::Write;
 
 // TODO: Involve templates here for easier modification?
 // Can handlebars templates recurse?
-// Should be surrounded in an <ul class="nav-tree">
+// Should be surrounded in an <nav class="nav-tree">
 fn generate_docnav_html(root: &Category, level: usize, breadcrumbs: &[DocLink]) -> String {
     let mut str = String::new();
 
