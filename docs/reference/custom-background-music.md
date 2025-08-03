@@ -11,7 +11,7 @@ To find the location of your memory stick on your device, navigate to <b class="
     In the future, this will be possible by creating a <code>ROOT</code> folder in the <code>PSP</code> folder to simulate this.
 </div>
 
-Some games also have the option of selecting to play music from subfolders.
+Some games also allow selecting to play music from subfolders.
 This can be used to organize your songs into playlists or albums.
 
 If you know some details that are missing below, [contact me](/contact).
@@ -87,7 +87,7 @@ Find the custom music folder for your game here: <sup>(table is not yet complete
 | Beats,<br />Shouten Beat | `ms:/PSP/MUSIC`,<br />`ms:/MUSIC` | &#x26A0;&#xFE0F;&nbsp;see issue [#14812];<br />subfolders supported;<br />also looks for ATRAC files |
 | Crazy Taxi: Fare Wars,<br />Crazy Taxi: Double Punch | <small>primary:</small>`ms:/MUSIC/CRAZYTAXI`<br /><small>fallback:</small>`ms:/MUSIC` | &#x26A0;&#xFE0F;&nbsp;see issue [#15509];<br />fallback folder is only checked if no MP3s found in primary folder |
 | Dead or Alive Paradise | `ms:/MUSIC` | &#x26A0;&#xFE0F;&nbsp;see issue [#8672];<br />you must first make progress in the game;<br />sample rate: any;<br />MP3s must contain a valid [ID3v1 or ID3v2 tag](https://en.wikipedia.org/wiki/ID3) |
-| Gran Turismo | `ms:/MUSIC` | you must first make progress in the game;<br />subfolder selection supported |
+| Gran Turismo | `ms:/MUSIC`,<br />`ms:/MUSIC/GTPSP` | you must first make progress in the game;<br />folder selection supported |
 | Heroes' VS | `ms:/MUSIC/HEROES' VS/*` | MP3s go into specific subfolders;<br />only the first MP3 is loaded from each subfolder |
 | SD Gundam G Generation Overworld | `ms:/MUSIC/OVERWORLD` | you must first make progress in the game;<br />sample rate: 32,000&nbsp;Hz or 44,100&nbsp;Hz;<br />MP3s should NOT contain an [ID3v2 tag](https://en.wikipedia.org/wiki/ID3) |
 | Surf's Up | `ms:/MUSIC/SURFSUP` | filenames must be at least 9 characters long, not counting the `.mp3` extension;<br />only the first 20 MP3s are loaded |
@@ -115,8 +115,8 @@ The files don't need to contain any actual metadata, just the ID3 tag to exist.
 
 #### Gran Turismo
 
-You must first [clear all Driving Challenges in blocks A and either B or C](https://gran-turismo.fandom.com/wiki/Driving_Challenges_(GTPSP)), the rating doesn't matter.
-Then it will be available through the options menu.
+You must first [clear all Driving Challenges in group A and either B or C](https://gran-turismo.fandom.com/wiki/Driving_Challenges_(GTPSP)) with bronze or better rating.
+Then the User BGM options will appear under the Audio Settings tab in the Options menu.
 
 #### Heroes' VS
 
@@ -162,7 +162,9 @@ Then from the main menu navigate to `Gallery -> Custom BGM`.
 The Gallery is the second option under red colored option.
 From here you can select 1 custom song for each character from each series that plays when that character initiates an attack during gameplay.
 
-If an MP3 file contains an [ID3v2 tag](https://en.wikipedia.org/wiki/ID3), the game sometimes plays weird sounds instead, so make sure to remove the tag first!
+The message "This file cannot be played in SD Gundam G Generation Overworld." shows up when the selected MP3 file has a sample rate that isn't 32,000&nbsp;Hz or 44,100&nbsp;Hz.
+
+If an MP3 file contains an [ID3v2 tag](https://en.wikipedia.org/wiki/ID3), the game sometimes plays weird sounds instead, so the tag should be removed in advance.
 
 ## Games that read ATRAC files
 
