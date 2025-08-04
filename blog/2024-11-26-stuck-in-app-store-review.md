@@ -5,13 +5,13 @@ authors: hrydgard
 tags: [ppsspp]
 ---
 
-# UPDATE!!!
+## UPDATE!!!
 
 The separate Gold app has now been retired, and replaced with an in-app purchase. [More information here](/news/ios-changes).
 
-# Previous article below
+## Original article below
 
-## The App Store situation
+### The App Store situation
 
 Here's an overview, followed by the actual conversation with App Store Review.
 
@@ -35,7 +35,7 @@ Below is an authentic conversation with App Store Review. This is the second con
 
 <hr/>
 
-## Apple App Store Rejection, initial message
+### Apple App Store Rejection, initial message
 
 <i>
 Submission ID: 7fe4cdbf-80a6-43ba-a3d4-e54b73b14267
@@ -44,21 +44,21 @@ Review date: November 04, 2024
 
 Version reviewed: 1.18
 
-### Guideline 4.1 - Design - Copycats
+#### Guideline 4.1 - Design - Copycats
 
 Your app's metadata contains content that is similar to third-party content, which may create a misleading association with another developer's app or intellectual property.
 
 We understand that the mentioning of the console is to provide more context to the users, including trademarked terms such as "PSP" in a non-referential way is still not appropriate.
 
 
-#### Next Steps
+##### Next Steps
 
 It would be appropriate to revise the app and metadata to remove this third-party content before resubmitting for review.
 
 If you have the necessary rights to distribute an app with this third-party content, attach documentary evidence in the App Review Information section in App Store Connect and reply to this message.
 
 
-#### Resources
+##### Resources
 
 Many factors may contribute to a guideline 4.1 rejection, including but not limited to the following examples:
 
@@ -72,7 +72,7 @@ Many factors may contribute to a guideline 4.1 rejection, including but not limi
 Learn more about [guideline 4.1](https://developer.apple.com/app-store/review/guidelines/#copycats).
 
 
-### Guideline 4.3(a) - Design - Spam
+#### Guideline 4.3(a) - Design - Spam
 
 We noticed your app shares a similar binary, metadata, and/or concept as apps submitted to the App Store by other developers, with only minor differences.
 
@@ -80,12 +80,12 @@ We noticed your app shares a similar binary, metadata, and/or concept as apps su
 Submitting similar or repackaged apps is a form of spam that creates clutter and makes it difficult for users to discover new apps.
 
 
-#### Next Steps
+##### Next Steps
 
 Since we do not accept spam apps on the App Store, we encourage you to review your app concept and submit a unique app with distinct content and functionality.
 
 
-#### Resources
+##### Resources
 
 Some factors that contribute to a spam rejection may include:
 
@@ -100,24 +100,24 @@ Some factors that contribute to a spam rejection may include:
 Learn more about our requirements to prevent spam in [App Review Guideline 4.3(a)](https://developer.apple.com/app-store/review/guidelines/#spam).
 
 
-### Guideline 5.2.2 - Legal
+#### Guideline 5.2.2 - Legal
 
 The app appears to contain copyrighted video game files,
 
 Apps and their content should not infringe upon the rights of another party. In the event an app infringes another party’s rights, the app's developers are responsible for any liability to Apple because of a claim.
 
 
-#### Next Steps
+##### Next Steps
 
 Either remove the copyrighted third-party content from the app and its metadata or provide a written affirmation that you have the appropriate rights or license to use and distribute the third-party copyrighted materials.
 
 
-#### Resources
+##### Resources
 
 Learn more about intellectual property requirements in [guideline 5.2.2](https://developer.apple.com/app-store/review/guidelines/#intellectual-property).
 
 
-### Support
+#### Support
 
 - Reply to this message in your preferred language if you need assistance. If you need additional support, use the [Contact Us](https://developer.apple.com/contact/topic/#!/topic/select) module.
 
@@ -128,7 +128,7 @@ Learn more about intellectual property requirements in [guideline 5.2.2](https:/
 </i>
 <hr/>
 
-## My initial response
+### My initial response
 
 Please read! If you are not a robot, please indicate that you read the below, and respond to it properly.
 
@@ -136,15 +136,15 @@ Five minutes after this rejection was made, my near-identical free version of th
 
 OK, so once again, I will refute your complaints point by point.
 
-#### 4.1 - Design - Copycats
+##### 4.1 - Design - Copycats
 
 Any games console emulator obviously needs to be able to mention what system it emulates. Anything else is unreasonable. Other emulators like Folium do this too.
 
-#### 4.3(a) - Design - Spam
+##### 4.3(a) - Design - Spam
 
 I am the original author of this app. It is not spam, it's just the paid version of PPSSPP - PSP Emulator.
 
-#### Guideline 5.2.2 - Legal
+##### Guideline 5.2.2 - Legal
 
 "The app appears to contain copyrighted video game files"
 
@@ -152,7 +152,7 @@ There are no such files. If there's a file you have a complaint about. PLEASE LE
 
 <hr/>
 
-## Apple App Store Reply
+### Apple App Store Reply
 
 <i>
 
@@ -176,7 +176,7 @@ App Review
 
 <hr/>
 
-## My second response
+### My second response
 
 Hi again..
 
@@ -195,7 +195,7 @@ So please, consider the facts above.
 
 <hr/>
 
-## Apple App Store Reply #2
+### Apple App Store Reply #2
 
 <i>
 
@@ -221,7 +221,7 @@ App Review
 
 <hr/>
 
-## Conclusion
+### Conclusion
 
 There seems to be no progress possible, despite Apple's complaints being entirely invalid:
 
