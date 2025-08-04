@@ -526,7 +526,10 @@ async function handleLoginByKey() {
         console.log("Attempting to navigate to forwarding URL " + url);
         window.location.href = url;
     } else {
-        console.log("not forwarding, forward == null");
+        // Just refresh visibility. NOTE: we always end up here on /login, whether we just actually
+        // logged in by key or not, but it's fine.
+        console.log("No forwarding, forward == null. refreshing visibility.");
+        applyDOMVisibility();
     }
 }
 
