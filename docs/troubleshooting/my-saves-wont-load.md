@@ -39,11 +39,7 @@ Note that sometimes games have bugs - some even delete your save data depending 
 
 ## Have you created a space-time paradox?
 
-Save states are, from the perspective of a game, a very futuristic time travel device.
-
-If you save in the game (or if it auto saves) and then you load a save state from before that save was created, the game may become flummoxed.  It might refuse to load or save, because it thinks the save came from another PSP / play session.
-
-The safest option is to always overwrite or delete your save states whenever you save in game.
+See [Save state time warps](/docs/troubleshooting/save-state-time-warps).
 
 ## Maybe it's a bug in PPSSPP?
 
