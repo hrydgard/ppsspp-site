@@ -57,6 +57,7 @@
     align-items: center;
 }
 
+.burger-menu>li #loginItem i.icon-ui,
 .burger-menu>li #darkItem i.icon-ui {
     margin-right: 0.5ch;
 }
