@@ -8,6 +8,8 @@ The PPSSPP Legacy Edition is really just the same as a regular PPSSPP build, exc
 
 This means that it's not affected by the Scoped Storage requirement of Android 11+, meaning that it can work without a folder browser app being available on your device, which helps on Android TV devices.
 
+NOTE: You might want to try the [FX File Explorer](https://play.google.com/store/apps/details?id=nextapp.fx&hl=en) first, it has been reported by users to work around the problem.
+
 ## Installation
 
 Legacy Edition is only available as an APK. You'll need to figure out how to install APKs on your device.
