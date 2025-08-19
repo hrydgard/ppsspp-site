@@ -26,6 +26,20 @@ Different regions have different codes - and often create different save files. 
 
 Games almost always have a separate folder inside SAVEDATA for each save, and it starts with their game id.  Often, it might be ULUS1234501 when it's the "01" save for "ULUS12345".  This is the same structure you'll see on a real PSP or in downloaded save data.
 
+## Is the save data device-locked?
+
+Some games lock savedata to a specific device using the MAC address (which is a unique identifier in the WLAN chip).
+
+One known affected game is Invizimals, I'm sure there are more but I can't find a list right now.
+
+Mac addresses look something like `1c:ba:24:f3:a9:57`. To load savegames affected by this, you will have to change PPSSPP's MAC address (in Network settings) to match the device the game was originally saved on. If that was another instance of PPSSPP, just write down its MAC address and put it in your local instance.
+
+To determine the MAC address of a real PSP, go into Settings / System / System Information. Many PSPs will show their MAC address right there.
+
+However there are some PSPs that won't. In such a case, you can run [this homebrew app](/unofficial/wlansample.zip) on your (modified) PSP to find out (it'll print the MAC address on the screen when you run it).
+
+WARNING: Save the MAC address currently set up in PPSSPP before you modify it, in case some of your other saves are locked to it. In the future, we might make this automatic somehow.
+
 ## Is the save data corrupted?
 
 Corrupted save data can cause crashes or glitches, and may not load.  Some ways you can get corrupted data:
