@@ -1,4 +1,4 @@
-# Help, I get a black screen!
+# I get a black screen!
 
 Or, your game won't load for one reason or other. Try these basic steps!
 

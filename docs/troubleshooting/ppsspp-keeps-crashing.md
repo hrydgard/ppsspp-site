@@ -1,4 +1,4 @@
-# Help - PPSSPP keeps crashing!
+# PPSSPP keeps crashing!
 
 ## Step 1: Don't panic
 
