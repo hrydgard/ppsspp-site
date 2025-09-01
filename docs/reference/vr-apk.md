@@ -6,7 +6,7 @@ The goal is universal compatibility with such devices, but there are some device
 
 The VR build was created and contributed by [Luboš V aka lvonasek](https://github.com/lvonasek).
 
-The latest official version can be found as an APK on [SideQuest](https://sidequestvr.com/app/12379/ppsspp-vr) or on the [Downloads page](/downloads), while the latest development version can be found [here](/devbuilds).
+The latest official version can be found as an APK on [SideQuest](https://sidequestvr.com/app/12379/ppsspp-vr) or on the [Downloads page](/download), while the latest development version can be found [here](/devbuilds).
 It must be sideloaded, it cannot be installed from the official stores.
 
 ## Supported devices

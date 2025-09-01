@@ -15,7 +15,7 @@ The separate Gold app has now been retired, and replaced with an in-app purchase
 
 Here's an overview, followed by the actual conversation with App Store Review.
 
-PPSSPP is an open source PSP emulator, that lets you run your own [PlayStation Portable](https://en.wikipedia.org/wiki/PlayStation_Portable) games on your various devices. PPSSPP is officially available on Android through [Google Play](https://play.google.com/store/apps/details?id=org.ppsspp.ppsspp), [PC](/downloads), [Mac](/downloads), and recently iOS through the [App Store](https://apps.apple.com/us/app/ppsspp-psp-emulator/id6496972903). There is also a [Linux flatpak build](https://flathub.org/apps/org.ppsspp.PPSSPP). The project is ongoing for more than 11 years now, and has been downloaded over 100M times. It has millions of active users on Android.
+PPSSPP is an open source PSP emulator, that lets you run your own [PlayStation Portable](https://en.wikipedia.org/wiki/PlayStation_Portable) games on your various devices. PPSSPP is officially available on Android through [Google Play](https://play.google.com/store/apps/details?id=org.ppsspp.ppsspp), [PC](/download), [Mac](/download), and recently iOS through the [App Store](https://apps.apple.com/us/app/ppsspp-psp-emulator/id6496972903). There is also a [Linux flatpak build](https://flathub.org/apps/org.ppsspp.PPSSPP). The project is ongoing for more than 11 years now, and has been downloaded over 100M times. It has millions of active users on Android.
 
 PPSSPP is completely free to download (and compile if you want, since it's open source) but there's also an optional paid version to finance the development and maintenance of the project, buildbot, website, etc.
 
