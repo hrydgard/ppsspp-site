@@ -85,3 +85,16 @@ Can be improved a lot, like currently it doesn't even perform the build.
 See this stackoverflow post: https://stackoverflow.com/questions/79151910/how-to-fix-errors-in-wsl-gui
 
 With this, both OpenGL and Vulkan will work in WSL. The latter works through dzn, a Vulkan-on-top-of-DX12 wrapper.
+
+# Testing PPSSPP's websocket debugger support
+
+From 1.20, there's a new script in scripts/ in the root of the code tree.
+
+Use as follows:
+
+```bash
+python scripts\websocket-test.py 56244 gpu.stats.get 3
+```
+
+where `56244` is the configured port, and `gpu.stats.get` is the command you want to test, and 3 is the number of seconds
+you want to wait for additional messages.
