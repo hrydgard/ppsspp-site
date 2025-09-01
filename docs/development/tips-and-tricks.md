@@ -2,9 +2,7 @@
 
 ## Installing on very old phones that Android Studio won't talk to
 
-For ancient phones that can no longer install directly from Android Studio, choose:
-
-* Build->Build Bundles/APKs/Build APK
+For ancient phones that can no longer install directly from Android Studio, choose: `Build -> Build Bundle(s) / APK(s) -> Build APK`
 
 Then run:
 
@@ -34,10 +32,10 @@ build_test_headless_alpine:
     options: --shm-size=8g
 ```
 
-## Compat.ini on Android
+## `Compat.ini` on Android
 
-It's inconvenient to directly edit compat.ini since it's built into the APK's asset subdirectory,
-but you can put a separate compat.ini in your PSP/SYSTEM directory. It will be automatically merged
+It's inconvenient to directly edit `compat.ini` since it's built into the APK's asset subdirectory,
+but you can put a separate `compat.ini` in your `PSP/SYSTEM` directory. It will be automatically merged
 with the one from assets in the APK.
 
 ## Checking your code optimizations
@@ -46,13 +44,13 @@ The quickest way to check what machine code was generated when you compiled some
 
 ## Profiling on Android
 
-In Android Studio, go Run->"Profiler: Run Android as profilable" (low overhead). Then choose "Find CPU Hotspots".
+In Android Studio, go `Run -> Profiler: Run Android as profilable (low overhead)`. Then choose `Find CPU Hotspots`.
 
-## Launch.json in vscode
+## `Launch.json` in VS Code
 
 Here's a quick `.vscode/launch.json` one for debugging on Mac:
 
-```
+```json
 {
         "version": "0.2.0",
         "configurations": [
@@ -82,13 +80,13 @@ Can be improved a lot, like currently it doesn't even perform the build.
 
 ## Running in WSL2 with full graphics support
 
-See this stackoverflow post: https://stackoverflow.com/questions/79151910/how-to-fix-errors-in-wsl-gui
+See this Stack Overflow post: https://stackoverflow.com/questions/79151910/how-to-fix-errors-in-wsl-gui
 
 With this, both OpenGL and Vulkan will work in WSL. The latter works through dzn, a Vulkan-on-top-of-DX12 wrapper.
 
-# Testing PPSSPP's websocket debugger support
+## Testing PPSSPP's websocket debugger support
 
-From 1.20, there's a new script in scripts/ in the root of the code tree.
+From 1.20, there's a new script in `scripts/` in the root of the code tree.
 
 Use as follows:
 
