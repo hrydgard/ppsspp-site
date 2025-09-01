@@ -174,10 +174,14 @@
         "platform_key": "vr",
         "downloads": [
             {
-                "name": "APK for Quest and PICO",
+                "name": "PPSSPP VR APK",
                 "short_name": "APK",
                 "icon": "ppsspp-icon.png",
-                "filename": "ppsspp_vr.apk",
+                "filename": "ppsspp_vr.apk"
+            },
+            {
+                "name": "Download from SideQuest",
+                "url": "https://sidequestvr.com/app/12379/ppsspp-vr",
                 "whats_this_url": "/docs/reference/vr-apk/",
                 "whats_this": "VR information"
             },
