@@ -6,7 +6,7 @@ Recently, it has even added graphics support and it's now possible to build and 
 
 ## Tips
 
-* Install VSCode on Windows (not in your WSL VM!)
+* Install VS Code on Windows (not in your WSL VM!)
 
 * Check out the PPSSPP repository:
 
@@ -16,7 +16,7 @@ Recently, it has even added graphics support and it's now possible to build and 
 
 * Install the usual dependencies documented [here](https://github.com/hrydgard/ppsspp/wiki/Build-instructions#building-with-cmake-other-platforms-eg-linux) (plus cmake).
 
-* Install at least the following VSCode extensions:
+* Install at least the following VS Code extensions:
 
   - CodeLLDB (a debugger)
   - WSL
