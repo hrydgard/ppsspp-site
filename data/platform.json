@@ -177,7 +177,9 @@
                 "name": "APK for Quest and PICO",
                 "short_name": "APK",
                 "icon": "ppsspp-icon.png",
-                "filename": "ppsspp_vr.apk"
+                "filename": "ppsspp_vr.apk",
+                "whats_this_url": "/docs/reference/vr-apk/",
+                "whats_this": "VR information"
             },
             {
                 "name": "APK for Quest",
