@@ -12,7 +12,7 @@ This can be useful from launchers and similar. Here's an example ADB command lin
 adb shell am start -n org.ppsspp.ppsspp/org.ppsspp.ppsspp.PpssppActivity --es org.ppsspp.ppsspp.Args "--pause-menu-exit"`
 ```
 
-## General arguments
+## Generally supported command line arguments
 
 ### -d
 
@@ -57,3 +57,19 @@ Go directly to the touchscreentest screen
 ### --appendconfig
 
 Merge a different config file into the current configuration.
+
+## Windows-only command line arguments
+
+Some of these will be gneralized at some point.
+
+### -l
+
+Enables the Log Console (same as `Debug -> Log console` in the menu)
+
+### -s
+
+Prevent settings from being saved. Also disables auto-run. Kind of a weird one??
+
+### -direct3d11 -vulkan -gles -software
+
+Enforces this GPU backend.
