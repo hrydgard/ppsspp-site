@@ -25,9 +25,14 @@ This is just a collection of interesting things.
 - [UNORM and SNORM to float, hardware edition](https://fgiesen.wordpress.com/2024/12/24/unorm-and-snorm-to-float-hardware-edition/)
 - [Exact UNORM8 to float](https://fgiesen.wordpress.com/2024/11/06/exact-unorm8-to-float/)
 
+### Software optimization
+
+- [Agner's Software Optimization Resources](https://www.agner.org/optimize/)
+
 ### Rasterization
 
 - [Optimizing software occlusion culling / rasterization](https://fgiesen.wordpress.com/2013/02/17/optimizing-sw-occlusion-culling-index/) Blog series by Fabian.
+- [Rasterizer Notes by nlguiellemot](https://nlguillemot.wordpress.com/2016/07/10/rasterizer-notes/)
 
 ### Meshes
 
@@ -38,14 +43,17 @@ This is just a collection of interesting things.
 #### SSE gap filling
 
 - [SSE - mind the gap!](https://fgiesen.wordpress.com/2016/04/03/sse-mind-the-gap/)
+- [SSE sign extension tricks](https://mastodon.gamedev.place/@rygorous/109799623402856305)
 
 #### AVX-512
 
 - [Why is AVX-512 useful for RPCS3?](https://whatcookie.github.io/posts/why-is-avx-512-useful-for-rpcs3/) (by whatcookie)
-- [No, AVX-512 is power-efficient](https://www.youtube.com/watch?v=N6ElaygqY74) (also by whatcookie)
+- [No, AVX-512 is power-efficient in RPCS3](https://www.youtube.com/watch?v=N6ElaygqY74) (also by whatcookie)
 - [Zen5 AVX-512 benchmarking](https://www.numberworld.org/blogs/2024_8_7_zen5_avx512_teardown/)
 - [MNIST in AVX-512 assembly](https://github.com/mohammad-ghaderi/mnist-asm-nn)
 - [AVX-512 use cases](https://albertvilella.substack.com/p/intels-avx-512-use-cases-part1)
+- [The least interesting thing is the 512bit width](https://mastodon.gamedev.place/@rygorous/110572829749524388)
+- [Searching with AVX-512](https://gab-menezes.github.io/2025/01/13/using-the-most-unhinged-avx-512-instruction-to-make-the-fastest-phrase-search-algo.html)
 
 #### NEON tricks
 
