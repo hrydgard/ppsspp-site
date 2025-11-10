@@ -52,6 +52,7 @@ pub struct Document {
 pub struct SidebarContext {
     pub title: String,
     pub links: Vec<DocLink>,
+    pub root_url: String,
 }
 
 #[derive(Debug, Serialize, Clone, Default)]
@@ -75,6 +76,7 @@ pub struct PageContext<'a> {
     pub tags: &'a [Tag],
     pub contains_code: bool,
     pub top_nav: Vec<DocLink>,
+    pub is_list_view: bool,
 }
 
 impl<'a> PageContext<'a> {
@@ -89,6 +91,7 @@ impl<'a> PageContext<'a> {
             tags: &[],
             contains_code: false,
             top_nav: globals.top_nav.clone(),
+            is_list_view: false,
         }
     }
     pub fn from_document(document: &Document, globals: &'a GlobalMeta) -> Self {
@@ -102,6 +105,7 @@ impl<'a> PageContext<'a> {
             tags: &[],
             contains_code: document.meta.contains_code,
             top_nav: globals.top_nav.clone(),
+            is_list_view: false,
         }
     }
     pub fn render(
