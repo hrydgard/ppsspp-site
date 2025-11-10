@@ -10,7 +10,7 @@ A large amount of obscure settings and test screens that have been added over th
 
 ## Texture replacement
 
-This is due to graduate out to the normal settings soon, although, "Save new textures" kind of still belongs here
+This has graduated to the regular graphics settings soon, although, "Save new textures" kind of still belongs here
 so not sure what to do.
 
 See [Texture replacement](/docs/reference/texture-replacement) and [Using replacement textures](/docs/reference/use-texture-replacement) for more detailed information.
@@ -59,10 +59,6 @@ This makes a "DevMenu" button show up during gameplay, which provides direct acc
 
 Does what it says on the tin.
 
-### Run CPU tests
-
-Not generally useful.
-
 ### Debug overlay
 
 Lets you choose one of a variety of overlays that shows various shows realtime information which can be useful for debugging games. It is primarily a developer option.
@@ -71,17 +67,19 @@ Lets you choose one of a variety of overlays that shows various shows realtime i
 
 This turns on and off multi-threaded rendering when using the Vulkan backend. Turning it off will generally lose you some performance. In reality, this is only useful for debugging.
 
+## Tests
+
 ### GPU driver test
 
 Shows a screen that tests some obscure state combinations that have been problematic in the past. Most modern phones pass these tests with flying colors.
 
-### Enable driver bug workaround
-
-Leave this on.
-
 ### Framedump tests
 
 A set of tests for different graphics features, in the form of downloadable frame dumps. This is not meant for end-users.
+
+### Enable driver bug workarounds
+
+Leave this on.
 
 ### Touchscreen test
 

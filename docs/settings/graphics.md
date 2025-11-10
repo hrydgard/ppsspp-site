@@ -18,7 +18,7 @@ We have implemented support for a few of the most common graphics APIs:
 * Vulkan: The recommended backend on most devices, if available. On Mac, this will use MoltenVK if available.
 * OpenGL: The compatibility option on Android, and available on a lot of other devices too.
 * D3D11: Windows-only. Good alternative to Vulkan if you're on Windows, very fast and high compatibility.
-* D3D9: Windows-only. Mainly useful on very old laptops with Intel GPUs.
+* D3D9: Windows-only. Mainly useful on very old laptops with Intel GPUs. Will no longer be available from PPSSPP 1.20.
 
 ### Rendering resolution
 
