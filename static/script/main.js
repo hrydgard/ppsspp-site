@@ -540,7 +540,8 @@ async function handleChangePasswordForm(event) {
     const newPassword = document.getElementById("new_password").value.trim();
 
     if (newPassword.length < 8) {
-        setStatusDisplay(ERROR)
+        setStatusDisplay(ERROR, status, "Password must be at least 8 characters long.");
+        return false;
     }
 
     var result = await jsonPost("changepassword", { oldPassword: oldPassword, newPassword: newPassword });

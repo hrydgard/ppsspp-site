@@ -18,7 +18,11 @@
         </ul>
     </div>
     <div>
+        {{#if is_list_view}}
+        <h1><a href="{{ meta.url }}">{{ title }}</a></h1>
+        {{else}}
         <h1>{{ title }}</h1>
+        {{/if}}
     </div>
     <div>
         {{{ contents }}}

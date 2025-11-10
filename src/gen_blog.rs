@@ -8,11 +8,13 @@ use std::{
 fn generate_blog_sidebar(
     title: &str,
     url: &str,
+    root_url: &str,
     all_posts: &[&Document],
     handlebars: &mut handlebars::Handlebars<'_>,
 ) -> anyhow::Result<String> {
     let context = SidebarContext {
         title: title.to_string(),
+        root_url: root_url.to_string(),
         links: all_posts
             .iter()
             .map(|doc| doc.to_doclink(url))
@@ -127,7 +129,7 @@ pub fn generate_blog(
         // First, render the blog post itself, without the surrounding chrome. This is so that we can add on
         // more blog posts underneath later for a more continuous experience.
         let post_html = handlebars.render("blog_post", &context)?;
-        let sidebar = generate_blog_sidebar(title, &doc.meta.url, &filtered_documents, handlebars)?;
+        let sidebar = generate_blog_sidebar(title, &doc.meta.url, &format!("/{}", folder), &filtered_documents, handlebars)?;
 
         let mut context = PageContext::from_document(doc, &config.global_meta);
         // Now, use that as contents and render into a doc template.
@@ -177,6 +179,11 @@ pub fn generate_blog(
     // Now for each tag, generate another, but filter by tag.
     for tag in &tags {
         let target_path = out_root_folder.join("tags").join(&tag.name);
+        // Mark this tag as selected for rendering
+        let mut tags_with_selection = tags.clone();
+        for t in &mut tags_with_selection {
+            t.selected = t.name == tag.name;
+        }
         generate_blog_page(
             config,
             &documents,
@@ -184,7 +191,7 @@ pub fn generate_blog(
             title,
             &target_path,
             &[tag.clone()],
-            &tags,
+            &tags_with_selection,
             handlebars,
         )?;
     }
@@ -221,6 +228,7 @@ fn generate_blog_page(
     let sidebar = generate_blog_sidebar(
         title,
         &format!("/{}", folder),
+        &format!("/{}", folder),
         &filtered_documents,
         handlebars,
     )?;
@@ -230,7 +238,8 @@ fn generate_blog_page(
     let post_html = filtered_documents
         .iter()
         .map(|doc| {
-            let context = PageContext::from_document(doc, &config.global_meta);
+            let mut context = PageContext::from_document(doc, &config.global_meta);
+            context.is_list_view = true; // We're rendering in list view
             // Now, use that as contents and render into a doc template.
             context.render("blog_post", handlebars).unwrap()
         })
