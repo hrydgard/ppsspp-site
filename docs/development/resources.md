@@ -50,6 +50,7 @@ This is just a collection of interesting things.
 
 - [Why is AVX-512 useful for RPCS3?](https://whatcookie.github.io/posts/why-is-avx-512-useful-for-rpcs3/) (by whatcookie)
 - [No, AVX-512 is power-efficient in RPCS3](https://www.youtube.com/watch?v=N6ElaygqY74) (also by whatcookie)
+- [More wacky whatcookie stuff](https://www.youtube.com/watch?v=40tyEVx_umY&t=360s)
 - [Zen5 AVX-512 benchmarking](https://www.numberworld.org/blogs/2024_8_7_zen5_avx512_teardown/)
 - [MNIST in AVX-512 assembly](https://github.com/mohammad-ghaderi/mnist-asm-nn)
 - [AVX-512 use cases](https://albertvilella.substack.com/p/intels-avx-512-use-cases-part1)
@@ -58,6 +59,8 @@ This is just a collection of interesting things.
 - [Old MS AVX tutorial](https://devblogs.microsoft.com/cppblog/accelerating-compute-intensive-workloads-with-intel-avx-512/)
 - [Vector filtering, AVX2 vs AVX-512](https://quickwit.io/blog/simd-range)
 - [Mask register details on Intel](https://travisdowns.github.io/blog/2019/12/05/kreg-facts.html)
+- [Unexpected uses for Galois field instructions](https://gist.github.com/animetosho/d3ca95da2131b5813e16b5bb1b137ca0)
+- [GF2P8AFFINEQB: int8 shifting](https://wunkolo.github.io/post/2020/11/gf2p8affineqb-int8-shifting/)
 
 #### NEON tricks
 
