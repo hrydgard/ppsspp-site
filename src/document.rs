@@ -68,6 +68,7 @@ pub struct Tag {
 #[derive(Serialize)]
 pub struct PageContext<'a> {
     pub title: Option<String>,
+    pub description: Option<String>,
     pub contents: Option<String>,
     pub sidebar: Option<String>,
     pub children: Vec<DocLink>,
@@ -79,11 +80,14 @@ pub struct PageContext<'a> {
     pub is_list_view: bool,
 }
 
+static DEFAULT_DESCRIPTION: &str = "Play PSP games in HD on Android, iOS, Windows, macOS, and more with enhanced graphics and customizable controls! Free and open source. Download now!";
+
 impl<'a> PageContext<'a> {
     pub fn new(title: Option<String>, contents: Option<String>, globals: &'a GlobalMeta) -> Self {
         Self {
             title,
             contents,
+            description: Some(DEFAULT_DESCRIPTION.to_string()),
             sidebar: None,
             children: vec![],
             meta: None,
@@ -98,6 +102,7 @@ impl<'a> PageContext<'a> {
         Self {
             title: Some(document.meta.title.clone()),
             contents: Some(document.html.clone()),
+            description: Some(DEFAULT_DESCRIPTION.to_string()),
             sidebar: None,
             children: vec![],
             meta: Some(document.meta.clone()),
