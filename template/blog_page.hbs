@@ -1,39 +1,38 @@
 {{> common_header this }}
 
 <div class="doc-container">
-    <div class="doc-tagbar">
-        {{#if tags}}
-        Tags:
-        <ul class="tag-list">
-            {{#each tags}}
-            <li {{#if selected}}class="selected" {{/if}}><a class="tag-link"
-                    href="/{{../meta.section}}/tags/{{name}}">{{name}}</a></li>
-            {{/each}}
-        </ul>
-        {{/if}}
-    </div>
-</div>
-
-<div class="doc-container">
     <div class="doc-sidebar" id="localSidebar">
 
         {{{ sidebar }}}
 
         <div class="feed-links">
-            <a href="/{{meta.section}}/atom.xml"><img src="/static/img/rss.png" alt="RSS feed" class="icon-24"></a>
+            <a href="/{{meta.section}}/atom.xml"><img src="/static/img/rss.png" alt="Atom feed" class="icon-24"></a>
         </div>
 
     </div>
 
     <div class="doc-contents">
 
+        {{#if tags}}
+        <nav class="doc-tagbar">
+            Tags:
+            <ul class="tag-list">
+                {{#each tags}}
+                <li {{#if selected}}class="selected"{{/if}}>
+                    <a class="tag-link" href="/{{../meta.section}}/tags/{{name}}">{{name}}</a>
+                </li>
+                {{/each}}
+            </ul>
+        </nav>
+        {{/if}}
+
         {{{ contents }}}
 
         {{> unit }}
 
-        <div class="nav-link-container">
-            {{ #if meta.prev }}
-            <a href="{{ meta.prev.url }}" class="nav-link">
+        <nav class="nav-link-container">
+            {{#if meta.prev}}
+            <a href="{{meta.prev.url}}" class="nav-link">
                 <div class="direction">
                     Prev
                 </div>
@@ -41,9 +40,9 @@
                     &laquo;&nbsp;{{meta.prev.title}}
                 </div>
             </a>
-            {{ /if }}
-            {{ #if meta.next }}
-            <a href="{{ meta.next.url }}" class="nav-link next">
+            {{/if}}
+            {{#if meta.next}}
+            <a href="{{meta.next.url}}" class="nav-link next">
                 <div class="direction">
                     Next
                 </div>
@@ -51,8 +50,8 @@
                     {{meta.next.title}}&nbsp;&raquo;
                 </div>
             </a>
-            {{ /if }}
-        </div>
+            {{/if}}
+        </nav>
     </div>
 
 </div>

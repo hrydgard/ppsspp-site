@@ -10,7 +10,7 @@
 
 .article .article-infos ul {
     list-style: none;
-    margin: 0;
+    margin: 0 0 12px 0;
     padding: 0;
 }
 
@@ -70,7 +70,7 @@ a.nav-link .title {
     font-weight: bold;
 }
 
-/* Style the list */
+/* Style the category list */
 ul.breadcrumb {
     display: inline-block;
     padding: 4px 10px;
@@ -106,12 +106,12 @@ ul.breadcrumb li a:hover {
     text-decoration: underline;
 }
 
+/* Style the tag list */
 ul.tag-list {
     display: inline-block;
     padding: 4px 0px;
     list-style: none;
     margin-top: 12px;
-    margin-bottom: 12px;
 }
 
 ul.tag-list li {
@@ -142,6 +142,7 @@ ul.tag-list li.selected a {
     text-decoration: none;
 }
 
+/* Navigation links on sidebar */
 .doc-sidebar a {
     float: none;
     display: block;
@@ -156,7 +157,6 @@ ul.tag-list li.selected a {
     color: var(--color-primary);
 }
 
-/* */
 ul.nav-tree-items {
     list-style: none;
     padding: 0px;
