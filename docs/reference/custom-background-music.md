@@ -26,6 +26,7 @@ This list should be pretty close to complete:
 - Beats / Shouten Beat
 - Crazy Taxi: Fare Wars / Crazy Taxi: Double Punch
 - Dead or Alive Paradise
+- Digital Comics
 - Elminage Original<small> (with patch 1.01)</small>
 - Gran Turismo
 - Grand Theft Auto: Liberty City Stories
@@ -84,9 +85,10 @@ If someone claims otherwise, they should be asked to provide evidence and detail
 Find the custom music folder for your game here: <sup>(table is not yet complete!)</sup>
 | Game | Folder | Notes |
 | --- | --- | --- |
-| Beats,<br />Shouten Beat | `ms:/PSP/MUSIC`,<br />`ms:/MUSIC` | &#x26A0;&#xFE0F;&nbsp;see issue [#14812];<br />subfolders supported;<br />also looks for ATRAC files |
+| Beats,<br />Shouten Beat | `ms:/PSP/MUSIC`,<br />`ms:/MUSIC`,<br />`ms:/MP3` | &#x26A0;&#xFE0F;&nbsp;see issue [#14812];<br />subfolders supported;<br />also looks for ATRAC files |
 | Crazy Taxi: Fare Wars,<br />Crazy Taxi: Double Punch | <small>primary:</small>`ms:/MUSIC/CRAZYTAXI`<br /><small>fallback:</small>`ms:/MUSIC` | &#x26A0;&#xFE0F;&nbsp;see issue [#15509];<br />fallback folder is only checked if no MP3s found in primary folder |
 | Dead or Alive Paradise | `ms:/MUSIC` | &#x26A0;&#xFE0F;&nbsp;see issue [#8672];<br />you must first make progress in the game;<br />sample rate: any;<br />MP3s must contain a valid [ID3v1 or ID3v2 tag](https://en.wikipedia.org/wiki/ID3) |
+| Digital Comics | `ms:/PSP/MUSIC`,<br />`ms:/MUSIC`,<br />`ms:/MP3` | &#x26A0;&#xFE0F;&nbsp;see issues [#20784] and [#1755];<br />subfolders supported;<br />also looks for MP4 files |
 | Gran Turismo | `ms:/MUSIC`,<br />`ms:/MUSIC/GTPSP` | you must first make progress in the game;<br />folder selection supported |
 | Heroes' VS | `ms:/MUSIC/HEROES' VS/*` | MP3s go into specific subfolders;<br />only the first MP3 is loaded from each subfolder |
 | SD Gundam G Generation Overworld | `ms:/MUSIC/OVERWORLD` | you must first make progress in the game;<br />sample rate: 32,000&nbsp;Hz or 44,100&nbsp;Hz;<br />MP3s should NOT contain an [ID3v2 tag](https://en.wikipedia.org/wiki/ID3) |
@@ -109,7 +111,7 @@ If it's your first playthrough on your save, you must first complete Day 1.
 Afterwards you can visit the Radio Station during daytime.
 
 The message "Unable to play the selected song." shows up when the selected MP3 file doesn't contain a valid [ID3v1 or ID3v2 tag](https://en.wikipedia.org/wiki/ID3).
-You can use any tag editor to add it, any respectful music player app has one built into them.
+You can use any tag editor to add it, any respectable music player app has one built into them.
 Even the one accessible through Windows file explorer is sufficient: right click on MP3 file, navigate to `Properties -> Details`, edit the Value of any Property, then click `Apply`.
 The files don't need to contain any actual metadata, just the ID3 tag to exist.
 
@@ -120,7 +122,8 @@ Then the User BGM options will appear under the Audio Settings tab in the Option
 
 #### Heroes' VS
 
-When you enable the custom soundtrack option, the game will prompt you to generate the required subfolders. Then you can place 1 MP3 inside each subfolder to replace the corresponding ingame song.
+When you enable the custom soundtrack option, the game will prompt you to generate the required subfolders.
+Then you can place 1 MP3 inside each subfolder to replace the corresponding ingame song.
 
 <details>
     <summary>The following subfolders are created:</summary>
@@ -159,7 +162,7 @@ When you enable the custom soundtrack option, the game will prompt you to genera
 
 You must first [complete the Prologue stage](https://ggen.fandom.com/wiki/SD_Gundam_G_Generation_Overworld_Stage:_Prologue) and select your Master character.
 Then from the main menu navigate to `Gallery -> Custom BGM`.
-The Gallery is the second option under red colored option.
+(The Gallery is the second option under red colored option.)
 From here you can select 1 custom song for each character from each series that plays when that character initiates an attack during gameplay.
 
 The message "This file cannot be played in SD Gundam G Generation Overworld." shows up when the selected MP3 file has a sample rate that isn't 32,000&nbsp;Hz or 44,100&nbsp;Hz.
@@ -168,7 +171,7 @@ If an MP3 file contains an [ID3v2 tag](https://en.wikipedia.org/wiki/ID3), the g
 
 ## Games that read ATRAC files
 
-Some games read Atrac3 / Atrac3+ encoded files instead of MP3's for custom music.
+Some games read Atrac3 / Atrac3+ encoded files instead of MP3s for custom music.
 For these games you need to convert your songs to the proper format first.
 The guide here requires a Windows PC.
 
@@ -215,10 +218,10 @@ Find the music folder for your game version here:
 
 ### Beats
 
-Custom music files go into `ms:/PSP/MUSIC`, `ms:/MUSIC` and any of their subfolders.
+Custom music files go into `ms:/PSP/MUSIC`, `ms:/MUSIC`, `ms:/MP3` and any of their subfolders.
 
 Although the game looks for ATRAC files, it rejects to actually play them on PSP with the error message "There is a problem with the selected track, the game cannot proceed. Please choose another track."
-[In PPSSPP v1.19 and later however, the game plays them fine.](https://github.com/hrydgard/ppsspp/issues/20677)
+[In PPSSPP v1.18.1-1335 through v1.19.3-352 however, they played fine](https://github.com/hrydgard/ppsspp/issues/20677) in exchange for [the original songs not loading](https://github.com/hrydgard/ppsspp/issues/20658).
 
 The game also supports reading MP3 files, ~~so there's little reason to convert your files to Atrac3+~~.
 You can play the soundtrack of other PSP games though.
