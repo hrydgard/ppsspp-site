@@ -1,3 +1,9 @@
-<h2>{{ title }}</h2>
-
-{{#each links}}<a href="{{ url }}" {{#if selected}}class="selected" {{/if}}>{{ title }}</a>{{/each}}
+<nav class="nav-tree">
+    <ul class="nav-tree-items level-0">
+        <li class="nav-tree-category selected"><a href="{{root_url}}" class="nav-tree-category selected">{{title}}</a>
+            <ul class="nav-tree-items level-1">
+                {{#each links}}<li><a href="{{url}}" class="nav-tree-item {{#if selected}}selected{{/if}}">{{title}}</a></li>{{/each}}
+            </ul>
+        </li>
+    </ul>
+</nav>
