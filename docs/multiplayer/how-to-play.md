@@ -32,9 +32,7 @@ tricky to coordinate if you don't have a shared chat, or something.
 
 This is a new feature in PPSSPP 1.20, implemented by Kethen in #21116.
 
-It uses the `aemu_postoffice` [protocol](https://github.com/Kethen/aemu_postoffice/blob/main/design.md) to route packets in a more reliable way than the usual direct connections.
-
-It's for users in these situations:
+It uses the `aemu_postoffice` [protocol](https://github.com/Kethen/aemu_postoffice/blob/main/design.md) to route packets in a more reliable way than the usual direct connections. A server implemtnation can be found [here](https://github.com/Kethen/aemu_postoffice/releases).
 
 ### Users currently have access to reliable adhoc in P2P mode
 
