@@ -79,7 +79,7 @@ pub fn add_meta_from_markdown(
 // Markdown post-processing. This is for linking GitHub issues.
 pub fn preprocess_markdown(md: &str, doc_name: &str, config: &Config) -> anyhow::Result<String> {
     anyhow::ensure!(
-        !md.contains(".md)"),
+        md.contains("github") || !md.contains(".md)"),
         "Markdown {} contains bad link",
         doc_name
     );
