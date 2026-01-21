@@ -7,16 +7,22 @@ This is a very incomplete list of games to test with if you want to debug a spec
 ### OSK (On-screen keyboard)
 
 - MotoGP (single-language)
+- PES 2013 (single-language)
 - Many more
 
 ### Microphone (hardware expansion)
 
 Invizimals
+Infected (Shouting into the mic pushes enemies back)
+Rock Band Unplugged
+DJ Max Fever
 Talkman
+Go Explore
 
 ### Camera (hardware expansion)
 
 Invizimals
+EyePet Adventures
 
 ### GPS
 
@@ -38,6 +44,11 @@ Invizimals
 - Tekken 5
 - God of War (both games)
 - Many, many more.
+
+### Morph
+
+- Outrun 2006 (flame rings in 4th level on the left, 4 weights IIRC)
+- Motorstorm (vehicles, 1-2 weights only)
 
 ### Depth buffer reads from the CPU
 
