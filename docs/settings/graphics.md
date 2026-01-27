@@ -25,7 +25,7 @@ We have implemented support for a few of the most common graphics APIs:
 Sets the resolution to render at as a multiplier of the PSP's original resolution. Setting it to higher values
 than 1x can affect performance, depending on your hardware, but will create a much nicer and sharper image.
 
-4x is almost exactly equal to 1080p (1920x1088 vs 1920x1080), and if you have your monitor set to that, PPSSPP will automatically cut off 4 pixels at the top and bottom of the screen to make it fit.
+4x is almost exactly equal to 1080p (1920x1088 vs 1920x1080), and if you have your monitor set to that, PPSSPP will automatically cut off 4 pixels (1 original PSP pixel) at the top and bottom of the screen to make it fit. The same goes for even multiplies of this case such as 4K resolution.
 
 You might get a bit of extra antialiasing by setting the resolution higher than what your monitor can do, and letting the emulator downscale, there are also a few postprocessing filters that do a good job helping out with that. But it's better to use MSAA in Vulkan.
 

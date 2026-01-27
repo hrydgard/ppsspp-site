@@ -69,3 +69,9 @@ EyePet Adventures
 - Split/Second
 - Spongebob
 - Cars Race-o-rama
+
+### Tricks requiring dual source blending
+
+- Wipeout Pure (bloom effect)
+- Armored Core 3 (issue #11430)
+- Lens flares in Ridge Racer

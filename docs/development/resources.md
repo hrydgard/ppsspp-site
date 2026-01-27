@@ -82,7 +82,7 @@ SSSE3 has the nice instruction pshufb, which is useful for various format conver
 
 SSE4.2 is also useful, but there are still some CPUs around that don't support it, so we probably don't want to require it.
 
-#### x86-64 CPUs that **do not** support SSE4.2
+#### x86-64 CPUs that **do not** support SSE 4.2
 *(latest non-supporting generations)*
 
 | Vendor | Last Generation Without SSE4.2 | Models / Examples | Notes |
@@ -90,4 +90,3 @@ SSE4.2 is also useful, but there are still some CPUs around that don't support i
 | **Intel** | **Penryn (Core 2 Refresh, ~2007)** | Core 2 Duo E8xxx / T9xxx, Core 2 Quad Q9xxx, Xeon 51xx / 53xx | Penryn **has SSE4.1 only**, no SSE4.2. SSE4.2 starts with **Nehalem (Core i7-900 series, 2008)**. |
 | **AMD** | **Phenom II / K10 (~2008–2010)** | Phenom II X4/X6, Athlon II, Opteron 23xx/83xx | K10 supports **SSE4a only** (not SSE4.1/4.2). Proper SSE4.2 starts with **Bulldozer (FX-8000 / Opteron 6200, 2011)**. |
 | **VIA** | **Early VIA Nano** | VIA Nano 2000-series | Later Nano C-series implements SSE4.2-like crypto/string ops; early ones do not. |
-Su
