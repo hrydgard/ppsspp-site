@@ -1,5 +1,17 @@
 # Resources
 
+## Very Sleepy profiler
+
+\[Unknown\] has modified a convenient little profiler called Very Sleepy with a feature where it can query symbols from the running executable. [Source code branch here](https://github.com/unknownbrackets/verysleepy/tree/jit-support).
+
+[Download binary from Unknown's branch here](/unofficial/sleepy.zip).
+
+I later rebased it on upstream and added some additional features and better process sorting: [Repo](https://github.com/hrydgard/verysleepy/tree/jit-support)
+
+[Download updated EXE with some extra features here](/unofficial/sleepy2.zip). Can now sort processes by creation time, and has the latest features from upstream.
+
+To find the integration in PPSSPP's source code, search for `VERYSLEEPY_WPARAM_GETADDRINFO`.
+
 ## Links about developing for the PSP
 
 - [PPSSPP on GitHub](https://github.com/hrydgard/ppsspp)

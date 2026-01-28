@@ -75,3 +75,11 @@ EyePet Adventures
 - Wipeout Pure (bloom effect)
 - Armored Core 3 (issue #11430)
 - Lens flares in Ridge Racer
+
+### Intra-buffer block copies
+
+- Tales of Phantasia Cross Edition (included as a retro game in Tales of Phantasia: Narikiri Dungeon X). See issue #21098
+
+### Memcpy framebuffer download/upload
+
+- Everybody's Golf 2 (line by line, ugh)
