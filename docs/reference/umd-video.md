@@ -7,3 +7,5 @@ On the real hardware, the player app for these is built into the PPSSPP firmware
 This is a lot of work for something very nice - UMD Video is pretty low resolution and not very interesting over other sources of the same videos, and there are few if any exclusives.
 
 If you really want to play UMD video, use a real PSP.
+
+For more information about the UMD format variants, see [Universal Media Disc](https://en.wikipedia.org/wiki/Universal_Media_Disc) on Wikipedia.
