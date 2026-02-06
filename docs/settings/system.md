@@ -8,23 +8,31 @@ position: 6
 
 ### Language
 
-Change the default language of PPSSPP's user interface.
+Change the language of PPSSPP's user interface.
 
-### UI Sound
+### UI size adjustment (DPI)
 
-Enables/disables little sound effects when navigating the UI.
+Lets you increase or decrease the size of PPSSPP's UI elements.
 
 ### Set UI background...
 
-Lets you pick an image for use as the background of PPSSPP.
+Pick an image for use as the background of PPSSPP.
 
 ### Transparent UI background
 
 When browsing the menu while paused, this settings controls if the running game should "show through" behind the menu.
 
+### Notification screen position
+
+Controls where notifications show up. If you want to disable all notifications, set this to None.
+
 ### UI background animation
 
 Controls what the menu background looks like when no game is being played.
+
+### Theme
+
+Pick a color theme you like!
 
 ### Color Tint / Color Saturation
 
@@ -87,6 +95,21 @@ overclock the PSP CPU from 222 to 333mhz on their own).
 
 Overclocking can be useful to avoid framedrops that would happen on the real hardware (approximately). Underclocking can sometimes help games run on really slow CPUs by triggering internal frameskipping in games, but doesn't always do that.
 
+## Save states
+
+### Savestate slot backups
+
+If this is active, extra work will be done at save/load state time to provide "Undo Load" and "Undo Save" operations.
+Thus, saving and loading state is slower but safer.
+
+### Savestate slot count
+
+From PPSSPP 1.20, you can configure the number of save state slots here, up to a maximum of 30.
+
+### Auto load savestate
+
+Sets whether to load a savestate automatically on game launch. Can be set to a specific slot, or to always load the latest.
+
 ### Rewind Snapshot Interval
 
 If you set a rewind snapshot interval, PPSSPP will make save states every X sections, where X is the value you
@@ -94,18 +117,13 @@ chose. You can go back to the last savestate by pressing Backspace.
 
 ## General
 
+### Ask for exit confirmation after seconds
+
+If you haven't saved your game, either in-game or savestate, within this time, PPSSPP will ask if you really want to exit if you try to do so. To turn this off, set this to zero.
+
 ### Restore PPSSPP's settings to default
 
 Does what it says on the tin.
-
-### Savestate slot backups
-
-If this is active, extra work will be done at save/load state time to provide "Undo Load" and "Undo Save" operations.
-Thus, saving and loading state is slower but safer.
-
-### Auto load savestate
-
-Sets whether to load a savestate automatically on startup. Not recommended.
 
 ### Use system native keyboard
 
@@ -124,15 +142,31 @@ If this is enabled, PPSSPP will occasionally check for new versions and alert yo
 
 Normally, screenshots are saved as JPG. This lets you save them as .PNG instead for higher quality but larger files.
 
+### Screenshot mode
+
+Sets whether to take a picture of the internal rendered image, or after post-processing and scaling.
+
+### Pause when not focused
+
+Sets whether PPSSPP will pause when it loses focus. This doesn't work in multiplayer.
+
 ## Cheats
 
 ### Enable Cheats
 
 Used to enable or disable [CwCheats](/docs/reference/cwcheats) in PPSSPP.
 
+### Enable plugins
+
+Used to enable or disable [Plugins](/docs/reference/plugins) in PPSSPP.
+
 ## PSP Settings
 
 This replaces the settings menu of the real PSP, plus related things.
+
+### Game language
+
+Hints to games what language they should display. Only supported by some games, mainly European releases.
 
 ### PSP model
 
@@ -152,12 +186,14 @@ This doesn't actually do anything, but games can check what you have chosen here
 
 This tells games which format to display dates in.
 
-### Time
+### Time format
 
 This tells games which format to display times in.
 
 ### Confirmation button
 
-In some games, this controls whether X or O is for confirmation. This is often different between Japan and other
-regions, Japanese games generally use O for confirmation. This lets you set the preference to what you're used to.
-However, many games ignore this setting and just do what they feel like.
+In some games, this controls whether X or O is for confirmation. This is often different between Japan and other regions, Japanese games generally use O for confirmation. This lets you set the preference to what you're used to. However, many games ignore this setting and just do what they feel like.
+
+## Recording
+
+An old and limited screen and audio recording facility. Not really recommended for use.

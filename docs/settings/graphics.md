@@ -20,6 +20,12 @@ We have implemented support for a few of the most common graphics APIs:
 * D3D11: Windows-only. Good alternative to Vulkan if you're on Windows, very fast and high compatibility.
 * D3D9: Windows-only. Mainly useful on very old laptops with Intel GPUs. Will no longer be available from PPSSPP 1.20.
 
+### Device
+
+If you have multiple available GPU devices, they'll be listed here. Pick the fastest one, of course.
+
+On AMD Zen machines with an NVIDIA GPU you might find an unexpected "AMD Graphics" device here. That's because these CPUs contain a very small integrated GPU. Don't bother with it.
+
 ### Rendering resolution
 
 Sets the resolution to render at as a multiplier of the PSP's original resolution. Setting it to higher values
@@ -35,20 +41,25 @@ Higher resolutions have obvious benefits for 3D games, but 2D games can benefit 
 
 ### Software rendering
 
-The software renderer is mostly more accurate, but runs a lot slower than using the GPU to render. It also
-doesn't allow higher resolutions, it's limited to 1x and ignores a lot of settings.
-Can be useful for development, or a small number of games and homebrew apps that the hardware renderers
-can't handle, or if you just like the look of authentic PSP rendering with dithering and so on.
+The software renderer is mostly more accurate, but runs a lot slower than using the GPU to render. It also doesn't allow for rendering at higher resolutions, it's limited to 1x and ignores a lot of settings.
+
+Can be useful for development, or a small number of games and homebrew apps that the hardware renderers can't currently handle properly (Brooktown High for example) or if you just like the look of authentic PSP rendering with dithering and so on.
 
 ### Antialiasing (MSAA)
 
 This is the best quality antialiasing you can get in PPSSPP, but it's currently only implemented in the Vulkan backend, and only on desktop GPUs (this will change in the future). Use if if it's available, crank it up to 8x if your GPU can handle it for ultra smooth edges on things.
 
-### VSync
+### Replace textures
 
-Tries to avoid presenting a new image in the middle of your monitor's display refresh, by using whatever option is available to do so. This doesn't always make a difference at all, so if you don't see any issues with screen tearing, best to leave it off.
+This is a more accessible location for the same setting over in Developer Tools. It allows loading texture packs with higher resolution textures, that fans have created for some games.
 
-In Vulkan, instead of tearing, if the "Mailbox" present mode is available, latency will be almost as good as if we did tear. Still, no tearing will happen, instead the framerate might not be 100% smooth at all times.
+See [Texture replacement]() for more info.
+
+## Display
+
+### Fullscreen
+
+Should be self-explanatory.
 
 ### Display layout & effects
 
@@ -59,6 +70,14 @@ apply various optional post-processing effects, some of which are documented bel
 * Vignette - darkens the image towards the corners, which looks a bit filmic
 * Scanlines - creates a CRT screen like effect by drawing horizontal lines. Note that this doesn't make
   that much sense because the real PSP had an LCD screen, but I guess could be cool for some arcade ports.
+
+### VSync
+
+Tries to avoid presenting a new image in the middle of your monitor's display refresh, by using whatever option is available to do so. This doesn't always make a difference at all, so if you don't see any issues with screen tearing, best to leave it off.
+
+### Low latency
+
+In Vulkan, the "Mailbox" present mode is non-tearing and has almost as good latency as vsync off. It's highly recommended to use it, especially on 60hz displays. Framerate may be very slightly less consistent but it's generally worth it for the reduced latency.
 
 ## Framerate control
 
@@ -74,14 +93,14 @@ The sub-setting Frame Skipping Type is generally not very useful.
 
 Not generally recommended for use, only use on very low-power devices. Will automatically vary frameskip from 0 up to the current frameskip setting.
 
-### Alternative speed
+### Alternative speed 1/2
 
 Lets you set an alternative speed to play at, that can be toggled with a bindable key or button.
 
 Useful for passing very tricky sections in games in slow motion, or for speeding things up in a
 more predictable manner than using the unlimited fast-forward key.
 
-Unfortunately due to how the way this works, audio will glitch and crackle at any other speed than 100%.
+Unfortunately due to how the way this works, audio will glitch and crackle at any other speed than 100%. This can be reduced by setting "Playback mode" to "Smooth" in Audio settings.
 
 ## Lens flare occlusion
 
