@@ -35,7 +35,14 @@ This is a very incomplete list of games to test with if you want to debug a spec
 - Loco Roco (all games and variants)
 - Pursuit Force (both games)
 - Puzzle Bobble Pocket (completely unnecessary! Just used for rotating sprites)
-- Namco Museum: Battle Collection (Pacman, more)
+- Namco Museum: Battle Collection (Pacman, more). This still exhibits a small bug (black patch on top of the ghosts)
+- One of the snowboarding games
+
+### Vertex culling / guardband
+
+- DTM Race Driver
+- Race Driver 2006
+- TOCA
 
 ### Vertex skinning/bones
 
@@ -101,3 +108,7 @@ This is a mistake that a few games have made - the PSP has hardware to swizzle d
 ### Zipped PRX
 
 - Fired Up
+
+### Persistent render targets
+
+- Mahjong Artifacts (mini) relies on render targets sticking around.

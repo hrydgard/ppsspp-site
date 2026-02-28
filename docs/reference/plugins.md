@@ -40,7 +40,7 @@ Multiple plugins are available here, for GTA, Splinter Cell and The Warriors. Th
 
 [Cheat Device Remastered](http://cheatdeviceremastered.com/)
 
-### Katie's plugins
+### Katie's (Kethen's) plugins
 
 [RemasteredControls_GTpsp](https://github.com/Kethen/RemasteredControls_GTpsp) provides better controls for Gran Turismo PSP (analog throttle and brake, removed deadzone). Best used with the latest builds of PPSSPP or with 1.17 when it arrives, due to a deadzone problem with XInput. Compatible with the following versions of the game:
 
@@ -48,6 +48,9 @@ Multiple plugins are available here, for GTA, Splinter Cell and The Warriors. Th
 * US v2.00 (UCUS98632 2.00)
 * JP v1.01 (UCJS10100 1.01)
 * ASIA v1.00 (UCAS40265 1.00)
+
+[RemasteredControls_MGS_PPSSPP](https://github.com/Kethen/RemasteredControls_MGS_PPSSPP) provides
+better controls for Metal Gear Solid: Peace Walker.
 
 ## Creating plugins
 

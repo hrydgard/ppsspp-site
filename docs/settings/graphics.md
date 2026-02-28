@@ -73,11 +73,15 @@ apply various optional post-processing effects, some of which are documented bel
 
 ### VSync
 
-Tries to avoid presenting a new image in the middle of your monitor's display refresh, by using whatever option is available to do so. This doesn't always make a difference at all, so if you don't see any issues with screen tearing, best to leave it off.
+Tries to avoid presenting a new image in the middle of your monitor's display refresh, by using whatever option is available to do so. From 1.20, on is almost always the best setting.
 
-### Low latency
+### Low latency display
 
-In Vulkan, the "Mailbox" present mode is non-tearing and has almost as good latency as vsync off. It's highly recommended to use it, especially on 60hz displays. Framerate may be very slightly less consistent but it's generally worth it for the reduced latency.
+In Vulkan, the "Mailbox" present mode is non-tearing and has almost as good latency as vsync off. That's what's used if this box is checked.
+
+Unless you require "exclusive fullscreen" on your hardware (maybe you use VRR), it's recommended to use it, especially on 60hz displays. Framerate may be very slightly less consistent but it's generally worth it for the reduced latency.
+
+However, if you are experiencing issues with framerate or smoothness, especially on Windows 10, try turning this off.
 
 ## Framerate control
 
