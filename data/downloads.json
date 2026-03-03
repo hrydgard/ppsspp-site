@@ -1523,6 +1523,32 @@
       ]
     },
     {
+      "name": "1_20_1",
+      "is_dir": true,
+      "children": [
+        {
+          "name": "ppsspp_vr.apk",
+          "is_dir": false
+        },
+        {
+          "name": "PPSSPPWindowsARM64.zip",
+          "is_dir": false
+        },
+        {
+          "name": "ppsspp.apk",
+          "is_dir": false
+        },
+        {
+          "name": "PPSSPPSetup.exe",
+          "is_dir": false
+        },
+        {
+          "name": "ppsspp_win.zip",
+          "is_dir": false
+        }
+      ]
+    },
+    {
       "name": "1_13_2",
       "is_dir": true,
       "children": [
@@ -2004,6 +2030,16 @@
         },
         {
           "name": "ppsspp_win.zip",
+          "is_dir": false
+        }
+      ]
+    },
+    {
+      "name": "1_20",
+      "is_dir": true,
+      "children": [
+        {
+          "name": "PPSSPP_macOS.dmg",
           "is_dir": false
         }
       ]
