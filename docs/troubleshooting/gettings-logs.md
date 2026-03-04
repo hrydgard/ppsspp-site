@@ -4,7 +4,7 @@ Getting logs of crashes can make fixing them much easier.
 
 ## Getting ADB logs on Android
 
-This is the traditional way. Maybe there's some newfangled wifi way, I don't know :)
+This is the traditional way. Maybe there's some newfangled WiFi way, I don't know :)
 
 * Install the `adb` command line tool on your PC or Mac. There are two ways:
   1. Just install the [platform tools](https://developer.android.com/tools/releases/platform-tools) somewhere, which should include `adb.exe`.

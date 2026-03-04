@@ -28,7 +28,7 @@ Color masking is not just per channel like on PC, you can set a full bitmask and
 
 A scissor rectangle is supported, and is the only thing that limits the bounds of rendering (the viewport parameters do not specify a rectangle).
 
-It has a normal set of blend factors and blend modes, with some additions, that are somewhat tricky to emulate - 2xSRC, 2xDST, their negations, and the special blend op ABSDIFF which does what you'd guess. This one is pretty rare but is used for example for the cartoon rendering effect in Dragon Ball Z - Tenkaichi Tag Team.
+It has a normal set of blend factors and blend modes, with some additions, that are somewhat tricky to emulate - 2xSRC, 2xDST, their negations, and the special blend op ABSDIFF which does what you'd guess. This one is pretty rare but is used for example for the cartoon rendering effect in Dragon Ball Z: Tenkaichi Tag Team.
 
 Stencil buffers are not stored separately, and are not interleaved with the depth buffer like on PC. Instead, the color alpha channel serves double duty as both stencil and alpha data. This means that if you specify that your framebuffer has the format R5G5B5A1, there really is only 1 bit of stencil, while with R4G4B4A4 you effectively have a 4-bit stencil buffer and with R8G8B8A8 your stencil buffer is the full 8 bits wide. And if you render using R5G6B5 format, there simply is no stencil buffer available.
 

@@ -30,7 +30,7 @@ The [Antigravity Racing Foundation](https://agracingfoundation.org/)!
 
 DNS: 147.135.213.57
 
-A project to keep Wipeout Pulse, Wipeout 2048 and Wipeout HD multiplayer alive by the use of custom infrastructure servers. Made for real PSPs/PS3s, but works with some custom versions of PPSSPP.
+A project to keep WipEout Pulse, WipEout 2048 and WipEout HD multiplayer alive by the use of custom infrastructure servers. Made for real PSPs/PS3s, but works with some custom versions of PPSSPP.
 
 Motorstorm: Artic Edge also works on this server.
 
@@ -50,11 +50,11 @@ More documentation will be added later here, in the meantime here's a list of pr
 * [PSORG](https://github.com/PSOnlineReturnalGaming)
 * LittleBigRefresh
 * PS3 Reborn (Discord group)
-* Outrun2006 Tweaks
+* OutRun2006Tweaks
 
 ## Game compatibility list
 
-### Wipeout Pulse
+### WipEout Pulse
 
 Infrastructure mode works great in this game, except that for some reason, opponent ship textures are wrong or corrupted. This is not a rendering issue, we are not sure why this happens.
 

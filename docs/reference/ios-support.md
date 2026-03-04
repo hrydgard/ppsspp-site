@@ -31,13 +31,9 @@ Connect your device via USB to a Mac and use Finder to copy over files directly 
 
 If you don't have a Mac, use a Windows device and install [Apple Devices App](https://apps.microsoft.com/detail/9np83lwlpz9k).
 
-From PPSSPP 1.20, you can also click the Upload Files button and follow the instructions, to transfer files from another device or computer on the same wifi network.
+From PPSSPP 1.20, you can also click the Upload Files icon on the <b class="inapp">Games</b> tab and follow the instructions, to transfer files from another device or computer on the same WiFi network.
 
 ## Missing and upcoming features
-
-### Planned features
-
-* Device rotation is coming in 1.20.
 
 ### Missing features
 
@@ -51,4 +47,5 @@ The iOS build is missing a few features:
 These have been fixed:
 
 * UI keyboard input (now works, so RetroAchivement login works too)
-* Background image replacement (the easy way) (1.19).
+* Background image replacement (the easy way) (1.19)
+* Device rotation (1.20)
