@@ -17,7 +17,7 @@ We first started by using an external library, which required buffering up audio
 When ffmpeg finally added support, we never switched over to using the internal buffering.
 Mostly because I didn't realize back then that the entire context is conveniently exposed (see below).
 
-But now, finally, we're getting accurate emulation of the buffering, which is critical for some games that use the library in slightly unusual ways, such as Flatout.
+But now, finally, we're getting accurate emulation of the buffering, which is critical for some games that use the library in slightly unusual ways, such as FlatOut.
 
 ## Loading the sceAtrac library
 
@@ -29,23 +29,23 @@ However, it wouldn't work with the sceSas integration, and also would be limited
 
 ### Games that use sceUtilityLoadModule:
 
-* Wipeout Pulse
-* Many more....
+* WipEout Pulse
+* many more....
 
 ### Games that use sceUtilityLoadAvModule
 
 This was previously not hooked up properly. Worked anyway because our sceAtrac impl doesn't require initialization.
 
 * MotoGP
-* Many more....
+* many more....
 
 ### Games that supply their own:
 
 * Burnout Legends (1.1)
-* Gitaroo Man (1.2)
 * Daxter (1.3)
-* Flatout (1.5)
-* Many more....
+* FlatOut (1.5)
+* Gitaroo Man (1.2)
+* many more....
 
 ### Different versions of the library
 
@@ -72,9 +72,9 @@ Most games only use Atrac3+ audio, but a few games (especially early games and P
 
 ### Games using Atrac3 (not plus)
 
-* Patapon
 * Mega Man Powered Up
-* A lot more...
+* Patapon
+* a lot more...
 
 ## Coordinate systems for offsets
 
@@ -261,10 +261,10 @@ However, if you supply less data than asked, you can still create split packets 
 
 ### All-data-loaded (looping or not)
 
-- MotoGP (menu music with specified loop). Simple repeated calls to sceAtracDecodeData
+- 3rd Birthday (also uses AT3 in addition to AT3+)
 - Archer MacLean's Mercury (in-game, not menu)
 - Crisis Core
-- 3rd Birthday (also uses AT3 in addition to AT3+)
+- MotoGP (menu music with specified loop). Simple repeated calls to sceAtracDecodeData
 
 ### Streaming
 
@@ -277,13 +277,13 @@ However, if you supply less data than asked, you can still create split packets 
   - Suicide Barbie (simple stream, no loop)
 
 - Others
-  - Bleach
-  - God of War: Chains of Olympus
   - Ape Academy 2 (bufsize 8192)
+  - Bleach
+  - FlatOut (tricky! needs investigation)
+  - God of War: Chains of Olympus
   - Half Minute Hero (bufsize 65536)
-  - Flatout (tricky! needs investigation)
-  - Outrun 2006
-  - Many, many more...
+  - OutRun 2006
+  - many, many more...
 
 ## Streaming with looping
 
@@ -301,9 +301,9 @@ In this case, the game just submits packets to decode to the decoder, sceAtrac d
 
 As mentioned before, Atrac3+ streams are usually stored in RIFF WAVE containers, but there's also AA3, which is one possible extension for "Sony OpenMG Music". This is used by very, very few games though:
 
-* Mod Nation Racers
 * Beats
-* A few more, can't find the list anymore
+* Mod Nation Racers
+* a few more, can't find the list anymore
 
 ### sceSas integration
 
@@ -317,17 +317,17 @@ Note: It seems the buffer you feed it from using Concatenate.. has to be double-
 
 This is not that common, known games that are using it:
 
+- L.A Gridlock (Minis)
+- Mad Blocker Alpha (Minis)
 - Sol Trigger
-- Mad Blocker Alpha (mini)
-- L.A Gridlock (mini)
-- Actually, a bunch more according to reports:
+- actually, a bunch more according to reports:
   - https://report.ppsspp.org/logs/kind/193  SetVoice
   - https://report.ppsspp.org/logs/kind/197  Concatenate
 
 ### Not using Atrac3+, but instead sequenced MIDI music
 
-- Bust-a-Move Deluxe
 - Breath of Fire III
+- Bust-a-Move Deluxe
 - Every Extend Extra
 - ... quite a few more, especially PSX ports.
 
@@ -382,7 +382,7 @@ Uses an unusually small buffer. We match this in our stream.prx test.
 0=sceAtracDecodeData(0, 092d3ad0, 09fdea70[00000800], 09fdea74[00000000], 09fdea78[85])
 ```
 
-### Flatout
+### FlatOut
 
 Uses the FMOD library.
 

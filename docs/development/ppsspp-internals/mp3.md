@@ -2,7 +2,7 @@
 
 sceMp3 acts as an MP3 parser and wrapper around sceAudiocodec's MP3 decoding ability, adding lots of utility functions and helpers to make streaming from disk easy.
 
-Here's a typical calling sequence (from Wipeout Pulse):
+Here's a typical calling sequence (from WipEout Pulse):
 
 ```
 0=sceMp3InitResource()
