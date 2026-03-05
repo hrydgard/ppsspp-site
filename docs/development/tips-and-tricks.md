@@ -10,6 +10,12 @@ Then run:
 adb install android/build/outputs/apk/normal/optimized/android-normal-optimized.apk
 ```
 
+## Automatic submodule sync
+
+When bisecting, it can be really annoying to have to manually sync the submodules on each step.
+
+To automate this, use: `git config --global submodule.recurse true` before the bisect, but do turn it off afterwards - it can be quite annoying since it replicates even commands like `git fetch` to every submodule.
+
 ## Better ADB logs
 
 Use the following very long command line to cleanly filter out PPSSPP-relevant logs:
