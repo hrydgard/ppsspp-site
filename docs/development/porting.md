@@ -9,7 +9,7 @@ Here's an incomplete list of platforms that PPSSPP could or could not be ported 
 | Platform  | State | Comments |
 | --------- | ----- | -------- |
 | Windows[^w_os] | Done | x86&#x2011;32/&NoBreak;64, ARM64 |
-| Android | Done | x86&#x2011;64, ARM32/&NoBreak;64 [^a_isa] |
+| Android[^a_os] | Done | x86&#x2011;64, ARM32/&NoBreak;64 [^a_isa] |
 | Linux | Done | x86&#x2011;32/&NoBreak;64, ARM32/&NoBreak;64, RISCV&#x2011;64 |
 | macOS | Done | Limited native UI |
 | iOS | Done | JIT works but not on the App Store builds. |
@@ -18,6 +18,7 @@ Here's an incomplete list of platforms that PPSSPP could or could not be ported 
 | Raspberry Pi | Done | R4+ recommended |
 
 [^w_os]: Windows 7 or newer. [XP](https://github.com/hrydgard/ppsspp/pull/11995) support is discontinued. Vista compatibility is not tested.
+[^a_os]: Android 5.0 "Lollipop" or newer. [4.x](https://github.com/hrydgard/ppsspp/pull/19658) support is discontinued.
 [^a_isa]: [x86&#x2011;32](https://github.com/hrydgard/ppsspp/pull/17908) and [ARMv6 (legacy armeabi)](https://github.com/hrydgard/ppsspp/issues/4798) support on Android is discontinued.
 [^u_mobile]: Windows 10&nbsp;Mobile support is discontinued, too slow.
 [^u_isa]: [x86&#x2011;32](https://github.com/hrydgard/ppsspp/pull/17912) support on UWP is discontinued.
