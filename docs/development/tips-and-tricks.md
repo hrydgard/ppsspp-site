@@ -26,6 +26,12 @@ adb logcat -s DEBUG AndroidRuntime PPSSPPNativeActivity PPSSPP NativeGLView Nati
 
 More instructions [here](/docs/troubleshooting/gettings-logs).
 
+## Running extremely old versions of PPSSPP
+
+The oldest versions may need some MSVC runtimes installed.
+
+They are available to downlod [here](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#visual-studio-2010-vc-100-sp1-no-longer-supported). If it complains about MSVCP100.dll, install the 2010 redistributable.
+
 ## Running PPSSPPHeadless in Docker on github CI
 
 Here's an example setup. Note that `--shm-size=8g` (or bigger) is critically important!
