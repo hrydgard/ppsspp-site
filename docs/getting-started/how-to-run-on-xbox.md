@@ -15,7 +15,7 @@ More and better information is coming here in the future.
 
 You need to be able to switch your Xbox One or Series X\|&NoBreak;S into development mode.
 
-You can download development builds from [devbuilds](/devbuild), or the latest official release directly from [downloads](/download).
+You can download development builds from [devbuilds](/devbuilds), or the latest official release directly from [downloads](/download).
 
 <!-- [guide](https://wiki.xboxdev.store/en/PPSSPPSetupGuide) on wiki.xboxdev.store. -->
 
