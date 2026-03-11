@@ -105,9 +105,9 @@
 
 use chrono::{DateTime, Utc};
 use std::{
-    path::{Path, PathBuf},
-    sync::mpsc,
+    path::{Path, PathBuf}, sync::mpsc
 };
+use std::collections::BTreeMap;
 
 mod config;
 mod document;
@@ -120,8 +120,9 @@ mod index;
 mod post_process;
 mod server;
 mod util;
+mod fetch;
 
-use anyhow::Context;
+use anyhow::{Context, anyhow};
 use clap::Parser;
 pub use config::Config;
 use notify::Watcher;
@@ -145,6 +146,20 @@ struct Args {
 
 fn build(opt: &Args) -> anyhow::Result<()> {
     let mut handlebars = handlebars::Handlebars::new();
+
+    // Let's fetch any needed HTTP documents.
+    let adhoc_servers = tokio::task::block_in_place(|| {
+        tokio::runtime::Handle::current()
+            .block_on(fetch::fetch_github_file(
+                "hrydgard/ppsspp",
+                "assets/adhoc-servers.json",
+            ))
+    })
+    .map_err(|e| anyhow!("fetch adhoc servers: {e}"))?;
+
+    let adhoc_servers_table = util::table_from_adhoc_servers(&adhoc_servers)?;
+    println!("Fetched adhoc servers from repo.");
+     // Register templates.
 
     let templates = &[
         "common_header",
@@ -190,12 +205,15 @@ fn build(opt: &Args) -> anyhow::Result<()> {
 
     println!("Build time: {formatted_time}");
 
+    let mut replacements = BTreeMap::new();
+    replacements.insert("{{adhocservers}}".to_string(), adhoc_servers_table);
+
     let mut config = Config {
         url_base: url_base.clone(),
         in_dir: PathBuf::from("."),
         out_dir: PathBuf::from("build"),
         markdown_options,
-        global_meta: GlobalMeta::new(opt.prod, &url_base, top_nav)?,
+        global_meta: GlobalMeta::new(opt.prod, &url_base, top_nav, replacements)?,
         build_date: formatted_time,
         github_url: "https://github.com/hrydgard/ppsspp/issues/",
     };

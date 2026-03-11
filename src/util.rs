@@ -3,6 +3,7 @@ use std::ffi::{OsStr, OsString};
 use std::fs;
 use std::io::Write;
 use std::path::{Path, PathBuf};
+use serde_json::Value;
 
 pub fn strip_extension(str: OsString) -> String {
     let mut x = PathBuf::from(str);
@@ -121,4 +122,59 @@ pub fn concat_files(
         file.write_all(&data)?;
     }
     Ok(())
+}
+
+/// Your global, immutable column mapping.
+/// Order here = Order in the Markdown table.
+const COLUMN_MAPPING: &[(&str, &str)] = &[
+    ("Server Name", "name"),
+    ("Host", "host"),
+    ("Location", "location"),
+    ("Community", "discord"),
+];
+
+// TODO: This needs refinement.
+pub fn table_from_adhoc_servers(json_str: &str) -> anyhow::Result<String> {
+    json_to_markdown_table(json_str, "servers", COLUMN_MAPPING)
+        .map_err(|e| anyhow::anyhow!("Failed to create markdown table: {}", e))
+}
+
+pub fn json_to_markdown_table(
+    json_str: &str,
+    array_name: &str,
+    mapping: &[(&str, &str)]
+) -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
+    let v: Value = serde_json::from_str(json_str)?;
+
+    let servers = v[array_name].as_array()
+        .ok_or(format!("JSON must contain a '{}' array", array_name))?;
+
+    let mut table = String::new();
+
+    // 1. Headers
+    table.push_str("| ");
+    table.push_str(&mapping.iter().map(|(title, _)| *title).collect::<Vec<_>>().join(" | "));
+    table.push_str(" |\n");
+
+    // 2. Separator
+    table.push_str("| ");
+    table.push_str(&mapping.iter().map(|_| "---").collect::<Vec<_>>().join(" | "));
+    table.push_str(" |\n");
+
+    // 3. Data Rows
+    for server in servers {
+        let mut row = Vec::new();
+        for (_, key) in mapping {
+            // Fetch value, handle non-string types gracefully, escape pipes
+            let val = server.get(*key)
+                .map(|v| v.as_str().unwrap_or("").replace('|', "\\|"))
+                .unwrap_or_default();
+            row.push(val);
+        }
+        table.push_str("| ");
+        table.push_str(&row.join(" | "));
+        table.push_str(" |\n");
+    }
+
+    Ok(table)
 }

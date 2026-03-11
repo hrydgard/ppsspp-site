@@ -1,6 +1,6 @@
 use chrono::{Datelike, Utc};
 use serde::{Deserialize, Serialize};
-use std::{collections::HashMap, path::PathBuf};
+use std::{collections::{BTreeMap, HashMap}, path::PathBuf};
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct File {
@@ -122,6 +122,7 @@ pub struct GlobalMeta {
     pub authors: HashMap<String, Author>,
     pub screenshots: Vec<Screenshot>,
     pub latest_news: Vec<DocLink>,
+    pub replacements: BTreeMap<String, String>,
     pub build_year: i32,
 }
 
@@ -144,7 +145,7 @@ fn gold_download_path(url_base: &str, version: &str, filename: &str) -> String {
 }
 
 impl GlobalMeta {
-    pub fn new(production: bool, url_base: &str, top_nav: Vec<DocLink>) -> anyhow::Result<Self> {
+    pub fn new(production: bool, url_base: &str, top_nav: Vec<DocLink>, replacements: BTreeMap<String, String>) -> anyhow::Result<Self> {
         // Parse the download path dump.
 
         let downloads_json = std::fs::read_to_string("data/downloads.json")?;
@@ -216,6 +217,7 @@ impl GlobalMeta {
             screenshots,
             latest_news: vec![],
             build_year,
+            replacements
         })
     }
 }

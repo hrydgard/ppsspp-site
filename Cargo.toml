@@ -16,6 +16,7 @@ axum = "0.8.1"
 axum-extra = "0.12.1"
 hyper = { version = "1.0.0", features = ["full"] }
 hyper-util = { version = "0.1", features = ["client-legacy"] }
+hyper-rustls = "0.27"
 tokio = { version = "1", features = ["full"] }
 tower = { version = "0.5", features = ["util"] }
 tower-http = { version = "0.6", features = ["fs", "trace"] }
@@ -27,3 +28,4 @@ natord = "1.0"
 minify-js = "0.6"
 chrono = { version = "0.4" }
 clap = { version = "4.5.41", features = ["derive"] }
+http-body-util = "0.1.3"

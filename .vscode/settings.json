@@ -208,5 +208,8 @@
         "usescript",
         "whygold"
     ],
-    "html.format.wrapLineLength": 120
+    "html.format.wrapLineLength": 120,
+    "chat.tools.terminal.autoApprove": {
+        "cargo check": true
+    }
 }

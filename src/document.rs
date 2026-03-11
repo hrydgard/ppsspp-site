@@ -239,6 +239,13 @@ impl Document {
 
         md += &String::from_utf8(buffer)?;
 
+        // Apply replacements. Replacements will simply replace .0 with .1 in the markdown before rendering.
+        for replacement in config.global_meta.replacements.iter() {
+            let from = replacement.0;
+            let to = replacement.1;
+            md = md.replace(from, to);
+        }
+
         post_process::add_meta_from_markdown(&md, &mut meta, config)?;
 
         if md.contains("```") {
