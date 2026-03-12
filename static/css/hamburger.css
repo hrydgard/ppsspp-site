@@ -25,6 +25,8 @@
 .burger-menu>li {
     border-bottom: 2px solid var(--color-gray-800);
     padding: 0px;
+    font-size: 14pt;
+    /*text-align: center;*/
 }
 
 .burger-menu>li:hover {
@@ -32,7 +34,7 @@
 }
 
 .burger-menu>li a {
-    padding: 8px;
+    padding: 11px;
     display: block;
     color: var(--color-text);
 }
@@ -42,7 +44,8 @@
 }
 
 .burger-menu>li .switch-theme {
-    padding: 8px;
+    padding: 11px;
+    display: block;
 }
 
 .burger-menu>li .switch-theme:hover {
@@ -50,13 +53,6 @@
     cursor: pointer;
 }
 
-.burger-menu>li #loginItem a,
-.burger-menu>li #darkItem {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.burger-menu>li #darkItem i.icon-ui {
+.burger-menu>li .switch-theme i.icon-ui {
     margin-right: 0.5ch;
 }
