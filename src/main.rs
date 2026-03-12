@@ -230,10 +230,18 @@ fn build(opt: &Args) -> anyhow::Result<()> {
     ).context("copy static")?;
 
     // Move the favicon into place.
-    std::fs::copy(
-        config.in_dir.join("static/img/favicon/favicon.ico"),
-        config.out_dir.join("favicon.ico"),
-    ).context("copy favicon")?;
+    vec![
+        ("static/img/favicon/favicon.ico", "favicon.ico"),
+        ("static/img/favicon/apple-touch-icon.png", "apple-touch-icon.png"),
+        ("static/img/favicon/icon-192.png", "icon-192.png"),
+        ("static/img/favicon/icon-512.png", "icon-512.png"),
+    ]
+    .into_iter()
+    .try_for_each(|(src, dest)| {
+        std::fs::copy(config.in_dir.join(src), config.out_dir.join(dest))
+            .map(|_| ()) // convert u64 to ()
+            .context("copy favicons")
+    })?;
 
     // Move the robots.txt.
     std::fs::copy(
