@@ -20,19 +20,11 @@ See the [Multiplayer quickstarts](/docs/multiplayer/quickstart) page for instruc
 
 See [Ad-Hoc servers](/docs/multiplayer/adhoc-servers).
 
-## Port offsets
-
-Some games use network ports that are not allowed for general use on general Linux systems (like Android), where ports 1-1024 are considered `privileged`.
-
-To get around this, PPSSPP supports adding an offset to all network port numbers. Note, this of course means that for two
-players to be able to play each other, they must all agree on and use the same port offset. Setting this up can be
-tricky to coordinate if you don't have a shared chat, or something.
-
 ## Server-provided packet relay
 
 This is a new feature in PPSSPP 1.20, implemented by Kethen in #21116.
 
-It uses the `aemu_postoffice` [protocol](https://github.com/Kethen/aemu_postoffice/blob/main/design.md) to route packets in a more reliable way than the usual direct connections. A server implemtnation can be found [here](https://github.com/Kethen/aemu_postoffice/releases).
+It uses the `aemu_postoffice` [protocol](https://github.com/Kethen/aemu_postoffice/blob/main/design.md) to route packets in a more reliable way than the usual direct connections. A server implementation can be found [here](https://github.com/Kethen/aemu_postoffice/releases).
 
 ### Users currently have access to reliable adhoc in P2P mode
 
@@ -47,3 +39,11 @@ Quite a number of users complain about not being able to setup port forwarding o
 For those users, it makes it much more simple to get started. With stable connection to the relay server, one can expect latency forgiving titles to just work, like the monster hunter series, ridge racer series, call of duty road to victory, maybe a bit of GTA as well. It also provides a much more simple way to cross-play with PSP/PSVitas, since relay server support is also available on those, one does not need to setup port forwarding/virtual LAN for consoles with this configuration.
 
 Since the relay server code is also available to everyone, one with access to working port forwarding and the know-how can also setup their own relay for their friends to keep latency low. Those who are joining will only be required to enable relay mode, and change the ip address to the server, instead of going through setting up port forwarding / virtual LAN.
+
+## Port offsets
+
+This should almost always be set to 10000 nowadays.
+
+The issue is that some games use network ports that are not allowed for general use on general Linux systems (like Android), where ports 1-1024 are considered `privileged`.
+
+To get around this, PPSSPP supports adding an offset to all network port numbers. Note, this of course means that for two players to be able to play each other, they must all agree on and use the same port offset.

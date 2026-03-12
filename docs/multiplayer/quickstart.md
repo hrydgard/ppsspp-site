@@ -1,3 +1,7 @@
+---
+title: Quickstart guide
+position: 1
+---
 # Multiplayer on PPSSPP - quickstart
 
 The PSP supports two fundamentally different methods of multiplayer - `Infrastructure` and `Ad hoc`. `Infrastructure` means that games connect to PSN or other servers, working much like most modern multiplayer games. `Ad hoc` is peer-to-peer, and was meant to be used between player in the same room, much like say the Gameboy link cable, but wireless.
