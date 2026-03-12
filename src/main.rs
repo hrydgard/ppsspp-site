@@ -231,7 +231,7 @@ fn build(opt: &Args) -> anyhow::Result<()> {
 
     // Move the favicon into place.
     std::fs::copy(
-        config.in_dir.join("static/img/favicon.ico"),
+        config.in_dir.join("static/img/favicon/favicon.ico"),
         config.out_dir.join("favicon.ico"),
     ).context("copy favicon")?;
 
