@@ -8,7 +8,7 @@ position: 1
 
 "Infrastructure" is what regular multiplayer servers are called, in [PSP parlance](https://manuals.playstation.net/document/en/psp/current/settings/infra.html).
 
-Most of the official servers have long since been shut down, but people have been creating their own replacements. If you know of other ones not listed, e-mail hrydgard+ppsspp@gmail.com, and put "Infrastructure" somewhere in the subject line.
+Most of the official servers have long since been shut down, but people have been creating their own replacements. If you know of other ones not listed, e-mail `hrydgard+ppsspp@gmail.com`, and put "Infrastructure" somewhere in the subject line.
 
 From PPSSPP version 1.19, a number of these will be supported on all networking-enabled platforms, allowing easy online play.
 
