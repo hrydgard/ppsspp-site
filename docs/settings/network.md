@@ -72,6 +72,8 @@ Configure multiplayer chat here.
 
 ### Port offset
 
+Leave at 10000. Both PPSSPP and aemu (software for modified PSPs) use a port offset of 10000 by default. If you want to try to connect to an unmodified PSP, this should be set to 0, but otherwise the default is best.
+
 If you want to try connecting to a real PSP, use 0 here. Otherwise, unless you have a very specific an unusual use case, always leave this at the default of 10000. Players who want to play together need to have the same port offset for connections to succeed.
 
 ### Allow speed control while connected
