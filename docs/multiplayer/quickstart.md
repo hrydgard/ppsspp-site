@@ -14,7 +14,7 @@ Enable networking on the "Networking" tab in PPSSPP's settings (looks like a wif
 
 From PPSSPP 1.20.1 and upwards, this is very easy, thanks to relay servers, see [How to play](/docs/multiplayer/how-to-play). Here's the minimal setup:
 
-In Settings / Networking, under `Ad Hoc multiplayer`, set up a "Nickname" and choose a server to play on.
+In Settings / Networking, under `Ad Hoc multiplayer`, set up a "Nickname" and choose a server to play on. For adhoc, this is the same as the system nickname on the emulated PSP (unlike Infrastructure).
 
 Do that on all the participating devices, choosing the same server, then you should simply be able to create and/or join an ad-hoc game room as normal in the game you are playing, if the server you chose supports the "Relay" protocol (most listed ones do). There might already be other people playing, too - join them!
 
@@ -24,7 +24,7 @@ The server list is available directly in the app, but you can also browse it her
 
 Not all games that support Infrastructure gameplay have "revival" servers yet, but many do. PPSSPP is, from version 1.19.3, set up to autoconfigure everything.
 
-After enabling networking, all you need to do is to set a "User name" under Infrastructure in Networking settings in PPSSPP. Then things will "just work", in supported games.
+After enabling networking, all you need to do is to set a "User name" under Infrastructure in Networking settings in PPSSPP. Note: Unlike ad hoc, this is separate from the nickname of the emulated PSP. Then things will "just work", in supported games.
 
 ## Getting started with Ad Hoc on LAN
 
