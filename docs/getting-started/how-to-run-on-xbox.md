@@ -1,21 +1,26 @@
 ---
 position: 8
 ---
-# How to run PPSSPP on XBox
+# How to run PPSSPP on Xbox
 
-## Getting it
+## What is UWP?
 
-Download the UWP build of PPSSPP. UWP, or Universal Windows Platform, is an application packaging standard for apps that can run on both Windows and XBox, and potentially other Windows-based platforms.
+<img src="/static/img/icons/uwp.svg" alt="UWP icon" class="icon-96 icon-left">
 
-## Running it
+UWP, or Universal Windows Platform, is an application packaging standard for apps that can run on every modern Windows-based platform,
+such as Windows 10 and 11, Xbox One and Series X\|&NoBreak;S and potentially others.
 
-Check out [SternXD's guide](https://wiki.sternserv.xyz/docs/xbox-setup/xbox-developer-mode-setup/).
+Note that PPSSPP never supported Windows 10&nbsp;Mobile.
+
+## Setup for Xbox
+
+Download the UWP build of the [latest official release](/download) of PPSSPP or [development builds](/devbuilds).
+
+You need to be able to switch your Xbox One or Series X\|&NoBreak;S into developer mode.
+
+Follow [SternXD's guide](https://wiki.sternserv.xyz/docs/xbox-setup/xbox-developer-mode-setup/) for the setup process.
 
 More and better information is coming here in the future.
-
-You need to be able to switch your Xbox One or Series X\|&NoBreak;S into development mode.
-
-You can download development builds from [devbuilds](/devbuilds), or the latest official release directly from [downloads](/download).
 
 <!-- [guide](https://wiki.xboxdev.store/en/PPSSPPSetupGuide) on wiki.xboxdev.store. -->
 

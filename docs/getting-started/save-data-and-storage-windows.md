@@ -1,13 +1,15 @@
 # Save data and storage on Windows
 
-For general background, see the first part of [/docs/getting-started/save-data-and-storage].
+For general background, see the first part of [the Android page](/docs/getting-started/save-data-and-storage).
 
-## Moving the memory stick folder
+## Moving the Memory Stick folder
 
-Find out where PPSSPPWindows64.exe is located (that's the one you're running, right? Don't use the 32-bit one unless you have to!).
+Find out where `PPSSPPWindows64.exe` is located. (That's the one you're running, right? Don't use the 32-bit one unless you have to!)
 
-Then, create a file called "installed.txt" if it's not already there. Edit it with notepad. Here's how it works:
+You can find it easily in the emulator by navigating to <b class="inapp">Settings -> System -> PSP Memory Stick -> Show Memory Stick folder</b>.
 
-- No installed.txt: Memory stick is in a subfolder called `memstick` right next to the EXE file.
-- Installed.txt is empty: Memory stick is in your user folder.
-- Installed.txt contains a path: Memory stick is in that path. For example `E:\PSP` or whatever you want.
+Then, create a file called `installed.txt` if it's not already there. Edit it with Notepad. Here's how it works:
+
+- No `installed.txt`: Memory Stick is in a subfolder called `memstick` right next to the EXE file.
+- `installed.txt` is empty: Memory Stick is in your user folder.
+- `installed.txt` contains a path: Memory Stick is in that path. For example `E:\PSP` or whatever you want.
