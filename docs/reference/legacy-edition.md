@@ -1,14 +1,15 @@
 # PPSSPP Legacy Edition for Android
 
-![Legacy Logo](/static/img/platform/ppsspp-icon-legacy.png)
-
 ## Features
+
+<img src="/static/img/platform/ppsspp-icon-legacy.png" alt="PPSSPP Legacy Edition icon" class="icon-144 icon-left">
 
 The PPSSPP Legacy Edition is really just the same as a regular PPSSPP build, except it has been built specifying an old target Android SDK version (29, specifically).
 
 This means that it's not affected by the Scoped Storage requirement of Android 11+, meaning that it can work without a folder browser app being available on your device, which helps on Android TV devices.
 
-NOTE: You might want to try the [FX File Explorer](https://play.google.com/store/apps/details?id=nextapp.fx&hl=en) first, it has been reported by users to work around the problem.
+<div class="alert alert-info">NOTE: You might want to try the <a href="https://play.google.com/store/apps/details?id=nextapp.fx">FX File Explorer</a> first,
+it has been reported by users to work around the problem.</div>
 
 ## Installation
 
@@ -20,6 +21,6 @@ However, PPSSPP built this way cannot be uploaded to the Play Store due to Googl
 
 ## Download
 
-The Legacy Edition can be downloaded from the [buildbot](/devbuilds), the AndroidLegacy build, starting at version 1.17.1-980. Later it might be made available on the main Downloads page.
+The Legacy Edition can be downloaded from the [buildbot](/devbuilds), the *AndroidLegacy* build, starting at version 1.17.1-980. Later it might be made available on the main Downloads page.
 
 Alternatively, the Legacy Edition can be built from source code using the gradle subcommand `assembleLegacyOptimized`.

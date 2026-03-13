@@ -115,12 +115,12 @@
                 "whats_this": "ARM64 information"
             },
             {
-                "name": "UWP package (XBox)",
+                "name": "UWP / Xbox package",
                 "short_name": "UWP",
                 "icon": "ppsspp-icon.png",
                 "filename": "ppsspp_uwp.zip",
                 "whats_this_url": "/docs/getting-started/how-to-run-on-xbox/",
-                "whats_this": "UWP information"
+                "whats_this": "UWP / Xbox information"
             }
         ]
     },

@@ -25,10 +25,22 @@ img.icon-pfp {
     border-radius: 50%;
 }
 
-.icon-48 { height: 48px !important; width: 48px !important; }
-.icon-36 { height: 36px !important; width: 36px !important; }
-.icon-32 { height: 32px !important; width: 32px !important; }
-.icon-24 { height: 24px !important; width: 24px !important; }
+img.icon-left {
+    float: left;
+    margin-right: 8px;
+}
+
+img.icon-right {
+    float: right;
+    margin-left: 8px;
+}
+
+.icon-144 { height: 144px !important; width: 144px !important; }
+.icon-96  { height:  96px !important; width:  96px !important; }
+.icon-48  { height:  48px !important; width:  48px !important; }
+.icon-36  { height:  36px !important; width:  36px !important; }
+.icon-32  { height:  32px !important; width:  32px !important; }
+.icon-24  { height:  24px !important; width:  24px !important; }
 
 /* UI glyphs */
 i.icon-ui {
