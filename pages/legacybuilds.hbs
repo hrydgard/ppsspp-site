@@ -37,19 +37,32 @@
     </div>
     <div class="alert alert-info">Find even older versions and Gold builds under the "Previous releases" section of <a href="/download">Downloads</a>.</div>
 
-    <h3 class="center-vertical">Old VR<img src="/static/img/icons/vrlegacy.svg"
-            aria-hidden="true" class="icon-36"></h3>
-    <p>The last release that works on (Oculus) <b>Quest 1</b> is v1.17.1 from February, 2024.</p>
-    <p>PPSSPP 1.17.1 for VR: <a href="https://www.ppsspp.org/files/1_17_1/ppsspp_vr.apk">Download APK</a></p>
-
     <h3 class="center-vertical">Old Android<img src="/static/img/icons/androidlegacy.svg"
             aria-hidden="true" class="icon-36"></h3>
+    <p>The last release to support <b>Android 4.1&ndash;4.3 "Jelly Bean"</b> and <b>Android 4.4 "KitKat"</b> is 1.19.3 from July, 2025.</p>
+    <p>PPSSPP 1.19.3 for Android: <a href="https://www.ppsspp.org/files/1_19_3/ppsspp.apk">Download APK</a></p>
+
     <p>The last release to natively support <b>x86-32</b> architecture devices is v1.15.4 from May, 2023.
         Technically newer versions may work too, but they will run less efficiently under ARM emulation on x86.</p>
     <p>PPSSPP 1.15.4 for Android: <a href="https://www.ppsspp.org/files/1_15_4/ppsspp.apk">Download APK</a></p>
 
     <p>The last release that works on <b>ARMv6</b> architecture (legacy armeabi) devices is v0.9.7.2 from February, 2014.</p>
     <p>PPSSPP 0.9.7.2 for Android: <a href="https://www.ppsspp.org/files/0_9_7_2/ppsspp.apk">Download APK</a></p>
+
+    <h3 class="center-vertical">Old Windows<img src="/static/img/icons/windowslegacy.svg"
+            aria-hidden="true" class="icon-36"></h3>
+    <p>The last release to support <b>Direct3D 9</b> (DirectX 9) and <b>DirectSound</b> is 1.19.3 from July, 2025.</p>
+    <p>PPSSPP 1.19.3 installer for Windows: <a href="https://www.ppsspp.org/files/1_19_3/PPSSPPSetup.exe">Download .exe</a></p>
+    <p>PPSSPP 1.19.3 portable for Windows: <a href="https://www.ppsspp.org/files/1_19_3/ppsspp_win.zip">Download ZIP</a></p>
+
+    <p>The last release that works on <b>Windows XP</b> is 1.8 from March, 2019. Newer versions simply do not launch.</p>
+    <p>PPSSPP 1.8 installer for Windows: <a href="https://www.ppsspp.org/files/1_8_0/PPSSPPSetup.exe">Download .exe</a></p>
+    <p>PPSSPP 1.8 portable for Windows: <a href="https://www.ppsspp.org/files/1_8_0/ppsspp_win.zip">Download ZIP</a></p>
+
+    <h3 class="center-vertical">Old VR<img src="/static/img/icons/vrlegacy.svg"
+            aria-hidden="true" class="icon-36"></h3>
+    <p>The last release that works on (Oculus) <b>Quest 1</b> is v1.17.1 from February, 2024.</p>
+    <p>PPSSPP 1.17.1 for VR: <a href="https://www.ppsspp.org/files/1_17_1/ppsspp_vr.apk">Download APK</a></p>
 
     <h3 class="center-vertical">DragonBox Pyra<img src="/static/img/icons/pyra.svg"
             aria-hidden="true" class="icon-36"></h3>
@@ -61,18 +74,6 @@
     <p>This is a Pandora port of PPSSPP. The last release is Build 55 from October, 2020 and is based on version 1.10.3.
         You will have to figure out how to install it. :) Thanks to <i>ptitSeb</i>!</p>
     <p><a href="http://repo.openpandora.org/?page=detail&app=ppsspp_ptitseb">OpenPandora repo</a></p>
-
-    <h3 class="center-vertical">Old Windows<img src="/static/img/icons/windowslegacy.svg"
-            aria-hidden="true" class="icon-36"></h3>
-    {{!-- Uncomment this block when v1.20 comes out. Also move it up.
-    <p>The last release to support <b>Direct3D 9</b> (DirectX 9) and <b>DirectSound</b> is 1.19.3 from July, 2025.</p>
-    <p>PPSSPP 1.19.3 installer for Windows: <a href="https://www.ppsspp.org/files/1_19_3/PPSSPPSetup.exe">Download .exe</a></p>
-    <p>PPSSPP 1.19.3 portable for Windows: <a href="https://www.ppsspp.org/files/1_19_3/ppsspp_win.zip">Download ZIP</a></p>
-    --}}
-
-    <p>The last release that works on <b>Windows XP</b> is 1.8 from March, 2019. Newer versions simply do not launch.</p>
-    <p>PPSSPP 1.8 installer for Windows: <a href="https://www.ppsspp.org/files/1_8_0/PPSSPPSetup.exe">Download .exe</a></p>
-    <p>PPSSPP 1.8 portable for Windows: <a href="https://www.ppsspp.org/files/1_8_0/ppsspp_win.zip">Download ZIP</a></p>
 
     <h3 class="center-vertical">BlackBerry 10<img src="/static/img/icons/blackberry.svg"
             aria-hidden="true" class="icon-36"></h3>
@@ -103,19 +104,19 @@
     <p>Related pull requests: <a href="https://github.com/hrydgard/ppsspp/pull/11001">#11001</a> and
         <a href="https://github.com/hrydgard/ppsspp/pull/13399">#13399</a></p>
 
+    <h3 class="center-vertical">Windows 10&nbsp;Mobile<img src="/static/img/icons/windowsphone.svg"
+            aria-hidden="true" class="icon-36"></h3>
+    <p>Once upon a time, back around 2017, I ported PPSSPP to Windows 10&nbsp;Mobile. Unfortunately I never got it to run well enough
+        to be worth releasing, since JIT is fundamentally broken on Windows 10&nbsp; (due to the lack of an API to invalidate the
+        instruction cache), and the graphics driver was barely functional, causing many glitches.
+    </p>
+
     <h3 class="center-vertical">Xbox 360<img src="/static/img/icons/xbox360.svg"
             aria-hidden="true" class="icon-36"></h3>
     <p>A proof-of-concept Xbox 360 port was in development by <i>Ced2911</i> during 2013.
         Big-endian PowerPC support and JIT, as well as the Direct3D 9 graphics renderer was first implemented for this port.</p>
     <p><a href="https://github.com/Ced2911/ppsspp/tree/master">Archive of Ced2911's fork</a></p>
     <p><a href="https://github.com/hrydgard/ppsspp/pulls?q=is%3Apr+author%3Aced2911">Related pull requests</a></p>
-
-    <h3 class="center-vertical">Windows Phone 7<img src="/static/img/icons/windowsphone.svg"
-            aria-hidden="true" class="icon-36"></h3>
-    <p>Once upon a time, long long ago, I ported PPSSPP to Windows Phone. Unfortunately I never got it to run well enough
-        to be worth releasing, since JIT is fundamentally broken on Windows Phone (due to the lack of an API to invalidate the
-        instruction cache), and the graphics driver was barely functional, causing many glitches.
-    </p>
 
 </div>
 
