@@ -8,20 +8,21 @@ Here's an incomplete list of platforms that PPSSPP could or could not be ported 
 
 | Platform  | State | Comments |
 | --------- | ----- | -------- |
-| Windows[^w_os] | Done | x86&#x2011;32/&NoBreak;64, ARM64 |
+| Windows[^w_os] | Done | x86&#x2011;32/&NoBreak;64, ARM64 [^w_isa] |
 | Android[^a_os] | Done | x86&#x2011;64, ARM32/&NoBreak;64 [^a_isa] |
 | Linux | Done | x86&#x2011;32/&NoBreak;64, ARM32/&NoBreak;64, RISCV&#x2011;64 |
 | macOS | Done | Limited native UI |
 | iOS | Done | JIT works but not on the App Store builds. |
-| Windows UWP,<br />Xbox Series X\|&NoBreak;S,<br />Xbox One,<br />Windows 10&nbsp;Mobile[^u_mobile] | Done | x86&#x2011;64, ARM32/&NoBreak;64 [^u_isa] |
+| Windows UWP,<br />Xbox Series X\|&NoBreak;S,<br />Xbox One,<br />Windows 10&nbsp;Mobile[^u_mobile] | Done | x86&#x2011;64, ARM64 [^u_isa] |
 | Nintendo Switch | Done | Homebrew enabled consoles only. |
 | Raspberry Pi | Done | R4+ recommended |
 
 [^w_os]: Windows 7 or newer. [XP](https://github.com/hrydgard/ppsspp/pull/11995) support is discontinued. Vista compatibility is not tested.
+[^w_isa]: [ARM32](https://github.com/hrydgard/ppsspp/pull/20496) was never officially supported on Windows.
 [^a_os]: Android 5.0 "Lollipop" or newer. [4.x](https://github.com/hrydgard/ppsspp/pull/19658) support is discontinued.
 [^a_isa]: [x86&#x2011;32](https://github.com/hrydgard/ppsspp/pull/17908) and [ARMv6 (legacy armeabi)](https://github.com/hrydgard/ppsspp/issues/4798) support on Android is discontinued.
-[^u_mobile]: Windows 10&nbsp;Mobile support is discontinued, too slow.
-[^u_isa]: [x86&#x2011;32](https://github.com/hrydgard/ppsspp/pull/17912) support on UWP is discontinued.
+[^u_mobile]: Windows 10&nbsp;Mobile was never officially supported. JIT didn't work correctly, CPUs in Lumia devices were slow and the graphics driver was extremely buggy.
+[^u_isa]: [x86&#x2011;32](https://github.com/hrydgard/ppsspp/pull/17912) and [ARM32](https://github.com/hrydgard/ppsspp/pull/20496) support on UWP is discontinued.
 
 These platforms were supported once, but aren't anymore due to lack of maintainer interest:
 
@@ -33,14 +34,14 @@ These platforms were supported once, but aren't anymore due to lack of maintaine
 | Symbian | Worked | JIT for ARM |
 | MeeGo | Worked | |
 | Maemo 5 | Worked | |
-| Wii&nbsp;U | Proof-of-concept | |
+| Wii U | Proof-of-concept | |
 | Xbox 360 | Proof-of-concept | Hacked consoles only. |
 
 These are ports that never happened or are deemed impossible:
 
 | Platform  | State | Comments |
 | --------- | ----- | -------- |
-| PlayStation 3 | Barely possible | Hacked consoles only. Unlikely to happen. |
+| PlayStation 3 | Barely possible | Hacked consoles only. Will not happen. |
 | Windows Phone 8 | NOT POSSIBLE | JIT not allowed, way too slow. |
 | Windows Phone 7.x | NOT POSSIBLE | No native code support. |
 | Wii | NOT POSSIBLE | Not enough RAM. |
