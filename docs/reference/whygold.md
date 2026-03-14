@@ -1,4 +1,4 @@
-# PPSSPP Gold - the what and why
+# PPSSPP Gold – the what and why
 
 ## Why buy PPSSPP Gold?
 
@@ -11,7 +11,7 @@ PPSSPP and PPSSPP Gold have everything you'd want in a PSP emulator:
 
 PPSSPP Gold also:
 
-<img src="/static/img/platform/ppsspp-icon-gold.png" alt="UWP icon" class="icon-96 icon-right">
+<img src="/static/img/platform/ppsspp-icon-gold.png" alt="PPSSPP Gold icon" class="icon-96 icon-right">
 
 * Makes you feel good.
 * Has a fancy golden icon you can show off to your friends.
@@ -29,6 +29,18 @@ More platforms are planned to be added in the future, but as these are by far th
 
 Whether you own PPSSPP Gold for one of those platforms or not, feel free to use the free version on any platforms you have, as much as you want.
 
-## Why do I need to enter my phone number when making a purchase of the PC/Mac versions?
+## Why do I need to enter my phone number when making a purchase of the Windows/macOS versions?
 
-The payment provider uses the phone number in its algorithms to prevent credit card fraud. It is not actually used - you will not get calls from anyone and it's not stored.
+The payment provider uses the phone number in its algorithms to prevent credit card fraud.
+It is not actually used - you will not get calls from anyone and it's not stored.
+
+## I have purchased PPSSPP Gold for another platform before. Do I need to buy it again?
+
+If you have previously purchased PPSSPP Gold, you can [request a license](/requestgold) for Android, Windows and macOS.
+
+## Can I make a repeated purchase to support the project even more?
+
+If you have already bought PPSSPP Gold and want to support the development even more, you can always [make another purchase](/buygold)
+for Windows/macOS or check it out on another platform.
+
+Thank you for your repeated contribution!
