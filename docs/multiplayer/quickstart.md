@@ -10,6 +10,8 @@ Some games support one or the other, and some games support both.
 
 In both cases, there are now servers run by volunteers that simulates game servers (Infrastructure) or just act as a virtual room (Ad Hoc).
 
+NOTE: If you want to enter a server IP the traditional way, just use "Add server...", type in your IP as the hostname, and UNCHECK the "Relay" checkbox.
+
 ## First step
 
 Enable networking on the "Networking" tab in PPSSPP's settings (looks like a wifi symbol in portrait mode). Then, choose your path:
