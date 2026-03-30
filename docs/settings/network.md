@@ -30,15 +30,19 @@ This setting doesn't really do anything meaningful, considering removing it.
 
 ## Ad hoc multiplayer
 
-### Change PRO adhoc server IP address
+### Change ad hoc server address
+
+In newer builds, just "Ad hoc server address".
 
 This lets you select what server to use.
 
 ### Try to use server-provided packet relay
 
-Relay mode is the new way of playing adhoc which is very easy to set up. See [How to play](/docs/multiplayer/how-to-play) for more information.
+Relay mode is the new way of playing ad hoc which is very easy to set up. See [How to play](/docs/multiplayer/how-to-play) for more information.
 
 ### Change nickname
+
+In newer builds, just "Nickname".
 
 Lets you set the Nickname setting of the emulated PSP. This is what shows up as your username when playing in ad hoc mode.
 

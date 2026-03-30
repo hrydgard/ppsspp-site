@@ -77,12 +77,12 @@ Also, there are a few "HD Version" PSP remasters that were released on the PS3 b
 * Shin Sangoku Musou Multi Raid 2 HD Ver.
 * Eiyuu Densetsu Sora no Kiseki (3 editions: FC Kai, SC Kai, 3rd Kai) HD Edition.
 
-## Can I play adhoc multiplayer locally with two instances of PPSSPP?
+## Can I play ad hoc multiplayer locally with two instances of PPSSPP?
 
 Yes, although it's not a super smooth experience. Follow this:
 
-* Set "Pro adhoc server IP address" to localhost
-* Enable "Built-in proadhocserver"
+* Change "Ad hoc server address" to localhost
+* Enable "Built-in ad hoc server"
 * Start a second instance (File -> Open New Instance on Windows).
 
 Sharing controls between the two instances can be an issue though..

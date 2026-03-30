@@ -34,7 +34,7 @@ After enabling networking, all you need to do is to set a "User name" under Infr
 
 ## Getting started with Ad Hoc on LAN
 
-It's totally possible to play PSP Ad Hoc games the way they were meant to, between people on the same LAN or local wireless network. One of the players should check the box for the "Built-in ad hoc server", and the others should add that player's IP address as a custom server in settings.
+It's totally possible to play PSP Ad Hoc games the way they were meant to, between people on the same LAN or local wireless network. One of the players should check the box for the "Built-in ad hoc server", and the others should add that player's IP address as a custom server in settings. IMPORTANT: When adding the server, make sure that "Relay server mode" is *unchecked*.
 
 ## Ad hoc in P2P mode, and other setups
 
