@@ -1,10 +1,11 @@
 ---
+title: Ad hoc live server status
 position: 5
 ---
 
-# Adhoc server status
+# Ad hoc live server status
 
-Multiple adhoc servers have some kind of live status page, where you can see what's being played. Future versions of PPSSPP will be able to display this information in the server browser.
+Multiple ad hoc servers have some kind of live status page, where you can see what's being played. Future versions of PPSSPP will be able to display this information in the server browser.
 
 There are currently two standards, but PPSSPP will support `data.json` going forward.
 
