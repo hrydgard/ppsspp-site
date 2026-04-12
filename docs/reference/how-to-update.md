@@ -76,7 +76,7 @@ Assume you already have:
 
 Put both in the same folder, for example:
 
-```bash
+```
 ~/Downloads/PPSSPP/
 ```
 
@@ -124,14 +124,14 @@ This will:
 
 If the result is a new filename (e.g., `PPSSPP-v1.20.3-anylinux-x86_64.AppImage`):
 
-```bash
+```
 chmod +x PPSSPP-v1.20.3-anylinux-x86_64.AppImage
 ./PPSSPP-v1.20.3-anylinux-x86_64.AppImage
 ```
 
 If you want to keep 1.20.2 around, manually copy the old file before running `zsync`:
 
-```bash
+```
 cp PPSSPP-v1.20.2-anylinux-x86_64.AppImage PPSSPP-v1.20.2-old.AppImage
 zsync PPSSPP-v1.20.3-anylinux-x86_64.AppImage.zsync
 ```
