@@ -16,6 +16,53 @@ In summary:
 
 If you want to install by another method than before, or downgrade to an older version, you need to uninstall first (in which case you should make sure to [backup your save games](/docs/getting-started/save-data-and-storage)), since the digital signatures are not compatible.
 
+## Upgrading PPSSPP for GNU/Linux
+
+### AppImage (suitable for most GNU/Linux distributions)
+
+#### AM
+
+[AM](https://github.com/ivan-hc/AM) is a powerful command-line package manager for managing AppImage software. It allows users to install, update, and remove AppImages either system-wide or locally without manual setup.
+
+1. Installation
+
+There are no system packages available for AM in common repositories, so it must be installed manually.
+
+Follow the official installation instructions provided at: https://github.com/ivan-hc/AM
+
+During setup, you’ll be prompted to choose one of two installation modes:
+
+* Option 1: AM – for system-wide AppImage management (requires root privileges).
+* Option 2: appman – for local, user-level AppImage management (no root access required).
+
+Choose the option that best suits your environment and permissions.
+
+
+2. Searching for AppImages
+
+Once installation is complete, verify that AM or AppMan is working by performing a search.
+Use the appropriate command depending on your installation:
+
+
+```
+# For system-wide installation
+am -q ppsspp
+
+# For user-level installation
+appman -q ppsspp
+```
+
+This query searches for available AppImages matching “ppsspp” and displays a list of results.
+Example output:
+
+```
+$ appman -q ppsspp
+
+ SEARCH RESULTS FOR "PPSSPP":
+
+ ◆ ppsspp : PSP emulator written in C++.
+```
+
 ## Upgrading PPSSPP for Windows
 
 If you've installed PPSSPP by downloading the zip file and unzipped it somewhere, you have two paths:
