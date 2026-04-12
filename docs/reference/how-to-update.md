@@ -64,8 +64,9 @@ $ appman -q ppsspp
 ```
 
 #### zsync
+zsync is a delta‑sync tool that lets you efficiently update an AppImage by downloading only the changed parts of the file, instead of re‑downloading the entire new version. PPSSPP distributes .zsync files alongside its AppImage releases so users can incrementally update to newer versions without redownloading the full binary.
 
-To upgrade from PPSSPP 1.20.2 to 1.20.3 using `zsync`, you let `zsync` patch your existing 1.20.2 AppImage from the 1.20.3 `.zsync` metadata file, so you reuse most of the old download and only fetch the changed bytes. [github](http://github.com/hrydgard/ppsspp/releases/tag/v1.19.3)
+To upgrade from PPSSPP 1.20.2 to 1.20.3 using zsync, you let zsync patch your existing 1.20.2 AppImage from the 1.20.3 .zsync metadata file, so you reuse most of the old download and only fetch the changed bytes.
 
 ##### 1. Put the files in the same directory
 
@@ -81,24 +82,6 @@ Put both in the same folder, for example:
 ```
 
 ##### 2. Run `zsync` from the terminal
-
-zsync is a delta‑sync tool that lets you efficiently update an AppImage by downloading only the changed parts of the file, instead of re‑downloading the entire new version. PPSSPP distributes .zsync files alongside its AppImage releases so users can incrementally update to newer versions without redownloading the full binary.
-
-To upgrade from PPSSPP 1.20.2 to 1.20.3 using zsync, you let zsync patch your existing 1.20.2 AppImage from the 1.20.3 .zsync metadata file, so you reuse most of the old download and only fetch the changed bytes.
-
-1. Put the files in the same directory
-
-Assume you already have:
-* PPSSPP-v1.20.2-anylinux-x86_64.AppImage (your current one)
-* PPSSPP-v1.20.3-anylinux-x86_64.AppImage.zsync (the 1.20.3 delta file)
-
-Put both in the same folder, for example:
-
-```
-~/Downloads/PPSSPP/
-```
-
-2. Run zsync from the terminal
 
 Install `zsync` if you don’t have it:
 
