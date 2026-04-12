@@ -63,6 +63,82 @@ $ appman -q ppsspp
  ◆ ppsspp : PSP emulator written in C++.
 ```
 
+#### zsync
+
+To upgrade from PPSSPP 1.20.2 to 1.20.3 using `zsync`, you let `zsync` patch your existing 1.20.2 AppImage from the 1.20.3 `.zsync` metadata file, so you reuse most of the old download and only fetch the changed bytes. [github](http://github.com/hrydgard/ppsspp/releases/tag/v1.19.3)
+
+##### 1. Put the files in the same directory
+
+Assume you already have:
+
+- `PPSSPP-v1.20.2-anylinux-x86_64.AppImage` (your current one)
+- `PPSSPP-v1.20.3-anylinux-x86_64.AppImage.zsync` (the 1.20.3 delta file)
+
+Put both in the same folder, for example:
+
+```
+~/Downloads/PPSSPP/
+```
+
+##### 2. Run `zsync` from the terminal
+
+zsync is a delta‑sync tool that lets you efficiently update an AppImage by downloading only the changed parts of the file, instead of re‑downloading the entire new version. PPSSPP distributes .zsync files alongside its AppImage releases so users can incrementally update to newer versions without redownloading the full binary.
+
+To upgrade from PPSSPP 1.20.2 to 1.20.3 using zsync, you let zsync patch your existing 1.20.2 AppImage from the 1.20.3 .zsync metadata file, so you reuse most of the old download and only fetch the changed bytes.
+
+1. Put the files in the same directory
+
+Assume you already have:
+* PPSSPP-v1.20.2-anylinux-x86_64.AppImage (your current one)
+* PPSSPP-v1.20.3-anylinux-x86_64.AppImage.zsync (the 1.20.3 delta file)
+
+Put both in the same folder, for example:
+
+```
+~/Downloads/PPSSPP/
+```
+
+2. Run zsync from the terminal
+
+Install `zsync` if you don’t have it:
+
+- Debian/Ubuntu/etc.:
+```
+sudo apt install zsync
+```
+
+Then navigate to the folder and run:
+
+```
+cd ~/Downloads/PPSSPP
+zsync PPSSPP-v1.20.3-anylinux-x86_64.AppImage.zsync
+```
+
+This will:
+
+- Use the existing `PPSSPP-v1.20.2-anylinux-x86_64.AppImage` as the base.
+- Download only the differences referenced by the `.zsync` file.
+- Overwrite the old file (or produce `PPSSPP-v1.20.3-anylinux-x86_64.AppImage`) depending on how the `.zsync` is configured. [github](https://github.com/hrydgard/ppsspp/actions/runs/16994040280/workflow)
+
+##### 3. Mark the new file executable and run it
+
+If the result is a new filename (e.g., `PPSSPP-v1.20.3-anylinux-x86_64.AppImage`):
+
+```
+chmod +x PPSSPP-v1.20.3-anylinux-x86_64.AppImage
+./PPSSPP-v1.20.3-anylinux-x86_64.AppImage
+```
+
+If you want to keep 1.20.2 around, manually copy the old file before running `zsync`:
+
+```
+cp PPSSPP-v1.20.2-anylinux-x86_64.AppImage PPSSPP-v1.20.2-old.AppImage
+zsync PPSSPP-v1.20.3-anylinux-x86_64.AppImage.zsync
+```
+
+That’s it; you’ve effectively “upgraded” the AppImage from 1.20.2 to 1.20.3 using the zsync file.
+
+
 ## Upgrading PPSSPP for Windows
 
 If you've installed PPSSPP by downloading the zip file and unzipped it somewhere, you have two paths:
