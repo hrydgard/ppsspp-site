@@ -16,9 +16,9 @@ In summary:
 
 If you want to install by another method than before, or downgrade to an older version, you need to uninstall first (in which case you should make sure to [backup your save games](/docs/getting-started/save-data-and-storage)), since the digital signatures are not compatible.
 
-## Upgrading PPSSPP for GNU/Linux
+## Upgrading PPSSPP for Linux
 
-### AppImage (suitable for most GNU/Linux distributions)
+### AppImage (suitable for most Linux distributions)
 
 #### AM
 
