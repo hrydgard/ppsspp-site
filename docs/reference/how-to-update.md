@@ -64,6 +64,8 @@ $ appman -q ppsspp
 ```
 
 #### zsync
+**Note:** [AM](#AM) handles zsync updates automatically, so you don’t need to download or execute zsync yourself for any packages managed by AM.
+
 zsync is a delta‑sync tool that lets you efficiently update an AppImage by downloading only the changed parts of the file, instead of re‑downloading the entire new version. PPSSPP distributes .zsync files alongside its AppImage releases so users can incrementally update to newer versions without redownloading the full binary.
 
 To upgrade from PPSSPP 1.20.2 to 1.20.3 using zsync, you let zsync patch your existing 1.20.2 AppImage from the 1.20.3 .zsync metadata file, so you reuse most of the old download and only fetch the changed bytes.
