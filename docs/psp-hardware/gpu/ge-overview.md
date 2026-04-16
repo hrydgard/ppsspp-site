@@ -62,7 +62,7 @@ In through mode, positions behave a bit differently (and normals and bone weight
 
 ### Framebuffers and memory
 
-The PSP GPU can draw to four different color framebuffer formats: RGBA5551, RGBA565, RGBA4444, RGBA8888. It only supports a single depth buffer format, 16-bit, although it's laid out differently in memory depending on whether the color format is 16-bit or 32-bit. This matters when games try to read from it. More information in [the page about image formats](/docs/psp-hardware/image-formats).
+The PSP GPU can draw to four different color framebuffer formats: RGBA5551, RGBA565, RGBA4444, RGBA8888. It only supports a single depth buffer format, 16-bit, although it's laid out differently in memory depending on whether the color format is 16-bit or 32-bit. This matters when games try to read from it. More information in [the page about image formats](/docs/psp-hardware/gpu/image-formats).
 
 A game has full control over video memory, and can alias/cast the various image formats on top of each other - so you can render to a 16-bit "RGB565" target for example, and texture from it as if it were a paletted texture, even though it isn't. As we will see, this allows for some really cool tricks, like [Burnout's lens flare](/blog/lens-flare-burnout-dominator).
 
