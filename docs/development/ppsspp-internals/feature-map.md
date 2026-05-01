@@ -112,3 +112,19 @@ This is a mistake that a few games have made - the PSP has hardware to swizzle d
 ### Persistent render targets
 
 - Mahjong Artifacts (Minis) relies on render targets sticking around.
+
+### "3D textures" using malformed mipmap chains
+
+The PSP doesn't have any restriction on the size relationships between successive mipmaps in a pyramid. Hence, it's possible
+to put multiple images of the same size into the mipmap layers of a texture, and use trilinear filtering to interpolate between them.
+Usually, for control, the mip level is controlled directly (instead of automatic from screen-space derivatives).
+
+This is used by the following games:
+
+* Macross series games (water effect, see #6357)
+* Misshitsu no Sacrifice (background animation, also see #6357)
+* `Tactics Ogre: Let us cling together` (JAP/CN-patch) (font atlas, see #5350)
+
+As far as I know, no other games use a "malformed" mip chain like this.
+
+In `Tactics Ogre` it's to fit a lot of characters in a single font texture (for no good reason, really). In this case, every two successive mipmaps points to the same texture page, for a total of four. Not sure why it's done this way.

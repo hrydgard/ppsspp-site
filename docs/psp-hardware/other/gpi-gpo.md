@@ -14,3 +14,4 @@ From 1.18, PPSSPP can return custom settings for the GPI switches, and display t
 * PaRappa the Rapper: Displays a metronome on the GPO LEDs.
 * LocoRoco/LocoRoco 2: Enables extra debug logging if you turn on some GPI switches
 * Need for Speed Carbon: Own The City: Turn on GPI Switch 5 to get some performance debug info on-screen.
+* Black Rock Shooter (thearchivalone): Enabling it doesn't display anything cool on the screen like some of the other games. What it does: turns LED 5 off and only flashes when the UMD disc is read (such as during loading or right before Stella - BRS - awakens in Stage 1).
