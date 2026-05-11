@@ -17,6 +17,16 @@ PPSSPP is an open source project, licensed under the GPL 2.0 (or later). Anyone 
 
 Following the [Dolphin](https://www.dolphin-emu.org) tradition, the PPSSPP project is very open. Anyone can participate directly in the development by making pull requests, and if you make substantial contributions you may be given rights to commit directly.
 
+## AI policy
+
+From now on (2026-05-11), the policy is a shortened and slightly more permissive version of RPCS3's policy:
+
+Use of AI tools for research, coding and reverse engineering purposes is permitted. However, contributors are expected to fully own and understand all code they submit. Communication with the team — including code, code comments, and GitHub comments — must come from the human contributor, not an AI agent acting autonomously.
+
+**Pull requests opened by AI agents or automated tools must include a disclosure in the PR description** stating the scope of AI involvement — which parts were AI-generated and what human testing or review was performed prior to submission. PRs that omit this disclosure may be closed without review.
+
+If you are unsure about your work, open a discussion issue to talk it through with the team, or post in the #development channel on our [Discord](https://discord.gg/5NJB6dD).
+
 ## Convenient Links
 
 - [PPSSPP on GitHub](https://github.com/hrydgard/ppsspp)

@@ -10,13 +10,23 @@ Then, either your device is missing a folder picker entirely (which is unlikely 
 
 ### Android TV
 
-If you have an Android TV and are getting this message, you may be out of luck for now since many ship without a proper file browser app. However, if you know how to install APKs, you can now work around the problem entirely using the [PPSSPP Legacy](/docs/reference/legacy-edition) build! This can also be useful on older phones, as I/O performs slightly better - but you'll lose out on Google Play auto updates, etc.
+Many Android TV and Google TV devices ship without the "DocumentsUI" framework required for picking folders. You have two main options:
+
+1.  **Install a compatible File Manager:**
+    You can often fix this by installing a third-party file manager that supports system intents from the Google Play Store. It's recommended to try **AnExplorer** or **X-plore File Manager**, as they are specifically designed to work with Android TV remotes and can often "fill the gap" left by the missing system picker.
+
+2.  **Use the Legacy Build:**
+    If you know how to install APKs, you can work around the problem entirely using the [PPSSPP Legacy](/docs/reference/legacy-edition) build. This is useful on TVs and older phones as I/O performs slightly better, though you will lose out on Google Play auto-updates.
 
 ### Android phones and other devices
 
-The problem seems to most often be that the "Files" app has been uninstalled somehow. This seems to be possible on some phones, although it shouldn't be allowed.
+The problem seems to most often be that the "Files" app has been uninstalled somehow. This seems to be possible on some phones, although it shouldn't be allowed. One possible cause is using "de-bloating" apps, which work on modified Android OS versions.
 
-But, one user reported success with an app called [Brevent](https://play.google.com/store/apps/details?id=me.piebridge.brevent), which can help you reinstall the "Files" ("Arquivos") app if it's missing.
+#### Things to try
+
+*   **Reset App Preferences:** Go to **Settings > Apps > See all apps**, tap the three dots (menu) in the top right, and select **"Reset app preferences."** This can re-enable the system "Files" app if it was stuck in a disabled state.
+*   **Brevent:** One user reported success using [Brevent](https://play.google.com/store/apps/details?id=me.piebridge.brevent), which can help you reinstall or re-enable the "Files" ("Arquivos") app if it's missing.
+*   **Manual Re-enable:** Look for an app simply named "Files" (with a blue folder icon) in your App settings. If it is marked as disabled, try to "Enable" it.
 
 Another user sent in these screenshots (in Portuguese), showing how he managed to enable it again:
 
@@ -33,4 +43,4 @@ Another user sent in these screenshots (in Portuguese), showing how he managed t
 
 ![Reenabling the Files app](/static/img/docs/cant_pick_folder/settings2.jpg)
 
-As a last resort, see the Android TV workaround above.
+As a last resort, see the Android TV workaround above regarding the Legacy build.
