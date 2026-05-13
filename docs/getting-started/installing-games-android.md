@@ -1,13 +1,26 @@
 ---
 position: 5
 ---
-# How to move PSP games to your mobile device
+# How to transfer PSP games to your mobile device
 
 This guide requires a PC.
 
-First, make sure you have your games as ISO files. See [How to get games](how-to-get-games) and [How to dump games](dumping-games).
+First, make sure you have your games as ISO (or CSO or CHD) files. See [How to get games](how-to-get-games) and [How to dump games](dumping-games).
 
 The following instructions apply identically for PPSSPP and PPSSPP Gold.
+
+## Universal method (requires wifi)
+
+This requires that your iOS or Android device, and the device where the games are, are connected to the same wifi network. Additionally, this only works from PPSSPP 1.20 and upwards.
+
+1. On the Games tab, make sure you are in the folder where you want to put games.
+
+2. Click the Upload button (it has a folder with an up arrow on it).
+
+3. Follow the on-screen instructions.
+   You will be asked to go to a specific URL on the device that you want to copy files from. You will get a simple web interface where you can upload ISO files.
+
+4. Use the web interface to upload your ISO files. Done!
 
 ## Android
 
