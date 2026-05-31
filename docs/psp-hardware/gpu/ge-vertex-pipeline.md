@@ -26,9 +26,13 @@ XYZ from the vertex is transformed by first the world matrix, then the view matr
 Then, the vertex is transformed by the projection matrix, landing us in clip space.
 The clip space is OpenGL style, -1 to 1 on all four dimensions.
 
-If clipping is enabled, triangles that hit the Z=-1 plane are clipped here. Note that this is *BEFORE* the viewport scale is applied! This was found in #12058. It's very strange that the clipper is located here.
+## Z Cull
 
-## Clipper
+Triangles where all three corners are outside -W < Z < W here are culled.
+
+## Z Clipper
+
+If clipping is enabled, triangles that intersect the Z=-1 plane are clipped here. Note that this is *BEFORE* the viewport scale is applied! This was found in #12058. First I thought it was very strange that the clipper is here, but it's the same on PC, except that on PC the viewport can't then push the vertices outside the clip space again, which it can on the PSP! So the PSP has some extra behaviors here.
 
 Definitions:
 - "Z outside": Any Z value with greater magnitude than 0x3F8000FF (1.0000304) (i.e. where its 24-bit truncation would be greater than 1.0) is considered outside. Same for negative.
@@ -46,6 +50,7 @@ In every case:
 
 - Clip and divide triangles hitting the near Z surface (and far? not sure)
 - Clamp out-of-bounds Z (of triangles that are partially outside the Z volume)
+- RECT primitives are clamped
 
 ## Viewport
 
