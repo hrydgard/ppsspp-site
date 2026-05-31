@@ -45,7 +45,6 @@
 
 .burger-menu>li .switch-theme {
     padding: 11px;
-    display: block;
 }
 
 .burger-menu>li .switch-theme:hover {
@@ -53,6 +52,9 @@
     cursor: pointer;
 }
 
-.burger-menu>li .switch-theme i.icon-ui {
-    margin-right: 0.5ch;
+.burger-menu>li #loginItem a,
+.burger-menu>li .switch-theme {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }

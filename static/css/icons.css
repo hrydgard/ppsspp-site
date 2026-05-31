@@ -63,6 +63,10 @@ a:hover i.icon-ui {
    background-color: var(--color-a-hover);
 }
 
+i.icon-left {
+    margin-right: 0.5ch;
+}
+
 i.icon-ui-external {
     --icon-path: url(/static/img/icons/ui/external-link.svg);
     vertical-align: top;
