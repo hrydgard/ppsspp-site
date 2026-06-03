@@ -3,6 +3,8 @@ position: 5
 ---
 # Tools
 
+The Tools section contains miscellaneous utilities such as the Savedata manager or the RetroAchievements intergration.
+
 ## RetroAchievements
 
 Lets you log in and configure RetroAchievements. See [this page](/docs/reference/retro-achievements) for more information.
@@ -17,7 +19,7 @@ Shows device-related information such as the system specs, OpenGL and Vulkan ext
 
 ## Developer tools
 
-A large amount of obscure settings and test screens that have been added over the years as needed to help development.
+A large amount of obscure settings and test screens that have been added over the years as needed to help development. Some of them are documented [here](/docs/development/developer-tools).
 
 ## Remote disc streaming
 
