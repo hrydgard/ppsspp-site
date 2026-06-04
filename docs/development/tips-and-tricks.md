@@ -10,6 +10,10 @@ Then run:
 adb install android/build/outputs/apk/normal/optimized/android-normal-optimized.apk
 ```
 
+## ImDebugger tricks
+
+Hold Shift to avoid docking windows.
+
 ## Automatic submodule sync
 
 When bisecting, it can be really annoying to have to manually sync the submodules on each step.
