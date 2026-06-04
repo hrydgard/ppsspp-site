@@ -4,6 +4,8 @@ position: 7
 
 # Recommended settings
 
+The following setup is expected to be optimal for most players.
+
 ## High-end hardware
 
 If you have a powerful device, to get the most out of your games, in Graphics settings:
