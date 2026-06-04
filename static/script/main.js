@@ -123,7 +123,7 @@ const tmplUserInfo = `
 </p>
 <p>E-mail: {{it.email}}</p>
 {{ @if (it.goldUser) }}
-<p>Gold status!</p>
+<p class="center-vertical">Gold status!<img src="/static/img/platform/ppsspp-icon-gold.png" aria-hidden="true" class="icon-24"></p>
 {{ /if }}
 <p><a href="/changepassword">Change password</a></p>
 </div>
@@ -217,7 +217,7 @@ Login
 const tmplLoginItem = `
 <a href='/login'>
 {{@if(it.loggedIn)}}
-<i aria-hidden="true" class="icon-ui icon-ui-user"></i>{{it.name}}
+<i aria-hidden="true" class="icon-ui icon-ui-user icon-left"></i>{{it.name}}
 {{#else}}
 Login
 {{/if}}
