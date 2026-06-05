@@ -2,22 +2,24 @@
 position: 3
 ---
 
-# Ad-Hoc Server List
+# Ad hoc server list
 
-For more information about Ad-Hoc play, see [How to play Ad-Hoc Multiplayer](/docs/multiplayer/how-to-play).
+For more information about ad hoc play, see [How to play ad hoc multiplayer](/docs/multiplayer/how-to-play).
 
 ## Online servers
 
-IMPORTANT: To be included on our list, you must follow these rules:
-
-* No explicit content on your official channels (webpage/discord)
-* No distribution of copyrighted files through your official channels
+<div class="alert alert-warning">IMPORTANT: To be included on our list, you must follow these rules:
+    <ul>
+        <li>No explicit content on your official channels (webpage / Discord)</li>
+        <li>No distribution of copyrighted files through your official channels</li>
+    </ul>
+</div>
 
 {{adhocservers}}
 
-## Non-working older servers
+## Defunct servers
 
-Some older Ad-Hoc servers that no longer work, listed here in order to appear in search results:
+Some older ad hoc servers that no longer work are listed here in order to appear in search results:
 
-* coldbird
-* myneighborsushicat
+- coldbird
+- myneighborsushicat

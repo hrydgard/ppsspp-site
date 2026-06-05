@@ -2,13 +2,14 @@
 position: 4
 ---
 
-# Infrastructure Mode
+# Infrastructure mode
 
 ## Custom servers
 
 "Infrastructure" is what regular multiplayer servers are called, in [PSP parlance](https://manuals.playstation.net/document/en/psp/current/settings/infra.html).
 
-Most of the official servers have long since been shut down, but people have been creating their own replacements. If you know of other ones not listed, e-mail `hrydgard+ppsspp@gmail.com`, and put "Infrastructure" somewhere in the subject line.
+Most of the official servers have long since been shut down, but people have been creating their own replacements.
+If you know of other ones not listed, e-mail hrydgard+ppsspp@gmail.com, and put "infrastructure" somewhere in the subject line.
 
 From PPSSPP version 1.19, a number of these will be supported on all networking-enabled platforms, allowing easy online play.
 
@@ -18,36 +19,33 @@ Make sure to choose a unique username in Network settings, as it's hard to preve
 
 ### PS Rewired
 
-[PS Rewired](https://psrewired.com/) is, in their own words, "A revival group that provides emulated online servers for the PS2, PSP and PS3.".
+[PS Rewired](https://psrewired.com/) is, in their own words, "A revival group that provides emulated online servers for the PS2, PSP and PS3."
 
-DNS: 67.222.156.250.
+DNS: `67.222.156.250`
 
 This IP will also redirect to other servers for some games, such as the below AG Racing Foundation.
 
 ### The AG Racing Foundation
 
-The [Antigravity Racing Foundation](https://agracingfoundation.org/)!
+The [Antigravity Racing Foundation](https://agracingfoundation.org/) is a project to keep WipEout Pulse, WipEout 2048 and WipEout HD multiplayer alive by the use of custom infrastructure servers.
+Made for real PSPs/PS3s, but works with some custom versions of PPSSPP.
 
-DNS: 147.135.213.57
+DNS: `147.135.213.57`
 
-A project to keep WipEout Pulse, WipEout 2048 and WipEout HD multiplayer alive by the use of custom infrastructure servers. Made for real PSPs/PS3s, but works with some custom versions of PPSSPP.
+MotorStorm: Arctic Edge also works on this server.
 
-Motorstorm: Artic Edge also works on this server.
+### MoHH Revival Project
 
-## MOHH Revival
+The [Medal of Honor: Heroes Revival Project](https://mohh-revival.pages.dev/) is replicating Medal of Honor: Heroes servers.
 
-The [MOHH Revival project](https://mohh-revival.pages.dev/)
-
-DNS: 81.49.107.142
-
-A project replicating `Medal of Honor: Heroes` servers.
+DNS: `81.49.107.142`
 
 ### Others
 
 More documentation will be added later here, in the meantime here's a list of projects:
 
-* [Openspy](https://openspy.net/)
-* [PSORG](https://github.com/PSOnlineReturnalGaming)
+* [OpenSpy](https://openspy.net/)
+* [PlayStation Online Returnal Gaming](https://github.com/PSOnlineReturnalGaming)
 * LittleBigRefresh
 * PS3 Reborn (Discord group)
 * OutRun2006Tweaks
@@ -56,7 +54,8 @@ More documentation will be added later here, in the meantime here's a list of pr
 
 ### WipEout Pulse
 
-Infrastructure mode works great in this game, except that for some reason, opponent ship textures are wrong or corrupted. This is not a rendering issue, we are not sure why this happens.
+Infrastructure mode works great in this game, except that for some reason, opponent ship textures are wrong or corrupted.
+This is not a rendering issue, we are not sure why this happens.
 
 ### Driver '76
 
