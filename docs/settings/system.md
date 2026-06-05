@@ -4,6 +4,8 @@ position: 6
 
 # System
 
+Here are the generic system settings for PPSSPP, including the user interface configuration, savestate settings, etc.
+
 ## UI
 
 ### Language

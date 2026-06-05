@@ -4,6 +4,8 @@ position: 3
 
 # Audio Settings
 
+Here are several audio-related PPSSPP settings.
+
 ## Audio playback
 
 ### Playback mode

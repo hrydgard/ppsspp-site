@@ -15,11 +15,11 @@ plus the build process is way easier. `cargo run`, that's it.
 The backend is not (yet?) open source.
 
 Authentication is done using httponly cookies, which means that client side javascript can't see them.
-Thus, we also keep a record of the current login state in localstorage. Could also use a client-visible cookie
-but localstorage was just easier.
+Thus, we also keep a record of the current login state in localstorage.
+Could also use a client-visible cookie but localstorage was just easier.
 
-We load the authentication data from localstorage on every page load, and apply visibility accordingly. All this
-is managed from /static/script/account.js.
+We load the authentication data from localstorage on every page load, and apply visibility accordingly.
+All this is managed from `/static/script/account.js`.
 
 ## Local testing instructions
 
@@ -32,15 +32,15 @@ Local testing:
 - `cargo run`
 - Go to `localhost:3000` in a browser.
 
-That will launch the site on localhost:3000. A proxy is launched pointing `/api` at our dev backend (which
+That will launch the site on `localhost:3000`. A proxy is launched pointing `/api` at our dev backend (which
 isn't always running).
 
 To see options, `cargo run -- --help`.
 
 ### Testing in cloud
 
-If you don't want to install Rust on your computer, you can also use Chrome for testing through Codespaces on
-the GitHub website (for a limited time).
+If you don't want to install Rust on your computer, you can also use Chrome or Firefox for testing through
+Codespaces on the GitHub website (for a limited time).
 
 1. [Create a new codespace.](https://docs.github.com/en/codespaces/developing-in-a-codespace/creating-a-codespace-for-a-repository#creating-a-codespace-for-a-repository)
 

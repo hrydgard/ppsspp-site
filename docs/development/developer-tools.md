@@ -8,21 +8,6 @@ You can reach the developer tools in Settings/Tools/Developer Tools.
 
 A large amount of obscure settings and test screens that have been added over the years as needed to help development. Here are some guides to some of them that might be useful. This section will be expanded over time.
 
-## Texture replacement
-
-This has graduated to the regular graphics settings soon, although, "Save new textures" kind of still belongs here
-so not sure what to do.
-
-See [Texture replacement](/docs/reference/texture-replacement) and [Using replacement textures](/docs/reference/use-texture-replacement) for more detailed information.
-
-### Save new textures
-
-When this is checked, new textures encountered while running a game will be saved to `/PSP/TEXTURES/{GAME_ID}/new` under your memstick directory.
-
-### Replace textures
-
-This enables replacement of textures with textures in a folder, see above.
-
 ## General
 
 ### CPU Core
@@ -47,7 +32,7 @@ Recompiles blocks of MIPS instructions into a specially designed "intermediate r
 
 This takes the output from the IR interpreter and recompiles into native code. Theoretically, and also in practice most of the time, this can generate better code and thus runs faster than the Dynarec (JIT). However, it's not as well tested.
 
-## JIT debug tools
+### JIT debug tools
 
 Lets you selectively enable/disable different parts of the JIT. Useful for debugging, but checking these boxes will only make things slower, so not recommended for general use (like most of the things in developer tools).
 
@@ -55,43 +40,9 @@ Lets you selectively enable/disable different parts of the JIT. Useful for debug
 
 This makes a "DevMenu" button show up during gameplay, which provides direct access to a bunch of handy tools. It's also the only way to access the JIT block viewer and the shader viewer.
 
-### Dump decrypted EBOOT.BIN on game boot
-
-Does what it says on the tin.
-
 ### Debug overlay
 
 Lets you choose one of a variety of overlays that shows various shows realtime information which can be useful for debugging games. It is primarily a developer option.
-
-### Multi-threaded rendering
-
-This turns on and off multi-threaded rendering when using the Vulkan backend. Turning it off will generally lose you some performance. In reality, this is only useful for debugging.
-
-## Tests
-
-### GPU driver test
-
-Shows a screen that tests some obscure state combinations that have been problematic in the past. Most modern phones pass these tests with flying colors.
-
-### Framedump tests
-
-A set of tests for different graphics features, in the form of downloadable frame dumps. This is not meant for end-users.
-
-### Enable driver bug workarounds
-
-Leave this on.
-
-### Touchscreen test
-
-Interactive test of various aspects of input.
-
-### Allow remote debugger
-
-Starts up a server that lets you connect to PPSSPP via websockets to debug things programmatically. This is very sparsely documented so far.
-
-### Show on-screen messages
-
-Lets you globally turn off on-screen notification. Not a good idea to turn off.
 
 ### Enable debug logging
 
@@ -109,10 +60,59 @@ Whether to write some stats to the log from time to time.
 
 Not generally useful.
 
-## Ubershaders
+### Allow remote debugger
+
+Starts up a server that lets you connect to PPSSPP via websockets to debug things programmatically. This is very sparsely documented so far.
+
+## Texture replacement
+
+This has graduated to the regular graphics settings soon, although, "Save new textures" kind of still belongs here
+so not sure what to do.
+
+See [Texture replacement](/docs/reference/texture-replacement) and [Using replacement textures](/docs/reference/use-texture-replacement) for more detailed information.
+
+### Save new textures
+
+When this is checked, new textures encountered while running a game will be saved to `/PSP/TEXTURES/{GAME_ID}/new` under your memstick directory.
+
+### Replace textures
+
+This enables replacement of textures with textures in a folder, see above.
+
+## Graphics
+
+### Enable driver bug workarounds
+
+Leave this on.
+
+### Multi-threaded rendering
+
+This turns on and off multi-threaded rendering when using the Vulkan backend. Turning it off will generally lose you some performance. In reality, this is only useful for debugging.
+
+### Ubershaders
 
 There's a tradeoff to make between generating many specialized shaders vs fewer more general shaders - the former perform better on older hardware. PPSSPP will autodetect the best option, but this allows you to override the choice.
 
-## Stereo rendering
+### Stereo rendering
 
 Experimental, don't enable.
+
+## Tests
+
+### Touchscreen test
+
+Interactive test of various aspects of input.
+
+### Framedump tests
+
+A set of tests for different graphics features, in the form of downloadable frame dumps. This is not meant for end-users.
+
+### GPU driver test
+
+Shows a screen that tests some obscure state combinations that have been problematic in the past. Most modern phones pass these tests with flying colors.
+
+## Dump files
+
+### Dump decrypted EBOOT.BIN on game boot
+
+Does what it says on the tin.
