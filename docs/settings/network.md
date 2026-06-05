@@ -46,9 +46,9 @@ In newer builds, just "Nickname".
 
 Lets you set the Nickname setting of the emulated PSP. This is what shows up as your username when playing in ad hoc mode.
 
-### Enable built-in PRO adhoc server
+### Enable built-in ad hoc server
 
-This is used for local play on LAN or wifi. See [How to play](/docs/multiplayer/how-to-play) for more information.
+This is used for local play on LAN or Wi-Fi. See [How to play](/docs/multiplayer/how-to-play) for more information.
 
 ## Infrastructure
 
@@ -62,7 +62,7 @@ Try to make it as unique as possible, as there's no global registry of these and
 
 ### Autoconfigure
 
-See [Infrastructure servers](/docs/multiplayer/infrastructure-servers) for more information.
+See [infrastructure servers](/docs/multiplayer/infrastructure-servers) for more information.
 
 ## UPnP (port forwarding)
 
