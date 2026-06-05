@@ -11,6 +11,8 @@ a.download-button>img.badge {
 }
 
 /* Common PNG and SVG icons */
+img.icon-144,
+img.icon-96,
 img.icon-48,
 img.icon-36,
 img.icon-32,
@@ -25,15 +27,8 @@ img.icon-pfp {
     border-radius: 50%;
 }
 
-img.icon-left {
-    float: left;
-    margin-right: 8px;
-}
-
-img.icon-right {
-    float: right;
-    margin-left: 8px;
-}
+img.icon-left  { margin-right: 0.5ch; }
+img.icon-right { margin-left:  0.5ch; }
 
 .icon-144 { height: 144px !important; width: 144px !important; }
 .icon-96  { height:  96px !important; width:  96px !important; }

@@ -2,7 +2,7 @@
 
 ## Features
 
-<img src="/static/img/platform/ppsspp-icon-legacy.png" alt="PPSSPP Legacy Edition icon" class="icon-144 icon-left">
+<img src="/static/img/platform/ppsspp-icon-legacy.png" alt="PPSSPP Legacy Edition icon" class="icon-144 float-left">
 
 The PPSSPP Legacy Edition is really just the same as a regular PPSSPP build, except it has been built specifying an old target Android SDK version (29, specifically).
 
@@ -17,10 +17,11 @@ Legacy Edition is only available as an APK. You'll need to figure out how to ins
 
 When you install it, you may be asked to confirm that you really want to install it, since this app does not live up to modern Android security requirements. This is fine.
 
-However, PPSSPP built this way cannot be uploaded to the Play Store due to Google's restrictions, and must be side-loaded.
+However, PPSSPP built this way cannot be uploaded to the Play Store due to Google's restrictions, and must be sideloaded.
 
 ## Download
 
-The Legacy Edition can be downloaded from the [buildbot](/devbuilds), the *AndroidLegacy* build, starting at version 1.17.1-980. Later it might be made available on the main Downloads page.
+The Legacy Edition can be downloaded from the [buildbot](/devbuilds), the *AndroidLegacy* build, starting at version 1.17.1-980.
+Later it might be made available on the main Downloads page.
 
 Alternatively, the Legacy Edition can be built from source code using the gradle subcommand `assembleLegacyOptimized`.
