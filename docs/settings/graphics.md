@@ -18,7 +18,7 @@ We have implemented support for a few of the most common graphics APIs:
 * Vulkan: The recommended backend on most devices, if available. On Mac, this will use MoltenVK if available.
 * OpenGL: The compatibility option on Android, and available on a lot of other devices too.
 * D3D11: Windows-only. Good alternative to Vulkan if you're on Windows, very fast and high compatibility.
-* D3D9: Windows-only. Mainly useful on very old laptops with Intel GPUs. Will no longer be available from PPSSPP 1.20.
+* D3D9: Windows-only. Mainly useful on very old laptops with Intel GPUs. It's no longer available from PPSSPP 1.20.
 
 ### Device
 
@@ -53,7 +53,7 @@ This is the best quality antialiasing you can get in PPSSPP, but it's currently 
 
 This is a more accessible location for the same setting over in Developer Tools. It allows loading texture packs with higher resolution textures, that fans have created for some games.
 
-See [Texture replacement]() for more info.
+See [Using texture replacement packs](/docs/reference/use-texture-replacement) for more info.
 
 ## Display
 
@@ -125,7 +125,7 @@ Disabling it, and thus skipping rendering of everything that's not rendering dir
 
 ### Skip GPU Readbacks
 
-Similarly to the lens flare problem described above, some games use the CPU to read color buffers. Motorstorm uses it for its brightness adaptation effect, for example. Sometimes games will still run fine or have only minor graphical distortions with these turned off, so we provide a Skip setting here to make the tradeoff. Some games may work by having readbacks copy to another texture instead of reading all the way back to CPU accessible RAM - for this, you can experiment with the "Copy to texture" setting, which is much faster, but doesn't work for Motorstorm's problem, for example.
+Similarly to the lens flare problem described above, some games use the CPU to read color buffers. MotorStorm uses it for its brightness adaptation effect, for example. Sometimes games will still run fine or have only minor graphical distortions with these turned off, so we provide a Skip setting here to make the tradeoff. Some games may work by having readbacks copy to another texture instead of reading all the way back to CPU accessible RAM - for this, you can experiment with the "Copy to texture" setting, which is much faster, but doesn't work for MotorStorm's problem, for example.
 
 ### Disable culling
 
@@ -196,7 +196,7 @@ Types of Upscale algorithms:
 
 ### Anisotropic Filtering
 
-Improves sharpness of textures at shallow angles. See [wikipedia](https://en.wikipedia.org/wiki/Anisotropic_filtering) for some example pictures. There are generally no drawbacks to using it - PPSSPP's performance is rarely bottlenecked by texture sampling.
+Improves sharpness of textures at shallow angles. See [Wikipedia](https://en.wikipedia.org/wiki/Anisotropic_filtering) for some example pictures. There are generally no drawbacks to using it - PPSSPP's performance is rarely bottlenecked by texture sampling.
 
 ### Texture Filtering
 

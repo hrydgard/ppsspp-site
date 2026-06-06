@@ -2,7 +2,7 @@
 
 On the PSP, some games have support for playing audio files that you put on the memory stick as background music, replacing the default music that comes with the games.
 
-Usually they require putting the music in a specific folder and then enabling the feature through the ingame sound options menu.
+Usually they require putting the music in a specific folder and then enabling the feature through the in-game sound options menu.
 
 To find the location of your memory stick on your device, navigate to <b class="inapp">Settings -> System -> PSP Memory Stick -> Show Memory Stick folder</b>.
 
@@ -11,8 +11,9 @@ To find the location of your memory stick on your device, navigate to <b class="
     In the future, this will be possible by creating a <code>ROOT</code> folder in the <code>PSP</code> folder to simulate this.
 </div>
 
-Some games also allow selecting to play music from subfolders.
+Some games also provide the option of selecting a subfolder to play music from.
 This can be used to organize your songs into playlists or albums.
+Other games support customizing the playlist via an in-game menu.
 
 If you know some details that are missing below, [contact me](/contact).
 
@@ -26,8 +27,8 @@ This list should be pretty close to complete:
 - Beats / Shouten Beat
 - Crazy Taxi: Fare Wars / Crazy Taxi: Double Punch
 - Dead or Alive Paradise
-- Digital Comics
-- Elminage Original<small> (with patch 1.01)</small>
+- Digital Comics <small>(comic reader app)</small>
+- Elminage Original <small>(with patch 1.01)</small>
 - Gran Turismo
 - Grand Theft Auto: Liberty City Stories
 - Grand Theft Auto: Vice City Stories
@@ -72,10 +73,10 @@ The following games have been tested and DO NOT actually support custom music:
 - SD Gundam G Generation Portable
 - SD Gundam G Generation World
 - Test Drive Unlimited
-- <small>the Japanese release of </small>TOCA Race Driver 2<small> (maybe it's possible to patch the game to unlock it?)</small>
+- <small>the Japanese release of</small> TOCA Race Driver 2 <small>(maybe it's possible to patch the game to unlock it?)</small>
 - Untold Legends: Brotherhood of the Blade
 - Untold Legends: The Warrior's Code
-- WipEout Pure<small> and </small>WipEout Pure: Stealth Edition
+- WipEout Pure <small>and</small> WipEout Pure: Stealth Edition
 
 If someone claims otherwise, they should be asked to provide evidence and detailed instructions.
 -->
@@ -83,19 +84,115 @@ If someone claims otherwise, they should be asked to provide evidence and detail
 ## Games that read MP3 files
 
 Find the custom music folder for your game here: <sup>(table is not yet complete!)</sup>
-| Game | Folder | Notes |
-| --- | --- | --- |
-| Beats,<br />Shouten Beat | `ms:/PSP/MUSIC`,<br />`ms:/MUSIC`,<br />`ms:/MP3` | &#x26A0;&#xFE0F;&nbsp;see issue [#14812];<br />subfolders supported;<br />also looks for ATRAC files |
-| Crazy Taxi: Fare Wars,<br />Crazy Taxi: Double Punch | <small>primary:</small>`ms:/MUSIC/CRAZYTAXI`<br /><small>fallback:</small>`ms:/MUSIC` | &#x26A0;&#xFE0F;&nbsp;see issue [#15509];<br />fallback folder is only checked if no MP3s found in primary folder |
-| Dead or Alive Paradise | `ms:/MUSIC` | &#x26A0;&#xFE0F;&nbsp;see issue [#8672];<br />you must first make progress in the game;<br />sample rate: any;<br />MP3s must contain a valid [ID3v1 or ID3v2 tag](https://en.wikipedia.org/wiki/ID3) |
-| Digital Comics | `ms:/PSP/MUSIC`,<br />`ms:/MUSIC`,<br />`ms:/MP3` | &#x26A0;&#xFE0F;&nbsp;see issues [#20784] and [#1755];<br />subfolders supported;<br />also looks for MP4 files |
-| Gran Turismo | `ms:/MUSIC`,<br />`ms:/MUSIC/GTPSP` | you must first make progress in the game;<br />folder selection supported |
-| Heroes' VS | `ms:/MUSIC/HEROES' VS/*` | MP3s go into specific subfolders;<br />only the first MP3 is loaded from each subfolder |
-| SD Gundam G Generation Overworld | `ms:/MUSIC/OVERWORLD` | you must first make progress in the game;<br />sample rate: 32,000&nbsp;Hz or 44,100&nbsp;Hz;<br />MP3s should NOT contain an [ID3v2 tag](https://en.wikipedia.org/wiki/ID3) |
-| Surf's Up | `ms:/MUSIC/SURFSUP` | filenames must be at least 9 characters long, not counting the `.mp3` extension;<br />only the first 20 MP3s are loaded |
-| TOCA Race Driver 3 Challenge,<br />DTM Race Driver 3 Challenge,<br />V8 Supercars Australia 3: Shootout | `ms:/PSP/MUSIC` | subfolder selection supported |
-| Ultimate Board Game Collection | `ms:/PSP/MUSIC`,<br />`ms:/MUSIC` | subfolders supported |
-| WipEout Pulse | `ms:/MUSIC/WIPEOUT` | |
+
+<table>
+    <thead>
+        <tr>
+            <th>Game</th>
+            <th>Folder</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Beats,<br />Shouten Beat</td>
+            <td><code>ms:/PSP/MUSIC</code>,<br /><code>ms:/MUSIC</code>,<br /><code>ms:/MP3</code></td>
+            <td><ul>
+                <li>&#x26A0;&#xFE0F;&nbsp;see issue <a href="https://github.com/hrydgard/ppsspp/issues/14812">#14812</a></li>
+                <li>subfolders supported</li>
+                <li>also looks for ATRAC files<br /><small>(see ATRAC section for details)</small></li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td>Crazy Taxi: Fare Wars,<br />Crazy Taxi: Double Punch</td>
+            <td><small>primary:</small><code>ms:/MUSIC/CRAZYTAXI</code><br /><small>fallback:</small><code>ms:/MUSIC</code></td>
+            <td><ul>
+                <li>&#x26A0;&#xFE0F;&nbsp;see issue <a href="https://github.com/hrydgard/ppsspp/issues/15509">#15509</a></li>
+                <li>fallback folder is only checked if no MP3s found in primary folder</li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td>Dead or Alive Paradise</td>
+            <td><code>ms:/MUSIC</code></td>
+            <td><ul>
+                <li>&#x26A0;&#xFE0F;&nbsp;see issue <a href="https://github.com/hrydgard/ppsspp/issues/8672">#8672</a></li>
+                <li>you must first make progress in the game</li>
+                <li>playlist customization supported</li>
+                <li>sample rate: any</li>
+                <li>MP3s must contain a valid <a href="https://wikipedia.org">ID3v1 or ID3v2 tag</a></li>
+                <li>see below for more details</li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td>Digital Comics</td>
+            <td><code>ms:/PSP/MUSIC</code>,<br /><code>ms:/MUSIC</code>,<br /><code>ms:/MP3</code></td>
+            <td><ul>
+                <li>&#x26A0;&#xFE0F;&nbsp;see issues <a href="https://github.com/hrydgard/ppsspp/issues/20784">#20784</a> and <a href="https://github.com/hrydgard/ppsspp/issues/1755">#1755</a></li>
+                <li>subfolders supported</li>
+                <li>also plays <code>.mp4</code> and <code>.m4a</code> files</li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td>Gran Turismo</td>
+            <td><code>ms:/MUSIC</code>,<br /><code>ms:/MUSIC/GTPSP</code></td>
+            <td><ul>
+                <li>you must first make progress in the game</li>
+                <li>folder selection supported</li>
+                <li>see below for more details</li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td>Heroes' VS</td>
+            <td><code>ms:/MUSIC/HEROES' VS/*</code></td>
+            <td><ul>
+                <li>MP3s go into specific subfolders</li>
+                <li>only the first MP3 is loaded from each subfolder</li>
+                <li>see below for more details</li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td>SD Gundam G Generation Overworld</td>
+            <td><code>ms:/MUSIC/OVERWORLD</code></td>
+            <td><ul>
+                <li>you must first make progress in the game</li>
+                <li>sample rate: 32,000&nbsp;Hz or 44,100&nbsp;Hz</li>
+                <li>MP3s should <i>NOT</i> contain an <a href="https://wikipedia.org">ID3v2 tag</a></li>
+                <li>see below for more details</li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td>Surf's Up</td>
+            <td><code>ms:/MUSIC/SURFSUP</code></td>
+            <td><ul>
+                <li>filenames must be at least 9 characters long, not counting the <code>.mp3</code> extension</li>
+                <li>only the first 20 MP3s are loaded</li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td>TOCA Race Driver 3 Challenge,<br />DTM Race Driver 3 Challenge,<br />V8 Supercars Australia 3: Shootout</td>
+            <td><code>ms:/PSP/MUSIC</code></td>
+            <td><ul>
+                <li>subfolders supported</li>
+                <li>folder selection supported</li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td>Ultimate Board Game Collection</td>
+            <td><code>ms:/PSP/MUSIC</code>,<br /><code>ms:/MUSIC</code></td>
+            <td><ul>
+                <li>subfolders supported</li>
+                <li>playlist customization supported</li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td>WipEout Pulse</td>
+            <td><code>ms:/MUSIC/WIPEOUT</code></td>
+            <td><ul>
+                <li>playlist customization supported</li>
+            </ul></td>
+        </tr>
+    </tbody>
+</table>
 
 <!-- For Surf's Up, the bitrate requirement mentioned by the game's manual is bogus. -->
 
@@ -123,7 +220,7 @@ Then the User BGM options will appear under the Audio Settings tab in the Option
 #### Heroes' VS
 
 When you enable the custom soundtrack option, the game will prompt you to generate the required subfolders.
-Then you can place 1 MP3 inside each subfolder to replace the corresponding ingame song.
+Then you can place 1 MP3 inside each subfolder to replace the corresponding in-game song.
 
 <details>
     <summary>The following subfolders are created:</summary>
@@ -189,7 +286,7 @@ You can safely ignore the warning about OpenMG upon starting it.
 
 For the sake of convenience, enable these two settings under `Config -> Preferences` from the menubar:
 
-![Enable the "Fixed output format for Wave conversion" setting and select the 44.1kHz from the list. Also enable the "Force conversion even if only wave files are read" setting.](/static/img/docs/custom_background_music/atractool_preferences.png)
+![Enable the "Force conversion even if only wave files are read" setting, the "Fixed output format for Wave conversion" setting, and select the 44.1kHz from the list of output formats.](/static/img/docs/custom_background_music/atractool_preferences.png)
 
 In the scenario where you have the `Force conversion even if only wave files are read` setting disabled and you want to load `.WAV` files directly, they must be encoded in 16-bit PCM mode with a sample rate of 44,100&nbsp;Hz!
 If you get an error while loading or encoding a `.WAV` file, it means that it's encoded differently.
@@ -205,6 +302,8 @@ In case you want to try out the feature first before you commit yourself to enco
 ### ATV Offroad Fury: Blazin' Trails
 
 Custom music files go into a special folder next to the save data folders.
+
+The game supports playlist customization.
 
 The filenames must contain a dash `-` character in the middle, otherwise the game ignores the songs!
 The game uses this to tell apart the name of the artist from the title of the song.
@@ -246,7 +345,6 @@ Find the custom tracks folder for your Liberty City Stories version here:
 | European | ULES00151 | `ms:/PSP/SAVEDATA/ULES00151CUSTOMTRACKS` |
 | German | ULES00182 | `ms:/PSP/SAVEDATA/ULES00182CUSTOMTRACKS` |
 | Japanese CAPCOM,<br />Japanese Rockstar Classics | ULJM05255,<br />ULJM05885 | `ms:/PSP/SAVEDATA/ULJM05255CUSTOMTRACKS` |
-| Sindacco Chronicles<small> (romhack, all versions)</small> | ULUS01826 | `ms:/PSP/SAVEDATA/ULUS01826CUSTOMTRACKS` |
 
 Find the custom tracks folder for your Vice City Stories version here:
 | Game Version | Serial | Folder |
@@ -256,11 +354,18 @@ Find the custom tracks folder for your Vice City Stories version here:
 | German | ULES00503 | `ms:/PSP/SAVEDATA/ULES00503CUSTOMTRACKS` |
 | Japanese CAPCOM,<br />Japanese Rockstar Classics | ULJM05297,<br />ULJM05884 | `ms:/PSP/SAVEDATA/ULJM05297CUSTOMTRACKS` |
 
+Find the custom tracks folder for popular romhacks here:
+| Romhack | Serial | Folder |
+| --- | --- | --- |
+| Sindacco Chronicles <small>(all versions)</small> | ULUS01826 | `ms:/PSP/SAVEDATA/ULUS01826CUSTOMTRACKS` |
+| Seen in Liberty City <small>(1.0.0 and 1.0.1)</small> | ULUS11826 | `ms:/PSP/SAVEDATA/ULUS01826CUSTOMTRACKS`<br /><small>(same as Sindacco Chronicles)</small> |
+
 ### TOCA Race Driver 2
 
-Custom music files go into the folder of save data and its subfolders.
+Custom music files go into the folder of the save data and its subfolders.
+
+The game supports folder selection.
 It is recommended to organize your songs into subfolders so as not to mix them with the actual save files.
-The game supports subfolder selection.
 
 The filenames must end with the `.toc` extension!
 Make sure to rename your files accordingly, e.g. `We_Wish_You_a_Merry_Christmas.toc`!
@@ -275,7 +380,7 @@ Find the save folder for your game version here:
 | DTM Race Driver 2 | Germany | ULES00041 | `ms:/PSP/SAVEDATA/ULES000410000` |
 | V8 Supercars Australia 2 | Australia | ULES00042 | `ms:/PSP/SAVEDATA/ULES000420000` |
 
-The following version of the game **DOES NOT** support custom music:
+The following version of the game *DOES NOT* support custom music:
 | Game Title | Region | Serial |
 | --- | --- | --- |
 | TOCA Race Driver 2 | Japan | ULJM05160 |

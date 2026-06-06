@@ -1,49 +1,74 @@
-{{> common_header this title="Ports, legacy builds and other downloads" description="Ports, legacy builds and other downloads" }}
+{{> common_header this title="Ports and legacy builds" description="Ports, legacy builds and other downloads" }}
 
 <div class="container">
-    <h1>Ports, legacy builds and other downloads</h1>
+    <h1>Ports and legacy builds</h1>
 
-    <h2 class="center-vertical">PPSSPP for Switch (homebrew)<img src="/static/img/icons/switch.svg"
-            aria-hidden="true" class="icon-36"></h2>
+    <h2 class="center-vertical">PPSSPP for Switch<img src="/static/img/icons/switch.svg"
+            aria-hidden="true" class="icon-36 icon-right"></h2>
     <p>Ported to the Nintendo Switch by <i>m4xw</i>! See <a href="https://www.patreon.com/m4xwdev">m4xw's Patreon</a>.</p>
-    <p>You'll need a Switch enabled for homebrew to run this (and a 7z unpacker). You won't find an explanation about
-        that here!</p>
-    <p><a href="https://www.ppsspp.org/files/Switch/Release_PPSSPP_Standalone_11.09.2024.7z">Download PPSSPP 1.17.x for
-        Switch</a> (Sept 9, 2024 - new!)</p>
-    <p><a href="https://www.ppsspp.org/files/Switch/20200311_Release_PPSSPP_Standalone.7z">Download PPSSPP 1.9.3+ for
-        Switch</a></p>
-    <p><a href="https://www.ppsspp.org/files/1_9_0/ppsspp_switch.7z">Download PPSSPP 1.9 for Switch</a></p>
+    <p>You'll need a Switch enabled for homebrew to run this (and a 7z unpacker).
+        You won't find an explanation about that here!</p>
+    <p><a href="https://www.ppsspp.org/files/Switch/Release_PPSSPP_Standalone_11.09.2024.7z">Download PPSSPP 1.17.1+ for
+        Switch</a> &ndash; Sept 11, 2024</p>
+    <button class="collapsible">Show downloads of previous builds</button>
+    <div class="collapsible-content">
+        <table class="nice-table">
+            <thead>
+                <tr>
+                    <th>Version</th>
+                    <th>Build Date (YYYY-MM-DD)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="https://www.ppsspp.org/files/Switch/20200311_Release_PPSSPP_Standalone.7z">1.9.3+</a></td>
+                    <td>2020-03-11</td></tr>
+                <tr>
+                    <td><a href="https://www.ppsspp.org/files/1_9_0/ppsspp_switch.7z">1.9</a></td>
+                    <td>2019-09-25</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="center-vertical">PPSSPP Web for browsers<img src="/static/img/icons/webassembly.svg"
+            aria-hidden="true" class="icon-36 icon-right"></h2>
+    <p><i>roothunter</i> has ported PPSSPP to WebAssembly (WASM), allowing you to run it directly in your browser without any installation.</p>
+    <p><a href="https://root-hunter.github.io/ppsspp-web/">Try PPSSPP Web in your browser</a></p>
+    <p><a href="https://github.com/root-hunter/ppsspp-wasm">PPSSPP Web repository on GitHub</a></p>
+
+<!--
+    <h2 class="center-vertical">Libretro core for RetroArch<img src="/static/img/icons/libretro.svg"
+            aria-hidden="true" class="icon-36 icon-right"></h2>
+    <p></p>
+-->
 
     <h2 class="center-vertical">Legacy Edition for Android<img src="/static/img/platform/ppsspp-icon-legacy.png"
-            aria-hidden="true" class="icon-36"></h2>
-    <p>The Legacy Edition for Android lets you use old permission rules on new devices, which can help Android TV
-        devices without folder browsers.</p>
+            aria-hidden="true" class="icon-36 icon-right"></h2>
+    <p>The Legacy Edition for Android lets you use old permission rules on new devices,
+        which can help Android TV devices without folder browsers.</p>
     <p><a href="/docs/reference/legacy-edition">PPSSPP Legacy Edition for Android</a>
 
-    <h2 class="center-vertical">Web edition using WASM</h2>
-    <p>roothunter has ported PPSSPP to WebAssembly (WASM), allowing you to run it directly in your browser without any installation.</p>
-    <p><a href="https://root-hunter.github.io/ppsspp-web/">Try PPSSPP in your browser</a></p>
-    <p><a href="https://github.com/root-hunter/ppsspp-wasm">PPSSPP-WASM on GitHub</a></p>
-
     <h2 class="center-vertical">Cube test program<img src="/static/img/icons/cube.svg"
-            aria-hidden="true" class="icon-36"></h2>
-    <p>A simple PSP program that draws a spinning cube. For testing that the emu works on your device before you dump
+            aria-hidden="true" class="icon-36 icon-right"></h2>
+    <p>A simple PSP program that draws a spinning cube. For testing that the emulator works on your device before you dump
         your UMDs.</p>
     <p>For this testing, these days you can also just use the <a href="/docs/reference/homebrew-store-distribution">
         homebrew store</a>. Anyway, here it is:</p>
     <p><a href="https://www.ppsspp.org/files/cube.elf">Download cube.elf</a></p>
 
-    <h2 class="center-vertical">Legacy platforms</h2>
+    <h2>Legacy platforms</h2>
     <p>In this section you will find builds for discontinued systems and devices.</p>
     <div class="alert alert-warning">
         Note that these platforms are <strong>no longer supported</strong>!
         The downloads below are provided for preservation purposes only!
         Experiment at your own risk!
     </div>
-    <div class="alert alert-info">Find even older versions and Gold builds under the "Previous releases" section of <a href="/download">Downloads</a>.</div>
+    <div class="alert alert-info">Find even older versions and Gold builds under the "Previous releases" section of
+            <a href="/download">Downloads</a>.</div>
 
     <h3 class="center-vertical">Old Android<img src="/static/img/icons/androidlegacy.svg"
-            aria-hidden="true" class="icon-36"></h3>
+            aria-hidden="true" class="icon-36 icon-right"></h3>
     <p>The last release to support <b>Android 4.1&ndash;4.3 "Jelly Bean"</b> and <b>Android 4.4 "KitKat"</b> is 1.19.3 from July, 2025.</p>
     <p>PPSSPP 1.19.3 for Android: <a href="https://www.ppsspp.org/files/1_19_3/ppsspp.apk">Download APK</a></p>
 
@@ -55,8 +80,9 @@
     <p>PPSSPP 0.9.7.2 for Android: <a href="https://www.ppsspp.org/files/0_9_7_2/ppsspp.apk">Download APK</a></p>
 
     <h3 class="center-vertical">Old Windows<img src="/static/img/icons/windowslegacy.svg"
-            aria-hidden="true" class="icon-36"></h3>
-    <p>The last release to support <b>Direct3D 9</b> (DirectX 9) and <b>DirectSound</b> is 1.19.3 from July, 2025.</p>
+            aria-hidden="true" class="icon-36 icon-right"></h3>
+    <p>The last release to support <b>Direct3D 9</b> (DirectX 9) and <b>DirectSound</b> is 1.19.3 from July, 2025.
+        Direct3D 9 was mainly useful on very old laptops with Intel GPUs.</p>
     <p>PPSSPP 1.19.3 installer for Windows: <a href="https://www.ppsspp.org/files/1_19_3/PPSSPPSetup.exe">Download .exe</a></p>
     <p>PPSSPP 1.19.3 portable for Windows: <a href="https://www.ppsspp.org/files/1_19_3/ppsspp_win.zip">Download ZIP</a></p>
 
@@ -65,43 +91,43 @@
     <p>PPSSPP 1.8 portable for Windows: <a href="https://www.ppsspp.org/files/1_8_0/ppsspp_win.zip">Download ZIP</a></p>
 
     <h3 class="center-vertical">Old VR<img src="/static/img/icons/vrlegacy.svg"
-            aria-hidden="true" class="icon-36"></h3>
+            aria-hidden="true" class="icon-36 icon-right"></h3>
     <p>The last release that works on (Oculus) <b>Quest 1</b> is v1.17.1 from February, 2024.</p>
     <p>PPSSPP 1.17.1 for VR: <a href="https://www.ppsspp.org/files/1_17_1/ppsspp_vr.apk">Download APK</a></p>
 
     <h3 class="center-vertical">DragonBox Pyra<img src="/static/img/icons/pyra.svg"
-            aria-hidden="true" class="icon-36"></h3>
+            aria-hidden="true" class="icon-36 icon-right"></h3>
     <p>This is a DragonBox Pyra port of PPSSPP from January, 2021. Built by <i>Wally</i>.</p>
     <p><a href="https://pyra-handheld.com/repo/apps/31">DBP repository</a></p>
 
     <h3 class="center-vertical">Pandora<img src="/static/img/icons/pandora.svg"
-            aria-hidden="true" class="icon-36"></h3>
+            aria-hidden="true" class="icon-36 icon-right"></h3>
     <p>This is a Pandora port of PPSSPP. The last release is Build 55 from October, 2020 and is based on version 1.10.3.
         You will have to figure out how to install it. :) Thanks to <i>ptitSeb</i>!</p>
     <p><a href="http://repo.openpandora.org/?page=detail&app=ppsspp_ptitseb">OpenPandora repo</a></p>
 
     <h3 class="center-vertical">BlackBerry 10<img src="/static/img/icons/blackberry.svg"
-            aria-hidden="true" class="icon-36"></h3>
+            aria-hidden="true" class="icon-36 icon-right"></h3>
     <p>This is a BlackBerry 10 port of PPSSPP. Sideload the <code>.bar</code> from your computer using Sachesi or Chrome
         extension. Thanks to <i>xsacha</i> for doing the build!</p>
     <p>PPSSPP 0.9.9 for BlackBerry 10: <a href="https://www.ppsspp.org/files/0_9_9/PPSSPP-v0.9.9.bar">Download .bar</a></p>
 
     <h3 class="center-vertical">Symbian<img src="/static/img/icons/symbian.svg"
-            aria-hidden="true" class="icon-36"></h3>
+            aria-hidden="true" class="icon-36 icon-right"></h3>
     <p>This is a Symbian port of PPSSPP. Thanks to <i>xsacha</i> for doing the build!</p>
     <p>PPSSPP 0.9.9 for Symbian: <a href="https://www.ppsspp.org/files/0_9_9/PPSSPP-v0.9.9.sis">Download .sis</a></p>
 
     <h3 class="center-vertical">MeeGo / Harmattan<img src="/static/img/icons/meego.svg"
-            aria-hidden="true" class="icon-36"></h3>
+            aria-hidden="true" class="icon-36 icon-right"></h3>
     <p>This is a MeeGo "Harmattan" port of PPSSPP for Nokia N9. Thanks to <i>xsacha</i> for doing the build!</p>
     <p>PPSSPP 0.9.5 for MeeGo: <a href="https://www.ppsspp.org/files/0_9_5/PPSSPP-v0.9.5.deb">Download .deb</a></p>
 
     <h3 class="center-vertical">Maemo 5 / Fremantle<img src="/static/img/icons/maemo.svg"
-            aria-hidden="true" class="icon-36"></h3>
+            aria-hidden="true" class="icon-36 icon-right"></h3>
     <p>Support for a Maemo 5 "Fremantle" port for Nokia N900 was added by <i>aapo</i> in March, 2013. Unfortunately no builds remain.</p>
 
     <h3 class="center-vertical">Wii U<img src="/static/img/icons/wiiu.svg"
-            aria-hidden="true" class="icon-36"></h3>
+            aria-hidden="true" class="icon-36 icon-right"></h3>
     <p>A proof-of-concept Wii U port was in development by <i>aliaspider</i> from 2018 to 2020.
         PowerPC JIT support worked, but progress to render games on the GX2 GPU didn't get far enough to run many games.
         With time, interest faded in keeping the port up to date, and eventually big-endian support was dropped altogether.</p>
@@ -110,14 +136,14 @@
         <a href="https://github.com/hrydgard/ppsspp/pull/13399">#13399</a></p>
 
     <h3 class="center-vertical">Windows 10&nbsp;Mobile<img src="/static/img/icons/windowsphone.svg"
-            aria-hidden="true" class="icon-36"></h3>
+            aria-hidden="true" class="icon-36 icon-right"></h3>
     <p>Once upon a time, back around 2017, I ported PPSSPP to Windows 10&nbsp;Mobile. Unfortunately I never got it to run well enough
         to be worth releasing, since JIT is fundamentally broken on Windows 10&nbsp; (due to the lack of an API to invalidate the
         instruction cache), and the graphics driver was barely functional, causing many glitches.
     </p>
 
     <h3 class="center-vertical">Xbox 360<img src="/static/img/icons/xbox360.svg"
-            aria-hidden="true" class="icon-36"></h3>
+            aria-hidden="true" class="icon-36 icon-right"></h3>
     <p>A proof-of-concept Xbox 360 port was in development by <i>Ced2911</i> during 2013.
         Big-endian PowerPC support and JIT, as well as the Direct3D 9 graphics renderer was first implemented for this port.</p>
     <p><a href="https://github.com/Ced2911/ppsspp/tree/master">Archive of Ced2911's fork</a></p>

@@ -23,10 +23,10 @@ https://www.socom.cc/status.xml
 
 ## Debug status
 
-There's also: `http://server:27314/data_debug`. which shows internal state.
+There's also: `http://server:27314/data_debug`, which shows internal state.
 
 ## For server owners
 
-If you want your `data.json` page to be shown in ppsspp, contact me on `hrydgard+ppsspp@gmail.com` with `data.json` in the subject, and let me know the full URL that will display the `data.json`. Ideally this will be something like `yourhost/data.json` but I'll accept other URLs.
+If you want your `data.json` page to be shown in ppsspp, contact me on hrydgard+ppsspp@gmail.com with "data.json" in the subject, and let me know the full URL that will display the `data.json`. Ideally this will be something like `yourhost/data.json` but I'll accept other URLs.
 
-To enable `data.json` on your server, see the Deploying section [here](https://github.com/Kethen/aemu/blob/main/hosting.md#deploying) - that's the nodejs-based status page mentioned.
+To enable `data.json` on your server, see the Deploying section [here](https://github.com/Kethen/aemu/blob/main/hosting.md#deploying) - that's the Node.js-based status page mentioned.

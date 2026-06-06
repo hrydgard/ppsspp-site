@@ -53,7 +53,7 @@
                 "service_alt": "Download on the App Store"
             },
             {
-                "name": ".IPA and .deb at GitHub CI",
+                "name": "IPA and .deb at GitHub CI",
                 "url": "https://github.com/hrydgard/ppsspp/releases/latest",
                 "whats_this_url": "/docs/reference/ios-support/",
                 "whats_this": "iOS information"

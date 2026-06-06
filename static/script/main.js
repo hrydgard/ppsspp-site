@@ -123,7 +123,7 @@ const tmplUserInfo = `
 </p>
 <p>E-mail: {{it.email}}</p>
 {{ @if (it.goldUser) }}
-<p class="center-vertical">Gold status!<img src="/static/img/platform/ppsspp-icon-gold.png" aria-hidden="true" class="icon-24"></p>
+<p class="center-vertical">Gold status!<img src="/static/img/platform/ppsspp-icon-gold.png" aria-hidden="true" class="icon-24 icon-right"></p>
 {{ /if }}
 <p><a href="/changepassword">Change password</a></p>
 </div>
@@ -628,9 +628,9 @@ var g_pollInterval = 500;
 const tmplShowSuccessfulPurchase = `
 <p>Thank you!</p>
 <p>An e-mail with your login info has been sent to <strong>{{it.email}}</strong>.</p>
-<p>NOTE: If no e-mail arrives within a few minutes, please check your spam box.
+<div class="alert alert-info">NOTE: If no e-mail arrives within a few minutes, please check your spam box.
 If it's not there or you want to use a different e-mail address for login,
-then <a href="mailto:hrydgard+ppssppgold@gmail.com">e-mail me</a> and I'll sort it out.</p>
+then <a href="mailto:hrydgard+ppssppgold@gmail.com">e-mail me</a> and I'll sort it out.</div>
 <p><a href="{{it.magicLink}}" class="download-button button-gold" style="display:block;">Click here to log in!</a></p>
 <p>Paid: {{it.totalDisplay}} ({{it.currency}})</p>
 `;

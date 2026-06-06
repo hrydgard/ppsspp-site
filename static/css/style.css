@@ -88,8 +88,14 @@ a:hover {
   align-items: center;
 }
 
-.center-vertical img {
-  margin-left: 0.5ch;
+.float-left {
+    float: left;
+    margin-right: 8px;
+}
+
+.float-right {
+    float: right;
+    margin-left: 8px;
 }
 
 .clean-list {

@@ -54,7 +54,7 @@ This is a very incomplete list of games to test with if you want to debug a spec
 
 ### Vertex morphing
 
-- Motorstorm (vehicles, 1-2 weights only)
+- MotorStorm: Arctic Edge (vehicles, 1-2 weights only)
 - OutRun 2006 (flame rings in 4th level on the left, 4 morph weights IIRC)
 
 ### Depth buffer reads from the CPU
@@ -68,7 +68,7 @@ This is a very incomplete list of games to test with if you want to debug a spec
 
 - Coded Arms: Contagion (reads a single pixel from the alpha/stencil channel to identify enemies to lock-on)
 - Dangan Ronpa, Dangan Ronpa 2 (renders a separate mini buffer to select clues, people)
-- Motorstorm (light adaptation)
+- MotorStorm: Arctic Edge (light adaptation)
 - a few more
 
 ### Color buffer format aliasing
@@ -123,8 +123,8 @@ This is used by the following games:
 
 * Macross series games (water effect, see #6357)
 * Misshitsu no Sacrifice (background animation, also see #6357)
-* `Tactics Ogre: Let us cling together` (JAP/CN-patch) (font atlas, see #5350)
+* Tactics Ogre: Let Us Cling Together (JAP/CN-patch) (font atlas, see #5350)
 
 As far as I know, no other games use a "malformed" mip chain like this.
 
-In `Tactics Ogre` it's to fit a lot of characters in a single font texture (for no good reason, really). In this case, every two successive mipmaps points to the same texture page, for a total of four. Not sure why it's done this way.
+In Tactics Ogre it's to fit a lot of characters in a single font texture (for no good reason, really). In this case, every two successive mipmaps points to the same texture page, for a total of four. Not sure why it's done this way.

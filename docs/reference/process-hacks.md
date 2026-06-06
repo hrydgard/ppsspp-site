@@ -94,14 +94,14 @@ end
 
 You can add this inside of any auto assembler script at the start or inside the enable part and it should run fine if you remember to add `{$lua}` before the code.
 
-### Working with ingame pointers and objects
+### Working with in-game pointers and objects
 
-Members of ingame composite data types (such as structs and objects) cannot be saved as memory addresses in a way that they would remain valid throughout multiple sessions.
+Members of in-game composite data types (such as structs and objects) cannot be saved as memory addresses in a way that they would remain valid throughout multiple sessions.
 The pointer to the start of an object can be saved as such, but in order to calculate the address of any object member we need to delve into scripting.
 
 In the example below we have the object members saved as dummy cheat entries, all children of an auto assembler script.
 The idea is to calculate the addresses of the object members and display the cheat entries when the script is activated.
-<img src="/static/img/docs/process_hacking/ce_dummy_entries.png" alt="Ingame object members saved in Cheat Engine as dummy cheat entries">
+<img src="/static/img/docs/process_hacking/ce_dummy_entries.png" alt="In-game object members saved in Cheat Engine as dummy cheat entries">
 
 Here is the said script written in Lua:
 <img src="/static/img/docs/process_hacking/ce_pointer_script.png" alt="Example of a Lua script to calculate the addresses of object members">
