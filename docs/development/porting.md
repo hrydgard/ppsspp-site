@@ -13,7 +13,7 @@ Here's an incomplete list of platforms that PPSSPP could or could not be ported 
 | Linux | Done | x86&#x2011;32/&NoBreak;64, ARM32/&NoBreak;64, LoongArch64, RISC&#x2011;V64 |
 | macOS | Done | Limited native UI |
 | iOS | Done | JIT works but not on the App Store builds. |
-| Windows UWP,<br />Xbox Series X\|&NoBreak;S,<br />Xbox One,<br />Windows 10&nbsp;Mobile[^u_mobile] | Done | x86&#x2011;64, ARM64 [^u_isa] |
+| Windows UWP,<br>Xbox Series X\|&NoBreak;S,<br>Xbox One,<br>Windows 10&nbsp;Mobile[^u_mobile] | Done | x86&#x2011;64, ARM64 [^u_isa] |
 | Nintendo Switch | Done | Homebrew enabled consoles only. |
 | Raspberry Pi | Done | R4+ recommended |
 

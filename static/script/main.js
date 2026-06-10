@@ -141,9 +141,9 @@ const tmplAdminPanel = `
 <div class="alert alert-hidden" id="error_message" role="alert"></div>
 <label>
     <div>Name</div>
-    <span><input type="text" size="38" id="freegold_name" /></span>
+    <span><input type="text" size="38" id="freegold_name"></span>
     <div>E-mail address</div>
-    <span><input type="text" size="38" id="freegold_email" /></span>
+    <span><input type="text" size="38" id="freegold_email"></span>
 </label>
 <div>
     <button class="download-button" type="submit">Give free gold</button>
@@ -164,7 +164,7 @@ const tmplAdminPanel = `
 <div class="alert alert-hidden" id="error_message" role="alert"></div>
 <label>
     <div>E-mail address</div>
-    <span><input type="text" size="38" id="magiclink_email" /></span>
+    <span><input type="text" size="38" id="magiclink_email"></span>
 </label>
 <div>
     <button class="download-button" type="submit">Get magic link!</button>
