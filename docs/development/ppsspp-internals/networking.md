@@ -107,7 +107,7 @@ Intended error handling for `::gethostname` was never implemented.
 "inet_pton(addr_family, src, dst)" - parses the source IP string into dest buffer (4 or 16 bytes). The addr_family is for IPv4/IPv6 switch.
 
 I don't know why we have a custom `inet_pton` in namespace `net`...
-For example, the `inet_pton` called `sceNetInetInetPton` is the actual one and not this one.
+For example, the `inet_pton` called from `sceNetInetInetPton` is the actual one and not this one.
 
 
 // Does a DNS lookup without involving the OS, so you can hit any DNS server.
@@ -229,8 +229,8 @@ The request object is created in the "factory" static function.
 "CreateRequest(http_method, url, post_data, post_mime, outfile_path, request_flags, resolve_func, name)".
 So it has the necessary args for the download and for the POST request... Mixed together in a pile.
 
-However, this function exists solely for handling HTTPS. If the URL is https, PPSSPP tries to create a concreate Request class "HTTPSRequest".
-If a macro HTTPS_NOT_AVAILABLE is set, an empty shared_ptr to Request is returned. If the URL is http, it creates a concreate Request class "HTTPRequest".
+However, this function exists solely for handling HTTPS. If the URL is https, PPSSPP tries to create a concrete Request class "HTTPSRequest".
+If a macro HTTPS_NOT_AVAILABLE is set, an empty shared_ptr to Request is returned. If the URL is http, it creates a concrete Request class "HTTPRequest".
 
 The Request class is actually quite a big object.
 It stores the request properties (for example, the HTTP method, the URL, the outfile_path) and some utility objects,
@@ -454,7 +454,7 @@ For some reason doesn't use the member initializer list for `outfile_`. Just lik
 Also for some reason stores a field `method_` that duplicates the abstract base's `method_`. I have no idea why.
 TODO: It probably should just use the parent's field.
 
-"Start()" - creates a vector of neatt options (actually pointers, but whatever),
+"Start()" - creates a vector of naett options (actually pointers, but whatever),
 calls `naettRequestWithOptions` and `naettMake` (the return values are saved), then updates the progress as 0%.
 I assume that naett spawns a thread on its own.
 
@@ -492,6 +492,6 @@ In all 3 scenarios we set `completed_` to true and return true.
 Note: the non-200 responses are treated as failures here, contrary to the HTTPRequest class!!!
 By the way, I don't know if naett can handle redirects. I literally don't know.
 
-Note: the exact same scenario (404 and such) produces error logs and not warning logs for HTTPRequest.
+Note: the exact same scenario (404 and such) produces error logs and not warning logs for HTTPRequest. Another inconsistency!
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
