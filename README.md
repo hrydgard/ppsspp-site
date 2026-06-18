@@ -66,9 +66,9 @@ NOTE: Currently, only hrydgard does this.
 
 Prerequisites: See Local Testing Instructions.
 
-If upgrading PPSSPP versions, regenerate data/downloads.json using util/dirtree-json.
+When upgrading PPSSPP versions, regenerate `data/downloads.json` using `util/dirtree-json`.
 
-That will have its own README.md one day..
+That will have its own README one day...
 
 Use one of the below as appropriate:
 
