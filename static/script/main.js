@@ -716,7 +716,7 @@ const tmplBuildbotStatus = `
 <div class="col-12">
 <div class="card">
 <div class="card-title">
-    <h2 class="no-icon">Buildbot Status</h2>
+    <h2 class="no-icon">Buildbot status</h2>
 </div>
 {{@if(it.building)}}
 <p>Building {{it.tag}}-{{it.revs}} for {{it.building}} ({{it.commit_date}})</p>
