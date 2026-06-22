@@ -135,20 +135,19 @@ const tmplAdminPanel = `
 
 <div class="card">
 <div class="card-title">
-    <h2 class="no-icon">Give free gold</h2>
+    <h2 class="no-icon">Give free Gold</h2>
 </div>
 <form action="#" onSubmit="return handleGiveFreeGold(event)">
-<div class="alert alert-hidden" id="error_message" role="alert"></div>
 <label>
     <div>Name</div>
     <span><input type="text" size="38" id="freegold_name" /></span>
     <div>E-mail address</div>
     <span><input type="text" size="38" id="freegold_email" /></span>
 </label>
+<div id="freeGoldStatus" class="alert alert-hidden" role="alert"></div>
 <div>
-    <button class="download-button" type="submit">Give free gold</button>
+    <button class="download-button" type="submit">Give free Gold</button>
 </div>
-<div id="freeGoldStatus"></div>
 </form>
 </div>
 
@@ -161,16 +160,15 @@ const tmplAdminPanel = `
     <h2 class="no-icon">Get magic link</h2>
 </div>
 <form action="#" onSubmit="return handleGetMagicLink(event)">
-<div class="alert alert-hidden" id="error_message" role="alert"></div>
 <label>
     <div>E-mail address</div>
     <span><input type="text" size="38" id="magiclink_email" /></span>
 </label>
+<div id="magicLinkStatus" class="alert alert-hidden" role="alert"></div>
 <div>
     <button class="download-button" type="submit">Get magic link!</button>
 </div>
 <div id="magic_link"></div>
-<div id="magicLinkStatus" class="alert alert-hidden"></div>
 </form>
 </div>
 
@@ -179,16 +177,15 @@ const tmplAdminPanel = `
 <div class="col-6">
 <div class="card">
 <div class="card-title">
-    <h2 class="no-icon">Google Play Codes</h2>
+    <h2 class="no-icon">Google Play codes</h2>
 </div>
-
-<div id="playCodesStats">...</div>
-<div id="googlePlayStatus" class="alert alert-hidden"></div>
 <form action="#" onSubmit="return handleAddGooglePlayCodes(event)">
 <label>
   <div>Codes to add:</div>
   <textarea rows="10" cols="24" id="pending_codes"}></textarea>
 </label>
+<div id="googlePlayStatus" class="alert alert-hidden" role="alert"></div>
+<div id="playCodesStats"></div>
 <div>
   <button class="download-button" type="submit">Add promo codes</button>
 </div>
@@ -314,7 +311,7 @@ async function handleGiveFreeGold(event) {
     let userName = document.getElementById("freegold_name").value.trim();
     let userEmail = document.getElementById("freegold_email").value.trim();
 
-    console.log("Gonna give free gold to " + userEmail + " " + userName);
+    console.log("Gonna give free Gold to " + userEmail + " " + userName);
 
     if (userEmail) {
         userEmail = userEmail.trim();
@@ -340,7 +337,7 @@ async function handleGiveFreeGold(event) {
     }
 
     if (!userEmail || !validateEmailAddress(userEmail)) {
-        setStatusDisplay(ERROR, "freeGoldStatus", "Failed to send free gold - no valid email.");
+        setStatusDisplay(ERROR, "freeGoldStatus", "Failed to send free Gold &ndash; no valid email.");
         return;
     }
 
@@ -353,10 +350,10 @@ async function handleGiveFreeGold(event) {
     const response = await jsonFetch("freegold", freeGoldUser);
     if (response) {
         console.log("gave free gold to " + userName + " '" + userEmail + "'\n" + response.magicLink);
-        setStatusDisplay(SUCCESS, "freeGoldStatus", "Gave free gold to " + userName + " '" + userEmail + "'\n");
+        setStatusDisplay(SUCCESS, "freeGoldStatus", "Gave free Gold to " + userName + " '" + userEmail + "'\n");
         console.log(response);
     } else {
-        setStatusDisplay(ERROR, "freeGoldStatus", "Failed to give free gold");
+        setStatusDisplay(ERROR, "freeGoldStatus", "Failed to give free Gold.");
     }
     return false;
 }
@@ -468,7 +465,7 @@ async function handleLoginForm(event) {
         }
         setStatusDisplay(HIDDEN, "loginStatus");
     } else {
-        setStatusDisplay(ERROR, "loginStatus", "Email/Password didn't match, or account doesn't exist.");
+        setStatusDisplay(ERROR, "loginStatus", "E-mail/password didn't match, or account doesn't exist.");
     }
 
     applyDOMVisibility();
@@ -565,7 +562,7 @@ async function handleRequestPromoCodeForm(event) {
     if (result) {
         setStatusDisplay(SUCCESS, status, result.code);
     } else {
-        setStatusDisplay(ERROR, status, "Failed to make request - duplicate?");
+        setStatusDisplay(ERROR, status, "Failed to make request &ndash; duplicate?");
     }
 }
 
@@ -631,7 +628,7 @@ const tmplShowSuccessfulPurchase = `
 <div class="alert alert-info">NOTE: If no e-mail arrives within a few minutes, please check your spam box.
 If it's not there or you want to use a different e-mail address for login,
 then <a href="mailto:hrydgard+ppssppgold@gmail.com">e-mail me</a> and I'll sort it out.</div>
-<p><a href="{{it.magicLink}}" class="download-button button-gold" style="display:block;">Click here to log in!</a></p>
+<p><a href="{{it.magicLink}}" class="download-button button-gold">Click here to log in!</a></p>
 <p>Paid: {{it.totalDisplay}} ({{it.currency}})</p>
 `;
 
@@ -719,7 +716,7 @@ const tmplBuildbotStatus = `
 <div class="col-12">
 <div class="card">
 <div class="card-title">
-    <h2 class="no-icon">Buildbot Status</h2>
+    <h2 class="no-icon">Buildbot status</h2>
 </div>
 {{@if(it.building)}}
 <p>Building {{it.tag}}-{{it.revs}} for {{it.building}} ({{it.commit_date}})</p>
@@ -930,7 +927,7 @@ document.addEventListener('DOMContentLoaded', function () {
     onLoadPage();
 });
 
-/**
+/*
 * Automatic mode assignment according to user-selected system preference.
 */
 let curTheme = localStorage.getItem("theme");
@@ -949,5 +946,5 @@ if (curTheme) {
 }
 
 // Error messages
-const BAD_EMAIL_ADDRESS = "Not a valid e-mail address ";
-const MISSING_PASSWORD = "Please enter a password";
+const BAD_EMAIL_ADDRESS = "Not a valid e-mail address.";
+const MISSING_PASSWORD = "Please enter a password.";
