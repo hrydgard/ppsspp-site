@@ -14,12 +14,12 @@ handlebars = "6.3.2"
 env_logger = "0.11"
 axum = "0.8.1"
 axum-extra = "0.12.1"
-hyper = { version = "1.0.0", features = ["full"] }
+hyper = { version = "1.10.0", features = ["full"] }
 hyper-util = { version = "0.1", features = ["client-legacy"] }
 hyper-rustls = "0.27"
 tokio = { version = "1", features = ["full"] }
 tower = { version = "0.5", features = ["util"] }
-tower-http = { version = "0.6", features = ["fs", "trace"] }
+tower-http = { version = "0.7", features = ["fs", "trace"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 regex = "1.0"
