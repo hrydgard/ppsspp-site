@@ -15,6 +15,8 @@ Many Android TV and Google TV devices ship without the "DocumentsUI" framework r
 1.  **Install a compatible File Manager:**
     You can often fix this by installing a third-party file manager that supports system intents from the Google Play Store. It's recommended to try **AnExplorer** or **X-plore File Manager**, as they are specifically designed to work with Android TV remotes and can often "fill the gap" left by the missing system picker.
 
+    It has recently been suggested that the best alternative is [Ultimate File Manager](https://play.google.com/store/apps/details?id=za.kilowatch.ultimatefilemanager&hl=en&pli=1). Try it if you want and let me know!
+
 2.  **Use the Legacy Build:**
     If you know how to install APKs, you can work around the problem entirely using the [PPSSPP Legacy](/docs/reference/legacy-edition) build. This is useful on TVs and older phones as I/O performs slightly better, though you will lose out on Google Play auto-updates.
 
