@@ -95,17 +95,17 @@ Find the custom music folder for your game here: <sup>(table is not yet complete
     </thead>
     <tbody>
         <tr>
-            <td>Beats,<br />Shouten Beat</td>
-            <td><code>ms:/PSP/MUSIC</code>,<br /><code>ms:/MUSIC</code>,<br /><code>ms:/MP3</code></td>
+            <td>Beats,<br>Shouten Beat</td>
+            <td><code>ms:/PSP/MUSIC</code>,<br><code>ms:/MUSIC</code>,<br><code>ms:/MP3</code></td>
             <td><ul>
                 <li>&#x26A0;&#xFE0F;&nbsp;see issue <a href="https://github.com/hrydgard/ppsspp/issues/14812">#14812</a></li>
                 <li>subfolders supported</li>
-                <li>also looks for ATRAC files<br /><small>(see ATRAC section for details)</small></li>
+                <li>also looks for ATRAC files<br><small>(see ATRAC section for details)</small></li>
             </ul></td>
         </tr>
         <tr>
-            <td>Crazy Taxi: Fare Wars,<br />Crazy Taxi: Double Punch</td>
-            <td><small>primary:</small><code>ms:/MUSIC/CRAZYTAXI</code><br /><small>fallback:</small><code>ms:/MUSIC</code></td>
+            <td>Crazy Taxi: Fare Wars,<br>Crazy Taxi: Double Punch</td>
+            <td><small>primary:</small><code>ms:/MUSIC/CRAZYTAXI</code><br><small>fallback:</small><code>ms:/MUSIC</code></td>
             <td><ul>
                 <li>&#x26A0;&#xFE0F;&nbsp;see issue <a href="https://github.com/hrydgard/ppsspp/issues/15509">#15509</a></li>
                 <li>fallback folder is only checked if no MP3s found in primary folder</li>
@@ -125,7 +125,7 @@ Find the custom music folder for your game here: <sup>(table is not yet complete
         </tr>
         <tr>
             <td>Digital Comics</td>
-            <td><code>ms:/PSP/MUSIC</code>,<br /><code>ms:/MUSIC</code>,<br /><code>ms:/MP3</code></td>
+            <td><code>ms:/PSP/MUSIC</code>,<br><code>ms:/MUSIC</code>,<br><code>ms:/MP3</code></td>
             <td><ul>
                 <li>&#x26A0;&#xFE0F;&nbsp;see issues <a href="https://github.com/hrydgard/ppsspp/issues/20784">#20784</a> and <a href="https://github.com/hrydgard/ppsspp/issues/1755">#1755</a></li>
                 <li>subfolders supported</li>
@@ -134,7 +134,7 @@ Find the custom music folder for your game here: <sup>(table is not yet complete
         </tr>
         <tr>
             <td>Gran Turismo</td>
-            <td><code>ms:/MUSIC</code>,<br /><code>ms:/MUSIC/GTPSP</code></td>
+            <td><code>ms:/MUSIC</code>,<br><code>ms:/MUSIC/GTPSP</code></td>
             <td><ul>
                 <li>you must first make progress in the game</li>
                 <li>folder selection supported</li>
@@ -169,7 +169,7 @@ Find the custom music folder for your game here: <sup>(table is not yet complete
             </ul></td>
         </tr>
         <tr>
-            <td>TOCA Race Driver 3 Challenge,<br />DTM Race Driver 3 Challenge,<br />V8 Supercars Australia 3: Shootout</td>
+            <td>TOCA Race Driver 3 Challenge,<br>DTM Race Driver 3 Challenge,<br>V8 Supercars Australia 3: Shootout</td>
             <td><code>ms:/PSP/MUSIC</code></td>
             <td><ul>
                 <li>subfolders supported</li>
@@ -178,7 +178,7 @@ Find the custom music folder for your game here: <sup>(table is not yet complete
         </tr>
         <tr>
             <td>Ultimate Board Game Collection</td>
-            <td><code>ms:/PSP/MUSIC</code>,<br /><code>ms:/MUSIC</code></td>
+            <td><code>ms:/PSP/MUSIC</code>,<br><code>ms:/MUSIC</code></td>
             <td><ul>
                 <li>subfolders supported</li>
                 <li>playlist customization supported</li>
@@ -341,10 +341,10 @@ The games ignore songs that are shorter than 5 seconds.
 Find the custom tracks folder for your Liberty City Stories version here:
 | Game Version | Serial | Folder |
 | --- | --- | --- |
-| American,<br />Korean | ULUS10041 | `ms:/PSP/SAVEDATA/ULUS10041CUSTOMTRACKS` |
+| American,<br>Korean | ULUS10041 | `ms:/PSP/SAVEDATA/ULUS10041CUSTOMTRACKS` |
 | European | ULES00151 | `ms:/PSP/SAVEDATA/ULES00151CUSTOMTRACKS` |
 | German | ULES00182 | `ms:/PSP/SAVEDATA/ULES00182CUSTOMTRACKS` |
-| Japanese CAPCOM,<br />Japanese Rockstar Classics | ULJM05255,<br />ULJM05885 | `ms:/PSP/SAVEDATA/ULJM05255CUSTOMTRACKS` |
+| Japanese CAPCOM,<br>Japanese Rockstar Classics | ULJM05255,<br>ULJM05885 | `ms:/PSP/SAVEDATA/ULJM05255CUSTOMTRACKS` |
 
 Find the custom tracks folder for your Vice City Stories version here:
 | Game Version | Serial | Folder |
@@ -352,13 +352,13 @@ Find the custom tracks folder for your Vice City Stories version here:
 | American | ULUS10160 | `ms:/PSP/SAVEDATA/ULUS10160CUSTOMTRACKS` |
 | European | ULES00502 | `ms:/PSP/SAVEDATA/ULES00502CUSTOMTRACKS` |
 | German | ULES00503 | `ms:/PSP/SAVEDATA/ULES00503CUSTOMTRACKS` |
-| Japanese CAPCOM,<br />Japanese Rockstar Classics | ULJM05297,<br />ULJM05884 | `ms:/PSP/SAVEDATA/ULJM05297CUSTOMTRACKS` |
+| Japanese CAPCOM,<br>Japanese Rockstar Classics | ULJM05297,<br>ULJM05884 | `ms:/PSP/SAVEDATA/ULJM05297CUSTOMTRACKS` |
 
 Find the custom tracks folder for popular romhacks here:
 | Romhack | Serial | Folder |
 | --- | --- | --- |
 | Sindacco Chronicles <small>(all versions)</small> | ULUS01826 | `ms:/PSP/SAVEDATA/ULUS01826CUSTOMTRACKS` |
-| Seen in Liberty City <small>(1.0.0 and 1.0.1)</small> | ULUS11826 | `ms:/PSP/SAVEDATA/ULUS01826CUSTOMTRACKS`<br /><small>(same as Sindacco Chronicles)</small> |
+| Seen in Liberty City <small>(1.0.0 and 1.0.1)</small> | ULUS11826 | `ms:/PSP/SAVEDATA/ULUS01826CUSTOMTRACKS`<br><small>(same as Sindacco Chronicles)</small> |
 
 ### TOCA Race Driver 2
 

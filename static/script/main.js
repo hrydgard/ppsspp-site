@@ -140,9 +140,9 @@ const tmplAdminPanel = `
 <form action="#" onSubmit="return handleGiveFreeGold(event)">
 <label>
     <div>Name</div>
-    <span><input type="text" size="38" id="freegold_name" /></span>
+    <span><input type="text" size="38" id="freegold_name"></span>
     <div>E-mail address</div>
-    <span><input type="text" size="38" id="freegold_email" /></span>
+    <span><input type="text" size="38" id="freegold_email"></span>
 </label>
 <div id="freeGoldStatus" class="alert alert-hidden" role="alert"></div>
 <div>
@@ -162,7 +162,7 @@ const tmplAdminPanel = `
 <form action="#" onSubmit="return handleGetMagicLink(event)">
 <label>
     <div>E-mail address</div>
-    <span><input type="text" size="38" id="magiclink_email" /></span>
+    <span><input type="text" size="38" id="magiclink_email"></span>
 </label>
 <div id="magicLinkStatus" class="alert alert-hidden" role="alert"></div>
 <div>

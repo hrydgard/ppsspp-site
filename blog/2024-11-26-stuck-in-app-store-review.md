@@ -33,7 +33,7 @@ For some time now, I have simply not been able to update the paid iOS version on
 
 Below is an authentic conversation with App Store Review. This is the second conversation, I previously had a much longer one, but it disappeared when I submitted a new build. The arguments were the same, just more rounds of back-and-forth.
 
-<hr/>
+<hr>
 
 ### Apple App Store Rejection, initial message
 
@@ -126,7 +126,7 @@ Learn more about intellectual property requirements in [guideline 5.2.2](https:/
 - Provide feedback on this message and your review experience by [completing a short survey](https://essentials.applesurveys.com/jfe/form/SV_esVePfih7uqt4NM?taskid=2ce1ec41-879a-48ff-8f12-4018e7b106eb&campaignid=0001).
 
 </i>
-<hr/>
+<hr>
 
 ### My initial response
 
@@ -150,7 +150,7 @@ I am the original author of this app. It is not spam, it's just the paid version
 
 There are no such files. If there's a file you have a complaint about. PLEASE LET ME KNOW EXACTLY WHICH ONE. The filename please.
 
-<hr/>
+<hr>
 
 ### Apple App Store Reply
 
@@ -174,7 +174,7 @@ App Review
 
 </i>
 
-<hr/>
+<hr>
 
 ### My second response
 
@@ -193,7 +193,7 @@ This app is serious software and is one of the most popular retro game console e
 
 So please, consider the facts above.
 
-<hr/>
+<hr>
 
 ### Apple App Store Reply #2
 
@@ -219,7 +219,7 @@ App Review
 
 </i>
 
-<hr/>
+<hr>
 
 ### Conclusion
 

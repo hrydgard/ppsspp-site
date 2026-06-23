@@ -24,7 +24,7 @@ You can install PPSSPP through the App Store:
 
 <a href="https://apps.apple.com/us/app/ppsspp-psp-emulator/id6496972903" class="download-button button-block">
     <div class="button-contents"><img src="/static/img/platform/appstore-badge.svg"
-            alt="Download on the App Store" class="badge"/>Tap here to download PPSSPP from the App Store!</div>
+            alt="Download on the App Store" class="badge">Tap here to download PPSSPP from the App Store!</div>
 </a>
 
 ### Sideloading
