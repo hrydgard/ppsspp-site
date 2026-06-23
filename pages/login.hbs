@@ -10,18 +10,15 @@
                     <h2 class="no-icon">Login</h2>
                 </div>
 
-                <p>
-                    No account? <a href="/buygold">Buy PPSSPP Gold!</a>
-                </p>
-                <div class="alert alert-info">Note that accounts are for accessing PPSSPP Gold on PC/Mac.
-                </div>
+                <p>No account? <a href="/buygold">Buy PPSSPP Gold!</a></p>
+                <div class="alert alert-info">Note that accounts are for accessing PPSSPP Gold on Windows/macOS.</div>
 
                 <form action="#" onSubmit="return handleLoginForm(event)">
-                    <div class="alert alert-success" style="display: none;" id="error_message" role="alert"></div>
                     <label for="email">E-mail address</label>
                     <input type="text" size="38" id="email" name="email">
                     <label for="password">Password</label>
                     <input type="password" size="38" id="password" name="password">
+                    <div id="loginStatus" class="alert alert-hidden" role="alert"></div>
                     <div>
                         <button class="button" type="submit">Login</button>
                     </div>
@@ -29,8 +26,6 @@
                         <a href="/recoverpassword">Forgot your password?</a>
                     </div>
                 </form>
-
-                <div id="loginStatus" class="alert alert-hidden"></div>
             </div>
         </div>
 

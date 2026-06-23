@@ -29,6 +29,12 @@ This is a very incomplete list of games to test with if you want to debug a spec
 
 - ?
 
+## Audio features
+
+### VAudio, sceVaudioSetAlcMode
+
+SensMe music player. sceVaudioSetAlcMode controls automatic audio normalization, the algorithm for that is unclear.
+
 ## GE rendering features and/or techniques
 
 ### Spline/Bezier patches
@@ -80,7 +86,7 @@ This is a very incomplete list of games to test with if you want to debug a spec
 
 ### Depth buffer manual swizzling through geometry
 
-This is a mistake that a few games have made - the PSP has hardware to swizzle depth buffers to linear, but instead they use triangles. This applies to the particle effects in these games
+This is a mistake that a few games have made - the PSP has hardware to swizzle depth buffers to linear, but instead they use triangles to simulate the swizzle to match. This applies to the particle effects in these games:
 
 - Jak & Daxter
 - Ratchet & Clank (both games)
@@ -100,6 +106,29 @@ This is a mistake that a few games have made - the PSP has hardware to swizzle d
 - Burnout Legends (sun lens flare)
 - Digimon
 - Tales of Phantasia X
+
+### CLUT lookups from color framebuffers ("depal")
+
+- Dragon Ball Z: Tenkaichi Tag Team
+- Test Drive (with "smooth" lookup workaround for better color precision)
+- Burnout Dominator (lens flare effect)
+- Tantalus games (Spongebob, etc)
+- Many more
+
+### CLUT lookups from depth buffers
+
+- Fog effect in Katamari Damacy
+
+### CLUT lookups with palette in framebuffer
+
+- Ridge Racer 1/2 (digital speedometers)
+
+### Reinterpret color framebuffers
+
+- Outrun 2006 (however, worked around with "BlueToAlpha" method)
+- Split/Second (however, worked around with "BlueToAlpha" method)
+
+- Tantalus games (Spongebob, etc)
 
 ### Memcpy framebuffer download/upload
 
