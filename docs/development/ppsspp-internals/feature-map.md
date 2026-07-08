@@ -8,6 +8,8 @@ This is a very incomplete list of games to test with if you want to debug a spec
 
 - MotoGP (single-language)
 - PES 2013 (single-language)
+- Metal Gear Solid: Portable Ops (see issue #21856)
+- Fifa 07 (manager mode, create profile and name it)
 - many more
 
 ### Microphone (hardware expansion)
@@ -25,15 +27,19 @@ This is a very incomplete list of games to test with if you want to debug a spec
 - EyePet Adventures
 - Invizimals
 
-### GPS
+### GPS (USB accessory)
 
-- ?
+Needs the PSP-290 GPS USB attachment.
+
+- Go!Explore
+- MapThis! (homebrew)
+- Maplus Portable GPS
 
 ## Audio features
 
 ### VAudio, sceVaudioSetAlcMode
 
-SensMe music player. sceVaudioSetAlcMode controls automatic audio normalization, the algorithm for that is unclear.
+- SensMe music player. sceVaudioSetAlcMode controls automatic audio normalization, the algorithm for that is unclear.
 
 ## GE rendering features and/or techniques
 
@@ -41,7 +47,8 @@ SensMe music player. sceVaudioSetAlcMode controls automatic audio normalization,
 
 - Loco Roco (all games and variants)
 - Namco Museum: Battle Collection (Pac-Man, more). This still exhibits a small bug (black patch on top of the ghosts)
-- Pursuit Force (both games)
+- Pursuit Force (both games, for the road surfaces and landscape)
+- Test Drive Unlimited (landscape)
 - Puzzle Bobble Pocket (completely unnecessary! Just used for rotating sprites)
 - one of the snowboarding games
 
@@ -60,6 +67,8 @@ SensMe music player. sceVaudioSetAlcMode controls automatic audio normalization,
 
 ### Vertex morphing
 
+You can supply multiple copies of input vertex data per output vertex, and the GE will make a weighted average using the morph factors, specified separately directly in the GE context.
+
 - MotorStorm: Arctic Edge (vehicles, 1-2 weights only)
 - OutRun 2006 (flame rings in 4th level on the left, 4 morph weights IIRC)
 
@@ -67,7 +76,7 @@ SensMe music player. sceVaudioSetAlcMode controls automatic audio normalization,
 
 - Midnight Club: LA (sun lens flare)
 - Syphon Filter (light halos (lots per frame!))
-- WipEout (sun lens flare). Multiple reads per frame to get an average.
+- Wipeout Pure (sun lens flare). Multiple reads per frame to get an average.
 - a few more
 
 ### Direct color buffer reads from the CPU
