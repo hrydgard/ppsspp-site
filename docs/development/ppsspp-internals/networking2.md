@@ -98,7 +98,7 @@ and const char ptrs `referer`, `user_agent`, `resource` and `params`.
 The parsing and initialization happens in the method "ParseHeaders(input_sink)".
 We read the input line by line (getting an empty line is the end marker).
 If by the end we will have processed at least 2 lines and gotten a non-empty resource, we'll set `ok` to true.
-So PPSSPP doesn't a
+So PPSSPP doesn't accept HTTP 0.9 connections, because these are single-line.
 
 TODO: explain what is "ok" in a comment next to a field?
 
@@ -502,7 +502,7 @@ Back to `Server` and `ServerRequest`.
 > You have to use the out sink to write the answer and the in sink for reading the body of the request.
 
 The default 404 handler uses `WriteHttpResponseHeader` to write the HTTP header and uses `Out()->Push(payload)` to actually write the simple 404 response.
-Verson is "1.0" (huh), code is 404 and the content size is payload's length.
+Verson is "1.0", code is 404 and the content size is payload's length.
 TODO: STR_VIEW in the info log.
 
 
