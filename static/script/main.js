@@ -177,7 +177,6 @@ const tmplAdminPanel = `
 <div>
     <button class="download-button" type="submit">Get magic link!</button>
 </div>
-<div id="magic_link"></div>
 </form>
 </div>
 
@@ -448,19 +447,16 @@ async function handleGetMagicLink(event) {
     const magicLink = await jsonFetch("getmagiclink", {
         'email': email,
     });
-    const magicLinkDest = document.getElementById("magic_link");
+
     if (magicLink) {
-        if (magicLinkDest) {
-            magicLinkDest.innerHTML = magicLink.link;
-            // Also copy to clipboard
+        try {
             await navigator.clipboard.writeText(magicLink.link);
+            setStatusDisplay(SUCCESS, "magicLinkStatus", "Magic link copied to clipboard.");
+        } catch (e) {
+            console.log("[auth] Failed to copy magic link to clipboard", e);
+            setStatusDisplay(ERROR, "magicLinkStatus", "Magic link fetched, but failed to copy to clipboard.");
         }
-        console.log("success: " + magicLink.link);
-        setStatusDisplay(SUCCESS, "magicLinkStatus", "Link fetched.");
     } else {
-        if (magicLinkDest) {
-            magicLinkDest.innerHTML = "";
-        }
         setStatusDisplay(ERROR, "magicLinkStatus", "Error getting magic link.");
     }
     return false;
