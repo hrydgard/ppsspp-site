@@ -44,6 +44,8 @@ Parameters like matrices are specified by 24-bit floating point values, though i
 
 You can turn off the T&L pipeline and put it in "through mode". In this mode, vertex data just goes straight through from the vertex buffer to the rasterizer, without any clipping or transform.
 
+When T&L is on and a clip/clamp flag is set, triangles are clipped against a single plane, Z=-W. See the [GE vertex pipeline](/docs/psp-hardware/gpu/ge-vertex-pipeline) article for details.
+
 Vertex formats have a fixed component order. The following component formats are supported:
 
 - Color:

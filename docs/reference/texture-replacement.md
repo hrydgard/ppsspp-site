@@ -66,11 +66,19 @@ ignoreAddress="true"
 
 ### Parts of the hash
 
+Internally, to identify textures, PPSSPP uses a combination of the address the texture is loaded at, a hash of the color palette (CLUT, which means color look up table), and finally the hash of the actual texture contents, for a total of 96 bits. It's organized like this:
+
+`AAAAAAAACCCCCCCCTTTTTTTT` with an optional `_M` suffix where M is the mip level.
+
 The hash simply uses the same hashing PPSSPP internally uses to tell textures apart. Aside from a hash of the image data, it also uses the hash of the palette (for palette-swapped images), and the address of image in memory.
 
 Keep in mind that the `quick` hash especially is not perfect. If you rely only on it, you might find yourself replacing a completely unrelated texture by accident (oops.) Decide your risk carefully.
 
-It's possible to ignore some of these parts, but if you do, don't use `hash = quick`. Here are the options (includes mipmap levels, see below):
+It's possible to ignore some of these parts by using 00000000 in the hash, but if you do, don't use `hash = quick` (you shouldn't, anyway - the recommended hash is xxh64).
+
+Almost always if you are using a strong hash, it makes sense to zero out the address part, since a game might not always load a texture at the same memory address. Duplicating textures because the address differs is not useful.
+
+Here are some examples:
 
 ```ini
 [hashes]
@@ -83,19 +91,17 @@ It's possible to ignore some of these parts, but if you do, don't use `hash = qu
 # Ignore the texture with this CLUT regardless of data.
 094b89907dcca1a500000000_0 =
 
-# The same CLUT / data at any address:
+# The same CLUT / data at any address (commonly useful case):
 000000007dcca1a5ee284131 = very/organized/things/texture3.ktx2
 
-# The same address / data with any CLUT:
+# The same address / data with any CLUT (can be used to ignore subtle palette animations, for example):
 094b899000000000ee284131 = very/organized/things/texture4.dds
 
-# The same data at any address (collisions might happen):
+# The same data at any address with any CLUT (risky if using quick hash):
 0000000000000000ee284131 = very/organized/things/texture3.ktx2
 ```
 
 ### Texture sizes on the PSP
-
-TL;DR: Some things are hard for robots, and easy for humans. Unfortunately this makes replacing textures harder and more annoying.
 
 The PSP hardware limited textures to power-of-two sizes, so games always use those sizes (e.g. 512x512 or 512x256.)
 

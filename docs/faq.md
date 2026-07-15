@@ -197,7 +197,7 @@ This is, however, currently not available on iOS due to current lack of support 
 
 ## My app is on the PPSSPP Homebrew Store and I do not approve!
 
-Shoot me an e-mail (hrydgard at gmail dot com) and I'll remove it.
+Shoot me an e-mail (`hrydgard+ppsspp@gmail.com`) and I'll remove it.
 
 ## Where can I find the privacy policy?
 
@@ -245,6 +245,6 @@ This can be turned off inside the game itself, by going to "Options -> Display S
 
 MSAA is only supported when the Backend setting is set to Vulkan. Also, the Vulkan driver on your device must be modern enough to support the `VK_KHR_depth_stencil_resolve` extension - if it doesn't, the setting won't show up.
 
-# How can I remove the touch screen menu button on iOS
+## How can I remove the touch screen menu button on iOS?
 
 You can't, because iOS doesn't have a built-in back button, so there's no other way to go to the pause menu. And this is required functionality for using things like save states, changing settings etc. So, it's enforced. In a future version, we might make it movable.

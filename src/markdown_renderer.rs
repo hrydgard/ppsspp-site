@@ -163,7 +163,7 @@ impl<'a> Renderer<'a> {
                         self.out.push_str(&escape_html_attr(&heading.id));
                         self.out.push_str("\">");
                         self.out.push_str(&escape_html_text(&heading.title));
-                        self.out.push_str("</h1>");
+                        self.out.push_str("</h1>\n");
                     }
                 }
 
@@ -172,6 +172,9 @@ impl<'a> Renderer<'a> {
 
             for child in &root.children {
                 self.render_flow(child, false);
+                if !self.out.ends_with('\n') {
+                    self.out.push('\n');
+                }
             }
         }
     }
@@ -189,7 +192,7 @@ impl<'a> Renderer<'a> {
                 } else {
                     self.out.push_str("<p>");
                     self.render_inlines(&paragraph.children);
-                    self.out.push_str("</p>");
+                    self.out.push_str("</p>\n");
                 }
             }
             mdast::Node::Heading(heading) => {
@@ -210,15 +213,15 @@ impl<'a> Renderer<'a> {
                 self.out.push_str(&escape_html_attr(&heading_id));
                 self.out.push_str("\">");
                 self.render_inlines(&heading.children);
-                self.out.push_str(&format!("</h{}>", heading.depth));
+                self.out.push_str(&format!("</h{}>\n", heading.depth));
             }
-            mdast::Node::ThematicBreak(_) => self.out.push_str("<hr />"),
+            mdast::Node::ThematicBreak(_) => self.out.push_str("<hr />\n"),
             mdast::Node::Blockquote(blockquote) => {
                 self.out.push_str("<blockquote>");
                 for child in &blockquote.children {
                     self.render_flow(child, false);
                 }
-                self.out.push_str("</blockquote>");
+                self.out.push_str("</blockquote>\n");
             }
             mdast::Node::List(list) => self.render_list(list),
             mdast::Node::Code(code) => {
@@ -233,7 +236,7 @@ impl<'a> Renderer<'a> {
                 if !code.value.ends_with('\n') {
                     self.out.push('\n');
                 }
-                self.out.push_str("</code></pre>");
+                self.out.push_str("</code></pre>\n");
             }
             mdast::Node::Math(math) => {
                 self.out
@@ -242,7 +245,7 @@ impl<'a> Renderer<'a> {
                 if !math.value.ends_with('\n') {
                     self.out.push('\n');
                 }
-                self.out.push_str("</code></pre>");
+                self.out.push_str("</code></pre>\n");
             }
             mdast::Node::Html(html) => {
                 if self.options.compile.allow_dangerous_html {
@@ -250,15 +253,20 @@ impl<'a> Renderer<'a> {
                 } else {
                     self.out.push_str(&escape_html_text(&html.value));
                 }
+                if !self.out.ends_with('\n') {
+                    self.out.push('\n');
+                }
             }
             mdast::Node::Table(table) => self.render_table(table),
             mdast::Node::Definition(_) | mdast::Node::FootnoteDefinition(_) => {}
             mdast::Node::MdxjsEsm(esm) => {
                 self.out.push_str(&escape_html_text(&esm.value));
+                self.out.push('\n');
             }
             mdast::Node::Toml(_) | mdast::Node::Yaml(_) => {}
             mdast::Node::MdxFlowExpression(expr) => {
                 self.out.push_str(&escape_html_text(&expr.value));
+                self.out.push('\n');
             }
             mdast::Node::ListItem(item) => {
                 self.render_list_item(item, false);
@@ -411,6 +419,7 @@ impl<'a> Renderer<'a> {
         } else {
             self.out.push_str("</ul>");
         }
+        self.out.push('\n');
     }
 
     fn render_list_item(&mut self, item: &mdast::ListItem, tight: bool) {
@@ -478,6 +487,7 @@ impl<'a> Renderer<'a> {
             }
         }
         self.out.push_str("</tbody></table>");
+        self.out.push('\n');
     }
 
     fn push_align_attr(&mut self, align: mdast::AlignKind) {
@@ -662,7 +672,7 @@ impl<'a> Renderer<'a> {
         let min_depth = toc_data.min_depth;
 
         self.out
-            .push_str("<nav class=\"toc\" aria-label=\"Table of contents\"><ul>");
+            .push_str("<nav class=\"toc\" aria-label=\"Table of contents\"><ul>\n");
 
         let mut prev_depth: u8 = min_depth;
         let mut first = true;
@@ -677,15 +687,15 @@ impl<'a> Renderer<'a> {
                 first = false;
             } else if depth > prev_depth {
                 for _ in prev_depth..depth {
-                    self.out.push_str("<ul>");
+                    self.out.push_str("<ul>\n");
                 }
             } else if depth < prev_depth {
                 for _ in depth..prev_depth {
-                    self.out.push_str("</li></ul>");
+                    self.out.push_str("</li>\n</ul>\n");
                 }
-                self.out.push_str("</li>");
+                self.out.push_str("</li>\n");
             } else {
-                self.out.push_str("</li>");
+                self.out.push_str("</li>\n");
             }
 
             self.out.push_str("<li><a href=\"#");
@@ -697,12 +707,12 @@ impl<'a> Renderer<'a> {
             prev_depth = depth;
         }
 
-        self.out.push_str("</li>");
+        self.out.push_str("</li>\n");
         while prev_depth > min_depth {
-            self.out.push_str("</ul></li>");
+            self.out.push_str("</ul>\n</li>\n");
             prev_depth -= 1;
         }
-        self.out.push_str("</ul></nav>");
+        self.out.push_str("</ul>\n</nav>\n");
     }
 }
 
