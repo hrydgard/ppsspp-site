@@ -22,6 +22,28 @@ This is a very incomplete list of games to test with if you want to debug a spec
 - Rock Band Unplugged
 - Talkman
 
+These additional games are "headset compatible", possibly some support voice chat in multiplayer?
+
+- Star Wars: Clone Wars
+- Tron: Evolution
+- SOCOM Fireteam Bravo 2
+- SOCOM Fireteam Bravo 3
+- Resistance
+- Syphon Filter: Logan's Shadow
+- Assassin's Creed
+- Spiderman 3
+- MACH
+- Ford Racing Off Road
+
+Additional reports:
+
+- Traxxpad
+
+
+Homebrew apps, possibly good for testing microphone functionality:
+
+- [Audio Mechanica Kai](https://www.gamebrew.org/wiki/Audio_Mechanica_kai_PSP) ([video](https://www.youtube.com/watch?v=cvHWNBR9vNo))
+
 ### Camera (hardware expansion)
 
 - EyePet Adventures
