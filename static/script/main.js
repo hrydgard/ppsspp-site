@@ -12,6 +12,7 @@ const defaultUserContext = {
 };
 
 var g_userData = defaultUserContext;
+var g_logoutInProgress = false;
 
 // Alert types for visual display.
 const ERROR = "alert-error";
@@ -35,14 +36,22 @@ function buyProduct(productId, item) {
     });
 }
 
-function statusCodeAction(status) {
+function statusCodeAction(status, apiName) {
     if (status == 401) {
+        if (apiName == "login") {
+            console.log("[auth] /api/login returned 401 (likely bad credentials), skipping auto-logout");
+            return;
+        }
+        if (!g_userData.loggedIn || g_logoutInProgress) {
+            console.log("[auth] Ignoring 401 from /api/" + apiName + " while logged out or during logout");
+            return;
+        }
         // If any API call returns Unauthorized, we'll simply
         // log out the user, since this should only ever happen if
         // (1) The user doesn't have the required status, in which case there might be something suspicious afoot
         // (2) The user login expired
         // Reset user data immediately
-        console.log("Some request returned 401, logging out");
+        console.log("[auth] /api/" + apiName + " returned 401 while logged in, logging out");
         logoutUser();
     }
 }
@@ -62,7 +71,7 @@ async function jsonFetch(apiName, requestBody) {
     }).then(data => {
         if (apiName != "logout") {
             console.log("Calling statusCodeAction for " + apiName + " with status " + data.status);
-            statusCodeAction(data.status);
+            statusCodeAction(data.status, apiName);
         }
         if (data.status == 200) {
             return data.json();
@@ -94,7 +103,9 @@ async function jsonPost(apiName, requestBody) {
         },
         body: requestBody ? JSON.stringify(requestBody) : null,
     }).then(data => {
-        statusCodeAction(data.status);
+        if (apiName != "logout") {
+            statusCodeAction(data.status, apiName);
+        }
         return data.status == 200;
     });
 }
@@ -440,6 +451,7 @@ function processLoginData(loginData) {
 
 async function handleLoginForm(event) {
     event.preventDefault();
+    console.log("[auth] Login form submitted");
 
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
@@ -464,6 +476,7 @@ async function handleLoginForm(event) {
     console.log(credentials);
     const loginData = await jsonFetch("login", credentials);
     if (loginData) {
+        console.log("[auth] Login succeeded");
         processLoginData(loginData);
 
         if (forward) {
@@ -472,6 +485,7 @@ async function handleLoginForm(event) {
         }
         setStatusDisplay(HIDDEN, "loginStatus");
     } else {
+        console.log("[auth] Login failed (request returned non-200)");
         setStatusDisplay(ERROR, "loginStatus", "E-mail/password didn't match, or account doesn't exist.");
     }
 
@@ -494,16 +508,16 @@ async function handleLoginByKey() {
             'email': queryEmail,
             'key': queryKey,
         };
-        console.log("Trying to log in by key: " + credentials.email + " " + credentials.key);
+        console.log("[auth] Trying key-based login for " + credentials.email + " (key redacted)");
         const loginData = await jsonFetch("login", credentials, null);
         if (loginData) {
             processLoginData(loginData);
             // setLoginFailed(false);
             forward = translateForward(queryParams.get('Forward'), "effect");
-            console.log("Login-by-key success");
+            console.log("[auth] Login-by-key succeeded");
             setStatusDisplay(HIDDEN, "loginStatus");
         } else {
-            console.log("No login data in response, not logging in. forward was " + forward);
+            console.log("[auth] Login-by-key failed, not logging in. forward was " + forward);
             // setLoginFailed(true);
             // Remove query parameters. This causes some kind of wacky redirect loop though!
             // queryParams.delete('error')
@@ -578,13 +592,14 @@ function loadCredentials() {
     // and update the UI accordingly.
     const cookie = localStorage.getItem('ppsspp-auth');
     if (cookie) {
-        console.log("Loading credentials...");
+        console.log("[auth] Loading credentials from localStorage");
         const userDataFromCookie = JSON.parse(cookie);
         if (userDataFromCookie) {
             g_userData = userDataFromCookie;
+            console.log("[auth] Loaded cached session for user " + g_userData.email + " (loggedIn=" + g_userData.loggedIn + ")");
         }
     } else {
-        console.log("No credentials, not logged in.");
+        console.log("[auth] No cached credentials, not logged in");
         g_userData = defaultUserContext;
     }
 
@@ -594,12 +609,25 @@ function loadCredentials() {
 }
 
 async function logoutUser() {
+    if (g_logoutInProgress) {
+        console.log("[auth] logoutUser skipped because logout is already in progress");
+        return;
+    }
+    g_logoutInProgress = true;
+    console.log("[auth] Starting logout flow");
+
     // Reset user data
     g_userData = defaultUserContext;
     // Reset the localStorage cache so we don't appear logged-in on the next page load.
     localStorage.removeItem('ppsspp-auth');
     // Reset the server cookie
-    await jsonPost("logout", null);
+    try {
+        const logoutOk = await jsonPost("logout", null);
+        console.log("[auth] Logout API completed with success=" + logoutOk);
+    } finally {
+        g_logoutInProgress = false;
+        console.log("[auth] Logout flow finished");
+    }
     // Apply changes to the UI.
     applyDOMVisibility();
 }
