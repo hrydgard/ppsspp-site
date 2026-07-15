@@ -374,15 +374,17 @@ async function updatePlayCodesStats() {
 function setStatusDisplay(severity, errorElement, errorString) {
     let errorBox = document.getElementById(errorElement);
     if (errorBox) {
-        console.log(severity + ": " + errorString + " (updating alert state next) " + severity);
-        errorBox.innerHTML = errorString;
+        const nextText = errorString || "";
+        if (errorBox.classList.contains(severity) && errorBox.innerHTML == nextText) {
+            return;
+        }
+
+        errorBox.innerHTML = nextText;
         errorBox.classList.add("alert");
         ALL_ALERTS.forEach(function (a) {
-            console.log("removing " + a)
             errorBox.classList.remove(a);
         });
         errorBox.classList.add(severity);
-        console.log("done with alert states. Added " + severity);
     } else {
         console.log("Error-display '" + errorElement + "' didn't exist: " + errorString)
     }
