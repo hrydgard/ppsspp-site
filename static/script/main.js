@@ -63,8 +63,6 @@ async function jsonFetch(apiName, requestBody) {
         if (apiName != "logout") {
             console.log("Calling statusCodeAction for " + apiName + " with status " + data.status);
             statusCodeAction(data.status);
-        } else {
-            console.log("Logout request failed!");
         }
         if (data.status == 200) {
             return data.json();
@@ -182,7 +180,7 @@ const tmplAdminPanel = `
 <form action="#" onSubmit="return handleAddGooglePlayCodes(event)">
 <label>
   <div>Codes to add:</div>
-  <textarea rows="10" cols="24" id="pending_codes"}></textarea>
+    <textarea rows="10" cols="24" id="pending_codes"></textarea>
 </label>
 <div id="googlePlayStatus" class="alert alert-hidden" role="alert"></div>
 <div id="playCodesStats"></div>
@@ -266,9 +264,13 @@ async function applyDOMVisibility() {
             let listener = (event) => {
                 setStatusDisplay(HIDDEN, "freeGoldStatus");
             };
-            freegold_name_input.addEventListener("input", listener);
-            freegold_email_input.addEventListener("input", listener);
-        } else {
+            if (freegold_name_input) {
+                freegold_name_input.addEventListener("input", listener);
+            }
+            if (freegold_email_input) {
+                freegold_email_input.addEventListener("input", listener);
+            }
+        } else if (adminPanels) {
             adminPanels.innerHTML = "";
         }
     }
@@ -279,6 +281,11 @@ async function applyDOMVisibility() {
 }
 
 async function updatePlayCodesStats() {
+    const playCodesStats = document.getElementById("playCodesStats");
+    if (!playCodesStats) {
+        return;
+    }
+
     const data = await jsonFetch("googleplaycodeadmin", {});
     if (data) {
         console.log(data);
@@ -364,7 +371,7 @@ async function handleGetMagicLink(event) {
     const magicLink = await jsonFetch("getmagiclink", {
         'email': email,
     });
-    magicLinkDest = document.getElementById("magic_link");
+    const magicLinkDest = document.getElementById("magic_link");
     if (magicLink) {
         if (magicLinkDest) {
             magicLinkDest.innerHTML = magicLink.link;
@@ -864,11 +871,13 @@ function onLoadPage() {
 
     // Make the burger button keyboard accessible
     var toggleButton = document.getElementById('burgerButton');
-    toggleButton.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-            burgerClick();
-        }
-    });
+    if (toggleButton) {
+        toggleButton.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                burgerClick();
+            }
+        });
+    }
 
     // Close the content when clicking outside the div
     document.addEventListener('click', function (event) {
@@ -906,7 +915,9 @@ function onFSError(code, string) {
     console.log("FastSpring error detected: ", code, string);
     setStatusDisplay(WARNING, "fastspring-error-alert", "The PPSSPP Store is having some technical issues right now. Will be back soon.")
     var productCards = document.getElementById('product-cards');
-    productCards.style.display = "none";
+    if (productCards) {
+        productCards.style.display = "none";
+    }
 }
 
 // change the mode by adding the attribute 'data-theme' on the element <html>. It also creates a cookie to record the mode selected by the user.
