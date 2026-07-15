@@ -117,6 +117,7 @@ mod gen_doctree;
 mod gen_pages;
 mod gen_sitemap;
 mod index;
+mod markdown_renderer;
 mod post_process;
 mod server;
 mod util;

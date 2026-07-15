@@ -1,6 +1,7 @@
 use crate::{
     config::{Config, DocLink, GlobalMeta},
     post_process, util,
+    markdown_renderer,
 };
 use std::{
     io::{BufRead, BufReader, Read},
@@ -254,7 +255,7 @@ impl Document {
 
         let md = post_process::preprocess_markdown(&md, &meta.title, config)?;
 
-        let html = markdown::to_html_with_options(&md, &config.markdown_options)
+        let html = markdown_renderer::to_html_with_options(&md, &config.markdown_options)
             .map_err(anyhow::Error::msg)?;
         let html = postprocess_html(html);
 
