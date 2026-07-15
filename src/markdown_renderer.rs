@@ -2,18 +2,47 @@ use std::collections::HashMap;
 
 use markdown::mdast;
 
+pub struct RenderParams {
+    pub min_toc_headers: usize,
+    pub max_toc_depth: u8,
+    pub h1_title_above_toc: bool,
+}
+
+impl Default for RenderParams {
+    fn default() -> Self {
+        Self {
+            min_toc_headers: 3,
+            max_toc_depth: 4,
+            h1_title_above_toc: true,
+        }
+    }
+}
+
 #[derive(Clone)]
 struct DefinitionData {
     url: String,
     title: Option<String>,
 }
 
+#[derive(Clone)]
+struct HeadingData {
+    depth: u8,
+    id: String,
+    title: String,
+}
+
+struct TocData {
+    headings: Vec<HeadingData>,
+    min_depth: u8,
+}
+
 pub fn to_html_with_options(
     markdown: &str,
     options: &markdown::Options,
+    params: &RenderParams,
 ) -> Result<String, markdown::message::Message> {
     let tree = markdown::to_mdast(markdown, &options.parse)?;
-    let mut renderer = Renderer::new(options);
+    let mut renderer = Renderer::new(options, params);
     renderer.collect_definitions(&tree);
     renderer.render_root(&tree);
     Ok(renderer.finish())
@@ -21,22 +50,32 @@ pub fn to_html_with_options(
 
 struct Renderer<'a> {
     options: &'a markdown::Options,
+    params: &'a RenderParams,
     out: String,
     definitions: HashMap<String, DefinitionData>,
     footnote_definitions: HashMap<String, mdast::FootnoteDefinition>,
     footnote_order: Vec<String>,
     footnote_ref_counts: HashMap<String, usize>,
+    headings: Vec<HeadingData>,
+    heading_slug_counts: HashMap<String, usize>,
+    next_heading_index: usize,
+    promoted_h1_index: Option<usize>,
 }
 
 impl<'a> Renderer<'a> {
-    fn new(options: &'a markdown::Options) -> Self {
+    fn new(options: &'a markdown::Options, params: &'a RenderParams) -> Self {
         Self {
             options,
+            params,
             out: String::new(),
             definitions: HashMap::new(),
             footnote_definitions: HashMap::new(),
             footnote_order: Vec::new(),
             footnote_ref_counts: HashMap::new(),
+            headings: Vec::new(),
+            heading_slug_counts: HashMap::new(),
+            next_heading_index: 0,
+            promoted_h1_index: None,
         }
     }
 
@@ -60,6 +99,43 @@ impl<'a> Renderer<'a> {
                 self.footnote_definitions
                     .insert(def.identifier.clone(), def.clone());
             }
+            mdast::Node::Heading(heading) => {
+                let mut title = plain_text_from_nodes(&heading.children);
+                title = title.trim().to_string();
+
+                let base = if title.is_empty() {
+                    "section".to_string()
+                } else {
+                    let slug = slugify_identifier(&title);
+                    if slug.is_empty() {
+                        "section".to_string()
+                    } else {
+                        slug
+                    }
+                };
+
+                let count = self
+                    .heading_slug_counts
+                    .entry(base.clone())
+                    .and_modify(|c| *c += 1)
+                    .or_insert(1);
+
+                let id = if *count == 1 {
+                    base
+                } else {
+                    format!("{}-{}", base, count)
+                };
+
+                self.headings.push(HeadingData {
+                    depth: heading.depth,
+                    id,
+                    title,
+                });
+
+                for child in &heading.children {
+                    self.collect_definitions(child);
+                }
+            }
             _ => {
                 if let Some(children) = node.children() {
                     for child in children {
@@ -72,6 +148,28 @@ impl<'a> Renderer<'a> {
 
     fn render_root(&mut self, node: &mdast::Node) {
         if let mdast::Node::Root(root) = node {
+            let toc_data = self.collect_toc_data();
+
+            if let Some(toc_data) = toc_data {
+                if self.params.h1_title_above_toc {
+                    if let Some((idx, heading)) = self
+                        .headings
+                        .iter()
+                        .enumerate()
+                        .find(|(_, heading)| heading.depth == 1)
+                    {
+                        self.promoted_h1_index = Some(idx);
+                        self.out.push_str("<h1 id=\"");
+                        self.out.push_str(&escape_html_attr(&heading.id));
+                        self.out.push_str("\">");
+                        self.out.push_str(&escape_html_text(&heading.title));
+                        self.out.push_str("</h1>");
+                    }
+                }
+
+                self.render_toc(&toc_data);
+            }
+
             for child in &root.children {
                 self.render_flow(child, false);
             }
@@ -95,7 +193,22 @@ impl<'a> Renderer<'a> {
                 }
             }
             mdast::Node::Heading(heading) => {
-                self.out.push_str(&format!("<h{}>", heading.depth));
+                let heading_index = self.next_heading_index;
+                self.next_heading_index += 1;
+
+                if self.promoted_h1_index == Some(heading_index) {
+                    return;
+                }
+
+                let heading_id = self
+                    .headings
+                    .get(heading_index)
+                    .map(|h| h.id.clone())
+                    .unwrap_or_else(|| format!("h-{}", heading_index + 1));
+
+                self.out.push_str(&format!("<h{} id=\"", heading.depth));
+                self.out.push_str(&escape_html_attr(&heading_id));
+                self.out.push_str("\">");
                 self.render_inlines(&heading.children);
                 self.out.push_str(&format!("</h{}>", heading.depth));
             }
@@ -523,6 +636,74 @@ impl<'a> Renderer<'a> {
 
         self.out.push_str("</ol></section>");
     }
+
+    fn collect_toc_data(&self) -> Option<TocData> {
+        let max_depth = self.params.max_toc_depth.clamp(2, 6);
+        let toc_headings: Vec<HeadingData> = self
+            .headings
+            .iter()
+            .filter(|h| (2..=max_depth).contains(&h.depth))
+            .cloned()
+            .collect();
+
+        if toc_headings.len() < self.params.min_toc_headers {
+            return None;
+        }
+
+        let min_depth = toc_headings.iter().map(|h| h.depth).min().unwrap_or(2);
+        Some(TocData {
+            headings: toc_headings,
+            min_depth,
+        })
+    }
+
+    fn render_toc(&mut self, toc_data: &TocData) {
+        let toc_headings = &toc_data.headings;
+        let min_depth = toc_data.min_depth;
+
+        self.out
+            .push_str("<nav class=\"toc\" aria-label=\"Table of contents\"><ul>");
+
+        let mut prev_depth: u8 = min_depth;
+        let mut first = true;
+
+        for heading in toc_headings {
+            let mut depth = heading.depth;
+            if !first && depth > prev_depth + 1 {
+                depth = prev_depth + 1;
+            }
+
+            if first {
+                first = false;
+            } else if depth > prev_depth {
+                for _ in prev_depth..depth {
+                    self.out.push_str("<ul>");
+                }
+            } else if depth < prev_depth {
+                for _ in depth..prev_depth {
+                    self.out.push_str("</li></ul>");
+                }
+                self.out.push_str("</li>");
+            } else {
+                self.out.push_str("</li>");
+            }
+
+            self.out.push_str("<li><a href=\"#");
+            self.out.push_str(&escape_html_attr(&heading.id));
+            self.out.push_str("\">");
+            self.out.push_str(&escape_html_text(&heading.title));
+            self.out.push_str("</a>");
+
+            prev_depth = depth;
+        }
+
+        self.out.push_str("</li>");
+        while prev_depth > min_depth {
+            self.out.push_str("</ul></li>");
+            prev_depth -= 1;
+        }
+        self.out.push_str("</ul></nav>");
+    }
 }
 
 fn footnote_clobber_prefix(options: &markdown::CompileOptions) -> &str {
@@ -611,4 +792,23 @@ fn slugify_identifier(value: &str) -> String {
     }
 
     out.trim_matches('-').to_string()
+}
+
+fn plain_text_from_nodes(nodes: &[mdast::Node]) -> String {
+    let mut out = String::new();
+    for node in nodes {
+        match node {
+            mdast::Node::Text(text) => out.push_str(&text.value),
+            mdast::Node::InlineCode(code) => out.push_str(&code.value),
+            mdast::Node::InlineMath(math) => out.push_str(&math.value),
+            mdast::Node::Image(image) => out.push_str(&image.alt),
+            mdast::Node::ImageReference(image_ref) => out.push_str(&image_ref.alt),
+            _ => {
+                if let Some(children) = node.children() {
+                    out.push_str(&plain_text_from_nodes(children));
+                }
+            }
+        }
+    }
+    out
 }

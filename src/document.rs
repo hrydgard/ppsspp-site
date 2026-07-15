@@ -255,7 +255,12 @@ impl Document {
 
         let md = post_process::preprocess_markdown(&md, &meta.title, config)?;
 
-        let html = markdown_renderer::to_html_with_options(&md, &config.markdown_options)
+        let render_params = markdown_renderer::RenderParams::default();
+        let html = markdown_renderer::to_html_with_options(
+            &md,
+            &config.markdown_options,
+            &render_params,
+        )
             .map_err(anyhow::Error::msg)?;
         let html = postprocess_html(html);
 
