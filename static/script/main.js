@@ -202,6 +202,48 @@ const tmplAdminPanel = `
 </div>
 
 </div>
+
+<div class="col-6">
+<div class="card">
+<div class="card-title">
+    <h2 class="no-icon">Update user e-mail</h2>
+</div>
+<form action="#" onSubmit="return handleUpdateUserEmail(event)">
+<label>
+    <div>Current e-mail</div>
+    <span><input type="text" size="38" id="updateemail_email"></span>
+    <div>New e-mail</div>
+    <span><input type="text" size="38" id="updateemail_newemail"></span>
+</label>
+<div id="updateUserEmailStatus" class="alert alert-hidden" role="alert"></div>
+<div>
+    <button class="download-button" type="submit">Update e-mail</button>
+</div>
+</form>
+</div>
+
+</div>
+
+<div class="col-6">
+<div class="card">
+<div class="card-title">
+    <h2 class="no-icon">Update user name</h2>
+</div>
+<form action="#" onSubmit="return handleUpdateUserName(event)">
+<label>
+    <div>User e-mail</div>
+    <span><input type="text" size="38" id="updatename_email"></span>
+    <div>New name</div>
+    <span><input type="text" size="38" id="updatename_newname"></span>
+</label>
+<div id="updateUserNameStatus" class="alert alert-hidden" role="alert"></div>
+<div>
+    <button class="download-button" type="submit">Update name</button>
+</div>
+</form>
+</div>
+
+</div>
 </div>
 `;
 
@@ -272,14 +314,36 @@ async function applyDOMVisibility() {
             adminPanels.innerHTML = Sqrl.render(tmplAdminPanel, g_userData);
             let freegold_name_input = document.getElementById("freegold_name");
             let freegold_email_input = document.getElementById("freegold_email");
+            let updateemail_email_input = document.getElementById("updateemail_email");
+            let updateemail_newemail_input = document.getElementById("updateemail_newemail");
+            let updatename_email_input = document.getElementById("updatename_email");
+            let updatename_newname_input = document.getElementById("updatename_newname");
             let listener = (event) => {
                 setStatusDisplay(HIDDEN, "freeGoldStatus");
+            };
+            let updateEmailListener = (event) => {
+                setStatusDisplay(HIDDEN, "updateUserEmailStatus");
+            };
+            let updateNameListener = (event) => {
+                setStatusDisplay(HIDDEN, "updateUserNameStatus");
             };
             if (freegold_name_input) {
                 freegold_name_input.addEventListener("input", listener);
             }
             if (freegold_email_input) {
                 freegold_email_input.addEventListener("input", listener);
+            }
+            if (updateemail_email_input) {
+                updateemail_email_input.addEventListener("input", updateEmailListener);
+            }
+            if (updateemail_newemail_input) {
+                updateemail_newemail_input.addEventListener("input", updateEmailListener);
+            }
+            if (updatename_email_input) {
+                updatename_email_input.addEventListener("input", updateNameListener);
+            }
+            if (updatename_newname_input) {
+                updatename_newname_input.addEventListener("input", updateNameListener);
             }
         } else if (adminPanels) {
             adminPanels.innerHTML = "";
@@ -426,6 +490,74 @@ async function handleAddGooglePlayCodes(event) {
     await updatePlayCodesStats();
 
     console.log("google play codes");
+    return false;
+}
+
+async function handleUpdateUserEmail(event) {
+    event.preventDefault();
+
+    const status = "updateUserEmailStatus";
+    const email = document.getElementById("updateemail_email").value.trim();
+    const newEmail = document.getElementById("updateemail_newemail").value.trim();
+
+    if (!validateEmailAddress(email)) {
+        setStatusDisplay(ERROR, status, "Current e-mail address is not valid.");
+        return false;
+    }
+    if (!validateEmailAddress(newEmail)) {
+        setStatusDisplay(ERROR, status, "New e-mail address is not valid.");
+        return false;
+    }
+
+    if (!window.confirm("Update user e-mail from '" + email + "' to '" + newEmail + "'?")) {
+        setStatusDisplay(INFO, status, "Update cancelled.");
+        return false;
+    }
+
+    const response = await jsonFetch("updateuseremail", {
+        email: email,
+        newEmail: newEmail,
+    });
+    if (response) {
+        setStatusDisplay(SUCCESS, status, "Updated e-mail from '" + response.email + "' to '" + response.newEmail + "'.");
+    } else {
+        setStatusDisplay(ERROR, status, "Failed to update e-mail.");
+    }
+
+    return false;
+}
+
+async function handleUpdateUserName(event) {
+    event.preventDefault();
+
+    const status = "updateUserNameStatus";
+    const email = document.getElementById("updatename_email").value.trim();
+    const newName = document.getElementById("updatename_newname").value.trim();
+
+    if (!validateEmailAddress(email)) {
+        setStatusDisplay(ERROR, status, "User e-mail address is not valid.");
+        return false;
+    }
+    if (!newName) {
+        setStatusDisplay(ERROR, status, "Please enter a new name.");
+        return false;
+    }
+
+    if (!window.confirm("Update user name for '" + email + "' to '" + newName + "'?")) {
+        setStatusDisplay(INFO, status, "Update cancelled.");
+        return false;
+    }
+
+    const response = await jsonFetch("updateusername", {
+        email: email,
+        newName: newName,
+    });
+    if (response) {
+        setStatusDisplay(SUCCESS, status, "Updated name for '" + response.email + "' to '" + response.newName + "'.");
+    } else {
+        setStatusDisplay(ERROR, status, "Failed to update user name.");
+    }
+
     return false;
 }
 
