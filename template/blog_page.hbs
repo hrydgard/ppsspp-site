@@ -1,21 +1,17 @@
 {{> common_header this }}
 
 <div class="doc-container">
-    <div class="doc-sidebar" id="localSidebar">
-
+    <aside role="complementary" class="doc-sidebar" id="localSidebar">
         {{{ sidebar }}}
-
         <div class="feed-links">
             <a href="/{{meta.section}}/atom.xml"><img src="/static/img/rss.png" alt="Atom feed" class="icon-24"></a>
         </div>
-
-    </div>
+    </aside>
 
     <div class="doc-contents">
-
         {{#if tags}}
-        <nav class="doc-tagbar">
-            Tags:
+        <nav aria-labelledby="doc-tags" class="doc-tagbar">
+            <span id="doc-tags">Tags:</span>
             <ul class="tag-list">
                 {{#each tags}}
                 <li {{#if selected}}class="selected"{{/if}}>
@@ -30,30 +26,21 @@
 
         {{> unit }}
 
-        <nav class="nav-link-container">
+        <nav aria-label="Pagination" class="nav-link-container">
             {{#if meta.prev}}
             <a href="{{meta.prev.url}}" class="nav-link">
-                <div class="direction">
-                    Prev
-                </div>
-                <div class="title">
-                    &laquo;&nbsp;{{meta.prev.title}}
-                </div>
+                <div class="direction">Prev</div>
+                <div class="title">&laquo;&nbsp;{{meta.prev.title}}</div>
             </a>
             {{/if}}
             {{#if meta.next}}
             <a href="{{meta.next.url}}" class="nav-link next">
-                <div class="direction">
-                    Next
-                </div>
-                <div class="title">
-                    {{meta.next.title}}&nbsp;&raquo;
-                </div>
+                <div class="direction">Next</div>
+                <div class="title">{{meta.next.title}}&nbsp;&raquo;</div>
             </a>
             {{/if}}
         </nav>
     </div>
-
 </div>
 
 {{> common_footer this }}

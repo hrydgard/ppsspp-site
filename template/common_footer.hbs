@@ -1,11 +1,12 @@
-</section>
+</main>
 
-<footer>
+<footer role="contentinfo">
     <div class="container">
         {{ #unless globals.prod }}
         <p>DEVELOPMENT MODE</p>
         {{ /unless }}
-        <div class="row">
+
+        <nav aria-label="Footer" class="row">
             <div class="col-4">
                 <h2>Quick Links</h2>
                 <ul class="clean-list">
@@ -31,7 +32,8 @@
                     <li><a href="/login">Login</a></li>
                 </ul>
             </div>
-        </div>
+        </nav>
+
         <div class="center-text footer-bottom-text">
             Copyright © 2012&ndash;{{ globals.build_year }} PPSSPP Project.
             All trademarks are the property of their respective owners.
@@ -39,8 +41,7 @@
         </div>
     </div>
 </footer>
-</div>
 
+</div> {{!-- page-wrapper --}}
 </body>
-
 </html>
