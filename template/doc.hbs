@@ -1,24 +1,21 @@
 {{> common_header this }}
 
 <div class="doc-container">
-
-    <div class="doc-sidebar" id="localSidebar">
-
-        <nav class="nav-tree">
+    <aside role="complementary" class="doc-sidebar" id="localSidebar">
+        <nav aria-label="Documents list" class="nav-tree">
             {{{ sidebar }}}
         </nav>
-
-    </div>
+    </aside>
 
     <div class="doc-contents">
         {{#if meta.breadcrumbs}}
-        <nav>
+        <nav aria-label="Breadcrumb">
             <ul class="breadcrumb" vocab="https://schema.org/" typeof="BreadcrumbList">
                 {{#each meta.breadcrumbs}}
                 <li property="itemListElement" typeof="ListItem">
                     {{#if url}}<a href="{{url}}" property="item" typeof="WebPage">{{/if}}
                         <span property="name">{{title}}</span>
-                        {{#if url}}</a>{{/if}}
+                    {{#if url}}</a>{{/if}}
                     <meta property="position" content="{{position}}">
                 </li>
                 {{/each}}
@@ -26,7 +23,9 @@
         </nav>
         {{/if}}
 
-        {{{ contents }}}
+        <article>
+            {{{ contents }}}
+        </article>
 
         {{#each tags}}
         <a class="tag-link">{{name}}</a>
@@ -34,30 +33,22 @@
 
         {{> unit}}
 
-        <nav class="nav-link-container">
+        <nav aria-label="Pagination" class="nav-link-container">
             {{ #if meta.prev }}
             <a href="{{ meta.prev.url }}" class="nav-link">
-                <div class="direction">
-                    Prev
-                </div>
-                <div class="title">
-                    &laquo;&nbsp;{{meta.prev.title}}
-                </div>
+                <div class="direction">Prev</div>
+                <div class="title">&laquo;&nbsp;{{meta.prev.title}}</div>
             </a>
             {{ /if }}
+
             {{ #if meta.next }}
             <a href="{{ meta.next.url }}" class="nav-link next">
-                <div class="direction">
-                    Next
-                </div>
-                <div class="title">
-                    {{meta.next.title}}&nbsp;&raquo;
-                </div>
+                <div class="direction">Next</div>
+                <div class="title">{{meta.next.title}}&nbsp;&raquo;</div>
             </a>
             {{ /if }}
         </nav>
     </div>
-
 </div>
 
 {{> common_footer this }}

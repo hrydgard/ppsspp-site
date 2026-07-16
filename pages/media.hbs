@@ -1,35 +1,39 @@
 {{> common_header this title="Media" description="Screenshots and videos"}}
 
 <div class="container">
-    <h2>Screenshots</h2>
-    {{!-- Slideshow container --}}
-    <div class="slideshow-container">
-        {{!-- Full-width images with number and caption text --}}
-        {{#each globals.screenshots}}
-        <div class="mySlides fade">
-            <img src="/static/img/screenshots/{{filename}}" alt="screenshot of {{description}}" onclick="plusSlides(1)"
-                {{#if @index}} loading="lazy" {{/if}}>
-            <div class="text">{{description}}</div>
+    <section aria-labelledby="screenshots">
+        <h1 id="screenshots">Screenshots</h1>
+        {{!-- Slideshow container --}}
+        <div class="slideshow-container">
+            {{!-- Full-width images with number and caption text --}}
+            {{#each globals.screenshots}}
+            <div class="mySlides fade">
+                <img src="/static/img/screenshots/{{filename}}" alt="screenshot of {{description}}" onclick="plusSlides(1)"
+                    {{#if @index}} loading="lazy" {{/if}}>
+                <div class="text">{{description}}</div>
+            </div>
+            {{/each}}
+
+            {{!-- Next and previous buttons --}}
+            <div role="button" class="prev" onclick="plusSlides(-1)">&#10094;</div>
+            <div role="button" class="next" onclick="plusSlides(1)">&#10095;</div>
         </div>
-        {{/each}}
 
-        {{!-- Next and previous buttons --}}
-        <div role="button" class="prev" onclick="plusSlides(-1)">&#10094;</div>
-        <div role="button" class="next" onclick="plusSlides(1)">&#10095;</div>
-    </div>
+        {{!-- The dots/circles --}}
+        <div class="center-text">
+            {{#each globals.screenshots}}
+            <span role="button" aria-label="Display screenshot {{index}}" class="slideshow-dot" onclick="currentSlide({{index}})"></span>
+            {{/each}}
+        </div>
+    </section>
 
-    {{!-- The dots/circles --}}
-    <div class="center-text">
-        {{#each globals.screenshots}}
-        <span role="button" aria-label="select screenshot {{index}}" class="slideshow-dot" onclick="currentSlide({{index}})"></span>
-        {{/each}}
-    </div>
-
-    <h2>Videos</h2>
-    <iframe class="video" src="https://www.youtube.com/embed/10_i9cQdQA0" title="PPSSPP - PSP emulator for Android, PC and more!" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"></iframe>
-    <iframe class="video" src="https://www.youtube.com/embed/y3dgEeDW5Xw" title="PPSSPP VR - Trailer" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"></iframe>
+    <section aria-labelledby="videos">
+        <h1 id="videos">Videos</h1>
+        <iframe class="video" src="https://www.youtube.com/embed/10_i9cQdQA0" title="PPSSPP - PSP emulator for Android, PC and more!" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"></iframe>
+        <iframe class="video" src="https://www.youtube.com/embed/y3dgEeDW5Xw" title="PPSSPP VR - Trailer" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"></iframe>
+    </section>
 </div>
 
 <script>

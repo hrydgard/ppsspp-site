@@ -27,8 +27,8 @@ img.icon-pfp {
     border-radius: 50%;
 }
 
-img.icon-left  { margin-right: 0.5ch; }
-img.icon-right { margin-left:  0.5ch; }
+img.icon-left , i.icon-left  { margin-right: 0.5ch; }
+img.icon-right, i.icon-right { margin-left:  0.5ch; }
 
 .icon-144 { height: 144px !important; width: 144px !important; }
 .icon-96  { height:  96px !important; width:  96px !important; }
@@ -56,10 +56,6 @@ i.icon-ui {
 
 a:hover i.icon-ui {
    background-color: var(--color-a-hover);
-}
-
-i.icon-left {
-    margin-right: 0.5ch;
 }
 
 i.icon-ui-external {

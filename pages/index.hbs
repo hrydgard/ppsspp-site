@@ -1,6 +1,6 @@
 {{> common_header this title="PPSSPP - PSP emulator for Android, Windows, Linux, macOS, iOS" }}
 
-<header class="hero hero-banner">
+<section aria-labelledby="banner-title" class="hero hero-banner">
     <div class='light x1'></div>
     <div class='light x2'></div>
     <div class='light x3'></div>
@@ -13,7 +13,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1 class="hero-title">PPSSPP <small>{{globals.app_version}}</small></h1>
+                <h1 id="banner-title" class="hero-title">PPSSPP <small>{{globals.app_version}}</small></h1>
                 <p class="hero-subtitle">A PSP emulator</p>
             </div>
             <div class="col-4">
@@ -32,23 +32,21 @@
             </div>
         </div>
     </div>
-</header>
+</section>
 
-<div class="container">
-
-    <div class="row">
+<div class="container small-headers">
+    <section aria-labelledby="news" class="row">
         <div class="col-12">
-            <h3>Latest news</h3>
+            <h2 id="news">Latest news</h2>
             {{#each globals.latest_news}}
             <div class="latest"><a href="{{url}}">{{title}}</a> <small>{{date}}</small></div>
             {{/each}}
         </div>
-    </div>
+    </section>
 
-    <div class="row">
-
+    <section aria-label="Features" class="row">
         <div class="col-4">
-            <h3>Play your PSP games in HD!</h3>
+            <h2>Play your PSP games in HD!</h2>
             <p>PPSSPP can run your PSP games on your PC or Android phone in full HD resolution or even higher.
                 It can also upscale textures to make them sharper, and you can enable post-processing shaders
                 to adjust color and brightness the way you like, and other effects.
@@ -56,7 +54,7 @@
         </div>
 
         <div class="col-4">
-            <h3>Enhance your experience!</h3>
+            <h2>Enhance your experience!</h2>
             <ul class="feature-list">
                 <li>Save and restore game state anywhere, anytime</li>
                 <li>Play in HD resolutions and more</li>
@@ -67,7 +65,7 @@
         </div>
 
         <div class="col-4">
-            <h3>Free &amp; Open Source</h3>
+            <h2>Free &amp; Open Source</h2>
             <p>PPSSPP is an open source project, licensed under the GPL 2.0 (or later).
                 Anyone is welcome to contribute improvements to the code.
                 Thanks to many such contributions, PPSSPP's compatibility is steadily increasing,
@@ -76,9 +74,7 @@
             <p><a href="/docs/development">Development&nbsp;&raquo;</a></p>
             <p><a href="https://github.com/hrydgard/ppsspp">GitHub&nbsp;&raquo;</a></p>
         </div>
-
-    </div>
-
+    </section>
 </div>
 
 {{> common_footer this }}

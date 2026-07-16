@@ -1,127 +1,135 @@
 {{> common_header this title="Download" description="Download PPSSPP for Android, Windows, macOS, Linux, iOS" }}
 
 <div class="container">
-    <h1>Download PPSSPP</h1>
+    <section aria-labelledby="downloads">
+        <h1 id="downloads">Download PPSSPP</h1>
 
-    <p>What's new in {{ globals.app_version }}? See the <a href="/news">news page</a>!</p>
+        <p>What's new in {{ globals.app_version }}? See the <a href="/news">news page</a>!</p>
 
-    <div class="alert alert-warning gold-only">
-        You've got PPSSPP Gold for Windows/macOS! Downloads are now available below.
-    </div>
-
-    <div class="row">
-        {{#each globals.platforms}}
-        <div class="col-4">
-            <div class="card">
-                <div class="card-title">
-                    {{ #if platform_badge }}
-                    <img src="/static/img/icons/{{platform_badge}}" aria-hidden="true" class="icon-36">
-                    {{ /if}}
-                    <h2>{{ title }}</h2>
-                </div>
-                <div class="card-contents">
-                    {{ #each downloads }}
-
-                        {{ #unless old_build_only }}
-                            <div {{ #if gold_only }} class="gold-only" {{ /if }}>
-                                {{ #if title }}
-                                <h3>{{ title }}</h3>
-                                {{ /if }}
-
-                                <a class="download-button button-block {{#if gold}}button-gold{{/if}}" {{#if url
-                                    }}href="{{url}}" {{ /if }} {{ #if download_url }}href="{{download_url}}" {{ /if }}>
-                                    <div class="button-contents">
-                                        {{ #if icon }}
-                                        <img src="/static/img/platform/{{icon}}" aria-hidden="true" class="icon-32">
-                                        {{ /if }}
-                                        {{ #if url }}{{name}}{{ /if }}
-                                        {{ #if download_url }}{{name}}{{ /if }}
-                                    </div>
-                                    {{ #if service_image }}
-                                    <img src="{{service_image}}" alt="{{service_alt}}" class="badge">
-                                    {{ /if }}
-                                </a>
-
-                                {{ #if whats_this_url }}
-                                <a href="{{whats_this_url}}">{{whats_this}}</a><br>
-                                {{ /if }}
-
-                            </div>
-                        {{ /unless }}
-
-                    {{ /each }}
-                </div>
-            </div>
+        <div class="alert alert-warning gold-only"> You've got PPSSPP Gold for Windows/macOS!
+            Downloads are now available below.
         </div>
-        {{#if newline}}
-    </div>
-    <div class="row">
-        {{/if}}
-        {{/each}}
-    </div>
 
-    <p class="gold-only">You have Gold for Windows/macOS &ndash; <a href="/requestgold">get PPSSPP Gold for Android for
-            free!</a></p>
-    <p class="no-gold-only">Do you have PPSSPP Gold for Android, and want it for Windows/macOS as well? See instructions
-        <a href="/requestgold">here.</a>
-    </p>
+        <section aria-label="Download options">
+            <div class="row">
+                {{#each globals.platforms}}
+                <div class="col-4">
+                    <article class="card">
+                        <div class="card-title">
+                            {{ #if platform_badge }}
+                            <img src="/static/img/icons/{{platform_badge}}" aria-hidden="true" class="icon-36">
+                            {{ /if}}
+                            <h2>{{ title }}</h2>
+                        </div>
+                        <div class="card-contents">
+                            {{ #each downloads }}
 
-    <h2>Beta testing on Android and iOS</h2>
-    <p>Want to try new builds early, to help testing and debugging of new releases? <a
-            href="/docs/development/beta-testing/">Tap here for information!</a></p>
+                                {{ #unless old_build_only }}
+                                    <div {{ #if gold_only }} class="gold-only" {{ /if }}>
+                                        {{ #if title }}
+                                        <h3>{{ title }}</h3>
+                                        {{ /if }}
 
-    <h2>Unofficial ports and legacy builds</h2>
-    <p><a href="/legacybuilds">A page where you can find</a> cube.elf<img src="/static/img/icons/cube.svg"
-            aria-hidden="true" class="icon-24 icon-right"> and ports for Switch<img src="/static/img/icons/switch.svg"
-            aria-hidden="true" class="icon-24 icon-right">, Web<img src="/static/img/icons/webassembly.svg"
-            aria-hidden="true" class="icon-24 icon-right">, Quest 1<img src="/static/img/icons/vrlegacy.svg"
-            aria-hidden="true" class="icon-24 icon-right"> and other esoteric or old platforms.</p>
+                                        <a class="download-button button-block {{#if gold}}button-gold{{/if}}" {{#if url
+                                            }}href="{{url}}" {{ /if }} {{ #if download_url }}href="{{download_url}}" {{ /if }}>
+                                            <div class="button-contents">
+                                                {{ #if icon }}
+                                                <img src="/static/img/platform/{{icon}}" aria-hidden="true" class="icon-32">
+                                                {{ /if }}
+                                                {{ #if url }}{{name}}{{ /if }}
+                                                {{ #if download_url }}{{name}}{{ /if }}
+                                            </div>
+                                            {{ #if service_image }}
+                                            <img src="{{service_image}}" alt="{{service_alt}}" class="badge">
+                                            {{ /if }}
+                                        </a>
 
-    <h2>Previous releases</h2>
-    <button class="collapsible">Show downloads of previous releases</button>
-    <div class="collapsible-content">
-        <table class="nice-table">
-            <thead>
-                <tr>
-                    <th>Version</th>
-                    <th>Downloads</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{ #each globals.version_downloads }}
-                <tr>
-                    <td>{{version}}</td>
-                    <td>
-                        {{ #each downloads }}
-                        <span {{ #if gold_only }} class="gold-only-inline" {{ /if }}>
-                            {{ #if icon }}
-                            <img src="/static/img/icons/{{icon}}" class="icon-24 prev-ver-item">
-                            {{ /if }}
-                            {{ #if short_name }}
-                            <a {{ #if gold_only }} class="download-link-gold" {{ else }} class="prev-ver-item" {{ /if }}
-                                href="{{download_url}}">{{short_name}}</a>
-                            {{ /if }}
-                        </span>
-                        {{ /each }}
-                    </td>
-                </tr>
-                {{ /each }}
-            </tbody>
-        </table>
-    </div>
+                                        {{ #if whats_this_url }}
+                                        <a href="{{whats_this_url}}">{{whats_this}}</a><br>
+                                        {{ /if }}
 
-    <h2>Development builds</h2>
+                                    </div>
+                                {{ /unless }}
 
-    <div class="alert alert-warning">
-        Please note that these development builds can be unstable &ndash; if one doesn't work, try an earlier one.
-        Always backup your game saves!
-    </div>
-    <p>Development builds for more platforms will be added soon.</p>
+                            {{ /each }}
+                        </div>
+                    </article>
+                </div>
+                {{#if newline}}
+            </div>
+            <div class="row">
+                {{/if}}
+                {{/each}}
+            </div>
+        </section>
 
-    <p><a href="/devbuilds">Full list of development builds</a></p>
+        <p class="gold-only">You have Gold for Windows/macOS &ndash; <a href="/requestgold">get PPSSPP Gold for Android for
+                free!</a></p>
+        <p class="no-gold-only">Do you have PPSSPP Gold for Android, and want it for Windows/macOS as well? See instructions
+            <a href="/requestgold">here.</a></p>
+    </section>
 
-    <div id="latestBuilds">
-    </div>
+    <section aria-labelledby="betatest">
+        <h2 id="betatest">Beta testing on Android and iOS</h2>
+        <p>Want to try new builds early, to help testing and debugging of new releases? <a
+                href="/docs/development/beta-testing/">Tap here for information!</a></p>
+    </section>
+
+    <section aria-labelledby="legacybuilds">
+        <h2 id="legacybuilds">Unofficial ports and legacy builds</h2>
+        <p><a href="/legacybuilds">A page where you can find</a> cube.elf<img src="/static/img/icons/cube.svg"
+                aria-hidden="true" class="icon-24 icon-right"> and ports for Switch<img src="/static/img/icons/switch.svg"
+                aria-hidden="true" class="icon-24 icon-right">, Web<img src="/static/img/icons/webassembly.svg"
+                aria-hidden="true" class="icon-24 icon-right">, Quest 1<img src="/static/img/icons/vrlegacy.svg"
+                aria-hidden="true" class="icon-24 icon-right"> and other esoteric or old platforms.</p>
+    </section>
+
+    <section aria-labelledby="oldbuilds">
+        <h2 id="oldbuilds">Previous releases</h2>
+        <button class="collapsible">Show downloads of previous releases</button>
+        <div class="collapsible-content">
+            <table class="nice-table">
+                <thead>
+                    <tr>
+                        <th>Version</th>
+                        <th>Downloads</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ #each globals.version_downloads }}
+                    <tr>
+                        <td>{{version}}</td>
+                        <td>
+                            {{ #each downloads }}
+                            <span {{ #if gold_only }} class="gold-only-inline" {{ /if }}>
+                                {{ #if icon }}
+                                <img src="/static/img/icons/{{icon}}" class="icon-24 prev-ver-item">
+                                {{ /if }}
+                                {{ #if short_name }}
+                                <a {{ #if gold_only }} class="download-link-gold" {{ else }} class="prev-ver-item" {{ /if }}
+                                    href="{{download_url}}">{{short_name}}</a>
+                                {{ /if }}
+                            </span>
+                            {{ /each }}
+                        </td>
+                    </tr>
+                    {{ /each }}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section aria-labelledby="devbuilds">
+        <h2 id="devbuilds">Development builds</h2>
+        <div class="alert alert-warning"> Please note that these development builds can be unstable &ndash;
+            if one doesn't work, try an earlier one. Always backup your game saves!
+        </div>
+        <p>Development builds for more platforms will be added soon.</p>
+
+        <p><a href="/devbuilds">Full list of development builds</a></p>
+
+        <div id="latestBuilds"></div>
+    </section>
 
     <script>
         g_downloadPage = true;
