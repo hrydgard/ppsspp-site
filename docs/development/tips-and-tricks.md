@@ -10,6 +10,17 @@ Then run:
 adb install android/build/outputs/apk/normal/optimized/android-normal-optimized.apk
 ```
 
+## Build performance on WSL
+
+./b.sh --debug can take a surprising amount of time before it starts running. This is because pkgconfig goes through everything in PATH. So to not import all your Windows paths, disable WSL's Windows PATH import globally by adding to `/etc/wsl.conf`:
+
+```ini
+[interop]
+appendWindowsPath = false
+```
+
+Then `wsl --shutdown` from PowerShell and restart. (Only affects PATH inheritance, not your ability to run .exes by full path if you need to.)
+
 ## ImDebugger tricks
 
 Hold Shift to avoid docking windows.

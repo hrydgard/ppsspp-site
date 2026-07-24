@@ -66,7 +66,7 @@ ignoreAddress="true"
 
 ### Parts of the hash
 
-Internally, to identify textures, PPSSPP uses a combination of the address the texture is loaded at, a hash of the color palette (CLUT, which means color look up table), and finally the hash of the actual texture contents, for a total of 96 bits. It's organized like this:
+Internally, to identify textures, PPSSPP uses a combination of the address the texture is loaded at, a hash of the color palette* (CLUT, which means color look up table), and finally the hash of the actual texture contents, for a total of 96 bits. It's organized like this:
 
 `AAAAAAAACCCCCCCCTTTTTTTT` with an optional `_M` suffix where M is the mip level.
 
@@ -109,7 +109,15 @@ When a game wants to show a full screen image (480x272), it has to use a texture
 
 Unfortunately, this means that hashes may be different even though any human could obviously tell they are identical. It's often very difficult for PPSSPP to detect this: sometimes 512x512 images are sprite sheets, fonts, or just scaled down. And it happens with smaller images (even 32x64) too.
 
-Workaround: you can add `reduceHash = True` under `[options]` (this cannot be used with `hash = quick`.) This will assume that only the top half of any texture is important. If a game draws text a letter at a time into a texture or changes the bottom half, this will break drawing in those cases. If that happens, the practical option is to start over with `reduceHash` off (or live with the breakage.)
+Workarounds
+
+#### Single image fix
+
+For title screens and other textures that tend to be loaded at a fixed address, use `[hashranges]`, detailed in the first example above.
+
+#### Global fix
+
+If there are a lot of images with this problem, you can add `reduceHash = True` under `[options]` (this cannot be used with `hash = quick`.) This will assume that only the top half of any texture is important. If a game draws text a letter at a time into a texture or changes the bottom half, this will break drawing in those cases. If that happens, the practical option is to start over with `reduceHash` off (or live with the breakage).
 
 ### Mipmaps
 
@@ -216,3 +224,7 @@ It can be a bit annoying that KTX2 files don't have thumbnails in the Windows Ex
 ## More info
 
 See [#8715], [#8792], [#4630], and [#9668].
+
+## Asterisks
+
+*: The dimensions of the texture also affect the CLUT part of the hash. This is an old and unfortunate design decision but doesn't matter very much.
