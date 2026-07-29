@@ -155,7 +155,7 @@ Find the custom music folder for your game here: <sup>(table is not yet complete
             <td><code>ms:/MUSIC/OVERWORLD</code></td>
             <td><ul>
                 <li>you must first make progress in the game</li>
-                <li>sample rate: 32,000&nbsp;Hz or 44,100&nbsp;Hz</li>
+                <li>sample rate: 32,000 Hz or 44,100 Hz</li>
                 <li>MP3s should <i>NOT</i> contain an <a href="https://wikipedia.org">ID3v2 tag</a></li>
                 <li>see below for more details</li>
             </ul></td>
@@ -196,8 +196,8 @@ Find the custom music folder for your game here: <sup>(table is not yet complete
 
 <!-- For Surf's Up, the bitrate requirement mentioned by the game's manual is bogus. -->
 
-<div class="alert alert-warning">Unless otherwise noted, games don't recognize or play MP3s that have a sample rate different from 44,100&nbsp;Hz.
-    If your song is playing in incorrect pitch or speed in PPSSPP, or isn't playing at all on PSP, try opening and exporting it with 44,100&nbsp;Hz sample rate using <a href="https://www.audacityteam.org/">Audacity</a>.
+<div class="alert alert-warning">Unless otherwise noted, games don't recognize or play MP3s that have a sample rate different from 44,100 Hz.
+    If your song is playing in incorrect pitch or speed in PPSSPP, or isn't playing at all on PSP, try opening and exporting it with 44,100 Hz sample rate using <a href="https://www.audacityteam.org/">Audacity</a>.
 </div>
 
 ### Additional details
@@ -262,7 +262,7 @@ Then from the main menu navigate to `Gallery -> Custom BGM`.
 (The Gallery is the second option under red colored option.)
 From here you can select 1 custom song for each character from each series that plays when that character initiates an attack during gameplay.
 
-The message "This file cannot be played in SD Gundam G Generation Overworld." shows up when the selected MP3 file has a sample rate that isn't 32,000&nbsp;Hz or 44,100&nbsp;Hz.
+The message "This file cannot be played in SD Gundam G Generation Overworld." shows up when the selected MP3 file has a sample rate that isn't 32,000 Hz or 44,100 Hz.
 
 If an MP3 file contains an [ID3v2 tag](https://en.wikipedia.org/wiki/ID3), the game sometimes plays weird sounds instead, so the tag should be removed in advance.
 
@@ -288,7 +288,7 @@ For the sake of convenience, enable these two settings under `Config -> Preferen
 
 ![Enable the "Force conversion even if only wave files are read" setting, the "Fixed output format for Wave conversion" setting, and select the 44.1kHz from the list of output formats.](/static/img/docs/custom_background_music/atractool_preferences.png)
 
-In the scenario where you have the `Force conversion even if only wave files are read` setting disabled and you want to load `.WAV` files directly, they must be encoded in 16-bit PCM mode with a sample rate of 44,100&nbsp;Hz!
+In the scenario where you have the `Force conversion even if only wave files are read` setting disabled and you want to load `.WAV` files directly, they must be encoded in 16-bit PCM mode with a sample rate of 44,100 Hz!
 If you get an error while loading or encoding a `.WAV` file, it means that it's encoded differently.
 
 In case you want to try out the feature first before you commit yourself to encoding your files, we provide 2 songs for you, already in Atrac3+:
@@ -396,7 +396,7 @@ The game itself is rather complex, so it won't be explained in detail here.
 All custom sound and music files go into the `ms:/MUSIC/BEATERATOR` folder.
 
 The game allows you to import `.WAV` files as sounds to use when creating or editing drum, melody and audio loops.
-They must be encoded in 16-bit PCM mode with a sample rate of either 22,050&nbsp;Hz or 44,100&nbsp;Hz!
+They must be encoded in 16-bit PCM mode with a sample rate of either 22,050 Hz or 44,100 Hz!
 
 The game also allows you to record new sounds using the microphone when creating or editing loops.
 

@@ -12,7 +12,7 @@ such as Windows 10 and 11, Xbox One and Series X\|&NoBreak;S and potentially oth
 
 On PC there's no real reason to use the UWP build over the regular versions.
 
-Note that PPSSPP has never supported Windows 10&nbsp;Mobile.
+Note that PPSSPP has never supported Windows 10 Mobile.
 
 ## Setup for Xbox
 

@@ -10,7 +10,7 @@ To get it, you can use one of the following methods:
   - by sending the `memory.base`[^ws_bug] event via the [WebSocket debugger API](/docs/reference/websocket-api) <sup>[(since 1.7)](https://github.com/hrydgard/ppsspp/blob/9317fbdd5e8304de7fc0351b95cefbcc53228834/Core/Debugger/WebSocket/DisasmSubscriber.cpp#L255-L267)</sup>
   - by sending the `WM_USER_GET_BASE_POINTER` window message <sup>[(since 1.14)](https://github.com/hrydgard/ppsspp/pull/15748)</sup>
 
-[^ws_bug]: Note: the WebSocket debugger API request returns 8&nbsp;bytes for 32bit `PPSSPPWindows.exe` process on 64bit Windows. Before v1.15, the return value for the `memory.base` event was **bugged** and the upper 32 bits contained the value of another variable, so you need to get rid of that manually e.g. with `& 0xFFFF_FFFF`. See [#17266].
+[^ws_bug]: Note: the WebSocket debugger API request returns 8 bytes for 32bit `PPSSPPWindows.exe` process on 64bit Windows. Before v1.15, the return value for the `memory.base` event was **bugged** and the upper 32 bits contained the value of another variable, so you need to get rid of that manually e.g. with `& 0xFFFF_FFFF`. See [#17266].
 
 ## Useful window messages
 

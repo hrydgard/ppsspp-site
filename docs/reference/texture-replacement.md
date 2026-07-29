@@ -66,15 +66,17 @@ ignoreAddress="true"
 
 ### Parts of the hash
 
-Internally, to identify textures, PPSSPP uses a combination of the address the texture is loaded at, a hash of the color palette* (CLUT, which means color look up table), and finally the hash of the actual texture contents, for a total of 96 bits. It's organized like this:
+Internally, to identify textures, PPSSPP uses a combination of the address the texture is loaded at, a hash of the color palette[^clut_hash] (CLUT, which means color look up table), and finally the hash of the actual texture contents, for a total of 96 bits. It's organized like this:
 
-`AAAAAAAACCCCCCCCTTTTTTTT` with an optional `_M` suffix where M is the mip level.
+[^clut_hash]: The dimensions of the texture also affect the CLUT part of the hash. This is an old and unfortunate design decision but doesn't matter very much.
+
+`AAAAAAAACCCCCCCCTTTTTTTT` with an optional `_M` suffix where `M` is the mip level.
 
 The hash simply uses the same hashing PPSSPP internally uses to tell textures apart. Aside from a hash of the image data, it also uses the hash of the palette (for palette-swapped images), and the address of image in memory.
 
 Keep in mind that the `quick` hash especially is not perfect. If you rely only on it, you might find yourself replacing a completely unrelated texture by accident (oops.) Decide your risk carefully.
 
-It's possible to ignore some of these parts by using 00000000 in the hash, but if you do, don't use `hash = quick` (you shouldn't, anyway - the recommended hash is xxh64).
+It's possible to ignore some of these parts by using `00000000` in the hash, but if you do, don't use `hash = quick` (you shouldn't, anyway - the recommended hash is xxh64).
 
 Almost always if you are using a strong hash, it makes sense to zero out the address part, since a game might not always load a texture at the same memory address. Duplicating textures because the address differs is not useful.
 
@@ -152,8 +154,8 @@ When saving textures, they'll be written to disk in png format. While png is oka
 
 From 1.15, PPSSPP supports multiple efficient GPU-native [texture compression formats](https://en.wikipedia.org/wiki/Texture_compression). Here's the current list:
 
-* .KTX2 file format: Basis and UASTC universal compression formats, only!
-* .DDS file format: BC1, BC2, BC3, BC7 (BC1-3 is equivalent to DXT1, DXT3, DXT5). These formats don't work on mobile!
+- .KTX2 file format: Basis and UASTC universal compression formats, only!
+- .DDS file format: BC1, BC2, BC3, BC7 (BC1-3 is equivalent to DXT1, DXT3, DXT5). These formats don't work on mobile!
 
 Basis and UASTC are "intermediate" formats that can be efficiently transcoded to commonly supported native formats (BC1 and ETC2 in case of Basis, BC7 and ASTC 4x4 in case of UASTC). The main advantage is of course that the same texture pack can work on both mobile and desktop with this technology.
 
@@ -191,11 +193,11 @@ Then just refer to the .ktx2 files instead of .png files in the ini. You can del
 
 ### Limitations and properties of KTX2/DDS compressed texture formats
 
-* These formats are supported in PPSSPP 1.15 or later only.
-* Basis is RGB-only, no alpha (but consumes half the memory - just 0.5 bytes per pixel). It also generally doesn't look very good, so only use on textures where you don't need the best quality.
-* UASTC supports full RGBA at excellent quality, not far from native BC7 or ASTC. The data size is bigger than basis though at 1 byte per pixel. Still a huge win over raw RGBA with 4 bytes per pixel...
-* DDS will load marginally faster than KTX2 since no transcoding is needed, but these formats are generally not supported on mobile. So there's a tradeoff.
-* UASTC is not natively supported on D3D9 or OpenGL ES 2.0, it will be transcoded to raw RGBA, eating up the benefits (still usable though).
+- These formats are supported in PPSSPP 1.15 or later only.
+- Basis is RGB-only, no alpha (but consumes half the memory - just 0.5 bytes per pixel). It also generally doesn't look very good, so only use on textures where you don't need the best quality.
+- UASTC supports full RGBA at excellent quality, not far from native BC7 or ASTC. The data size is bigger than basis though at 1 byte per pixel. Still a huge win over raw RGBA with 4 bytes per pixel...
+- DDS will load marginally faster than KTX2 since no transcoding is needed, but these formats are generally not supported on mobile. So there's a tradeoff.
+- UASTC is not natively supported on D3D9 or OpenGL ES 2.0, it will be transcoded to raw RGBA, eating up the benefits (still usable though).
 
 ## Packaging and compatibility
 
@@ -209,9 +211,9 @@ If you're making a texture pack for others to use - that's great.  Otherwise, ig
 
 Filenames are the tricky part here.  Specifically:
 
-* Always use `/` not `\` for directories.  All platforms (even Windows) support `/`, but `\` doesn't work anywhere but Windows.
-* Always use lowercase filenames.  On Windows and Mac, "Hello.png" is the same as "hello.png", but that's not the case everywhere.  Using only lowercase is safest.
-* Avoid special characters: Windows doesn't support a bunch, and they can cause problems for others too.
+- Always use `/` not `\` for directories.  All platforms (even Windows) support `/`, but `\` doesn't work anywhere but Windows.
+- Always use lowercase filenames.  On Windows and Mac, "Hello.png" is the same as "hello.png", but that's not the case everywhere.  Using only lowercase is safest.
+- Avoid special characters: Windows doesn't support a bunch, and they can cause problems for others too.
 
 If you follow those guidelines, even more people will be able to appreciate your hard work.
 
@@ -224,7 +226,3 @@ It can be a bit annoying that KTX2 files don't have thumbnails in the Windows Ex
 ## More info
 
 See [#8715], [#8792], [#4630], and [#9668].
-
-## Asterisks
-
-*: The dimensions of the texture also affect the CLUT part of the hash. This is an old and unfortunate design decision but doesn't matter very much.
