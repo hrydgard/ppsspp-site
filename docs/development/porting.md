@@ -13,7 +13,7 @@ Here's an incomplete list of platforms that PPSSPP could or could not be ported 
 | Linux | Done | x86&#x2011;32/&NoBreak;64, ARM32/&NoBreak;64, LoongArch64, RISC&#x2011;V64 |
 | macOS | Done | Limited native UI |
 | iOS | Done | JIT works but not on the App Store builds. |
-| Windows UWP,<br>Xbox Series X\|&NoBreak;S,<br>Xbox One,<br>Windows 10&nbsp;Mobile[^u_mobile] | Done | x86&#x2011;64, ARM64 [^u_isa] |
+| Windows UWP,<br>Xbox Series X\|&NoBreak;S,<br>Xbox One,<br>Windows 10 Mobile[^u_mobile] | Done | x86&#x2011;64, ARM64 [^u_isa] |
 | Nintendo Switch | Done | Homebrew enabled consoles only. |
 | Raspberry Pi | Done | R4+ recommended |
 
@@ -21,7 +21,7 @@ Here's an incomplete list of platforms that PPSSPP could or could not be ported 
 [^w_isa]: [ARM32](https://github.com/hrydgard/ppsspp/pull/20496) was never officially supported on Windows.
 [^a_os]: Android 5.0 "Lollipop" or newer. [4.x](https://github.com/hrydgard/ppsspp/pull/19658) support is discontinued.
 [^a_isa]: [x86&#x2011;32](https://github.com/hrydgard/ppsspp/pull/17908) and [ARMv6 (legacy armeabi)](https://github.com/hrydgard/ppsspp/issues/4798) support on Android is discontinued.
-[^u_mobile]: Windows 10&nbsp;Mobile was never officially supported. JIT didn't work correctly, CPUs in Lumia devices were slow and the graphics driver was extremely buggy.
+[^u_mobile]: Windows 10 Mobile was never officially supported. JIT didn't work correctly, CPUs in Lumia devices were slow and the graphics driver was extremely buggy.
 [^u_isa]: [x86&#x2011;32](https://github.com/hrydgard/ppsspp/pull/17912) and [ARM32](https://github.com/hrydgard/ppsspp/pull/20496) support on UWP is discontinued.
 
 These platforms were supported once, but aren't anymore due to lack of maintainer interest:
