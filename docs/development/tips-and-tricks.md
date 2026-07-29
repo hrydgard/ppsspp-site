@@ -123,3 +123,24 @@ python scripts\websocket-test.py 56244 gpu.stats.get 3
 
 where `56244` is the configured port, and `gpu.stats.get` is the command you want to test, and 3 is the number of seconds
 you want to wait for additional messages.
+
+From 1.21, there's also a Rust-based command line tool in `Tools/wsdbg`.
+
+## Quick PSP testing setup in Windows Terminal
+
+Open Windows Terminal, press Ctrl + Shift + , to open settings.json.
+
+Inside the "actions": [ ... ] array, add the following entry:
+
+```json
+{
+    "command":
+    {
+        "action": "wt",
+        "commandline": "-p \"Command Prompt\" -d \"C:\\dev\\ppsspp\\pspautotests\" cmd /k \"usbhostfs_pc -p 4000\" ; new-tab -p \"Command Prompt\" -d \"C:\\dev\\ppsspp\\pspautotests\" cmd /k \"pspsh -p 4000\" ; new-tab -p \"Command Prompt\" -d \"C:\\dev\\ppsspp\\pspautotests\" ; new-tab -p \"Command Prompt\" -d \"C:\\dev\\ppsspp\\pspautotests\\tests\""
+    },
+    "name": "Launch PPSSPP Autotest Environment"
+}
+```
+
+Now, you can use this from Ctrl+Shift+P in Terminal. Adjust paths as needed.
