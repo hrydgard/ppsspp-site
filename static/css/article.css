@@ -187,3 +187,38 @@ a.nav-tree-category.selected,
 a.nav-tree-item.selected {
     background-color: var(--color-gray-800);
 }
+
+/* Table of contents */
+.toc {
+    border-width: 2px;
+    border-color: var(--color-gray-700);
+    border-radius: 10px;
+    border-style: solid;
+    margin: 10px 0px;
+    padding: 0px 20px 10px;
+}
+
+.toc h2 {
+    /* small-headers combined with center-vertical */
+    font-size: 16pt;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.toc ul {
+    list-style: none;
+}
+
+.toc > ul {
+    /* Remove indentation for first-level list */
+    padding-inline-start: 0px;
+}
+
+@media (pointer: coarse) {
+    /* Extra padding for touchscreen */
+    .toc a {
+        display: inline-block;
+        padding: 5px 0px;
+    }
+}

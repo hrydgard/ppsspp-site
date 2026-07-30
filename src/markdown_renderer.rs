@@ -671,8 +671,8 @@ impl<'a> Renderer<'a> {
         let toc_headings = &toc_data.headings;
         let min_depth = toc_data.min_depth;
 
-        self.out
-            .push_str("<nav class=\"toc\" aria-label=\"Table of contents\"><ul>\n");
+        self.out.push_str("<nav class=\"toc\" aria-labelledby=\"toc\">\n\
+                    <h2 id=\"toc\"><i aria-hidden=\"true\" class=\"icon-ui icon-ui-list icon-left\"></i>Contents</h2>\n<ul>\n");
 
         let mut prev_depth: u8 = min_depth;
         let mut first = true;
