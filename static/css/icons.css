@@ -76,6 +76,10 @@ i.icon-ui-link {
     --icon-path: url(/static/img/icons/ui/hyperlink.svg);
 }
 
+i.icon-ui-list {
+    --icon-path: url(/static/img/icons/ui/list.svg);
+}
+
 i.icon-ui-moon {
     --icon-path: url(/static/img/icons/ui/moon.svg);
 }
