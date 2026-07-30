@@ -188,6 +188,15 @@ a.nav-tree-item.selected {
     background-color: var(--color-gray-800);
 }
 
+@media (pointer: coarse) {
+    /* Extra padding for touchscreen */
+    a.nav-tree-category,
+    a.nav-tree-item {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+}
+
 /* Table of contents */
 .toc {
     border-width: 2px;
