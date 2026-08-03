@@ -51,198 +51,31 @@ ul.feature-list li {
   background-color: white;
   box-shadow: #e9f1f1 0px 0px 20px 2px;
   opacity: 0;
-  top: 100vh;
+  top: 0px;
   bottom: 0px;
   left: 0px;
   right: 0px;
   margin: auto;
+  will-change: transform, opacity;
+  /* Fallback values for animation */
+  --time: 1s;
+  --scale: 1;
+  animation: floatUp var(--time) infinite linear;
 }
 
-.x1 {
-  -webkit-animation: floatUp 4s infinite linear;
-  -moz-animation: floatUp 4s infinite linear;
-  -o-animation: floatUp 4s infinite linear;
-  animation: floatUp 4s infinite linear;
-  -webkit-transform: scale(1.0);
-  -moz-transform: scale(1.0);
-  -o-transform: scale(1.0);
-  transform: scale(1.0);
-}
-
-.x2 {
-  -webkit-animation: floatUp 7s infinite linear;
-  -moz-animation: floatUp 7s infinite linear;
-  -o-animation: floatUp 7s infinite linear;
-  animation: floatUp 7s infinite linear;
-  -webkit-transform: scale(1.6);
-  -moz-transform: scale(1.6);
-  -o-transform: scale(1.6);
-  transform: scale(1.6);
-  left: 15%;
-}
-
-.x3 {
-  -webkit-animation: floatUp 2.5s infinite linear;
-  -moz-animation: floatUp 2.5s infinite linear;
-  -o-animation: floatUp 2.5s infinite linear;
-  animation: floatUp 2.5s infinite linear;
-  -webkit-transform: scale(.5);
-  -moz-transform: scale(.5);
-  -o-transform: scale(.5);
-  transform: scale(.5);
-  left: -15%;
-}
-
-.x4 {
-  -webkit-animation: floatUp 4.5s infinite linear;
-  -moz-animation: floatUp 4.5s infinite linear;
-  -o-animation: floatUp 4.5s infinite linear;
-  animation: floatUp 4.5s infinite linear;
-  -webkit-transform: scale(1.2);
-  -moz-transform: scale(1.2);
-  -o-transform: scale(1.2);
-  transform: scale(1.2);
-  left: -34%;
-}
-
-.x5 {
-  -webkit-animation: floatUp 8s infinite linear;
-  -moz-animation: floatUp 8s infinite linear;
-  -o-animation: floatUp 8s infinite linear;
-  animation: floatUp 8s infinite linear;
-  -webkit-transform: scale(2.2);
-  -moz-transform: scale(2.2);
-  -o-transform: scale(2.2);
-  transform: scale(2.2);
-  left: -57%;
-}
-
-.x6 {
-  -webkit-animation: floatUp 3s infinite linear;
-  -moz-animation: floatUp 3s infinite linear;
-  -o-animation: floatUp 3s infinite linear;
-  animation: floatUp 3s infinite linear;
-  -webkit-transform: scale(.8);
-  -moz-transform: scale(.8);
-  -o-transform: scale(.8);
-  transform: scale(.8);
-  left: -81%;
-}
-
-.x7 {
-  -webkit-animation: floatUp 5.3s infinite linear;
-  -moz-animation: floatUp 5.3s infinite linear;
-  -o-animation: floatUp 5.3s infinite linear;
-  animation: floatUp 5.3s infinite linear;
-  -webkit-transform: scale(3.2);
-  -moz-transform: scale(3.2);
-  -o-transform: scale(3.2);
-  transform: scale(3.2);
-  left: 37%;
-}
-
-.x8 {
-  -webkit-animation: floatUp 4.7s infinite linear;
-  -moz-animation: floatUp 4.7s infinite linear;
-  -o-animation: floatUp 4.7s infinite linear;
-  animation: floatUp 4.7s infinite linear;
-  -webkit-transform: scale(1.7);
-  -moz-transform: scale(1.7);
-  -o-transform: scale(1.7);
-  transform: scale(1.7);
-  left: 62%;
-}
-
-.x9 {
-  -webkit-animation: floatUp 4.1s infinite linear;
-  -moz-animation: floatUp 4.1s infinite linear;
-  -o-animation: floatUp 4.1s infinite linear;
-  animation: floatUp 4.1s infinite linear;
-  -webkit-transform: scale(0.9);
-  -moz-transform: scale(0.9);
-  -o-transform: scale(0.9);
-  transform: scale(0.9);
-  left: 85%;
-}
-
-@-webkit-keyframes floatUp {
-  0% {
-    top: 100vh;
-    opacity: 0;
-  }
-
-  25% {
-    opacity: 1;
-  }
-
-  50% {
-    top: 0vh;
-    opacity: .8;
-  }
-
-  75% {
-    opacity: 1;
-  }
-
-  100% {
-    top: -100vh;
-    opacity: 0;
-  }
-}
-
-@-moz-keyframes floatUp {
-  0% {
-    top: 100vh;
-    opacity: 0;
-  }
-
-  25% {
-    opacity: 1;
-  }
-
-  50% {
-    top: 0vh;
-    opacity: .8;
-  }
-
-  75% {
-    opacity: 1;
-  }
-
-  100% {
-    top: -100vh;
-    opacity: 0;
-  }
-}
-
-@-o-keyframes floatUp {
-  0% {
-    top: 100vh;
-    opacity: 0;
-  }
-
-  25% {
-    opacity: 1;
-  }
-
-  50% {
-    top: 0vh;
-    opacity: .8;
-  }
-
-  75% {
-    opacity: 1;
-  }
-
-  100% {
-    top: -100vh;
-    opacity: 0;
-  }
-}
+.x1 { --time: 4.0s; --scale: 1.0; left: 0; }
+.x2 { --time: 7.0s; --scale: 1.6; left: 15%; }
+.x3 { --time: 2.5s; --scale: 0.5; left: -15%;}
+.x4 { --time: 4.5s; --scale: 1.2; left: -34%; }
+.x5 { --time: 8.0s; --scale: 2.2; left: -57%; }
+.x6 { --time: 3.0s; --scale: 0.8; left: -81%; }
+.x7 { --time: 5.3s; --scale: 3.2; left: 37%; }
+.x8 { --time: 4.7s; --scale: 1.7; left: 62%; }
+.x9 { --time: 4.1s; --scale: 0.9; left: 85%; }
 
 @keyframes floatUp {
   0% {
-    top: 100vh;
+    transform: translateY(100vh) scale(var(--scale));
     opacity: 0;
   }
 
@@ -251,7 +84,7 @@ ul.feature-list li {
   }
 
   50% {
-    top: 0vh;
+    transform: translateY(0vh) scale(var(--scale));
     opacity: .8;
   }
 
@@ -260,7 +93,7 @@ ul.feature-list li {
   }
 
   100% {
-    top: -100vh;
+    transform: translateY(-50%) scale(var(--scale));
     opacity: 0;
   }
 }
