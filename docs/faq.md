@@ -39,7 +39,7 @@ Do look into the [Vita3K](https://vita3k.org/) project though! They are making g
 
 ## How do I install game DLC?
 
-Install it exactly the same way as you would on a PSP, that is, copy the files to `PSP/GAME` or `PSP/SAVEDATA` (depending on the DLC) on the memory stick. In the Android version of PPSSPP, the memory stick is simply the SD card or USB storage of your phone, PPSSPP will create a PSP folder in the root of that. On Windows without installer, the memory stick is the "memstick" subdirectory in the PPSSPP folder. On iOS, it's in `/User/Documents/PSP/`. On Mac and Linux, it's in `~/.config/PPSSPP`.
+See [How to install DLC](/docs/reference/how-to-install-dlc).
 
 ## Do I need a BIOS file to run PPSSPP, like I would with PSX/PS1 and PS2 emulators?
 
