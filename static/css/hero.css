@@ -1,22 +1,23 @@
-/* Silly moving background CSS from https://alvarotrigo.com/blog/animated-backgrounds-css/ */
-
-.hero {
-  background: #193858;
-  background-image: url("/static/img/front/gameroll.jpg");
-  /* This was made in photopea */
-  background-position: center right;
-  background-repeat: no-repeat;
-  /* Do not repeat the image */
-  background-size: auto 100%;
-}
-
 .hero-banner {
+  background: #193858;
   color: #fff;
-  /* light up the hero title slightly */
   overflow: hidden;
   padding: 3rem 0;
   position: relative;
   text-align: left;
+}
+
+img.hero-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: auto;
+  height: 100%;
+  z-index: auto;
+  object-fit: contain;
+  object-position: center right;
+  pointer-events: none;
+  user-select: none;
 }
 
 .hero-title {
@@ -37,13 +38,12 @@
 }
 
 ul.feature-list li {
-  /* set font size of list item and bullet here */
   list-style-type: square;
-  /* removes default bullet */
   position: relative;
   /* positioning context for bullet */
 }
 
+/* All of the below is for the moving background animation. */
 .light {
   position: absolute;
   width: 0px;
