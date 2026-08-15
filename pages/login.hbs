@@ -1,10 +1,11 @@
-{{> common_header this title="Login" description="Login form"}}
+{{> common_header this title="Account" description="Manage your user account"}}
 
 {{!-- This takes care of /loginbykey duties too. That's a redirect. --}}
 
 <div class="container">
-    <div class="row">
-        <div class="col-6 not-logged-in-only">
+    <div class="row not-logged-in-only">
+        <div class="col-3"></div>
+        <div class="col-6">
             <div class="card">
                 <div class="card-title">
                     <h2 class="no-icon">Login</h2>
@@ -28,8 +29,10 @@
                 </form>
             </div>
         </div>
+    </div>
 
-        <div class="col-4 card logged-in-only">
+    <div class="row logged-in-only">
+        <div class="col-4 card">
             <div class="card-title">
                 <h2 class="no-icon">Account</h2>
             </div>
@@ -37,7 +40,9 @@
 
             <button onclick="logoutUser()" class="download-button">Log out</button>
         </div>
+    </div>
 
+    <div class="row logged-in-only">
         <div id="adminPanels" class="admin-only"></div>
     </div>
 </div>
