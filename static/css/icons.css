@@ -11,31 +11,17 @@ a.download-button>img.badge {
 }
 
 /* Common PNG and SVG icons */
-img.icon-144,
-img.icon-96,
-img.icon-48,
-img.icon-36,
-img.icon-32,
-img.icon-24,
-img.icon-pfp {
+img.icon {
     vertical-align: middle;
     max-width: 100%;
     max-height: 100%;
+    pointer-events: none;
+    user-select: none;
 }
 
-img.icon-pfp {
+img.pfp {
     border-radius: 50%;
 }
-
-img.icon-left , i.icon-left  { margin-right: 0.5ch; }
-img.icon-right, i.icon-right { margin-left:  0.5ch; }
-
-.icon-144 { height: 144px !important; width: 144px !important; }
-.icon-96  { height:  96px !important; width:  96px !important; }
-.icon-48  { height:  48px !important; width:  48px !important; }
-.icon-36  { height:  36px !important; width:  36px !important; }
-.icon-32  { height:  32px !important; width:  32px !important; }
-.icon-24  { height:  24px !important; width:  24px !important; }
 
 /* UI glyphs */
 i.icon-ui {
@@ -56,6 +42,10 @@ i.icon-ui {
 
 a:hover i.icon-ui {
    background-color: var(--color-a-hover);
+}
+
+i.icon-ui-24 {
+    font-size: 24px;
 }
 
 i.icon-ui-external {

@@ -5,7 +5,7 @@ position: 10
 
 ## What is UWP?
 
-<img src="/static/img/icons/uwp.svg" alt="UWP icon" class="icon-96 float-left">
+<img src="/static/img/icons/uwp.svg" alt="Unofficial Universal Windows Platform icon" width="96" height="96" class="icon float-left">
 
 UWP, or Universal Windows Platform, is an application packaging standard for apps that can run on every modern Windows-based platform, such as Windows 10 and 11, Xbox One and Series X\|&NoBreak;S and potentially future Windows-based devices.
 

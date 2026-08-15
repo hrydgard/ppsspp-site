@@ -22,7 +22,7 @@ Both on Android and PC, PPSSPP Gold can be installed side by side with the regul
 If you make them share `PSP` (memstick) directories though and keep different version of them,
 they may have problems sharing save states due to the above-mentioned backwards compatibility issue.
 
-## Updating on Android<img src="/static/img/icons/android.svg" aria-hidden="true" class="icon-36 icon-right">
+## Updating on Android<img src="/static/img/icons/android.svg" alt="" aria-hidden="true" width="36" height="36" class="icon sp-left">
 
 If you've installed from Play Store, upgrading should be handled automatically by Google Play on your device.
 
@@ -40,7 +40,7 @@ In summary:
 If you want to install by another method than before, or downgrade to an older version, you need to uninstall first
 (in which case you should make sure to [backup your save games](/docs/getting-started/save-data-and-storage)), since the digital signatures are not compatible.
 
-## Updating on Windows<img src="/static/img/icons/windows.svg" aria-hidden="true" class="icon-36 icon-right">
+## Updating on Windows<img src="/static/img/icons/windows.svg" alt="" aria-hidden="true" width="36" height="36" class="icon sp-left">
 
 If you've been using the installer before and are using the installer again, it should just work to install the new version on top of the old one.
 
@@ -52,7 +52,7 @@ If you've installed PPSSPP by downloading the zip file and unzipped it somewhere
 
 Either will work, matter of taste.
 
-## Updating on Linux<img src="/static/img/icons/linux.svg" aria-hidden="true" class="icon-36 icon-right">
+## Updating on Linux<img src="/static/img/icons/linux.svg" alt="" aria-hidden="true" width="36" height="36" class="icon sp-left">
 
 ### AppImage (suitable for most Linux distributions)
 

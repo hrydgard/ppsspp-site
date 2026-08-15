@@ -31,11 +31,6 @@ a.download-link-gold:hover {
     border-color: var(--color-gold-border-hover);
 }
 
-a.prev-ver-item,
-img.prev-ver-item {
-    margin: 0px 4px;
-}
-
 .button-block {
     display: block;
     width: 100%;
@@ -181,17 +176,12 @@ img.prev-ver-item {
 }
 
 .card {
-    /* General */
     width: 100%;
     height: auto;
-    /* Margin */
     margin: 0.2rem 0;
     padding: 0;
-    /* Color */
     background-color: var(--color-card-background);
-    /* Border */
     border-radius: var(--card-border-radius);
-    /* Margin */
     padding: 1rem;
     box-shadow: 0 3px 5px var(--shadow-color);
 }
@@ -296,4 +286,26 @@ div.forgot-password {
     margin-left: -5px;
     margin-bottom: 12px;
     background-color: var(--color-gray-800);
+}
+
+code {
+  /* These values work well for both inline code and blocks.
+   Highlight script changes them for code blocks where necessary.
+ */
+  font-family: monospace;
+  font-size: 95%;
+  display: inline-block;
+  border-radius: 6px;
+  padding: .2em .4em;
+  margin: 0;
+  background-color: var(--color-gray-800);
+  word-break: break-word;
+  text-align: left;
+}
+
+.inapp {
+  display: inline-block;
+  font-family: Roboto, DroidSans, sans-serif;
+  font-size: 110%;
+  font-weight: bold;
 }

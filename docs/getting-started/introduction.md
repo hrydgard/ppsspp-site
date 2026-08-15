@@ -15,38 +15,42 @@ PPSSPP does not run those.
 
 [See the download options here.](/download)
 
-<img src="/static/img/icons/android.svg" aria-hidden="true" class="icon-24 icon-left"> On Android,
+<img src="/static/img/icons/android.svg" alt="" aria-hidden="true" width="24" height="24" class="icon sp-right">On Android,
 you can install PPSSPP like any other app from Google Play or from the HUAWEI AppGallery, if that's what your device has.
 If your device doesn't have access to these stores, you can install the app by downloading the APK and then "sideloading" it onto your device.
 
 <!--
-For Android TV<img src="/static/img/icons/android.svg" aria-hidden="true" class="icon-24 icon-left">
+<img src="/static/img/icons/android.svg" alt="" aria-hidden="true" width="24" height="24" class="icon sp-right">For Android TV
 devices, you may have to sideload the [Legacy Edition](/docs/reference/legacy-edition).
 -->
 
-<img src="/static/img/icons/ios.svg" aria-hidden="true" class="icon-24 icon-left"> On [iOS](/docs/reference/ios-support),
+<img src="/static/img/icons/ios.svg" alt="" aria-hidden="true" width="24" height="24" class="icon sp-right">On [iOS](/docs/reference/ios-support),
 you can find PPSSPP on the Apple App Store.
 
-<img src="/static/img/icons/windows.svg" aria-hidden="true" class="icon-24 icon-left"> On Windows,
+<img src="/static/img/icons/windows.svg" alt="" aria-hidden="true" width="24" height="24" class="icon sp-right">On Windows,
 you can use a traditional installer, or you have the option of a "portable" install (just a ZIP file to unzip where you want it).
 Make sure you run the 64-bit executable &ndash; `PPSSPPWindows64.exe` &ndash;  unless you're on a 32-bit computer!
 
-<img src="/static/img/icons/windows.svg" aria-hidden="true" class="icon-24 icon-left"> [Windows on ARM](/docs/faq/#arm64win)
+<img src="/static/img/icons/windows.svg" alt="" aria-hidden="true" width="24" height="24" class="icon sp-right">[Windows on ARM](/docs/faq/#arm64win)
 users should download the native ARM64 build.
 
-<img src="/static/img/icons/uwp.svg" aria-hidden="true" class="icon-24 icon-left"> A [Universal Windows Platform](/docs/getting-started/how-to-run-on-xbox)
+<img src="/static/img/icons/uwp.svg" alt="" aria-hidden="true" width="24" height="24" class="icon sp-right">A [Universal Windows Platform](/docs/getting-started/how-to-run-on-xbox)
 build, that can be installed even on Xbox consoles, is also available.
 
-<img src="/static/img/icons/macos.svg" aria-hidden="true" class="icon-24 icon-left"> On [macOS](/docs/reference/mac), it's a standard `.dmg` install.
+<img src="/static/img/icons/macos.svg" alt="" aria-hidden="true" width="24" height="24" class="icon sp-right">On [macOS](/docs/reference/mac),
+it's a standard `.dmg` install.
 Open the DMG and drag the app to Applications.
 
-<img src="/static/img/icons/linux.svg" aria-hidden="true" class="icon-24 icon-left"> On Linux,
+<img src="/static/img/icons/linux.svg" alt="" aria-hidden="true" width="24" height="24" class="icon sp-right">On Linux,
 we have a Flatpak package, and an AppImage that's suitable for most distributions.
 Manual build from source is also possible.
 
-<img src="/static/img/icons/switch.svg" aria-hidden="true" class="icon-24 icon-left"> PPSSPP is also unofficially available to sideload onto [Nintendo Switch](/legacybuilds).
+<img src="/static/img/icons/switch.svg" alt="" aria-hidden="true" width="24" height="24" class="icon sp-right">PPSSPP
+is also unofficially available to sideload onto [Nintendo Switch](/legacybuilds).
 
-<img src="/static/img/icons/vr.svg" aria-hidden="true" class="icon-24 icon-left"> Additionally, PPSSPP is available as an APK for [compatible Android VR devices](/docs/reference/vr-apk). PC VR is not currently supported.
+<img src="/static/img/icons/vr.svg" alt="" aria-hidden="true" width="24" height="24" class="icon sp-right">Additionally,
+PPSSPP is available as an APK for [compatible Android VR devices](/docs/reference/vr-apk).
+PC VR is not currently supported.
 
 ## Getting games
 
