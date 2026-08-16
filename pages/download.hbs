@@ -6,9 +6,8 @@
 
         <p>What's new in {{ globals.app_version }}? See the <a href="/news">news page</a>!</p>
 
-        <div class="alert alert-warning gold-only"> You've got PPSSPP Gold for Windows/macOS!
-            Downloads are now available below.
-        </div>
+        <div class="alert alert-warning gold-only">You've got PPSSPP Gold for Windows/macOS!
+                Downloads are now available below.</div>
 
         <section aria-label="Download options">
             <div class="row">
@@ -17,7 +16,7 @@
                     <article class="card">
                         <div class="card-title">
                             {{ #if platform_badge }}
-                            <img src="/static/img/icons/{{platform_badge}}" aria-hidden="true" class="icon-36">
+                            <img src="/static/img/icons/{{platform_badge}}" alt="" aria-hidden="true" width="36" height="36" class="icon">
                             {{ /if}}
                             <h2>{{ title }}</h2>
                         </div>
@@ -34,7 +33,7 @@
                                             }}href="{{url}}" {{ /if }} {{ #if download_url }}href="{{download_url}}" {{ /if }}>
                                             <div class="button-contents">
                                                 {{ #if icon }}
-                                                <img src="/static/img/platform/{{icon}}" aria-hidden="true" class="icon-32">
+                                                <img src="/static/img/platform/{{icon}}" alt="" aria-hidden="true" width="32" height="32" class="icon">
                                                 {{ /if }}
                                                 {{ #if url }}{{name}}{{ /if }}
                                                 {{ #if download_url }}{{name}}{{ /if }}
@@ -78,10 +77,10 @@
     <section aria-labelledby="legacybuilds">
         <h2 id="legacybuilds">Unofficial ports and legacy builds</h2>
         <p><a href="/legacybuilds">A page where you can find</a> cube.elf<img src="/static/img/icons/cube.svg"
-                aria-hidden="true" class="icon-24 icon-right"> and ports for Switch<img src="/static/img/icons/switch.svg"
-                aria-hidden="true" class="icon-24 icon-right">, Web<img src="/static/img/icons/webassembly.svg"
-                aria-hidden="true" class="icon-24 icon-right">, Quest 1<img src="/static/img/icons/vrlegacy.svg"
-                aria-hidden="true" class="icon-24 icon-right"> and other esoteric or old platforms.</p>
+                alt="" aria-hidden="true" width="24" height="24" class="icon sp-left"> and ports for Switch<img src="/static/img/icons/switch.svg"
+                alt="" aria-hidden="true" width="24" height="24" class="icon sp-left">, Web<img src="/static/img/icons/webassembly.svg"
+                alt="" aria-hidden="true" width="24" height="24" class="icon sp-left">, Quest 1<img src="/static/img/icons/vrlegacy.svg"
+                alt="" aria-hidden="true" width="24" height="24" class="icon sp-left"> and other esoteric or old platforms.</p>
     </section>
 
     <section aria-labelledby="oldbuilds">
@@ -103,11 +102,11 @@
                             {{ #each downloads }}
                             <span {{ #if gold_only }} class="gold-only-inline" {{ /if }}>
                                 {{ #if icon }}
-                                <img src="/static/img/icons/{{icon}}" class="icon-24 prev-ver-item">
+                                <img src="/static/img/icons/{{icon}}" alt="" aria-hidden="true" width="24" height="24" class="icon sp-left sp-right">
                                 {{ /if }}
                                 {{ #if short_name }}
-                                <a {{ #if gold_only }} class="download-link-gold" {{ else }} class="prev-ver-item" {{ /if }}
-                                    href="{{download_url}}">{{short_name}}</a>
+                                <a {{ #if gold_only }} class="download-link-gold" {{ else }} class="sp-left sp-right" {{ /if }}
+                                        href="{{download_url}}">{{short_name}}</a>
                                 {{ /if }}
                             </span>
                             {{ /each }}
@@ -122,8 +121,7 @@
     <section aria-labelledby="devbuilds">
         <h2 id="devbuilds">Development builds</h2>
         <div class="alert alert-warning"> Please note that these development builds can be unstable &ndash;
-            if one doesn't work, try an earlier one. Always backup your game saves!
-        </div>
+            if one doesn't work, try an earlier one. Always backup your game saves!</div>
         <p>Development builds for more platforms will be added soon.</p>
 
         <p><a href="/devbuilds">Full list of development builds</a></p>

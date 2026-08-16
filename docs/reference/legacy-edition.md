@@ -2,7 +2,7 @@
 
 ## Features
 
-<img src="/static/img/platform/ppsspp-icon-legacy.png" alt="PPSSPP Legacy Edition icon" class="icon-144 float-left">
+<img src="/static/img/platform/ppsspp-icon-legacy.png" alt="PPSSPP Legacy Edition icon" width="144" height="144" class="icon float-left">
 
 The PPSSPP Legacy Edition is really just the same as a regular PPSSPP build, except it has been built specifying an old target Android SDK version (29, specifically).
 

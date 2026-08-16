@@ -23,7 +23,7 @@ Additionally, this only works from PPSSPP 1.20 and upwards.
 
 1. Use the web interface to upload your ISO files. Done!
 
-## Android<img src="/static/img/icons/android.svg" aria-hidden="true" class="icon-36 icon-right">
+## Android<img src="/static/img/icons/android.svg" alt="" aria-hidden="true" width="36" height="36" class="icon sp-left">
 
 This guide requires a PC.
 
@@ -57,7 +57,7 @@ This guide requires a PC.
 Finally, after starting PPSSPP on your device, you'll be able to either directly browse to it (Android 10 or older, or old installs),
 or you'll be able to tap <b class="inapp">Browse...</b> and select it.
 
-## iOS<img src="/static/img/icons/ios.svg" aria-hidden="true" class="icon-36 icon-right">
+## iOS<img src="/static/img/icons/ios.svg" alt="" aria-hidden="true" width="36" height="36" class="icon sp-left">
 
 The below instructions require a Mac.
 

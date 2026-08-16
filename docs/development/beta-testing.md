@@ -13,17 +13,17 @@ We only have a beta testing program for Android and iOS since Google Play and Te
 We don't have anything like that yet on the other platforms.
 On PC, if you want to help testing stuff before release, download the latest development build from the [buildbot](/devbuilds) and report results.
 
-## Android<img src="/static/img/icons/android.svg" aria-hidden="true" class="icon-36 icon-right">
+## Android<img src="/static/img/icons/android.svg" alt="" aria-hidden="true" width="36" height="36" class="icon sp-left">
 
 The beta testing program for PPSSPP on Android is open.
 
 Tap the appropriate link to join:
 
-<img src="/static/img/platform/ppsspp-icon.png" aria-hidden="true" class="icon-32 icon-left">[Join the beta test!](https://play.google.com/apps/testing/org.ppsspp.ppsspp)
+<img src="/static/img/platform/ppsspp-icon.png" alt="" aria-hidden="true" width="32" height="32" class="icon sp-right">[Join the beta test!](https://play.google.com/apps/testing/org.ppsspp.ppsspp)
 
-<img src="/static/img/platform/ppsspp-icon-gold.png" aria-hidden="true" class="icon-32 icon-left">[Join the beta test for PPSSPP Gold!](https://play.google.com/apps/testing/org.ppsspp.ppssppgold)
+<img src="/static/img/platform/ppsspp-icon-gold.png" alt="" aria-hidden="true" width="32" height="32" class="icon sp-right">[Join the beta test for PPSSPP Gold!](https://play.google.com/apps/testing/org.ppsspp.ppssppgold)
 
-## iOS<img src="/static/img/icons/ios.svg" aria-hidden="true" class="icon-36 icon-right">
+## iOS<img src="/static/img/icons/ios.svg" alt="" aria-hidden="true" width="36" height="36" class="icon sp-left">
 
 The beta testing program for PPSSPP on iOS is open through TestFlight.
 

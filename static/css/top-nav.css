@@ -2,6 +2,11 @@
     font-weight: bold;
 }
 
+.top-nav-logo img {
+    margin-left: 0;
+    margin-right: 1ch;
+}
+
 .top-nav {
     flex-grow: 0;
     flex-shrink: 0;
@@ -25,11 +30,6 @@
 
 .top-nav a:hover {
     color: var(--color-a-hover);
-}
-
-.top-nav .center-vertical img {
-    margin-left: 0;
-    margin-right: 1ch;
 }
 
 .menu {

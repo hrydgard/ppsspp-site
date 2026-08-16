@@ -17,6 +17,6 @@ Edit it with Notepad.
 
 Here's how it works:
 - No `installed.txt`: Memory Stick is in a subfolder called `memstick` right next to the EXE file.
-- `installed.txt` is empty: Memory Stick is in your user folder.
+- `installed.txt` is empty: Memory Stick is in your user's Documents folder &ndash; `%userprofile%\Documents\PPSSPP\`
 - `installed.txt` contains a path: Memory Stick is in that path.
   For example `E:\PSP` or whatever you want.

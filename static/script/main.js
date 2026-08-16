@@ -132,7 +132,7 @@ const tmplUserInfo = `
 </p>
 <p>E-mail: {{it.email}}</p>
 {{ @if (it.goldUser) }}
-<p class="center-vertical">Gold status!<img src="/static/img/platform/ppsspp-icon-gold.png" aria-hidden="true" class="icon-24 icon-right"></p>
+<p class="center-vertical">Gold status!<img src="/static/img/platform/ppsspp-icon-gold.png" alt="" aria-hidden="true" width="24" height="24" class="icon sp-left"></p>
 {{ /if }}
 <p><a href="/changepassword">Change password</a></p>
 </div>
@@ -189,13 +189,13 @@ const tmplAdminPanel = `
 </div>
 <form action="#" onSubmit="return handleAddGooglePlayCodes(event)">
 <label>
-  <div>Codes to add:</div>
+    <div>Codes to add:</div>
     <textarea rows="10" cols="24" id="pending_codes"></textarea>
 </label>
 <div id="googlePlayStatus" class="alert alert-hidden" role="alert"></div>
 <div id="playCodesStats"></div>
 <div>
-  <button class="download-button" type="submit">Add promo codes</button>
+    <button class="download-button" type="submit">Add promo codes</button>
 </div>
 </form>
 </div>
@@ -252,23 +252,21 @@ const tmplPlayCodes = `
 `;
 
 const tmplLoginCorner = `
-<a href='/login' class="center-vertical">
+<a href='/login' class="center-vertical"
 {{@if(it.loggedIn)}}
-<i aria-label="Profile" class="icon-ui icon-ui-user"></i>
+aria-label="Profile"><i class="icon-ui icon-ui-user"></i></a>
 {{#else}}
-Login
+>Login</a>
 {{/if}}
-</a>
 `;
 
 const tmplLoginItem = `
 <a href='/login'>
 {{@if(it.loggedIn)}}
-<i aria-hidden="true" class="icon-ui icon-ui-user icon-left"></i>{{it.name}}
+<i aria-hidden="true" class="icon-ui icon-ui-user sp-right"></i>{{it.name}}</a>
 {{#else}}
-Login
+Login</a>
 {{/if}}
-</a>
 `;
 
 async function applyDOMVisibility() {

@@ -11,7 +11,7 @@ PPSSPP and PPSSPP Gold have everything you'd want in a PSP emulator:
 
 PPSSPP Gold also:
 
-<img src="/static/img/platform/ppsspp-icon-gold.png" alt="PPSSPP Gold icon" class="icon-96 float-right">
+<img src="/static/img/platform/ppsspp-icon-gold.png" alt="PPSSPP Gold icon" width="96" height="96" class="icon float-right">
 
 * Makes you feel good.
 * Has a fancy golden icon you can show off to your friends.
@@ -21,10 +21,10 @@ PPSSPP Gold also:
 
 ## What platforms is PPSSPP Gold available for?
 
-PPSSPP Gold is currently available for Android<img src="/static/img/icons/android.svg" aria-hidden="true" class="icon-24 icon-right">,
-Windows<img src="/static/img/icons/windows.svg" aria-hidden="true" class="icon-24 icon-right">,
-macOS<img src="/static/img/icons/macos.svg" aria-hidden="true" class="icon-24 icon-right"> and
-iOS<img src="/static/img/icons/ios.svg" aria-hidden="true" class="icon-24 icon-right">.
+PPSSPP Gold is currently available for Android<img src="/static/img/icons/android.svg" alt="" aria-hidden="true" width="24" height="24" class="icon sp-left">,
+Windows<img src="/static/img/icons/windows.svg" alt="" aria-hidden="true" width="24" height="24" class="icon sp-left">,
+macOS<img src="/static/img/icons/macos.svg" alt="" aria-hidden="true" width="24" height="24" class="icon sp-left"> and
+iOS<img src="/static/img/icons/ios.svg" alt="" aria-hidden="true" width="24" height="24" class="icon sp-left">.
 
 It is not currently available for Linux (or Steam Deck), for example.
 
