@@ -9,7 +9,7 @@
             {{#each globals.screenshots}}
             <div class="mySlides fade">
                 <img src="/static/img/screenshots/{{filename}}" alt="screenshot of {{description}}" onclick="plusSlides(1)"
-                    {{#if @index}} loading="lazy" {{/if}}>
+                    {{#if @first}} fetchpriority="high" {{else}} loading="lazy" {{/if}}>
                 <div class="text">{{description}}</div>
             </div>
             {{/each}}
