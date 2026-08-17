@@ -143,4 +143,12 @@ Inside the "actions": [ ... ] array, add the following entry:
 }
 ```
 
+## Enabling validation layers globally (useful for libretro testing, etc)
+
+Environment variable: VK_INSTANCE_LAYERS = VK_LAYER_KHRONOS_validation
+
 Now, you can use this from Ctrl+Shift+P in Terminal. Adjust paths as needed.
+
+## Libretro build behaving weird
+
+If you built the libretro build for Windows using the msys2 path, you didn't have header dependency tracking. So if you change any header, you need to do a `make clean` before you go again.
