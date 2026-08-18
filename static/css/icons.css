@@ -40,7 +40,8 @@ i.icon-ui {
     mask-repeat: no-repeat;
 }
 
-a:hover i.icon-ui {
+a:hover i.icon-ui,
+button:hover i.icon-ui {
    background-color: var(--color-a-hover);
 }
 

@@ -3,7 +3,6 @@
     display: flex;
     position: relative;
     aspect-ratio: 1920 / 1088;
-    margin-bottom: 30px;
 }
 
 .slideshow-container img {
@@ -14,6 +13,14 @@
 /* Hide the images by default */
 .slideshow-container .mySlides {
     display: none;
+}
+
+.invisible-button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
 }
 
 /* Next & previous buttons */
@@ -29,6 +36,8 @@
     font-weight: bold;
     font-size: 18px;
     transition: 0.2s ease;
+    background: transparent;
+    border: 0;
     border-radius: 0 3px 3px 0;
     user-select: none;
 }
@@ -46,7 +55,7 @@
 }
 
 /* Caption text */
-.slideshow-container .text {
+.slideshow-container .slide-text {
     color: #f2f2f2;
     background-color: rgba(0, 0, 0, 0.5);
     font-size: 15px;
@@ -58,33 +67,55 @@
 }
 
 /* Number text (1/3 etc) */
-.slideshow-container .numbertext {
+.slideshow-container .slide-numbers {
     color: #f2f2f2;
     font-size: 12px;
     padding: 8px 12px;
     position: absolute;
-    top: 0;
+    bottom: 16px;
+    right: 0;
 }
 
-/* The dots/bullets/indicators */
+/* The quick navigation dots/bullets */
+.slideshow-quicknav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
 .slideshow-dot {
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
+    height: 18px;
+    width: 18px;
+    margin: 0.5ch;
     background-color: #bbb;
+    border: none;
     border-radius: 50%;
     display: inline-block;
     transition: background-color 0.2s ease;
+    cursor: pointer;
 }
 
 .slideshow-dot:hover {
     background-color: var(--color-primary);
-    cursor: pointer;
 }
 
 .slideshow-dot.active {
     background-color: #717171;
-    margin-bottom: 2px;
+    transform: translateY(-2px);
+}
+
+@media (pointer: coarse) {
+    /* Extra size for touchscreen */
+    .slideshow-dot {
+        height: 24px;
+        width: 24px;
+        margin: 1ch;
+    }
 }
 
 /* Fading animation */

@@ -1,3 +1,4 @@
+/* Top navigation bar container */
 .top-nav-logo {
     font-weight: bold;
 }
@@ -32,6 +33,19 @@
     color: var(--color-a-hover);
 }
 
+.top-nav button {
+    color: var(--color-gray-0);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.top-nav button:hover {
+    color: var(--color-a-hover);
+    text-decoration: underline;
+}
+
+/* Menu items of top navigation bar */
 .menu {
     display: flex;
     flex-direction: row;
@@ -52,28 +66,20 @@
     border-bottom: 3px solid var(--color-primary);
 }
 
-.menu>li .switch-theme:hover {
-    color: var(--color-primary);
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-.menu>li .switch-theme:hover i.icon-ui {
-    background-color: var(--color-a-hover);
-}
-
 .menu>li.external {
     /* Hide external list items */
     display: none;
 }
 
 @media (min-width: 850px) {
+    /* Only show external list items if screen is wide */
     .menu>li.external {
         display: flex;
     }
 }
 
-.menu-button-container {
+/* Hamburger menu toggle button */
+.menu-button {
     display: none;
     height: 100%;
     width: 30px;
@@ -86,13 +92,10 @@
     margin-left: -12px;
 }
 
-#menu-toggle {
-    display: none;
-}
-
-.menu-button,
-.menu-button::before,
-.menu-button::after {
+/* Draw the hamburger icon using CSS and pseudo-elements */
+.menu-icon,
+.menu-icon::before,
+.menu-icon::after {
     display: block;
     background-color: var(--color-gray-0);
     position: absolute;
@@ -103,63 +106,41 @@
     pointer-events: none;
 }
 
-.menu-button::before {
+.menu-icon::before {
     content: '';
     margin-top: -8px;
 }
 
-.menu-button::after {
+.menu-icon::after {
     content: '';
     margin-top: 8px;
 }
 
-#loginCorner {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.menu-button:hover .menu-icon,
+.menu-button:hover .menu-icon::before,
+.menu-button:hover .menu-icon::after {
+   background-color: var(--color-a-hover);
 }
 
+/* Login item of top navigation bar */
 #loginCorner i.icon-ui {
     font-size: 24px;
 }
 
+/* Narrow screens */
 @media (max-width: 699px) {
     /* Hide the login corner */
     #loginCorner {
         display: none;
     }
 
-    .menu-button-container {
+    /* Show the hamburger button */
+    .menu-button {
         display: flex;
     }
 
+    /* Hide the menu items */
     .menu {
-        z-index: 289;
-        position: absolute;
-        top: 0;
-        margin-top: 50px;
-        left: 0;
-        flex-direction: column;
-        width: 100%;
-        justify-content: left;
-        align-items: top;
-    }
-
-    .menu>li {
         display: none;
-        text-align: left;
-        margin: 0;
-        padding: 0.5em 0;
-        width: 100%;
-        color: white;
-        background-color: #222;
-    }
-
-    .menu>li a {
-        display: block;
-    }
-
-    .menu>li:not(:last-child) {
-        border-bottom: 1px solid #444;
     }
 }
