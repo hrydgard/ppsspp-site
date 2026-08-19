@@ -19,7 +19,12 @@ On old-school, fixed-function hardware such as that of the PSP, where you can’
 
 Let's start by looking at the wrong result - the way it was in PPSSPP before I started investigating the effect:
 
-<video src="/static/img/blog/burnout-dominator-lens-flare/wrongly-occluded-small.mp4" preload="metadata" width="100%" controls></video>
+<video preload="metadata" controls playsinline>
+    <source src="/static/img/blog/burnout-dominator-lens-flare/wrongly-occluded-small.mp4" type="video/mp4">
+    <p>Your browser does not support HTML video.
+        Here is a direct <a href="/static/img/blog/burnout-dominator-lens-flare/wrongly-occluded-small.mp4" download>link to the video</a> instead.
+    </p>
+</video>
 
 As you can see, the lens flare effect is visible going into the tunnel, and through various trees and stuff.
 
@@ -80,6 +85,11 @@ Finally, we have:
 
 And a video:
 
-<video src="/static/img/blog/burnout-dominator-lens-flare/correctly-occluded-small.mp4" preload="metadata" width="100%" controls></video>
+<video preload="metadata" controls playsinline>
+    <source src="/static/img/blog/burnout-dominator-lens-flare/correctly-occluded-small.mp4" type="video/mp4">
+    <p>Your browser does not support HTML video.
+        Here is a direct <a href="/static/img/blog/burnout-dominator-lens-flare/correctly-occluded-small.mp4" download>link to the video</a> instead.
+    </p>
+</video>
 
 Phew! Getting this to work in PPSSPP was.. not trivial. I could write a whole other article about the improvements that needed to be done to the rendering pipeline so that all of the tricky steps above would actually work correctly.
