@@ -7,11 +7,13 @@ The Xross Media Bar, or "Visual Shell (VSH)" is the PSP's main UI.
   Your browser does not support the video tag.
 </video>
 
-Historically we have not bothered to implement support for it, because it does require quite a lof of funcionality that games do not need, and it's actually almost completely useless. But for some people it might be really nostalgic to just run it and navigate around in the menu a bit! So here we are - from version 1.21, PPSSPP will support running the VSH, in certain configuration.
+Historically we have not bothered to implement support for it, because it does require quite a lof of funcionality that games do not need, and it's actually almost completely useless. But for some people it might be really nostalgic to just run it and navigate around in the menu a bit! So here we are - from version 1.21, PPSSPP will support running the VSH, in certain configurations.
 
-## Getting and installing the files
+<div class="alert alert-warning">This functionality will be available in PPSSPP 1.21, which is NOT out yet!</div>
 
-To get the required files the 100% legal way, you'll need a physical PSP with custom firmware installed.
+## Getting and installing the required files
+
+To get the required files the most reliable way, you'll need a physical PSP with custom firmware installed.
 
 1. Get a PSP firmware update somewhere (it's available inside many game ISO files). Rename it to EBOOT.PBP and put it in the root of your PSP's memory stick.
 
