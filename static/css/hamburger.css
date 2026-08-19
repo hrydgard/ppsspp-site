@@ -1,3 +1,4 @@
+/* Hamburger menu container */
 .burger-sidebar {
     background-color: var(--color-gray-900);
     display: block;
@@ -17,44 +18,41 @@
     margin-right: 1ch;
 }
 
+/* Hamburger menu items */
 .burger-menu {
     list-style: none;
-    padding-left: 0px;
+    padding: 0;
 }
 
 .burger-menu>li {
     border-bottom: 2px solid var(--color-gray-800);
     padding: 0px;
     font-size: 14pt;
-    /*text-align: center;*/
 }
 
 .burger-menu>li:hover {
     background-color: var(--color-gray-700);
 }
 
-.burger-menu>li a {
-    padding: 11px;
-    display: block;
-    color: var(--color-text);
-}
-
-.burger-menu>li a:hover i.icon-ui {
+.burger-menu>li:hover i.icon-ui {
     background-color: var(--color-text);
 }
 
-.burger-menu>li .switch-theme {
+.burger-menu>li a,
+.burger-menu>li button {
+    display: block;
+    text-align: left;
     padding: 11px;
+    color: var(--color-text);
 }
 
-.burger-menu>li .switch-theme:hover {
-    text-decoration: underline;
+.burger-menu>li button {
+    width: 100%;
+    background: transparent;
+    border: none;
     cursor: pointer;
 }
 
-.burger-menu>li #loginItem a,
-.burger-menu>li .switch-theme {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.burger-menu>li button:hover {
+    text-decoration: underline;
 }

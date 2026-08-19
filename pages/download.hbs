@@ -20,17 +20,17 @@
                             {{ /if}}
                             <h2>{{ title }}</h2>
                         </div>
+
                         <div class="card-contents">
                             {{ #each downloads }}
-
                                 {{ #unless old_build_only }}
                                     <div {{ #if gold_only }} class="gold-only" {{ /if }}>
                                         {{ #if title }}
                                         <h3>{{ title }}</h3>
                                         {{ /if }}
 
-                                        <a class="download-button button-block {{#if gold}}button-gold{{/if}}" {{#if url
-                                            }}href="{{url}}" {{ /if }} {{ #if download_url }}href="{{download_url}}" {{ /if }}>
+                                        <a class="download-button button-block {{#if gold}}button-gold{{/if}}" {{#if url}}
+                                            href="{{url}}" {{ /if }} {{ #if download_url }}href="{{download_url}}" {{ /if }}>
                                             <div class="button-contents">
                                                 {{ #if icon }}
                                                 <img src="/static/img/platform/{{icon}}" alt="" aria-hidden="true" width="32" height="32" class="icon">
@@ -46,10 +46,8 @@
                                         {{ #if whats_this_url }}
                                         <a href="{{whats_this_url}}">{{whats_this}}</a><br>
                                         {{ /if }}
-
                                     </div>
                                 {{ /unless }}
-
                             {{ /each }}
                         </div>
                     </article>
@@ -85,8 +83,8 @@
 
     <section aria-labelledby="oldbuilds">
         <h2 id="oldbuilds">Previous releases</h2>
-        <button class="collapsible">Show downloads of previous releases</button>
-        <div class="collapsible-content">
+        <details>
+            <summary class="collapsible">Show downloads of previous releases</summary>
             <table class="nice-table">
                 <thead>
                     <tr>
@@ -99,23 +97,24 @@
                     <tr>
                         <td>{{version}}</td>
                         <td>
-                            {{ #each downloads }}
-                            <span {{ #if gold_only }} class="gold-only-inline" {{ /if }}>
-                                {{ #if icon }}
-                                <img src="/static/img/icons/{{icon}}" alt="" aria-hidden="true" width="24" height="24" class="icon sp-left sp-right">
-                                {{ /if }}
-                                {{ #if short_name }}
-                                <a {{ #if gold_only }} class="download-link-gold" {{ else }} class="sp-left sp-right" {{ /if }}
-                                        href="{{download_url}}">{{short_name}}</a>
-                                {{ /if }}
-                            </span>
-                            {{ /each }}
+                            <div class="center-vertical">
+                                {{ #each downloads }}
+                                <span {{ #if gold_only }} class="gold-only-inline" {{ /if }}>
+                                    {{ #if icon }}{{!-- This has to look this ridiculous to avoid HTML whitespace rendering. --}}
+                                    <img src="/static/img/icons/{{icon}}" alt="" aria-hidden="true" width="24" height="24"
+                                            class="icon sp-left sp-right">{{ /if }}{{ #if short_name }}<a href="{{download_url}}"
+                                            {{ #if gold_only }} class="mini-button button-gold" {{ else }} class="sp-left sp-right"
+                                            {{ /if }}>{{short_name}}</a>
+                                    {{ /if }}
+                                </span>
+                                {{ /each }}
+                            </div>
                         </td>
                     </tr>
                     {{ /each }}
                 </tbody>
             </table>
-        </div>
+        </details>
     </section>
 
     <section aria-labelledby="devbuilds">

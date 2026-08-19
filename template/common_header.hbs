@@ -30,24 +30,27 @@
 
     <script src="/static/script/squirrelly.min.js" defer></script>
     <script src="/static/script/main.js" defer></script>
+
     {{#unless noAds}}
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3281131109267988"
         crossorigin="anonymous"></script>
     {{/unless}}
+
+    {{!-- Special behaviors. There's probably a better way. --}}
     <script>
-        // Special behaviors. There's probably a better way.
         var g_loginByKey = false;
         var g_thankYouPage = false;
         var g_downloadPage = false;
         var g_buildbotPage = false;
     </script>
+
     {{#if fastspring}}
-    <script id="fsc-api" src="https://d1f8f9xcsvx3ha.cloudfront.net/sbl/0.7.4/fastspring-builder.min.js" {{#if
-        globals.prod}} data-storefront="ppsspp.onfastspring.com/popup-gold" {{else}}
-        data-storefront="ppsspp.test.onfastspring.com/popup-gold" {{/if}} data-popup-closed="onFSPopupClosed"
-        data-error-callback="onFSError" data-debug=true>
-        </script>
+    <script id="fsc-api" src="https://d1f8f9xcsvx3ha.cloudfront.net/sbl/0.7.4/fastspring-builder.min.js"
+        {{#if globals.prod}} data-storefront="ppsspp.onfastspring.com/popup-gold"
+        {{else}} data-storefront="ppsspp.test.onfastspring.com/popup-gold" {{/if}}
+        data-popup-closed="onFSPopupClosed" data-error-callback="onFSError" data-debug=true></script>
     {{/if}}
+
     {{#if contains_code}}
     <script src="/static/script/highlight.min.js" defer></script>
     {{/if}}
@@ -57,14 +60,16 @@
     <div class="page-wrapper">
         <header role="banner">
             <nav role="navigation" aria-label="Desktop navigation" class="top-nav">
-                <div role="button" aria-label="Open mobile navigation" class='menu-button-container' id="burgerButton"
-                        onclick="burgerClick()" tabindex="0">
-                    <div class='menu-button'></div>
-                </div>
+                <button type="button" id="burgerButton" aria-label="Toggle mobile navigation" class="menu-button"
+                        onclick="burgerClick()">
+                    <div class="menu-icon"></div>
+                </button>
+
                 <div class="top-nav-logo">
                     <a href="/" class="center-vertical"><img id="navbarIcon" src="/static/img/platform/ppsspp-icon.png" alt="" aria-hidden="true"
                             width="32" height="32" class="icon">PPSSPP</a>
                 </div>
+
                 <ul class="menu">
                     {{#each top_nav}}
                     <li {{#if external}}class="external"{{/if}}>
@@ -72,15 +77,16 @@
                     </li>
                     {{/each}}
                     <li>
-                        <div class="switch-theme" onclick="switchTheme()">
-                            <i role="button" aria-label="Switch Theme" class="icon-ui icon-ui-moon"></i>
-                        </div>
+                        <button type="button" aria-label="Switch theme" onclick="switchTheme()">
+                            <i aria-hidden="true" class="icon-ui icon-ui-moon"></i>
+                        </button>
                     </li>
                 </ul>
-                <div id="loginCorner"><a href="/login">Login</a></div>
+
+                <div id="loginCorner" class="center-vertical"><a href="/login">Login</a></div>
             </nav>
 
-            <nav role="navigation" aria-label="Mobile navigation" class="burger-sidebar hidden" id="rootSidebar">
+            <nav role="navigation" id="rootSidebar" aria-label="Mobile navigation" class="burger-sidebar hidden">
                 {{!-- We repeat all the same stuff again, but add Login. Better than crazy CSS tricks... --}}
                 <ul class="burger-menu">
                     {{#each top_nav}}
@@ -90,8 +96,8 @@
                         <div id="loginItem"><a href="/login">Login</a></div>
                     </li>
                     <li>
-                        <div id="darkItem" class="switch-theme" onclick="switchTheme()">
-                            <i aria-hidden="true" class="icon-ui icon-ui-moon sp-right"></i>Switch Theme</div>
+                        <button role="button" onclick="switchTheme()">
+                            <i aria-hidden="true" class="icon-ui icon-ui-moon sp-right"></i>Switch Theme</button>
                     </li>
                 </ul>
             </nav>

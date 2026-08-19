@@ -8,23 +8,34 @@
             {{!-- Full-width images with number and caption text --}}
             {{#each globals.screenshots}}
             <div class="mySlides fade">
-                <img src="/static/img/screenshots/{{filename}}" alt="screenshot of {{description}}" onclick="plusSlides(1)"
-                    {{#if @first}} fetchpriority="high" {{else}} loading="lazy" {{/if}}>
-                <div class="text">{{description}}</div>
+                <button type="button" class="invisible-button" onclick="plusSlides(1)">
+                    <img src="/static/img/screenshots/{{filename}}" alt="screenshot of {{description}}"
+                            {{#if @first}} fetchpriority="high" {{else}} loading="lazy" {{/if}}>
+                </button>
+                <div class="slide-text">{{description}}</div>
+                {{!--<div class="slide-numbers">{{index}} / {{globals.screenshots.length}}</div>--}}
             </div>
             {{/each}}
 
             {{!-- Next and previous buttons --}}
-            <div role="button" class="prev" onclick="plusSlides(-1)">&#10094;</div>
-            <div role="button" class="next" onclick="plusSlides(1)">&#10095;</div>
+            <button type="button" aria-label="Previous screenshot" class="prev" onclick="plusSlides(-1)">
+                <span aria-hidden="false">&#10094;</span>
+            </button>
+            <button type="button" aria-label="Next screenshot" class="next" onclick="plusSlides(1)">
+                <span aria-hidden="true">&#10095;</span>
+            </button>
         </div>
 
-        {{!-- The dots/circles --}}
-        <div class="center-text">
-            {{#each globals.screenshots}}
-            <span role="button" aria-label="Display screenshot {{index}}" class="slideshow-dot" onclick="currentSlide({{index}})"></span>
-            {{/each}}
-        </div>
+        {{!-- The quick navigation dots/circles --}}
+        <nav aria-label="Gallery pagination">
+            <ul class="slideshow-quicknav">
+                {{#each globals.screenshots}}
+                <li>
+                    <button type="button" aria-label="Display screenshot {{index}}" class="slideshow-dot" onclick="currentSlide({{index}})"></button>
+                </li>
+                {{/each}}
+            </ul>
+        </nav>
     </section>
 
     <section aria-labelledby="videos">

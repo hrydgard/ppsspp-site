@@ -254,7 +254,7 @@ const tmplPlayCodes = `
 const tmplLoginCorner = `
 <a href='/login' class="center-vertical"
 {{@if(it.loggedIn)}}
-aria-label="Profile"><i class="icon-ui icon-ui-user"></i></a>
+aria-label="Account"><i class="icon-ui icon-ui-user"></i></a>
 {{#else}}
 >Login</a>
 {{/if}}
@@ -948,25 +948,6 @@ async function loadAllBuilds() {
     }
 }
 
-function setupCollapsibles() {
-    // UI utilities
-    // See the collapsible css styles in ui.css.
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
-    for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function () {
-            console.log("collapse");
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.display === "block") {
-                content.style.display = "none";
-            } else {
-                content.style.display = "block";
-            }
-        });
-    }
-}
-
 async function checkStillLoggedIn() {
     try {
         // 2. Use 'await' to wait for the fetch request to complete
@@ -1002,7 +983,7 @@ async function checkStillLoggedIn() {
 function onLoadPage() {
     loadCredentials();
     applyDOMVisibility();
-    setupCollapsibles();
+
     if (g_thankYouPage) {
         window.setTimeout(pollPurchase, g_pollInterval);
     }
@@ -1023,16 +1004,6 @@ function onLoadPage() {
     if (typeof hljs !== 'undefined') {
         console.log("highlighting");
         hljs.highlightAll();
-    }
-
-    // Make the burger button keyboard accessible
-    var toggleButton = document.getElementById('burgerButton');
-    if (toggleButton) {
-        toggleButton.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
-                burgerClick();
-            }
-        });
     }
 
     // Close the content when clicking outside the div
