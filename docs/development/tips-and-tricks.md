@@ -31,6 +31,12 @@ When bisecting, it can be really annoying to have to manually sync the submodule
 
 To automate this, use: `git config --global submodule.recurse true` before the bisect, but do turn it off afterwards - it can be quite annoying since it replicates even commands like `git fetch` to every submodule.
 
+## LLM-driven development
+
+Tell your agent to read AGENTS.md.
+
+Note the [AI policy](docs/development/ai-policy) - if you make pull requests, you need to mention what AI you used, if any.
+
 ## Better ADB logs
 
 Use the following very long command line to cleanly filter out PPSSPP-relevant logs:
