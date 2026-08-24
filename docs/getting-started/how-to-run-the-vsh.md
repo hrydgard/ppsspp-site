@@ -19,7 +19,7 @@ First, you need a PSP update. You can download 6.61 directly from Sony [here](ht
 
 Next, just open the update in PPSSPP, which will offer to install it for you. Let it.
 
-Then, go to settings/tools/developer tools and change CPU Core to Interpreter (remember to change it back once you want to play games!).
+You no longer have to switch to the Interpreter if you are using a build newer than `v1.20.4-1365`. However, the IR Interpreter will not work and the IR Jit is untested. Interpreter and JIT work.
 
 ## Running it
 
