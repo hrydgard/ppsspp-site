@@ -16,31 +16,18 @@ So here we are &ndash; from version 1.21, PPSSPP will support running the VSH, i
 
 <div class="alert alert-warning">This functionality will be available in PPSSPP 1.21, which is NOT out yet!</div>
 
+You can also download the latest [development build](/devbuilds), which does include this functionality.
+
 ## Getting and installing the required files
 
-To get the required files the most reliable way, you'll need a physical PSP with custom firmware installed.
+First, you need a PSP update. You can download 6.61 directly from Sony [here](http://du01.psp.update.playstation.org/update/psp/image/us/2014_1212_6be8878f475ac5b1a499b95ab2f7d301/EBOOT.PBP).
 
-1. Get a PSP firmware update somewhere (it's available inside many game ISO files).
-   Rename it to `EBOOT.PBP` and put it in the root of your PSP's Memory Stick.
+Next, just open the update in PPSSPP, which will offer to install it for you. Let it.
 
-1. Get the app **psardumper** and run it on your PSP the usual way (put it in `PSP/GAME` on the Memory Stick).
-
-1. When the app is running, press the square button.
-   It will decrypt the firmware and put it in a folder called `F0`.
-
-1. Put the contents of the folder either directly in `assets/flash0` if on desktop
-   (it will ask you to overwrite some font files &ndash; let it), or if on mobile, put the files in in `ms:/PSP/SYSTEM/flash0`.
-   You'll recognize the files by there being a `reboot.bin` and a bunch of variants of it, and a few folders: `codepage`, `data`, `dic`, `font`, `kd`, and `vsh`.
-   There might also be a `PSARDUMPER` folder inside, which will contain a bunch of files that we do not yet need.
+You no longer have to switch to the Interpreter if you are using a build newer than `v1.20.4-1365`. However, the IR Interpreter will not work and the IR Jit is untested. Interpreter and JIT work.
 
 ## Running it
 
-1. Start up PPSSPP, and on Windows, choose `File -> Load the VSH` from the menubar.
-   On other platforms you currently need to navigate to `ms:/flash0/vsh/module/vshmain.prx` and run that (this will be made easier).
+1. On Windows, choose "Load the VSH" from the file menu. On other platforms you currently need to navigate to PSP/NAND/flash0/vsh/module/vshmain.prx and run that (this will be made easier).
 
-1. Enjoy playing around! NOTE: None of this will work on PPSSPP versions before 1.21, except late development builds before it (not yet released).
-
-## Future
-
-There might be more ways to install this later &ndash; ideally we'll be able to just unpack a firmware update file directly.
-In that case all you'll need is a PSP game with an update on board.
+1. Enjoy playing around! NOTE: None of this will work on PPSSPP versions before 1.21, except late development builds before it.

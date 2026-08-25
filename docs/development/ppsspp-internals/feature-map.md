@@ -57,6 +57,12 @@ Needs the PSP-290 GPS USB attachment.
 - MapThis! (homebrew)
 - Maplus Portable GPS
 
+## OS features
+
+### Multiple modules
+
+- Actually, (almost) every game that uses scePsmf since that's now loaded as a real module
+
 ## Audio features
 
 ### VAudio, sceVaudioSetAlcMode
@@ -168,6 +174,11 @@ This is a mistake that a few games have made - the PSP has hardware to swizzle d
 ### Zipped PRX
 
 - Fired Up
+
+### sceFont
+
+- Jeanne D'Arc
+- Many, many others
 
 ### Persistent render targets
 
