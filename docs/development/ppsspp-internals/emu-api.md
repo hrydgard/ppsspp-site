@@ -27,7 +27,7 @@ If you want to see exactly how it's implemented, or need to work with the raw pr
 | `ppsspp_send_output(const char *data, int len)` | - | Sends a block of text straight to PPSSPP's debug/log output, without going through a real file. |
 | `ppsspp_send_output_str(const char *str)` | - | Same, for a NUL-terminated string. |
 | `ppsspp_verify_state()` | - | Asks PPSSPP to do an internal savestate round-trip as a consistency check (asynchronous, result only logged on the PPSSPP side). Mainly useful when testing the emulator itself. |
-| `ppsspp_emit_screenshot()` | - | Delivers the current framebuffer through PPSSPP's internal debug-screenshot hook, used by the pspautotests/frametest infrastructure. Doesn't write a file to the memory stick - not a general screenshot feature. |
+| `ppsspp_emit_screenshot()` | - | Delivers the current framebuffer through PPSSPP's internal debug-screenshot hook, used by the pspautotests/frametest infrastructure. Doesn't write a file to the Memory Stick &ndash; not a general screenshot feature. |
 | `ppsspp_toggle_fastforward(int enable)` | - | Turns PPSSPP's fast-forward mode on or off. |
 | `ppsspp_get_aspect_ratio()` | `float` | Current display aspect ratio. Only correct in landscape orientation right now. |
 | `ppsspp_get_scale()` | `float` | Current display scale factor. Only correct in landscape orientation right now. |

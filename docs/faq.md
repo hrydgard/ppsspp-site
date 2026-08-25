@@ -133,9 +133,9 @@ Disabling save state backups will make save/load faster, but also disables save/
 
 <a name="memstick"></a>
 
-## Where is the memory stick folder with my save data?
+## Where is the Memory Stick folder with my save data?
 
-The real PSP stored save data on a memory stick, similar to today's SD cards. PPSSPP simulates the memory stick with a folder. Inside, you'll find a PSP directory, and within there's SAVEDATA (for real PSP saves) and PPSSPP_STATE (save states), for example.
+The real PSP stored save data on a Memory Stick, similar to today's SD cards. PPSSPP simulates the Memory Stick with a folder. Inside, you'll find a PSP directory, and within there's SAVEDATA (for real PSP saves) and PPSSPP_STATE (save states), for example.
 
 If you have PPSSPP 1.12 or later and are on desktop, you can open it directly from within the emulator. Just go to Settings/System and choose Open Memstick Folder.
 
