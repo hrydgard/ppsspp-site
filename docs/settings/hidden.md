@@ -7,7 +7,7 @@ These are little-used settings that have not seemed worth creating specific UI f
 
 You can manually edit `PSP/SYSTEM/ppsspp.ini` in your memstick directory to set these.
 
-To find the location of your memory stick on your device, navigate to <b class="inapp">Settings -> System -> PSP Memory Stick -> Show Memory Stick folder</b>.
+To find the location of your Memory Stick on your device, navigate to <b class="inapp">Settings -> System -> PSP Memory Stick -> Show Memory Stick folder</b>.
 
 Nice copy-paste-able lines below:
 

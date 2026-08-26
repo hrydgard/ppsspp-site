@@ -267,6 +267,9 @@ form button:hover {
 .video {
     aspect-ratio: 16 / 9;
     width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 5px;
 }
 
 .forgot-password {
@@ -274,23 +277,23 @@ form button:hover {
 }
 
 code {
-  /* These values work well for both inline code and blocks.
-   Highlight script changes them for code blocks where necessary.
-   */
-  font-family: monospace;
-  font-size: 95%;
-  display: inline-block;
-  border-radius: 6px;
-  padding: .2em .4em;
-  margin: 0;
-  background-color: var(--color-gray-800);
-  word-break: break-word;
-  text-align: left;
+    /* These values work well for both inline code and blocks.
+    Highlight script changes them for code blocks where necessary.
+    */
+    font-family: monospace;
+    font-size: 95%;
+    display: inline-block;
+    border-radius: 6px;
+    padding: .2em .4em;
+    margin: 0;
+    background-color: var(--color-gray-800);
+    word-break: break-word;
+    text-align: left;
 }
 
 .inapp {
-  display: inline-block;
-  font-family: Roboto, DroidSans, sans-serif;
-  font-size: 110%;
-  font-weight: bold;
+    display: inline-block;
+    font-family: Roboto, DroidSans, sans-serif;
+    font-size: 110%;
+    font-weight: bold;
 }

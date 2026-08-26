@@ -1,12 +1,12 @@
 # Custom background music
 
-On the PSP, some games have support for playing audio files that you put on the memory stick as background music, replacing the default music that comes with the games.
+On the PSP, some games have support for playing audio files that you put on the Memory Stick as background music, replacing the default music that comes with the games.
 
 Usually they require putting the music in a specific folder and then enabling the feature through the in-game sound options menu.
 
-To find the location of your memory stick on your device, navigate to <b class="inapp">Settings -> System -> PSP Memory Stick -> Show Memory Stick folder</b>.
+To find the location of your Memory Stick on your device, navigate to <b class="inapp">Settings -> System -> PSP Memory Stick -> Show Memory Stick folder</b>.
 
-<div class="alert alert-warning">Several games require you to put the music into <code>ms:/MUSIC</code> at the root of the memory stick.
+<div class="alert alert-warning">Several games require you to put the music into <code>ms:/MUSIC</code> at the root of the Memory Stick.
     Unfortunately this can't be done on Android if your device uses scoped storage and your memstick folder is named exactly <code>PSP</code>, because then <code>PSP</code> is the actual root.
     In the future, this will be possible by creating a <code>ROOT</code> folder in the <code>PSP</code> folder to simulate this.
 </div>
@@ -405,10 +405,10 @@ The game also allows you to record new sounds using the microphone when creating
     Until <a href="https://github.com/hrydgard/ppsspp/issues/19528">issue #19528</a> is resolved, this feature shouldn't be used.
 </div>
 
-You can also export your loops onto the memory stick in `.MID` format (with limitations).
+You can also export your loops onto the Memory Stick in `.MID` format (with limitations).
 
 The game also allows you to import `.MID` files (with limitations) as songs to play or edit.
 
-You can also export your songs onto the memory stick in `.WAV` and (with limitations) in `.MID` formats.
+You can also export your songs onto the Memory Stick in `.WAV` and (with limitations) in `.MID` formats.
 
 All exported sound and music files are written into the `ms:/MUSIC/BEATERATOR` folder.

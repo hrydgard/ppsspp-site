@@ -8,7 +8,7 @@ These will in the future be available to download and activate directly from the
 
 ## Installing a plugin
 
-Copy it to PSP/PLUGINS in your memory stick directory.
+Copy it into `PSP/PLUGINS` in your Memory Stick directory.
 
 ## Save States
 
