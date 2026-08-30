@@ -21,4 +21,4 @@ It's a bit of a hassle, but if you want to use modern C++ features and use a mod
 
 However, don't forget the extra steps you have to do to get psplink going: https://pspdev.github.io/psplink/windows.html
 
-A step is missing, too: `winget install --interactive --exact dorssel.usbipd-win`.
+A step is missing,: `winget install --interactive --exact dorssel.usbipd-win`.

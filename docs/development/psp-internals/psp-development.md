@@ -13,6 +13,14 @@ These compiler flags will catch almost all accidental use of doubles:
    -Wfloat-conversion
 ```
 
+## Interpreting PSPLink errors
+
+0x800200D9 - out of memory. Restart PSPLink.
+
+## Debugging and profiling
+
+https://pspdev.github.io/debugging.html
+
 ## Cache matters!
 
 When you write things to memory that will later be read by the GPU, you need to make sure that it doesn't just end up in the CPU cache, not written out to memory in time.
@@ -29,8 +37,8 @@ sceKernelDcacheWritebackInvalidateRange((void *)data, (unsigned int)size);
 
 ### Organize your data in a PSP-friendly way
 
-* Use native vertex formats of the PSP GPU.
-* Use triangle strips. If you are writing raw display lists, there's a trick to draw multiple triangle strips very cheaply: Just write PRIM commands, one after another, without re-specifying the vertex buffer pointer - it gets auto-incremented! You can do this with indexed draws too (in which case it's the index pointer that increments appropriately), but be aware that when you use indexing, the PSP GPU has a performance penalty.
+* Use native vertex formats of the PSP GPU - no runtime conversion.
+* Use triangle strips exclusively for heavy geometry. If you are writing raw display lists, there's a trick to draw multiple triangle strips very cheaply: Just write PRIM commands, one after another, without re-specifying the vertex buffer pointer - it gets auto-incremented! You can do this with indexed draws too (in which case it's the index pointer that increments appropriately), but be aware that when you use indexing, the PSP GPU has a performance penalty. NOTE: You can precompile this list of PRIM and call it from your main display list.
 * Textures can be read directly from main memory with good performance. Do not stream like on the PS2. If you draw a lot with one single texture it may be worth putting it in VRAM (though I am not really sure about that).
 
 ### Draw in a PSP-friendly way
