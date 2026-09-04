@@ -11,6 +11,7 @@
 }
   */
 
+/* Basic elements */
 html,
 body {
   font-family: DroidSans, sans-serif;
@@ -20,10 +21,6 @@ body {
   box-sizing: border-box;
   color: var(--color-text);
   background-color: var(--color-contents-background);
-}
-
-a {
-  text-decoration: none;
 }
 
 p,
@@ -60,7 +57,8 @@ h4 { font-size: 14pt; }
 .small-headers h4 { font-size: 13pt; }
 
 a {
-  color: var(--color-primary);
+  text-decoration: none;
+  color: var(--color-a);
 }
 
 a:hover {
@@ -127,7 +125,8 @@ footer a:hover {
 }
 
 footer h2 {
-  font-size: 14pt;
+  text-transform: uppercase;
+  font-size: 12pt;
   padding-bottom: 12px;
 }
 
@@ -136,12 +135,12 @@ footer h2 {
 }
 
 .footer-bottom-text a {
-  color: var(--color-primary);
+  color: var(--color-a);
 }
 
 footer {
   flex-grow: 0;
   flex-shrink: 0;
-  background-color: var(--color-header-footer);
+  background-color: var(--color-header-footer-background);
   color: var(--color-text)
 }

@@ -26,7 +26,7 @@
     background-color: var(--button-background-color);
     border: var(--button-border-width) solid var(--button-border-color);
     border-radius: var(--button-border-radius);
-    color: var(--color-text-inverse);
+    color: var(--button-color);
     cursor: pointer;
     font-size: calc(.875rem*var(--button-size-multiplier));
     font-weight: var(--button-font-weight);
@@ -53,7 +53,7 @@
     background-color: var(--button-background-color);
     border: var(--button-border-width) solid var(--button-border-color);
     border-radius: var(--button-border-radius);
-    color: var(--color-text-inverse);
+    color: var(--button-color);
     font-weight: var(--button-font-weight);
     padding: 4px;
     margin: 0 0.5ch;
@@ -63,58 +63,70 @@
 
 .download-button.button-gold,
 .mini-button.button-gold {
-    background-color: var(--color-gold);
-    border-color: var(--color-gold-border);
+    background-color: var(--gold-background-color);
+    border-color: var(--gold-border-color);
+    color: var(--gold-color);
 }
 
 .download-button:hover,
 .mini-button:hover {
-    color: var(--color-text-inverse);
+    color: var(--button-color);
     background-color: var(--button-background-color-hover);
     text-decoration: none;
 }
 
 .download-button.button-gold:hover,
 .mini-button.button-gold:hover {
-    background-color: var(--color-gold-hover);
-    border-color: var(--color-gold-border-hover);
+    background-color: var(--gold-background-color-hover);
+    border-color: var(--gold-border-color-hover);
+    color: var(--gold-color);
 }
 
-/* Notification boxes */
+/* Alert / notification boxes */
 .alert {
     display: block;
     box-shadow: 0 3px 5px var(--shadow-color);
-    border-radius: 5px;
+    border-radius: var(--default-border-radius);
     border-left-style: solid;
     border-width: 5px;
     padding: 14px;
     margin: 12px 0px;
-    color: #fff;
-    /* on both dark and light modes */
+    background-color: #00000040;
+    color: var(--alert-color);
 }
 
 .alert.alert-warning {
-    background-color: var(--color-warning-darkest);
-    border-color: var(--color-warning);
+    background-color: var(--alert-warning-background-color);
+    border-color: var(--alert-warning-border-color);
 }
 
 .alert.alert-error {
-    background-color: var(--color-danger-darkest);
-    border-color: var(--color-danger);
+    background-color: var(--alert-error-background-color);
+    border-color: var(--alert-error-border-color);
 }
 
 .alert.alert-success {
-    background-color: var(--color-success-darkest);
-    border-color: var(--color-success);
+    background-color: var(--alert-success-background-color);
+    border-color: var(--alert-success-border-color);
 }
 
 .alert.alert-info {
-    background-color: var(--color-primary-darkest);
-    border-color: var(--color-primary);
+    background-color: var(--alert-info-background-color);
+    border-color: var(--alert-info-border-color);
+}
+
+.alert.alert-gold {
+    background-color: var(--gold-background-color-hover);
+    border-color: var(--gold-border-color);
+    color: var(--gold-color);
 }
 
 .alert.alert-hidden {
     display: none;
+}
+
+.alert a {
+    font-weight: var(--button-font-weight);
 }
 
 /* Collapsible button */
@@ -123,8 +135,8 @@ summary {
 }
 
 .collapsible {
-    background-color: var(--color-primary);
-    color: var(--color-text-inverse);
+    background-color: var(--button-background-color);
+    color: var(--button-color);
     cursor: pointer;
     padding: 18px;
     width: 100%;
@@ -136,9 +148,13 @@ summary {
     user-select: none;
 }
 
+.collapsible:hover {
+    background-color: var(--button-background-color-hover);
+}
+
 details[open] .collapsible {
-    color: white;
-    background-color: #555;
+    color: var(--button-color-active);
+    background-color: var(--button-background-color-active);
 }
 
 /* Formatted table */
@@ -220,8 +236,8 @@ form input {
     width: 100%;
     margin: 3px 0px 13px 0px;
     height: 35px;
-    border: solid 2px var(--color-gray-600);
-    background-color: var(--color-gray-900);
+    border: solid 2px var(--default-border-color);
+    background-color: var(--color-contents-background);
     color: var(--color-text);
 }
 
@@ -232,8 +248,8 @@ form label {
 
 form textarea {
     width: 100%;
-    border: solid 2px var(--color-gray-600);
-    background-color: var(--color-gray-900);
+    border: solid 2px var(--default-border-color);
+    background-color: var(--color-contents-background);
     color: var(--color-text);
 }
 
@@ -242,7 +258,7 @@ form button {
     background-color: var(--button-background-color);
     border: var(--button-border-width) solid var(--button-border-color);
     border-radius: var(--button-border-radius);
-    color: var(--color-text-inverse);
+    color: var(--button-color);
     cursor: pointer;
     font-size: calc(.875rem*var(--button-size-multiplier));
     font-weight: var(--button-font-weight);
@@ -258,7 +274,7 @@ form button {
 }
 
 form button:hover {
-    color: var(--color-text-inverse);
+    color: var(--button-color);
     background-color: var(--button-background-color-hover);
     text-decoration: none;
 }
@@ -269,7 +285,7 @@ form button:hover {
     width: 100%;
     height: auto;
     object-fit: contain;
-    border-radius: 5px;
+    border-radius: var(--default-border-radius);
 }
 
 .forgot-password {
@@ -277,18 +293,19 @@ form button:hover {
 }
 
 code {
-    /* These values work well for both inline code and blocks.
-    Highlight script changes them for code blocks where necessary.
-    */
-    font-family: monospace;
-    font-size: 95%;
-    display: inline-block;
-    border-radius: 6px;
-    padding: .2em .4em;
-    margin: 0;
-    background-color: var(--color-gray-800);
-    word-break: break-word;
-    text-align: left;
+  /* These values work well for both inline code and blocks.
+   Highlight script changes them for code blocks where necessary.
+   */
+  font-family: monospace;
+  font-size: 95%;
+  display: inline-block;
+  border-radius: 6px;
+  padding: .2em .4em;
+  margin: 0;
+  color: var(--color-text);
+  background-color: var(--background-surface-color);
+  word-break: break-word;
+  text-align: left;
 }
 
 .inapp {

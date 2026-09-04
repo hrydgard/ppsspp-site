@@ -1,11 +1,6 @@
-/* The colors are nabbed from infima (docusaurus) mainly. */
+/* Some of the colors are nabbed from Infima (Docusaurus). */
 
 html[data-theme='dark'] {
-    --default-border-radius: 5px;
-    --card-border-radius: 15px;
-
-    --doc-sidebar-width: 250px;
-
     --color-gray-0: #fff;
     --color-gray-100: #f5f6f7;
     --color-gray-200: #ebedf0;
@@ -18,16 +13,38 @@ html[data-theme='dark'] {
     --color-gray-900: #1c1e21;
     --color-gray-1000: #000;
 
+    --color-primary: #33b5e5;
+    --color-primary-dark: #2792b9;
+    --color-primary-darker: #1a627c;
+    --color-primary-darkest: #13475b;
+    --color-primary-light: #6dc9eb;
+    --color-primary-lighter: #ace9ff;
+    --color-primary-lightest: #c9f1ff;
+    --color-primary-contrast-background: #ebf2fc;
+    --color-primary-contrast-foreground: #102445;
+
+    --alert-success-background-color: var(--color-success-darkest);
+    --alert-success-border-color: var(--color-success);
+    --alert-success-a-color: var(--color-success);
+    --alert-info-background-color: var(--color-primary-darkest);
+    --alert-info-border-color: var(--color-primary);
+    --alert-warning-background-color: var(--color-warning-darkest);
+    --alert-warning-border-color: var(--color-warning);
+    --alert-error-background-color: var(--color-danger-darkest);
+    --alert-error-border-color: var(--color-danger);
+    --alert-color: var(--gray-1000);
+
+    --hero-background-color: #193858;
+    --hero-color: #fff;
+    --hero-light: #e9f1f1;
+
     --background-surface-color: var(--color-gray-800);
     --shadow-color: var(--color-gray-1000);
+    --dotnav-color: var(--color-gray-300);
+    --default-border-color: var(--color-gray-700);
 }
 
 html[data-theme='light'] {
-    --default-border-radius: 5px;
-    --card-border-radius: 15px;
-
-    --doc-sidebar-width: 250px;
-
     --color-gray-1000: #fff;
     --color-gray-900: #f5f6f7;
     --color-gray-800: #ebedf0;
@@ -40,97 +57,135 @@ html[data-theme='light'] {
     --color-gray-100: #1c1e21;
     --color-gray-0: #000;
 
+    --color-primary: #185cc2;
+    --color-primary-dark: #134897;
+    --color-primary-darker: #0d3167;
+    --color-primary-darkest: #09234a;
+    --color-primary-light: #4a8ae0;
+    --color-primary-lighter: #8cb4e8;
+    --color-primary-lightest: #b0ccf2;
+    --color-primary-contrast-background: #eef3fc;
+    --color-primary-contrast-foreground: #0a1c38;
+
+    --alert-success-background-color: var(--color-success-lightest);
+    --alert-success-border-color: var(--color-success);
+    --alert-success-a-color: var(--color-success-darkest);
+    --alert-info-background-color: var(--color-primary-lightest);
+    --alert-info-border-color: var(--color-primary);
+    --alert-warning-background-color: var(--color-warning-lightest);
+    --alert-warning-border-color: var(--color-warning);
+    --alert-error-background-color: var(--color-danger-lightest);
+    --alert-error-border-color: var(--color-danger);
+    --alert-color: var(--gray-1000);
+
+    --hero-background-color: #d0def2;
+    --hero-color: #000;
+    --hero-light: #52719c;
+
     --background-surface-color: var(--color-gray-700);
     --shadow-color: var(--color-gray-300);
+    --dotnav-color: var(--color-gray-400);
+    --default-border-color: var(--color-gray-600);
 }
 
 :root {
-    /* Shared colors */
-
-    --color-primary: #33b5e5;
+    /* Shared colors - alert / notification boxes */
+/*
     --color-secondary: #ebedf0;
+    --color-secondary-dark: #d4d5d8;
+    --color-secondary-darker: #c8c9cc;
+    --color-secondary-darkest: #a4a6a8;
+    --color-secondary-light: #eef0f2;
+    --color-secondary-lighter: #f1f2f5;
+    --color-secondary-lightest: #f5f6f8;
+    --color-secondary-contrast-background: #fdfdfe;
+    --color-secondary-contrast-foreground: #474748;
+*/
+
     --color-success: #00a400;
+    --color-success-dark: #009400;
+    --color-success-darker: #008b00;
+    --color-success-darkest: #015f01;
+    --color-success-light: #26b226;
+    --color-success-lighter: #4dbf4d;
+    --color-success-lightest: #80d280;
+    --color-success-contrast-background: #e6f6e6;
+    --color-success-contrast-foreground: #003100;
+
+/*
     --color-info: #54c7ec;
+    --color-info-dark: #4cb3d4;
+    --color-info-darker: #47a9c9;
+    --color-info-darkest: #3b8ba5;
+    --color-info-light: #6ecfef;
+    --color-info-lighter: #87d8f2;
+    --color-info-lightest: #aae3f6;
+    --color-info-contrast-background: #eef9fd;
+    --color-info-contrast-foreground: #193c47;
+*/
+
     --color-warning: #b78600;
+    --color-warning-dark: #dba100;
+    --color-warning-darker: #b98700;
+    --color-warning-darkest: #694d00;
+    --color-warning-light: #ffc426;
+    --color-warning-lighter: #ffcf4d;
+    --color-warning-lightest: #ffdd80;
+    --color-warning-contrast-background: #fff8e6;
+    --color-warning-contrast-foreground: #4d3800;
+
     --color-danger: #fa383e;
+    --color-danger-dark: #e13238;
+    --color-danger-darker: #d53035;
+    --color-danger-darkest: #8c1f22;
+    --color-danger-light: #fb565b;
+    --color-danger-lighter: #fb7478;
+    --color-danger-lightest: #fd9c9f;
+    --color-danger-contrast-background: #ffebec;
+    --color-danger-contrast-foreground: #4b1113;
 
-    --color-gold: #b48700;
-    --color-gold-hover: #efb400;
-    --color-gold-border: #ffc800;
-    --color-gold-border-hover: #fff5d0;
+    /* Shared colors - buttons */
+    --gold-background-color: #b48700;
+    --gold-background-color-hover: #efb400;
+    --gold-border-color: #ffc800;
+    --gold-border-color-hover: #fff5d0;
+    --gold-color: #000;
 
-    --color-primary-dark: #2792b9;
-    --color-primary-darker: #1a627c;
-    --color-primary-darkest: #13475b;
-    --color-primary-light: #6dc9eb;
-    --color-primary-lighter: #ace9ff;
-    --color-primary-lightest: #c9f1ff;
-    --color-primary-contrast-background: rgb(235, 242, 252);
-    --color-primary-contrast-foreground: rgb(16, 36, 69);
-    --color-secondary-dark: rgb(212, 213, 216);
-    --color-secondary-darker: rgb(200, 201, 204);
-    --color-secondary-darkest: rgb(164, 166, 168);
-    --color-secondary-light: rgb(238, 240, 242);
-    --color-secondary-lighter: rgb(241, 242, 245);
-    --color-secondary-lightest: rgb(245, 246, 248);
-    --color-secondary-contrast-background: rgb(253, 253, 254);
-    --color-secondary-contrast-foreground: rgb(71, 71, 72);
-    --color-success-dark: rgb(0, 148, 0);
-    --color-success-darker: rgb(0, 139, 0);
-    --color-success-darkest: rgb(1, 95, 1);
-    --color-success-light: rgb(38, 178, 38);
-    --color-success-lighter: rgb(77, 191, 77);
-    --color-success-lightest: rgb(128, 210, 128);
-    --color-success-contrast-background: rgb(230, 246, 230);
-    --color-success-contrast-foreground: rgb(0, 49, 0);
-    --color-info-dark: rgb(76, 179, 212);
-    --color-info-darker: rgb(71, 169, 201);
-    --color-info-darkest: rgb(59, 139, 165);
-    --color-info-light: rgb(110, 207, 239);
-    --color-info-lighter: rgb(135, 216, 242);
-    --color-info-lightest: rgb(170, 227, 246);
-    --color-info-contrast-background: rgb(238, 249, 253);
-    --color-info-contrast-foreground: rgb(25, 60, 71);
-    --color-warning-dark: rgb(219, 161, 0);
-    --color-warning-darker: rgb(185, 135, 0);
-    --color-warning-darkest: rgb(105, 77, 0);
-    --color-warning-light: rgb(255, 196, 38);
-    --color-warning-lighter: rgb(255, 207, 77);
-    --color-warning-lightest: rgb(255, 221, 128);
-    --color-warning-contrast-background: rgb(255, 248, 230);
-    --color-warning-contrast-foreground: rgb(77, 56, 0);
-    --color-danger-dark: rgb(225, 50, 56);
-    --color-danger-darker: rgb(213, 48, 53);
-    --color-danger-darkest: rgb(140, 31, 34);
-    --color-danger-light: rgb(251, 86, 91);
-    --color-danger-lighter: rgb(251, 116, 120);
-    --color-danger-lightest: rgb(253, 156, 159);
-    --color-danger-contrast-background: rgb(255, 235, 236);
-    --color-danger-contrast-foreground: rgb(75, 17, 19);
+    --button-background-color-active: #555;
+    --button-color-active: #fff;
 
-}
-
-:root {
-    /* UI parts, derived colors */
-    --color-header-footer: var(--color-gray-1000);
+    /* Derived colors */
     --color-contents-background: var(--color-gray-900);
+    --color-card-background: var(--background-surface-color);
+
     --color-text: var(--color-gray-100);
     --color-text-inverse: var(--color-gray-900);
 
-    --color-table-border: var(--color-gray-600);
-    --color-a-hover: var(--color-primary);
+    --color-a: var(--color-primary);
+    --color-a-hover: var(--color-a);
+
     --color-table-bg: var(--color-gray-800);
-    --color-card-background: var(--background-surface-color);
+    --color-table-border: var(--color-gray-600);
+
+    --color-header-footer-a: var(--color-gray-0);
+    --color-header-footer-background: var(--color-gray-1000);
 
     --button-background-color: var(--color-primary);
     --button-background-color-hover: var(--color-primary-light);
     --button-border-color: var(--button-background-color);
-    --button-border-width: 2px;
     --button-color: var(--color-text-inverse);
+
+    /* Other UI properties */
+    --button-border-width: 2px;
     --button-font-weight: bold;
     --button-padding-horizontal: 1rem;
     --button-padding-vertical: .8rem;
     --button-transition-duration: var(--transition-fast);
     --button-border-radius: 5px;
     --button-group-spacing: 2px;
+
+    --default-border-radius: 5px;
+    --card-border-radius: 15px;
+
+    --doc-sidebar-width: 250px;
 }

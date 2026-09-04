@@ -180,7 +180,7 @@ With the addition of a special doc-container for docs with sidebars.
     overflow-x: hidden;
     min-width: var(--doc-sidebar-width);
     height: 100%;
-    border-right: 2px solid var(--color-gray-800);
+    border-right: 2px solid var(--background-surface-color);
     padding-bottom: 12px;
     margin-right: 4px;
 }

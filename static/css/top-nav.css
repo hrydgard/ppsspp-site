@@ -15,7 +15,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    background-color: var(--color-header-footer);
+    background-color: var(--color-header-footer-background);
     color: var(--color-text);
     height: 60px;
     padding: 1em;
@@ -26,7 +26,7 @@
 }
 
 .top-nav a {
-    color: var(--color-gray-0);
+    color: var(--color-header-footer-a);
 }
 
 .top-nav a:hover {
@@ -34,7 +34,7 @@
 }
 
 .top-nav button {
-    color: var(--color-gray-0);
+    color: var(--color-header-footer-a);
     background: transparent;
     border: none;
     cursor: pointer;
@@ -97,7 +97,7 @@
 .menu-icon::before,
 .menu-icon::after {
     display: block;
-    background-color: var(--color-gray-0);
+    background-color: var(--color-header-footer-a);
     position: absolute;
     height: 4px;
     width: 30px;

@@ -92,7 +92,7 @@
     height: 18px;
     width: 18px;
     margin: 0.5ch;
-    background-color: #bbb;
+    background-color: var(--dotnav-color);
     border: none;
     border-radius: 50%;
     display: inline-block;
@@ -101,11 +101,11 @@
 }
 
 .slideshow-dot:hover {
-    background-color: var(--color-primary);
+    background-color: var(--button-background-color);
 }
 
 .slideshow-dot.active {
-    background-color: #717171;
+    background-color: var(--button-background-color-active);
     transform: translateY(-2px);
 }
 
