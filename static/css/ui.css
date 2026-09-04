@@ -309,8 +309,8 @@ code {
 }
 
 .inapp {
-  display: inline-block;
-  font-family: Roboto, DroidSans, sans-serif;
-  font-size: 110%;
-  font-weight: bold;
+    display: inline-block;
+    font-family: Roboto, DroidSans, sans-serif;
+    font-size: 110%;
+    font-weight: bold;
 }

@@ -28,7 +28,7 @@ PPSSPP can play files directly from these formats without decompressing them fir
 ### CSO
 
 CSO is the oldest and most well-tested compressed ISO format for PSP, and it's compatible with various [custom firmwares](/docs/reference/psp-custom-firmware) for the real PSP,
-so the files are playable from a memory stick on hardware.
+so the files are playable from a Memory Stick on hardware.
 It has a good compression ratio, performs very well in PPSSPP, practically as fast or faster than ISO, depending on how slow the drive is you're reading from.
 
 The best tool to compress ISO to CSO is [maxcso](https://github.com/unknownbrackets/maxcso/releases) by \[Unknown\].

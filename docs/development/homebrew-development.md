@@ -14,4 +14,11 @@ The debugger will read symbols and code line numbers from an elf like next to a 
 
 Then you can remove it for distribution if you want.
 
-More to come...
+
+## Use the modern PSPSDK
+
+It's a bit of a hassle, but if you want to use modern C++ features and use a modern compiler, you're much better off with the modern WSL-based PSPSDK than the old Windows-based one.
+
+However, don't forget the extra steps you have to do to get psplink going: https://pspdev.github.io/psplink/windows.html
+
+A step is missing,: `winget install --interactive --exact dorssel.usbipd-win`.

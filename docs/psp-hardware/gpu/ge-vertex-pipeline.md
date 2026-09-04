@@ -48,7 +48,7 @@ In every case:
 
 ### Clipping enabled
 
-- Clip and divide triangles hitting the near Z surface (and far? not sure)
+- Clip and divide triangles hitting the near Z surface
 - Clamp out-of-bounds Z (of triangles that are partially outside the Z volume)
 - RECT primitives are clamped
 
@@ -65,10 +65,10 @@ We are now in screen space. X and Y are now 12.4 fixed point coordinates with fo
 
 Note that the scene now is usually centered around 2048, 2048.
 
-From here, we only have 16 bits to represent X and Y. If any coordinate represents a value outside 0..4096, the primitive is discarded.
+From here, we only have 16 bits to represent X and Y, with 4 bits of fraction. If any coordinate represents a value outside 0..4096, the primitive is discarded.
 
 Next, we move into drawing space. This is local framebuffer coordinates.
-The offset is subtracted from X and Y, and both are divided by 16 (note: the fractions, if any, are used for subpixel precision. Hence, we only rasterize with 4-bit subpixel).
+The offset is subtracted from X and Y, and both are divided back down by 16 (note: the fractions, if any, are used for subpixel precision. Hence, we only rasterize with 4-bit subpixel).
 
 X = (X - OFFSET_X) / 16
 Y = (Y - OFFSET_Y) / 16
@@ -85,9 +85,12 @@ W is preserved, and in the vertex shader we end by multiplying it back into X an
 
 MinZ and MaxZ are two GPU registers that configure a range of valid Z values. Pixels that produce a Z value outside this range are discarded. If MinZ > MaxZ, no pixels are produced.
 
+Note that this can be used o
+
 ## Z Clamp
 
 If clamp is enabled, and MinZ == 0, any Z < 0 is set to 0.
+If clamp is enabled, and MaxZ == 65535, any Z > 65535 is set to 0.
 
-## Rasterizer
+Note that this can be used to disable Z clamping by setting MinZ to 1 and MaxZ to 65534, which just the loss of two possible values.
 

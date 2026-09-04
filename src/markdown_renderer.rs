@@ -215,7 +215,7 @@ impl<'a> Renderer<'a> {
                 self.render_inlines(&heading.children);
                 self.out.push_str(&format!("</h{}>\n", heading.depth));
             }
-            mdast::Node::ThematicBreak(_) => self.out.push_str("<hr />\n"),
+            mdast::Node::ThematicBreak(_) => self.out.push_str("<hr>\n"),
             mdast::Node::Blockquote(blockquote) => {
                 self.out.push_str("<blockquote>");
                 for child in &blockquote.children {
@@ -301,7 +301,7 @@ impl<'a> Renderer<'a> {
                 self.out.push_str(&escape_html_text(&math.value));
                 self.out.push_str("</code>");
             }
-            mdast::Node::Break(_) => self.out.push_str("<br />\n"),
+            mdast::Node::Break(_) => self.out.push_str("<br>\n"),
             mdast::Node::Emphasis(emphasis) => {
                 self.out.push_str("<em>");
                 self.render_inlines(&emphasis.children);
@@ -433,7 +433,7 @@ impl<'a> Renderer<'a> {
             if !self.options.compile.gfm_task_list_item_checkable {
                 self.out.push_str(" disabled=\"\"");
             }
-            self.out.push_str(" /> ");
+            self.out.push_str("> ");
         }
 
         for child in &item.children {
@@ -511,7 +511,7 @@ impl<'a> Renderer<'a> {
             self.out.push_str(&escape_html_attr(title));
             self.out.push('"');
         }
-        self.out.push_str(" />");
+        self.out.push_str(">");
     }
 
     fn render_footnote_reference(&mut self, reference: &mdast::FootnoteReference) {

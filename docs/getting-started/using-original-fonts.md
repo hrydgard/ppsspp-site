@@ -34,4 +34,4 @@ If you have dumped the PSP firmware yourself from a real PSP, you can place the 
     </ul>
 </details>
 
-On the Windows build, you can also replace the fonts directly in the `assets` subdirectory, but this way they will be overwritten by updates.
+On the desktop builds, you can also replace the fonts directly in the `assets/flash0/font` subdirectory, but this way they will be overwritten by updates.

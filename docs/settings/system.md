@@ -44,15 +44,15 @@ Lets you control the color of the menu.
 
 ### Show Memory Stick Folder
 
-Opens up your memory stick folder. Only available on desktops.
+Opens up your Memory Stick folder. Only available on desktops.
 
 ### Memory Stick inserted
 
-Some games ask you to remove and insert the memory stick. This allows you to make the game believe that this happened.
+Some games ask you to remove and insert the Memory Stick. This allows you to make the game believe that this happened.
 
 ### Memory Stick size
 
-Sets the memory stick size that the emulator reports to the game. A few games get confused by very large memory sticks, but we already have built-in workarounds for most of them. In case that doesn't work, this option is here.
+Sets the Memory Stick size that the emulator reports to the game. A few games get confused by very large Memory Sticks, but we already have built-in workarounds for most of them. In case that doesn't work, this option is here.
 
 ## Help the PPSSPP team
 
