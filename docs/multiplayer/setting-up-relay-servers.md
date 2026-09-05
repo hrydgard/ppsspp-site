@@ -3,7 +3,7 @@ title: Setting up relay servers
 position: 5
 ---
 
-## [Server setup guide](https://github.com/Kethen/aemu/blob/main/hosting.md)
+## [Server setup guide](https://github.com/Kethen/aemu_postoffice/blob/main/hosting.md)
 
 ## How to get on the official list
 
@@ -14,7 +14,7 @@ You can do this by posting in the discord or emailing hrydgard+ppsspp@gmail.com.
 
 If you don't have a hostname but just an IP, specifying IP as host is fine. However, I do recommend using a hostname in case your IP needs to change in the future.
 
-Also consider adding support for status `data.json`, see [Ad hoc server status](https://www.ppsspp.org/docs/multiplayer/adhoc-server-status/). This will allow in-app display of current games.
+Also consider adding support for status `data.json`, see [here](https://github.com/Kethen/aemu_postoffice/blob/main/hosting.md#customizing-the-http-status-page). This will allow in-app display of current games.
 
 ## Rules
 
