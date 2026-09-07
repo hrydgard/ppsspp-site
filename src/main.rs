@@ -250,6 +250,12 @@ fn build(opt: &Args) -> anyhow::Result<()> {
         config.out_dir.join("robots.txt"),
     ).context("copy robots.txt")?;
 
+    // Move the LLM documentation index into the site root.
+    std::fs::copy(
+        config.in_dir.join("static/llms.txt"),
+        config.out_dir.join("llms.txt"),
+    ).context("copy llms.txt")?;
+
     // Concat the CSS files.
     util::concat_files(
         &config.in_dir.join("static/css"),
