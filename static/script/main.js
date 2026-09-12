@@ -875,21 +875,82 @@ const tmplShowCommitList = `
 </div>
 `;
 
+// Renders what we know about a single commit: message first, then the version string, the
+// commit itself and the pull request it came from. Every part is optional, since the buildbot
+// tells us less about a commit it's still building than about one that finished.
+const tmplCommitInfo = `
+{{@if(it.message)}}<p><strong>{{it.message}}</strong></p>{{/if}}
+{{@if(it.description)}}<p>Version: <code>{{it.description}}</code></p>{{/if}}
+{{@if(it.hash)}}<p>Commit <a href="https://github.com/hrydgard/ppsspp/commit/{{it.hash}}">{{it.hashShort}}</a>{{it.byline}}</p>{{/if}}
+{{@if(it.pr)}}<p>Merged from <a href="https://github.com/hrydgard/ppsspp/pull/{{it.pr.number}}">pull request {{it.pr.number}}</a>{{it.prBranch}} by <a href="https://github.com/{{it.pr.author_username}}">{{it.pr.author_username}}</a></p>{{/if}}
+`;
+
 const tmplBuildbotStatus = `
 <div class="col-12">
 <div class="card">
 <div class="card-title">
     <h2 class="no-icon">Buildbot status</h2>
 </div>
-{{@if(it.building)}}
-<p>Building {{it.tag}}-{{it.revs}} for {{it.building}} ({{it.commit_date}})</p>
+{{@if(it.buildingInfo)}}
+<p>{{it.buildingHeading}}</p>
+{{it.buildingInfo | safe}}
 {{#else}}
 <p>Idle</p>
 {{/if}}
 <p>Last updated: {{it.lastUpdated}}</p>
 </div>
+<div class="card">
+<div class="card-title">
+    <h2 class="no-icon">Latest completed build</h2>
+</div>
+{{@if(it.latestInfo)}}
+{{it.latestInfo | safe}}
+{{#else}}
+<p>Unknown</p>
+{{/if}}
+{{@if(it.historyText)}}<p>{{it.historyText}} Downloads are on the <a href="/devbuilds">development builds</a> page.</p>{{/if}}
+</div>
 </div>
 `;
+
+// The buildbot describes the commit it's currently building in one of two ways: either
+// "building" is a full commit object like "latest", or it's a bare hash with the details in
+// sibling building_* fields. Accept both, and don't assume any single field is present.
+function commitInfoForTemplate(commit, extra) {
+    if (!commit) {
+        return null;
+    }
+    const obj = (typeof commit === "object") ? commit : { "hash": commit };
+    const fallback = extra || {};
+    const hash = obj.hash;
+    let description = obj.description || fallback.description;
+    if (!description && obj.tag) {
+        description = obj.tag + "-" + obj.revs_since_tag;
+    }
+
+    // Plain text, so it can be substituted (and escaped) as a single value - keeping the
+    // template free of nested conditionals.
+    let byline = "";
+    if (obj.author_name) {
+        byline += " by " + obj.author_name;
+    }
+    if (obj.date) {
+        byline += ", " + obj.date;
+    }
+
+    // Only show a pull request when it's complete enough to link to.
+    const pr = (obj.pr && obj.pr.number && obj.pr.author_username) ? obj.pr : null;
+
+    return {
+        "hash": hash,
+        "hashShort": obj.hash_short || (hash ? hash.substring(0, 9) : null),
+        "message": obj.message || fallback.message,
+        "description": description,
+        "byline": byline,
+        "pr": pr,
+        "prBranch": (pr && pr.branch) ? (" (" + pr.branch + ")") : ""
+    };
+}
 
 async function loadDownloads() {
     console.log("Loading downloads...");
@@ -900,26 +961,33 @@ async function loadDownloads() {
         const statusData = await fetch("https://builds.ppsspp.org/meta/status.json").then(response => response.json()).catch(error => console.error("Error fetching json: " + error));
         console.log(statusData);
 
-        if (latest) {
-            latest.innerHTML = Sqrl.render(tmplShowCommitList, [statusData.latest]);
-        }
-        if (status) {
-            let unix = Date.now() / 1000;
-            let ago = unix - statusData.unix_time;
-            let lastUpdated = Math.floor(ago) + " seconds ago";
-            var data;
-            if (statusData.building) {
-                data = {
-                    "building": statusData.building_platform,
-                    "tag": statusData.building.tag,
-                    "revs": statusData.building.revs_since_tag,
-                    "commit_date": statusData.building.date,
+        if (!statusData) {
+            // The fetch failed and was already logged - don't let it take down the rest of the page.
+            if (status) {
+                status.innerHTML = `<div class="col-12"><div class="card"><p>Couldn't reach the buildbot.</p></div></div>`;
+            }
+        } else {
+            if (latest) {
+                latest.innerHTML = Sqrl.render(tmplShowCommitList, [statusData.latest]);
+            }
+            if (status) {
+                let unix = Date.now() / 1000;
+                let ago = unix - statusData.unix_time;
+                let lastUpdated = Math.floor(ago) + " seconds ago";
+                const building = commitInfoForTemplate(statusData.building, {
+                    "message": statusData.building_message,
+                    "description": statusData.building_description
+                });
+                const platform = statusData.building_platform;
+                const data = {
+                    "buildingHeading": platform ? ("Building for " + platform + ":") : "Building:",
+                    "buildingInfo": building ? Sqrl.render(tmplCommitInfo, building) : null,
+                    "latestInfo": statusData.latest ? Sqrl.render(tmplCommitInfo, commitInfoForTemplate(statusData.latest)) : null,
+                    "historyText": statusData.history_length ? (statusData.history_length + " builds in the history.") : null,
                     "lastUpdated": lastUpdated
                 };
-            } else {
-                data = { "building": null, "lastUpdated": lastUpdated };
+                status.innerHTML = Sqrl.render(tmplBuildbotStatus, data);
             }
-            status.innerHTML = Sqrl.render(tmplBuildbotStatus, data);
         }
     }
 
