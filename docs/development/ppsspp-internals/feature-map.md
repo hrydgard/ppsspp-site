@@ -62,12 +62,15 @@ Needs the PSP-290 GPS USB attachment.
 ### Multiple modules
 
 - Actually, (almost) every game that uses scePsmf since that's now loaded as a real module
+- Splinter Cell
 
 ## Audio features
 
 ### VAudio, sceVaudioSetAlcMode
 
 - SensMe music player. sceVaudioSetAlcMode controls automatic audio normalization, the algorithm for that is unclear.
+- Digital Comics Music Player
+- Dead or Alive: Paradise
 
 ## GE rendering features and/or techniques
 
