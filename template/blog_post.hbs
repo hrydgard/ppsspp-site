@@ -1,11 +1,9 @@
-<article class="article">
-    <div>
-        {{#if is_list_view}}
-        <h1><a href="{{ meta.url }}">{{title}}</a></h1>
-        {{else}}
-        <h1>{{title}}</h1>
-        {{/if}}
-    </div>
+<article class="article" {{#if meta.slug}}aria-labelledby="{{meta.slug}}"{{/if}}>
+    {{#if is_list_view}}
+    <h1 {{#if meta.slug}}id="{{meta.slug}}"{{/if}}><a href="{{ meta.url }}">{{title}}</a></h1>
+    {{else}}
+    <h1 {{#if meta.slug}}id="{{meta.slug}}"{{/if}}>{{title}}</h1>
+    {{/if}}
 
     <ul class="article-infos">
         {{#with (lookup globals.authors meta.author)}}
@@ -31,6 +29,7 @@
     </ul>
 
     <div>
+        {{#unless is_list_view}}{{#if toc}}{{{toc}}}{{/if}}{{/unless}}
         {{{ contents }}}
     </div>
 </article>

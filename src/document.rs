@@ -46,6 +46,7 @@ pub struct Document {
     pub path: PathBuf, // written file, the link-to path is in meta
     pub markdown: Option<String>,
     pub html: String,
+    pub toc: Option<String>,
     pub meta: DocumentMeta,
 }
 
@@ -71,6 +72,7 @@ pub struct PageContext<'a> {
     pub title: Option<String>,
     pub description: Option<String>,
     pub contents: Option<String>,
+    pub toc: Option<String>,
     pub sidebar: Option<String>,
     pub children: Vec<DocLink>,
     pub meta: Option<DocumentMeta>,
@@ -88,6 +90,7 @@ impl<'a> PageContext<'a> {
         Self {
             title,
             contents,
+            toc: None,
             description: Some(DEFAULT_DESCRIPTION.to_string()),
             sidebar: None,
             children: vec![],
@@ -103,6 +106,7 @@ impl<'a> PageContext<'a> {
         Self {
             title: Some(document.meta.title.clone()),
             contents: Some(document.html.clone()),
+            toc: document.toc.clone(),
             description: Some(DEFAULT_DESCRIPTION.to_string()),
             sidebar: None,
             children: vec![],
@@ -179,44 +183,61 @@ impl Document {
     pub fn read_dash_meta(reader: &mut impl BufRead) -> anyhow::Result<(DocumentMeta, bool)> {
         let mut meta = DocumentMeta::default();
         let mut buffer = String::new();
+        let mut has_md_title = false;
 
         reader.read_line(&mut buffer)?;
 
-        if !buffer.starts_with("---") {
-            // Won't be anything to read.
-            return if let Some(suffix) = buffer.strip_prefix("# ") {
-                meta.title = suffix.trim().to_string();
-                Ok((meta, true))
-            } else {
-                Ok((meta, false))
-            };
-        }
+        if buffer.starts_with("---") {
+            // Metadata block found. Process tags until the closing "---".
+            let mut found_metadata_end = false;
+            buffer.clear();
 
-        let mut found_end = false;
-        buffer.clear();
-        while reader.read_line(&mut buffer).is_ok() {
-            if buffer.starts_with("---") {
-                found_end = true;
-                break;
-            }
-            if let Some((key, value)) = buffer.split_once(':') {
-                let value = value.trim().to_owned();
-                match key {
-                    "title" => meta.title = value,
-                    "slug" => meta.slug = value,
-                    "authors" => meta.author = value,
-                    "tags" => meta.tags = split_bracketed_list(&value),
-                    "position" => meta.position = str::parse(&value).unwrap_or_default(),
-                    _ => {}
+            while reader.read_line(&mut buffer).is_ok() {
+                if buffer.starts_with("---") {
+                    found_metadata_end = true;
+                    break;
                 }
+
+                if let Some((key, value)) = buffer.split_once(':') {
+                    let value = value.trim().to_owned();
+                    match key {
+                        "title" => meta.title = value,
+                        "slug" => meta.slug = value,
+                        "authors" => meta.author = value,
+                        "tags" => meta.tags = split_bracketed_list(&value),
+                        "position" => meta.position = str::parse(&value).unwrap_or_default(),
+                        _ => {}
+                    }
+                }
+
+                buffer.clear();
             }
 
+            // TODO: runtime error
+            assert!(found_metadata_end);
             buffer.clear();
         }
 
-        // TODO: runtime error
-        assert!(found_end);
-        Ok((meta, false))
+        if meta.title.is_empty() {
+            // Look for a markdown title as fallback.
+            while reader.read_line(&mut buffer).is_ok() {
+                if let Some(suffix) = buffer.strip_prefix("# ") {
+                    meta.title = suffix.trim().to_string();
+                    has_md_title = true;
+                    break;
+                }
+
+                buffer.clear();
+            }
+        }
+
+        // Fallback slug generation if it wasn't defined in the metadata block.
+        if !meta.title.is_empty() && meta.slug.is_empty() {
+            meta.slug = markdown_renderer::slugify_identifier(&meta.title);
+            // println!("Warning: Article '{}' missing slug, generating: '{}'", meta.title, meta.slug);
+        }
+
+        Ok((meta, has_md_title))
     }
 
     // Handles page, blog posts, etc, including triple-dash docusaurus-style metadata.
@@ -256,18 +277,19 @@ impl Document {
         let md = post_process::preprocess_markdown(&md, &meta.title, config)?;
 
         let render_params = markdown_renderer::RenderParams::default();
-        let html = markdown_renderer::to_html_with_options(
+        let rendered = markdown_renderer::to_html_with_options(
             &md,
             &config.markdown_options,
             &render_params,
         )
             .map_err(anyhow::Error::msg)?;
-        let html = postprocess_html(html);
+        let html = postprocess_html(rendered.content);
 
         Ok(Self {
             path,
             markdown: Some(md),
             html,
+            toc: rendered.toc,
             meta,
         })
     }
@@ -291,6 +313,7 @@ impl Document {
         Ok(Self {
             path: hbs_path.to_path_buf(),
             markdown: None,
+            toc: None,
             meta,
             html,
         })
@@ -303,6 +326,7 @@ impl Document {
             path: html_path.to_path_buf(),
             markdown: None,
             html,
+            toc: None,
             meta: DocumentMeta {
                 title: "untitled html".to_string(),
                 ..Default::default()
@@ -337,6 +361,7 @@ impl Document {
             path: category.path.clone(),
             html,
             markdown: None,
+            toc: None,
             meta: category.meta.clone(),
         })
     }

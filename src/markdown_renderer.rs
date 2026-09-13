@@ -5,7 +5,11 @@ use markdown::mdast;
 pub struct RenderParams {
     pub min_toc_headers: usize,
     pub max_toc_depth: u8,
-    pub h1_title_above_toc: bool,
+}
+
+pub struct RenderedMarkdown {
+    pub content: String,
+    pub toc: Option<String>,
 }
 
 impl Default for RenderParams {
@@ -13,7 +17,6 @@ impl Default for RenderParams {
         Self {
             min_toc_headers: 3,
             max_toc_depth: 4,
-            h1_title_above_toc: true,
         }
     }
 }
@@ -40,7 +43,7 @@ pub fn to_html_with_options(
     markdown: &str,
     options: &markdown::Options,
     params: &RenderParams,
-) -> Result<String, markdown::message::Message> {
+) -> Result<RenderedMarkdown, markdown::message::Message> {
     let tree = markdown::to_mdast(markdown, &options.parse)?;
     let mut renderer = Renderer::new(options, params);
     renderer.collect_definitions(&tree);
@@ -51,7 +54,8 @@ pub fn to_html_with_options(
 struct Renderer<'a> {
     options: &'a markdown::Options,
     params: &'a RenderParams,
-    out: String,
+    out_content: String,
+    out_toc: String,
     definitions: HashMap<String, DefinitionData>,
     footnote_definitions: HashMap<String, mdast::FootnoteDefinition>,
     footnote_order: Vec<String>,
@@ -67,7 +71,8 @@ impl<'a> Renderer<'a> {
         Self {
             options,
             params,
-            out: String::new(),
+            out_content: String::new(),
+            out_toc: String::new(),
             definitions: HashMap::new(),
             footnote_definitions: HashMap::new(),
             footnote_order: Vec::new(),
@@ -79,9 +84,12 @@ impl<'a> Renderer<'a> {
         }
     }
 
-    fn finish(mut self) -> String {
+    fn finish(mut self) -> RenderedMarkdown {
         self.render_footnotes();
-        self.out
+        RenderedMarkdown {
+            content: self.out_content,
+            toc: (!self.out_toc.is_empty()).then_some(self.out_toc),
+        }
     }
 
     fn collect_definitions(&mut self, node: &mdast::Node) {
@@ -148,32 +156,25 @@ impl<'a> Renderer<'a> {
 
     fn render_root(&mut self, node: &mdast::Node) {
         if let mdast::Node::Root(root) = node {
-            let toc_data = self.collect_toc_data();
-
-            if let Some(toc_data) = toc_data {
-                if self.params.h1_title_above_toc {
-                    if let Some((idx, heading)) = self
+            // Find the title h1, if there is one. We want to skip rendering it.
+            if let Some((idx, _)) = self
                         .headings
                         .iter()
                         .enumerate()
                         .find(|(_, heading)| heading.depth == 1)
-                    {
-                        self.promoted_h1_index = Some(idx);
-                        self.out.push_str("<h1 id=\"");
-                        self.out.push_str(&escape_html_attr(&heading.id));
-                        self.out.push_str("\">");
-                        self.out.push_str(&escape_html_text(&heading.title));
-                        self.out.push_str("</h1>\n");
-                    }
-                }
+            {
+                self.promoted_h1_index = Some(idx);
+            }
 
+            let toc_data = self.collect_toc_data();
+            if let Some(toc_data) = toc_data {
                 self.render_toc(&toc_data);
             }
 
             for child in &root.children {
                 self.render_flow(child, false);
-                if !self.out.ends_with('\n') {
-                    self.out.push('\n');
+                if !self.out_content.ends_with('\n') {
+                    self.out_content.push('\n');
                 }
             }
         }
@@ -190,15 +191,16 @@ impl<'a> Renderer<'a> {
                 if tight {
                     self.render_inlines(&paragraph.children);
                 } else {
-                    self.out.push_str("<p>");
+                    self.out_content.push_str("<p>");
                     self.render_inlines(&paragraph.children);
-                    self.out.push_str("</p>\n");
+                    self.out_content.push_str("</p>\n");
                 }
             }
             mdast::Node::Heading(heading) => {
                 let heading_index = self.next_heading_index;
                 self.next_heading_index += 1;
 
+                // The title h1 is rendered in the Handlebars template. Skip it.
                 if self.promoted_h1_index == Some(heading_index) {
                     return;
                 }
@@ -209,64 +211,64 @@ impl<'a> Renderer<'a> {
                     .map(|h| h.id.clone())
                     .unwrap_or_else(|| format!("h-{}", heading_index + 1));
 
-                self.out.push_str(&format!("<h{} id=\"", heading.depth));
-                self.out.push_str(&escape_html_attr(&heading_id));
-                self.out.push_str("\">");
+                self.out_content.push_str(&format!("<h{} id=\"", heading.depth));
+                self.out_content.push_str(&escape_html_attr(&heading_id));
+                self.out_content.push_str("\" class=\"center-vertical\">");
                 self.render_inlines(&heading.children);
-                self.out.push_str(&format!("</h{}>\n", heading.depth));
+                self.out_content.push_str(&format!("</h{}>\n", heading.depth));
             }
-            mdast::Node::ThematicBreak(_) => self.out.push_str("<hr>\n"),
+            mdast::Node::ThematicBreak(_) => self.out_content.push_str("<hr>\n"),
             mdast::Node::Blockquote(blockquote) => {
-                self.out.push_str("<blockquote>");
+                self.out_content.push_str("<blockquote>");
                 for child in &blockquote.children {
                     self.render_flow(child, false);
                 }
-                self.out.push_str("</blockquote>\n");
+                self.out_content.push_str("</blockquote>\n");
             }
             mdast::Node::List(list) => self.render_list(list),
             mdast::Node::Code(code) => {
-                self.out.push_str("<pre><code");
+                self.out_content.push_str("<pre><code");
                 if let Some(lang) = &code.lang {
-                    self.out.push_str(" class=\"language-");
-                    self.out.push_str(&escape_html_attr(lang));
-                    self.out.push('"');
+                    self.out_content.push_str(" class=\"language-");
+                    self.out_content.push_str(&escape_html_attr(lang));
+                    self.out_content.push('"');
                 }
-                self.out.push('>');
-                self.out.push_str(&escape_html_text(&code.value));
+                self.out_content.push('>');
+                self.out_content.push_str(&escape_html_text(&code.value));
                 if !code.value.ends_with('\n') {
-                    self.out.push('\n');
+                    self.out_content.push('\n');
                 }
-                self.out.push_str("</code></pre>\n");
+                self.out_content.push_str("</code></pre>\n");
             }
             mdast::Node::Math(math) => {
-                self.out
+                self.out_content
                     .push_str("<pre><code class=\"language-math math-display\">");
-                self.out.push_str(&escape_html_text(&math.value));
+                self.out_content.push_str(&escape_html_text(&math.value));
                 if !math.value.ends_with('\n') {
-                    self.out.push('\n');
+                    self.out_content.push('\n');
                 }
-                self.out.push_str("</code></pre>\n");
+                self.out_content.push_str("</code></pre>\n");
             }
             mdast::Node::Html(html) => {
                 if self.options.compile.allow_dangerous_html {
-                    self.out.push_str(&html.value);
+                    self.out_content.push_str(&html.value);
                 } else {
-                    self.out.push_str(&escape_html_text(&html.value));
+                    self.out_content.push_str(&escape_html_text(&html.value));
                 }
-                if !self.out.ends_with('\n') {
-                    self.out.push('\n');
+                if !self.out_content.ends_with('\n') {
+                    self.out_content.push('\n');
                 }
             }
             mdast::Node::Table(table) => self.render_table(table),
             mdast::Node::Definition(_) | mdast::Node::FootnoteDefinition(_) => {}
             mdast::Node::MdxjsEsm(esm) => {
-                self.out.push_str(&escape_html_text(&esm.value));
-                self.out.push('\n');
+                self.out_content.push_str(&escape_html_text(&esm.value));
+                self.out_content.push('\n');
             }
             mdast::Node::Toml(_) | mdast::Node::Yaml(_) => {}
             mdast::Node::MdxFlowExpression(expr) => {
-                self.out.push_str(&escape_html_text(&expr.value));
-                self.out.push('\n');
+                self.out_content.push_str(&escape_html_text(&expr.value));
+                self.out_content.push('\n');
             }
             mdast::Node::ListItem(item) => {
                 self.render_list_item(item, false);
@@ -289,47 +291,47 @@ impl<'a> Renderer<'a> {
 
     fn render_inline(&mut self, node: &mdast::Node) {
         match node {
-            mdast::Node::Text(text) => self.out.push_str(&escape_html_text(&text.value)),
+            mdast::Node::Text(text) => self.out_content.push_str(&escape_html_text(&text.value)),
             mdast::Node::InlineCode(code) => {
-                self.out.push_str("<code>");
-                self.out.push_str(&escape_html_text(&code.value));
-                self.out.push_str("</code>");
+                self.out_content.push_str("<code>");
+                self.out_content.push_str(&escape_html_text(&code.value));
+                self.out_content.push_str("</code>");
             }
             mdast::Node::InlineMath(math) => {
-                self.out
+                self.out_content
                     .push_str("<code class=\"language-math math-inline\">");
-                self.out.push_str(&escape_html_text(&math.value));
-                self.out.push_str("</code>");
+                self.out_content.push_str(&escape_html_text(&math.value));
+                self.out_content.push_str("</code>");
             }
-            mdast::Node::Break(_) => self.out.push_str("<br>\n"),
+            mdast::Node::Break(_) => self.out_content.push_str("<br>\n"),
             mdast::Node::Emphasis(emphasis) => {
-                self.out.push_str("<em>");
+                self.out_content.push_str("<em>");
                 self.render_inlines(&emphasis.children);
-                self.out.push_str("</em>");
+                self.out_content.push_str("</em>");
             }
             mdast::Node::Strong(strong) => {
-                self.out.push_str("<strong>");
+                self.out_content.push_str("<strong>");
                 self.render_inlines(&strong.children);
-                self.out.push_str("</strong>");
+                self.out_content.push_str("</strong>");
             }
             mdast::Node::Delete(delete) => {
-                self.out.push_str("<del>");
+                self.out_content.push_str("<del>");
                 self.render_inlines(&delete.children);
-                self.out.push_str("</del>");
+                self.out_content.push_str("</del>");
             }
             mdast::Node::Link(link) => {
-                self.out.push_str("<a href=\"");
-                self.out
+                self.out_content.push_str("<a href=\"");
+                self.out_content
                     .push_str(&safe_url(&link.url, false, &self.options.compile));
-                self.out.push('"');
+                self.out_content.push('"');
                 if let Some(title) = &link.title {
-                    self.out.push_str(" title=\"");
-                    self.out.push_str(&escape_html_attr(title));
-                    self.out.push('"');
+                    self.out_content.push_str(" title=\"");
+                    self.out_content.push_str(&escape_html_attr(title));
+                    self.out_content.push('"');
                 }
-                self.out.push('>');
+                self.out_content.push('>');
                 self.render_inlines(&link.children);
-                self.out.push_str("</a>");
+                self.out_content.push_str("</a>");
             }
             mdast::Node::LinkReference(link_ref) => {
                 let def = self.definitions.get(&link_ref.identifier).cloned();
@@ -339,18 +341,18 @@ impl<'a> Renderer<'a> {
                     (String::new(), None)
                 };
 
-                self.out.push_str("<a href=\"");
-                self.out
+                self.out_content.push_str("<a href=\"");
+                self.out_content
                     .push_str(&safe_url(&url, false, &self.options.compile));
-                self.out.push('"');
+                self.out_content.push('"');
                 if let Some(title) = title {
-                    self.out.push_str(" title=\"");
-                    self.out.push_str(&escape_html_attr(&title));
-                    self.out.push('"');
+                    self.out_content.push_str(" title=\"");
+                    self.out_content.push_str(&escape_html_attr(&title));
+                    self.out_content.push('"');
                 }
-                self.out.push('>');
+                self.out_content.push('>');
                 self.render_inlines(&link_ref.children);
-                self.out.push_str("</a>");
+                self.out_content.push_str("</a>");
             }
             mdast::Node::Image(image) => {
                 self.render_image(&image.url, image.title.as_deref(), &image.alt);
@@ -368,13 +370,13 @@ impl<'a> Renderer<'a> {
             }
             mdast::Node::Html(html) => {
                 if self.options.compile.allow_dangerous_html {
-                    self.out.push_str(&html.value);
+                    self.out_content.push_str(&html.value);
                 } else {
-                    self.out.push_str(&escape_html_text(&html.value));
+                    self.out_content.push_str(&escape_html_text(&html.value));
                 }
             }
             mdast::Node::MdxTextExpression(expr) => {
-                self.out.push_str(&escape_html_text(&expr.value));
+                self.out_content.push_str(&escape_html_text(&expr.value));
             }
             mdast::Node::MdxJsxTextElement(jsx) => {
                 self.render_inlines(&jsx.children);
@@ -395,17 +397,17 @@ impl<'a> Renderer<'a> {
                 .all(|n| matches!(n, mdast::Node::ListItem(li) if !li.spread));
 
         if list.ordered {
-            self.out.push_str("<ol");
+            self.out_content.push_str("<ol");
             if let Some(start) = list.start {
                 if start != 1 {
-                    self.out.push_str(" start=\"");
-                    self.out.push_str(&start.to_string());
-                    self.out.push('"');
+                    self.out_content.push_str(" start=\"");
+                    self.out_content.push_str(&start.to_string());
+                    self.out_content.push('"');
                 }
             }
-            self.out.push('>');
+            self.out_content.push('>');
         } else {
-            self.out.push_str("<ul>");
+            self.out_content.push_str("<ul>");
         }
 
         for child in &list.children {
@@ -415,25 +417,25 @@ impl<'a> Renderer<'a> {
         }
 
         if list.ordered {
-            self.out.push_str("</ol>");
+            self.out_content.push_str("</ol>");
         } else {
-            self.out.push_str("</ul>");
+            self.out_content.push_str("</ul>");
         }
-        self.out.push('\n');
+        self.out_content.push('\n');
     }
 
     fn render_list_item(&mut self, item: &mdast::ListItem, tight: bool) {
-        self.out.push_str("<li>");
+        self.out_content.push_str("<li>");
 
         if let Some(checked) = item.checked {
-            self.out.push_str("<input type=\"checkbox\"");
+            self.out_content.push_str("<input type=\"checkbox\"");
             if checked {
-                self.out.push_str(" checked=\"\"");
+                self.out_content.push_str(" checked=\"\"");
             }
             if !self.options.compile.gfm_task_list_item_checkable {
-                self.out.push_str(" disabled=\"\"");
+                self.out_content.push_str(" disabled=\"\"");
             }
-            self.out.push_str("> ");
+            self.out_content.push_str("> ");
         }
 
         for child in &item.children {
@@ -445,73 +447,73 @@ impl<'a> Renderer<'a> {
             }
         }
 
-        self.out.push_str("</li>");
+        self.out_content.push_str("</li>");
     }
 
     fn render_table(&mut self, table: &mdast::Table) {
-        self.out.push_str("<table>");
+        self.out_content.push_str("<table>");
 
         let mut rows = table.children.iter();
         if let Some(mdast::Node::TableRow(head_row)) = rows.next() {
-            self.out.push_str("<thead><tr>");
+            self.out_content.push_str("<thead><tr>");
             for (index, cell_node) in head_row.children.iter().enumerate() {
                 if let mdast::Node::TableCell(cell) = cell_node {
-                    self.out.push_str("<th");
+                    self.out_content.push_str("<th");
                     if let Some(align) = table.align.get(index) {
                         self.push_align_attr(*align);
                     }
-                    self.out.push('>');
+                    self.out_content.push('>');
                     self.render_inlines(&cell.children);
-                    self.out.push_str("</th>");
+                    self.out_content.push_str("</th>");
                 }
             }
-            self.out.push_str("</tr></thead>");
+            self.out_content.push_str("</tr></thead>");
         }
 
-        self.out.push_str("<tbody>");
+        self.out_content.push_str("<tbody>");
         for row_node in rows {
             if let mdast::Node::TableRow(row) = row_node {
-                self.out.push_str("<tr>");
+                self.out_content.push_str("<tr>");
                 for (index, cell_node) in row.children.iter().enumerate() {
                     if let mdast::Node::TableCell(cell) = cell_node {
-                        self.out.push_str("<td");
+                        self.out_content.push_str("<td");
                         if let Some(align) = table.align.get(index) {
                             self.push_align_attr(*align);
                         }
-                        self.out.push('>');
+                        self.out_content.push('>');
                         self.render_inlines(&cell.children);
-                        self.out.push_str("</td>");
+                        self.out_content.push_str("</td>");
                     }
                 }
-                self.out.push_str("</tr>");
+                self.out_content.push_str("</tr>");
             }
         }
-        self.out.push_str("</tbody></table>");
-        self.out.push('\n');
+        self.out_content.push_str("</tbody></table>");
+        self.out_content.push('\n');
     }
 
     fn push_align_attr(&mut self, align: mdast::AlignKind) {
         match align {
-            mdast::AlignKind::Left => self.out.push_str(" align=\"left\""),
-            mdast::AlignKind::Right => self.out.push_str(" align=\"right\""),
-            mdast::AlignKind::Center => self.out.push_str(" align=\"center\""),
+            mdast::AlignKind::Left => self.out_content.push_str(" align=\"left\""),
+            mdast::AlignKind::Right => self.out_content.push_str(" align=\"right\""),
+            mdast::AlignKind::Center => self.out_content.push_str(" align=\"center\""),
             mdast::AlignKind::None => {}
         }
     }
 
     fn render_image(&mut self, url: &str, title: Option<&str>, alt: &str) {
-        self.out.push_str("<img src=\"");
-        self.out
+        self.out_content.push_str("<img src=\"");
+        self.out_content
             .push_str(&safe_url(url, true, &self.options.compile));
-        self.out.push_str("\" alt=\"");
-        self.out.push_str(&escape_html_attr(alt));
-        self.out.push('"');
+        self.out_content.push_str("\" alt=\"");
+        self.out_content.push_str(&escape_html_attr(alt));
+        self.out_content.push('"');
         if let Some(title) = title {
-            self.out.push_str(" title=\"");
-            self.out.push_str(&escape_html_attr(title));
-            self.out.push('"');
+            self.out_content.push_str(" title=\"");
+            self.out_content.push_str(&escape_html_attr(title));
+            self.out_content.push('"');
         }
-        self.out.push_str(">");
+        self.out_content.push_str(">");
     }
 
     fn render_footnote_reference(&mut self, reference: &mdast::FootnoteReference) {
@@ -541,14 +543,14 @@ impl<'a> Renderer<'a> {
         };
         let note_id = format!("{prefix}fn-{safe_ident}");
 
-        self.out.push_str("<sup><a href=\"#");
-        self.out.push_str(&escape_html_attr(&note_id));
-        self.out.push_str("\" id=\"");
-        self.out.push_str(&escape_html_attr(&ref_id));
-        self.out
+        self.out_content.push_str("<sup><a href=\"#");
+        self.out_content.push_str(&escape_html_attr(&note_id));
+        self.out_content.push_str("\" id=\"");
+        self.out_content.push_str(&escape_html_attr(&ref_id));
+        self.out_content
             .push_str("\" data-footnote-ref=\"\" aria-describedby=\"footnote-label\">");
-        self.out.push_str(&index.to_string());
-        self.out.push_str("</a></sup>");
+        self.out_content.push_str(&index.to_string());
+        self.out_content.push_str("</a></sup>");
     }
 
     fn render_footnotes(&mut self) {
@@ -582,31 +584,31 @@ impl<'a> Renderer<'a> {
             .unwrap_or("Back to content");
         let prefix = footnote_clobber_prefix(&self.options.compile);
 
-        self.out
+        self.out_content
             .push_str("<section data-footnotes=\"\" class=\"footnotes\">");
-        self.out.push('<');
-        self.out.push_str(label_tag);
-        self.out.push_str(" id=\"footnote-label\"");
+        self.out_content.push('<');
+        self.out_content.push_str(label_tag);
+        self.out_content.push_str(" id=\"footnote-label\"");
         if !label_attrs.is_empty() {
-            self.out.push(' ');
-            self.out.push_str(label_attrs);
+            self.out_content.push(' ');
+            self.out_content.push_str(label_attrs);
         }
-        self.out.push('>');
-        self.out.push_str(&escape_html_text(label_text));
-        self.out.push_str("</");
-        self.out.push_str(label_tag);
-        self.out.push_str("><ol>");
+        self.out_content.push('>');
+        self.out_content.push_str(&escape_html_text(label_text));
+        self.out_content.push_str("</");
+        self.out_content.push_str(label_tag);
+        self.out_content.push_str("><ol>");
 
         let footnote_order = self.footnote_order.clone();
         for identifier in &footnote_order {
             let note_id = format!("{prefix}fn-{}", slugify_identifier(identifier));
-            self.out.push_str("<li id=\"");
-            self.out.push_str(&escape_html_attr(&note_id));
-            self.out.push_str("\">");
+            self.out_content.push_str("<li id=\"");
+            self.out_content.push_str(&escape_html_attr(&note_id));
+            self.out_content.push_str("\">");
 
             if let Some(definition) = self.footnote_definitions.get(identifier).cloned() {
                 if definition.children.is_empty() {
-                    self.out.push_str("<p>");
+                    self.out_content.push_str("<p>");
                 }
 
                 for child in &definition.children {
@@ -614,10 +616,10 @@ impl<'a> Renderer<'a> {
                 }
 
                 if definition.children.is_empty() {
-                    self.out.push_str("</p>");
+                    self.out_content.push_str("</p>");
                 }
             } else {
-                self.out.push_str("<p></p>");
+                self.out_content.push_str("<p></p>");
             }
 
             let refs = self.footnote_ref_counts.get(identifier).copied().unwrap_or(1);
@@ -628,23 +630,23 @@ impl<'a> Renderer<'a> {
                     format!("{prefix}fnref-{}-{ref_index}", slugify_identifier(identifier))
                 };
 
-                self.out.push_str(" <a href=\"#");
-                self.out.push_str(&escape_html_attr(&backref_id));
-                self.out.push_str("\" data-footnote-backref=\"\" aria-label=\"");
-                self.out.push_str(&escape_html_attr(back_label));
-                self.out.push_str("\" class=\"data-footnote-backref\">↩");
+                self.out_content.push_str(" <a href=\"#");
+                self.out_content.push_str(&escape_html_attr(&backref_id));
+                self.out_content.push_str("\" data-footnote-backref=\"\" aria-label=\"");
+                self.out_content.push_str(&escape_html_attr(back_label));
+                self.out_content.push_str("\" class=\"data-footnote-backref\">↩");
                 if ref_index > 1 {
-                    self.out.push_str("<sup>");
-                    self.out.push_str(&ref_index.to_string());
-                    self.out.push_str("</sup>");
+                    self.out_content.push_str("<sup>");
+                    self.out_content.push_str(&ref_index.to_string());
+                    self.out_content.push_str("</sup>");
                 }
-                self.out.push_str("</a>");
+                self.out_content.push_str("</a>");
             }
 
-            self.out.push_str("</li>");
+            self.out_content.push_str("</li>");
         }
 
-        self.out.push_str("</ol></section>");
+        self.out_content.push_str("</ol></section>");
     }
 
     fn collect_toc_data(&self) -> Option<TocData> {
@@ -671,7 +673,7 @@ impl<'a> Renderer<'a> {
         let toc_headings = &toc_data.headings;
         let min_depth = toc_data.min_depth;
 
-        self.out.push_str("<nav class=\"toc\" aria-labelledby=\"toc\">\n\
+        self.out_toc.push_str("<nav class=\"toc\" aria-labelledby=\"toc\">\n\
                     <h2 id=\"toc\"><i aria-hidden=\"true\" class=\"icon-ui icon-ui-list sp-right\"></i>Contents</h2>\n<ul>\n");
 
         let mut prev_depth: u8 = min_depth;
@@ -687,32 +689,32 @@ impl<'a> Renderer<'a> {
                 first = false;
             } else if depth > prev_depth {
                 for _ in prev_depth..depth {
-                    self.out.push_str("<ul>\n");
+                    self.out_toc.push_str("<ul>\n");
                 }
             } else if depth < prev_depth {
                 for _ in depth..prev_depth {
-                    self.out.push_str("</li>\n</ul>\n");
+                    self.out_toc.push_str("</li>\n</ul>\n");
                 }
-                self.out.push_str("</li>\n");
+                self.out_toc.push_str("</li>\n");
             } else {
-                self.out.push_str("</li>\n");
+                self.out_toc.push_str("</li>\n");
             }
 
-            self.out.push_str("<li><a href=\"#");
-            self.out.push_str(&escape_html_attr(&heading.id));
-            self.out.push_str("\">");
-            self.out.push_str(&escape_html_text(&heading.title));
-            self.out.push_str("</a>");
+            self.out_toc.push_str("<li><a href=\"#");
+            self.out_toc.push_str(&escape_html_attr(&heading.id));
+            self.out_toc.push_str("\">");
+            self.out_toc.push_str(&escape_html_text(&heading.title));
+            self.out_toc.push_str("</a>");
 
             prev_depth = depth;
         }
 
-        self.out.push_str("</li>\n");
+        self.out_toc.push_str("</li>\n");
         while prev_depth > min_depth {
-            self.out.push_str("</ul>\n</li>\n");
+            self.out_toc.push_str("</ul>\n</li>\n");
             prev_depth -= 1;
         }
-        self.out.push_str("</ul>\n</nav>\n");
+        self.out_toc.push_str("</ul>\n</nav>\n");
     }
 }
 
@@ -788,7 +790,7 @@ fn safe_url(url: &str, image: bool, options: &markdown::CompileOptions) -> Strin
     sanitized
 }
 
-fn slugify_identifier(value: &str) -> String {
+pub fn slugify_identifier(value: &str) -> String {
     let mut out = String::with_capacity(value.len());
     let mut last_dash = false;
     for ch in value.chars() {
