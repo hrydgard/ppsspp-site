@@ -31,7 +31,7 @@ pub fn generate_blog(
     title: &str,
     handlebars: &mut handlebars::Handlebars<'_>,
 ) -> anyhow::Result<Vec<Document>> {
-    println!("Generating blog from {folder}...");
+    println!("Generating blog from '{folder}'...");
 
     // For the blog
 
@@ -56,7 +56,7 @@ pub fn generate_blog(
         match os_str.to_str().unwrap() {
             "md" => {}
             _ => {
-                println!("Skipping file {}", file_name.display());
+                println!("Skipping file '{}'", file_name.display());
                 continue;
             }
         }
@@ -71,7 +71,7 @@ pub fn generate_blog(
         doc.meta.date = format!("{}-{}-{}", year, month, day);
         if doc.meta.slug.is_empty() {
             println!(
-                "Warning: Blog entry missing slug, auto-detecting {}: {}",
+                "Warning: Blog entry '{}' missing slug, auto-detecting: '{}'",
                 name, remainder
             );
             doc.meta.slug = remainder.to_string();
@@ -196,7 +196,7 @@ pub fn generate_blog(
         )?;
     }
 
-    println!("Wrote blog {}", folder);
+    println!("Wrote blog '{}'", folder);
 
     Ok(documents)
 }

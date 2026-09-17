@@ -50,7 +50,7 @@ pub fn generate_doctree(
     folder: &str,
     handlebars: &mut handlebars::Handlebars<'_>,
 ) -> anyhow::Result<Vec<Document>> {
-    println!("Generating doctree from {folder}...");
+    println!("Generating doctree from '{folder}'...");
     // First, build the tree and convert all the markdown to html and metadata.
     let root_folder = config.in_dir.join(folder);
     anyhow::ensure!(root_folder.exists());
@@ -101,7 +101,7 @@ pub fn generate_doctree(
     file.write_all(json_index.as_bytes())?;
 
     println!(
-        "Wrote doctree {}, index as {}",
+        "Wrote doctree '{}', index as '{}'",
         folder,
         json_index_path.display()
     );

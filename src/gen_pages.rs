@@ -9,7 +9,7 @@ pub fn generate_pages(
     folder: &str,
     handlebars: &mut handlebars::Handlebars<'_>,
 ) -> anyhow::Result<Vec<Document>> {
-    println!("Generating pages from {folder}...");
+    println!("Generating pages from '{folder}'...");
 
     let root_folder = config.in_dir.join(folder);
     anyhow::ensure!(root_folder.exists());
@@ -75,6 +75,6 @@ pub fn generate_pages(
             util::write_file_as_folder_with_index(&target_path, html, true)?;
         }
     }
-    println!("Wrote pages from {}", folder);
+    println!("Wrote pages from '{}'", folder);
     Ok(vec![])
 }
