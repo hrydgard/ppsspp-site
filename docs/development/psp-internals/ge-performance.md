@@ -1,4 +1,4 @@
-# Optimizing code the GE
+# Optimizing code for the GE
 
 If you're writing a renderer for your own PSP game or a port/recomp, this page might be useful. Here I've collected tricks that I've noticed games to be using.
 
