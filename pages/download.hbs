@@ -103,8 +103,8 @@
                                     {{ #if icon }}{{!-- This has to look this ridiculous to avoid HTML whitespace rendering. --}}
                                     <img src="/static/img/icons/{{icon}}" alt="" aria-hidden="true" width="24" height="24"
                                             class="icon sp-left sp-right">{{ /if }}{{ #if short_name }}<a href="{{download_url}}"
-                                            {{ #if gold_only }} class="mini-button button-gold" {{ else }} class="sp-left sp-right"
-                                            {{ /if }}>{{short_name}}</a>
+                                            class="sp-left sp-right {{#if gold_only}}mini-button button-gold{{/if}}"
+                                            >{{short_name}}</a>
                                     {{ /if }}
                                 </span>
                                 {{ /each }}

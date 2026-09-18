@@ -54,9 +54,11 @@
     border: var(--button-border-width) solid var(--button-border-color);
     border-radius: var(--button-border-radius);
     color: var(--button-color);
+    cursor: pointer;
     font-weight: var(--button-font-weight);
     padding: 4px;
-    margin: 0 0.5ch;
+    margin-top: 8px;
+    margin-bottom: 8px;
     -webkit-user-select: none;
     user-select: none;
 }
@@ -80,6 +82,14 @@
     background-color: var(--gold-background-color-hover);
     border-color: var(--gold-border-color-hover);
     color: var(--gold-color);
+}
+
+.download-button:disabled,
+.mini-button:disabled {
+    background-color: var(--button-background-color-active);
+    border-color: var(--button-background-color-active);
+    color: var(--button-color-active);
+    cursor: not-allowed;
 }
 
 /* Alert / notification boxes */
