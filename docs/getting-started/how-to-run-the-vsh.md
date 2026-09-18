@@ -19,19 +19,17 @@ You can also download the latest [development build](/devbuilds), which does inc
 
 ## Getting and installing the required files
 
-First, you need a PSP update.
-You can download 6.61 [directly from Sony](http://du01.psp.update.playstation.org/update/psp/image/us/2014_1212_6be8878f475ac5b1a499b95ab2f7d301/EBOOT.PBP).
+First, you need a PSP update. PPSSPP will now actually install PSP updates directly from your games when it finds them.
 
-Next, just open the update in PPSSPP, which will offer to install it for you. Let it.
+To get the newest one (which is required for sceMp4 support), you can download 6.61 [directly from Sony](http://du01.psp.update.playstation.org/update/psp/image/us/2014_1212_6be8878f475ac5b1a499b95ab2f7d301/EBOOT.PBP). Just open the update in PPSSPP, which will offer to install it for you.
 
-You no longer have to switch to the Interpreter if you are using a build newer than `v1.20.4-1365`.
-However, the IR Interpreter will not work and the IR JIT is untested.
-Only Interpreter and JIT work.
+NOTE: The IR Interpreter cpu backend is currently not compatible with the XMB.
+
+Interpreter, JIT and JIT/IR work.
 
 ## Running it
 
-1. On Windows, choose `File -> Load the VSH` from the menubar.
-   On other platforms you currently need to navigate to `PSP/NAND/flash0/vsh/module/vshmain.prx` and run that (this will be made easier).
+1. On Windows or Mac, choose `File -> Load the VSH` from the menubar. Alternatively, go to Settings / Tools / PSP Firmware and click 'Launch XMB'. Yeah, the wording is currently a little inconsistent.
 
 1. Enjoy playing around!
    NOTE: None of this will work on PPSSPP versions before 1.21, except late development builds before it.

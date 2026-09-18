@@ -40,3 +40,4 @@ For a while I suspected we needed `flash1:/registry/init.dat` since the VSH trie
 
 There are some drivers that currently break because of unimplemented kernel functions, that if I implement those, they go deeper into driver code and fail completely, freezing emulation. So there are effectively a number of load-bearing bugs (or rather, omissions) in the current implementation. Comments have been added to the source code to indicate these. These are ThreadManForKernel's vpl and fpl functions, and also InterruptManagerForKernel's interrupt registration functions.
 
+For the registry (sceReg) I used a hardcoded dump from one of my own PSPs. This contained a field that set the version of the registry to a large number - and it turns out that earlier versions refused the registry if this number was too high. So, set it to 1.
