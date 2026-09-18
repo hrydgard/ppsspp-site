@@ -1,47 +1,47 @@
-</main>
+        </main>
 
-<footer role="contentinfo">
-    <div class="container">
-        {{ #unless globals.prod }}
-        <p>DEVELOPMENT MODE</p>
-        {{ /unless }}
+        <footer role="contentinfo">
+            <div class="container">
+                {{ #unless globals.prod }}
+                <p>DEVELOPMENT MODE</p>
+                {{ /unless }}
 
-        <nav aria-label="Footer" class="row">
-            <div class="col-4">
-                <h2>Quick Links</h2>
-                <ul class="clean-list">
-                    <li><a href="/news">What's New?</a></li>
-                    <li><a href="/download">Download</a></li>
-                    <li><a href="/docs/intro">Docs &amp; Help</a></li>
-                    <li><a href="/docs/getting-started">Getting Started</a></li>
-                </ul>
+                <nav aria-label="Footer" class="row">
+                    <div class="col-4">
+                        <h2>Quick Links</h2>
+                        <ul class="clean-list">
+                            <li><a href="/news">What's New?</a></li>
+                            <li><a href="/download">Download</a></li>
+                            <li><a href="/docs/intro">Docs &amp; Help</a></li>
+                            <li><a href="/docs/getting-started">Getting Started</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-4">
+                        <h2>Community</h2>
+                        <ul class="clean-list">
+                            <li><a href="https://discord.gg/5NJB6dD">Discord{{> link_icon }}</a></li>
+                            <li><a href="https://forums.ppsspp.org/">Forums{{> link_icon }}</a></li>
+                            <li><a href="https://x.com/PPSSPP_emu">PPSSPP on X{{> link_icon }}</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-4">
+                        <h2>More</h2>
+                        <ul class="clean-list">
+                            <li><a href="https://github.com/hrydgard/ppsspp">GitHub{{> link_icon }}</a></li>
+                            <li><a href="https://github.com/hrydgard/ppsspp-site">Website GitHub{{> link_icon }}</a></li>
+                            <li><a href="/login">Login</a></li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <div class="center-text footer-bottom-text">
+                    Copyright © 2012&ndash;{{ globals.build_year }} PPSSPP Project.
+                    All trademarks are the property of their respective owners.
+                    <a href="/privacy">Privacy Policy</a>
+                </div>
             </div>
-            <div class="col-4">
-                <h2>Community</h2>
-                <ul class="clean-list">
-                    <li><a href="https://discord.gg/5NJB6dD">Discord{{> link_icon }}</a></li>
-                    <li><a href="https://forums.ppsspp.org/">Forums{{> link_icon }}</a></li>
-                    <li><a href="https://x.com/PPSSPP_emu">PPSSPP on X{{> link_icon }}</a></li>
-                </ul>
-            </div>
-            <div class="col-4">
-                <h2>More</h2>
-                <ul class="clean-list">
-                    <li><a href="https://github.com/hrydgard/ppsspp">GitHub{{> link_icon }}</a></li>
-                    <li><a href="https://github.com/hrydgard/ppsspp-site">Website GitHub{{> link_icon }}</a></li>
-                    <li><a href="/login">Login</a></li>
-                </ul>
-            </div>
-        </nav>
+        </footer>
 
-        <div class="center-text footer-bottom-text">
-            Copyright © 2012&ndash;{{ globals.build_year }} PPSSPP Project.
-            All trademarks are the property of their respective owners.
-            <a href="/privacy">Privacy Policy</a>
-        </div>
-    </div>
-</footer>
-
-</div> {{!-- page-wrapper --}}
+    </div> {{!-- page-wrapper --}}
 </body>
 </html>
