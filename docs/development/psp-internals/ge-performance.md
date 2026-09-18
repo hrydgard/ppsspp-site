@@ -57,3 +57,19 @@ If you have large chunks of state that you set over and over again (such as sett
 ## When using skinning, minimize the number of active bones
 
 It's totally fine to mix PRIMs that use 3 bones with those that use 2 bones, so wheerever possible, where a bone weight is zero for a bunch of consecutive vertices, shrink the bone count.
+
+## Framebuffer color formats
+
+If you can get away with it with your art style, use 5551 or 565 16-bit color formats instead of RGBA8888. Use dithering to hide the worst banding artifacts. 16-bit formats consume a lot less bandwidth.
+
+## Texture color formats
+
+Always use CLUT4 or CLUT8 as needed. Never use 16-bit or 32-bit texture formats (except when texturing from framebuffers, of course). Of course, on title screens and stuff where performance doesn't matter, feel free to use a full color picture.
+
+## Texture swizzling
+
+The PSP supports reading textures in a swizzled format, where textures are stored in rectangular blocks, 128 bits * 8 pixels (so the block width differs by texture format). Storing textures like this is critical for texture cache performance (unless you are rendering them 1:1 pixel mapped to the screen as sprites without rotation).
+
+For obvious reasons, when texturing from color framebuffers, you can't use swizzling.
+
+However, depth data is swizzled in a very specific way. When reading from depth buffers (using CLUT16 texture format normally), add 0x200000 or 0x600000 (depending on if your color buffer is 16 or 32 bits) to the depth buffer address to get linear depth data back as a texture.
