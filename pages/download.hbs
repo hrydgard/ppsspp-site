@@ -1,10 +1,10 @@
-{{> common_header this title="Download" description="Download PPSSPP for Android, Windows, macOS, Linux, iOS" }}
+{{>common_header this title="Download" description="Download PPSSPP for Android, Windows, macOS, Linux, iOS"}}
 
 <div class="container">
     <section aria-labelledby="downloads">
         <h1 id="downloads">Download PPSSPP</h1>
 
-        <p>What's new in {{ globals.app_version }}? See the <a href="/news">news page</a>!</p>
+        <p>What's new in {{globals.app_version}}? See the <a href="/news">news page</a>!</p>
 
         <div class="alert alert-warning gold-only">You've got PPSSPP Gold for Windows/macOS!
                 Downloads are now available below.</div>
@@ -15,40 +15,38 @@
                 <div class="col-4">
                     <article class="card">
                         <div class="card-title">
-                            {{ #if platform_badge }}
+                            {{#if platform_badge}}
                             <img src="/static/img/icons/{{platform_badge}}" alt="" aria-hidden="true" width="36" height="36" class="icon">
-                            {{ /if}}
-                            <h2>{{ title }}</h2>
+                            {{/if}}
+                            <h2>{{title}}</h2>
                         </div>
 
                         <div class="card-contents">
-                            {{ #each downloads }}
-                                {{ #unless old_build_only }}
-                                    <div {{ #if gold_only }} class="gold-only" {{ /if }}>
-                                        {{ #if title }}
-                                        <h3>{{ title }}</h3>
-                                        {{ /if }}
+                            {{#each downloads}}
+                                {{#unless old_build_only}}
+                                    <div {{#if gold_only}}class="gold-only"{{/if}}>
+                                        {{#if title}}<h3>{{title}}</h3>{{/if}}
 
                                         <a class="download-button button-block {{#if gold}}button-gold{{/if}}" {{#if url}}
-                                            href="{{url}}" {{ /if }} {{ #if download_url }}href="{{download_url}}" {{ /if }}>
+                                            href="{{url}}"{{/if}} {{#if download_url}}href="{{download_url}}"{{/if}}>
                                             <div class="button-contents">
-                                                {{ #if icon }}
+                                                {{#if icon}}
                                                 <img src="/static/img/platform/{{icon}}" alt="" aria-hidden="true" width="32" height="32" class="icon">
-                                                {{ /if }}
-                                                {{ #if url }}{{name}}{{ /if }}
-                                                {{ #if download_url }}{{name}}{{ /if }}
+                                                {{/if}}
+                                                {{#if url}}{{name}}{{/if}}
+                                                {{#if download_url}}{{name}}{{/if}}
                                             </div>
-                                            {{ #if service_image }}
+                                            {{#if service_image}}
                                             <img src="{{service_image}}" alt="{{service_alt}}" class="badge">
-                                            {{ /if }}
+                                            {{/if}}
                                         </a>
 
-                                        {{ #if whats_this_url }}
+                                        {{#if whats_this_url}}
                                         <a href="{{whats_this_url}}">{{whats_this}}</a><br>
-                                        {{ /if }}
+                                        {{/if}}
                                     </div>
-                                {{ /unless }}
-                            {{ /each }}
+                                {{/unless}}
+                            {{/each}}
                         </div>
                     </article>
                 </div>
@@ -93,25 +91,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{ #each globals.version_downloads }}
+                    {{#each globals.version_downloads}}
                     <tr>
                         <td>{{version}}</td>
                         <td>
                             <div class="center-vertical">
-                                {{ #each downloads }}
-                                <span {{ #if gold_only }} class="gold-only-inline" {{ /if }}>
-                                    {{ #if icon }}{{!-- This has to look this ridiculous to avoid HTML whitespace rendering. --}}
+                                {{#each downloads}}
+                                <span {{#if gold_only}}class="gold-only-inline"{{/if}}>
+                                    {{#if icon}}{{!-- This has to look this ridiculous to avoid HTML whitespace rendering. --}}
                                     <img src="/static/img/icons/{{icon}}" alt="" aria-hidden="true" width="24" height="24"
-                                            class="icon sp-left sp-right">{{ /if }}{{ #if short_name }}<a href="{{download_url}}"
-                                            {{ #if gold_only }} class="mini-button button-gold" {{ else }} class="sp-left sp-right"
-                                            {{ /if }}>{{short_name}}</a>
-                                    {{ /if }}
+                                            class="icon sp-left sp-right">{{/if}}{{#if short_name}}<a href="{{download_url}}"
+                                            class="sp-left sp-right {{#if gold_only}}mini-button button-gold{{/if}}">{{short_name}}</a>
+                                    {{/if}}
                                 </span>
-                                {{ /each }}
+                                {{/each}}
                             </div>
                         </td>
                     </tr>
-                    {{ /each }}
+                    {{/each}}
                 </tbody>
             </table>
         </details>
@@ -134,4 +131,4 @@
     </script>
 </div>
 
-{{> common_footer this }}
+{{>common_footer this}}

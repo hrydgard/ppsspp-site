@@ -1,8 +1,8 @@
-{{> common_header this }}
+{{>common_header this}}
 
 <div class="doc-container">
     <aside role="complementary" class="doc-sidebar" id="localSidebar">
-        {{{ sidebar }}}
+        {{{sidebar}}}
         <div class="feed-links">
             <a href="/{{meta.section}}/atom.xml"><img src="/static/img/rss.png" alt="Atom feed" width="24" height="24" class="icon"></a>
         </div>
@@ -22,9 +22,9 @@
         </nav>
         {{/if}}
 
-        {{{ contents }}}
+        {{{contents}}}
 
-        {{> unit }}
+        {{>unit}}
 
         <nav aria-label="Pagination" class="nav-link-container">
             {{#if meta.prev}}
@@ -43,4 +43,4 @@
     </div>
 </div>
 
-{{> common_footer this }}
+{{>common_footer this}}
