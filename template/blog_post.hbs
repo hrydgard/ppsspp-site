@@ -30,6 +30,7 @@
 
     <div>
         {{#unless is_list_view}}{{#if toc}}{{{toc}}}{{/if}}{{/unless}}
-        {{{contents}}}
+        {{{ contents }}}
+        {{#if truncated}}<p class="read-more"><a href="{{ meta.url }}">Read more&nbsp;&raquo;</a></p>{{/if}}
     </div>
 </article>

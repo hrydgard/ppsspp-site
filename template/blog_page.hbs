@@ -26,6 +26,21 @@
 
         {{>unit}}
 
+        {{#if pagination}}
+        <nav aria-label="Pages" class="pager">
+            {{#if pagination.newer_url}}<a href="{{pagination.newer_url}}" class="pager-step" rel="prev">&laquo;&nbsp;Newer</a>{{/if}}
+            <ul class="pager-pages">
+                {{#each pagination.pages}}
+                {{#if number}}
+                <li>{{#if current}}<span aria-current="page">{{number}}</span>{{else}}<a href="{{url}}">{{number}}</a>{{/if}}</li>
+                {{else}}
+                <li class="gap">&hellip;</li>
+                {{/if}}
+                {{/each}}
+            </ul>
+            {{#if pagination.older_url}}<a href="{{pagination.older_url}}" class="pager-step" rel="next">Older&nbsp;&raquo;</a>{{/if}}
+        </nav>
+        {{else}}
         <nav aria-label="Pagination" class="nav-link-container">
             {{#if meta.prev}}
             <a href="{{meta.prev.url}}" class="nav-link">
@@ -40,6 +55,7 @@
             </a>
             {{/if}}
         </nav>
+        {{/if}}
     </div>
 </div>
 

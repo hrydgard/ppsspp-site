@@ -2,7 +2,7 @@
 slug: stuck-in-app-store-review
 title: Talking to an App Store Review brick wall
 authors: hrydgard
-tags: [ppsspp]
+tags: [blog]
 ---
 
 ## UPDATE!!!

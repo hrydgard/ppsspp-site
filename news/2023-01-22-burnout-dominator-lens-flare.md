@@ -2,7 +2,7 @@
 slug: lens-flare-burnout-dominator
 title: The lens flare in Burnout
 authors: hrydgard
-tags: [rendering-tricks]
+tags: [blog, rendering-tricks]
 ---
 
 ## PSP rendering tricks - a new blog post series

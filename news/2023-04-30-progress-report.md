@@ -2,7 +2,7 @@
 slug: progress-report-spring-2023
 title: Progress Report - spring 2023
 authors: hrydgard
-tags: [ppsspp]
+tags: [blog]
 ---
 
 ## PPSSPP Progress Report - Spring 2023
@@ -72,7 +72,7 @@ The Android-only tilt (accelerometer) input feature has not been maintained nor 
 * Several large code cleanups and refactors have been performed across the code base, to make future changes easier.
 * The RISC-V JIT compiler has been improved by \[Unknown\]. Future-proofs the emulator a bit!
 * New app icon ([#11996]), assorted bugfixes ([#16988], [#17017], more)
-* And [much more](/news/2023-04-30-ppsspp-1.15)!
+* And [much more](/news/release-1.15)!
 
 ## Go get it!
 

@@ -7,7 +7,7 @@ tags: [news]
 
 PPSSPP 1.19 for iOS has been approved, and will be rolling out to devices over the coming week.
 
-After having [massive problems](/blog/stuck-in-app-store-review) getting updates to the iOS Gold version approved, I decided to give up on having a separate app. On iOS (but not other platforms), PPSSPP now is a single app, and you can upgrade to Gold, to support the project, through a simple in-app purchase instead.
+After having [massive problems](/news/stuck-in-app-store-review) getting updates to the iOS Gold version approved, I decided to give up on having a separate app. On iOS (but not other platforms), PPSSPP now is a single app, and you can upgrade to Gold, to support the project, through a simple in-app purchase instead.
 
 [Why gold?](/docs/reference/whygold)
 

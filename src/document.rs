@@ -55,6 +55,25 @@ pub struct SidebarContext {
     pub title: String,
     pub links: Vec<DocLink>,
     pub root_url: String,
+    pub archive_url: String,
+}
+
+// A single entry in a pager. `number` is None for a gap ("…").
+#[derive(Debug, Serialize, Clone)]
+pub struct PageLink {
+    pub number: Option<usize>,
+    pub url: String,
+    pub current: bool,
+}
+
+// Pagination state for list pages (e.g. the news listing).
+#[derive(Debug, Serialize, Clone)]
+pub struct Pagination {
+    pub current: usize,
+    pub total: usize,
+    pub newer_url: Option<String>,
+    pub older_url: Option<String>,
+    pub pages: Vec<PageLink>,
 }
 
 #[derive(Debug, Serialize, Clone, Default)]
@@ -83,6 +102,9 @@ pub struct PageContext<'a> {
     pub contains_code: bool,
     pub top_nav: Vec<DocLink>,
     pub is_list_view: bool,
+    // In list view: true if only an excerpt of the post is shown.
+    pub truncated: bool,
+    pub pagination: Option<Pagination>,
 }
 
 static DEFAULT_DESCRIPTION: &str = "Play PSP games in HD on Android, iOS, Windows, macOS, and more with enhanced graphics and customizable controls! Free and open source. Download now!";
@@ -103,6 +125,8 @@ impl<'a> PageContext<'a> {
             contains_code: false,
             top_nav: globals.top_nav.clone(),
             is_list_view: false,
+            truncated: false,
+            pagination: None,
         }
     }
     pub fn from_document(document: &Document, globals: &'a GlobalMeta) -> Self {
@@ -120,6 +144,8 @@ impl<'a> PageContext<'a> {
             contains_code: document.meta.contains_code,
             top_nav: globals.top_nav.clone(),
             is_list_view: false,
+            truncated: false,
+            pagination: None,
         }
     }
     pub fn render(

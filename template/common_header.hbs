@@ -24,8 +24,10 @@
     <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
 
     <link rel="stylesheet" type="text/css" href="/static/css/all.css">
-    <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="PPSSPP RSS Feed">
-    <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="PPSSPP Atom Feed">
+    <link rel="alternate" type="application/rss+xml" href="/news/rss.xml" title="PPSSPP RSS Feed">
+    <link rel="alternate" type="application/atom+xml" href="/news/atom.xml" title="PPSSPP Atom Feed">
+    {{#if pagination.newer_url}}<link rel="prev" href="{{pagination.newer_url}}">{{/if}}
+    {{#if pagination.older_url}}<link rel="next" href="{{pagination.older_url}}">{{/if}}
 
     <script src="/static/script/squirrelly.min.js" defer></script>
     <script src="/static/script/main.js" defer></script>

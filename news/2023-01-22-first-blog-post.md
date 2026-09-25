@@ -2,7 +2,7 @@
 slug: new-web-site
 title: Welcome to the new site!
 authors: hrydgard
-tags: [ppsspp]
+tags: [blog]
 ---
 
 Welcome to PPSSPP's new website!

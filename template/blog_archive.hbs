@@ -1,0 +1,10 @@
+<article class="article">
+    <h1>{{title}}</h1>
+    {{#each years}}
+    <h2 id="year-{{year}}">{{year}}</h2>
+    <ul class="archive-list">
+        {{#each links}}<li><a href="{{url}}">{{title}}</a> <small>{{date}}</small></li>
+        {{/each}}
+    </ul>
+    {{/each}}
+</article>

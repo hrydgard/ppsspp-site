@@ -25,10 +25,10 @@
 // - [x] Test purchase
 // - [x] *** Deploy ***
 // - [ ] h2 Section links
-// - [ ] Blog tags, browse by
+// - [x] Blog tags, browse by
 // - [ ] Nicer author tags in the blog
-// - [ ] Merge the two blogs
-// - [ ] Blog feed pagination
+// - [x] Merge the two blogs
+// - [x] Blog feed pagination
 // - [ ] Docs search
 #![warn(
     clippy::all,
@@ -168,6 +168,7 @@ fn build(opt: &Args, adhoc_servers: &str) -> anyhow::Result<()> {
         "blog_post",
         "blog_page",
         "blog_sidebar",
+        "blog_archive",
         "unit",
         "product_card",
         "page",
@@ -271,8 +272,7 @@ fn build(opt: &Args, adhoc_servers: &str) -> anyhow::Result<()> {
 
     let docs = gen_doctree::generate_doctree(&config, "docs", &mut handlebars)?;
 
-    let blog = gen_blog::generate_blog(&config, "blog", "Development Blog", &mut handlebars)?;
-    let news = gen_blog::generate_blog(&config, "news", "Release News", &mut handlebars)?;
+    let news = gen_blog::generate_blog(&config, "news", "News", &mut handlebars)?;
 
     config.global_meta.latest_news = news
         .iter()
@@ -284,7 +284,6 @@ fn build(opt: &Args, adhoc_servers: &str) -> anyhow::Result<()> {
 
     let mut sitemap = gen_sitemap::SitemapGenerator::new();
     sitemap.add(&docs, 0.8);
-    sitemap.add(&blog, 0.9);
     sitemap.add(&news, 0.9);
     sitemap.add(&pages, 1.0);
     sitemap.generate(&config, &mut handlebars)?;
@@ -319,7 +318,7 @@ async fn run() -> anyhow::Result<()> {
     // Add a path to be watched. All files and directories at that path and
     // below will be monitored for changes.
     let watch_dirs = &[
-        "blog", "data", "docs", "news", "pages", "static", "template",
+        "data", "docs", "news", "pages", "static", "template",
     ];
     for dir in watch_dirs {
         watcher.watch(Path::new(dir), notify::RecursiveMode::Recursive)?;

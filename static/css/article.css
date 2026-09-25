@@ -66,6 +66,67 @@ a.nav-link .title {
     font-weight: bold;
 }
 
+/* Pager for list pages (news listing) */
+.pager {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 20px 0px 10px 0px;
+}
+
+ul.pager-pages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.pager a,
+.pager span[aria-current] {
+    display: inline-block;
+    min-width: 2.2em;
+    padding: 6px 10px;
+    text-align: center;
+    border: 2px solid var(--default-border-color);
+    border-radius: 10px;
+}
+
+.pager a:hover {
+    border-color: var(--color-a-hover);
+    text-decoration: none;
+}
+
+.pager span[aria-current] {
+    font-weight: bold;
+    background-color: var(--background-surface-color);
+}
+
+.pager .gap {
+    padding: 6px 4px;
+}
+
+.read-more {
+    font-weight: bold;
+}
+
+ul.archive-list {
+    list-style: none;
+    padding: 0px;
+}
+
+ul.archive-list li {
+    margin-bottom: 4px;
+}
+
+a.nav-tree-item.all-posts {
+    margin-top: 5px;
+    font-weight: bold;
+}
+
 /* Style the category list */
 ul.breadcrumb {
     display: inline-block;
