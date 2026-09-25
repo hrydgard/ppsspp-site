@@ -145,21 +145,19 @@ struct Args {
     skip_serve: bool,
 }
 
-fn build(opt: &Args) -> anyhow::Result<()> {
+// Fetch any needed HTTP documents. Done once per run, not on every rebuild.
+async fn fetch_adhoc_servers() -> anyhow::Result<String> {
+    let adhoc_servers = fetch::fetch_github_file("hrydgard/ppsspp", "assets/adhoc-servers.json")
+        .await
+        .map_err(|e| anyhow!("fetch adhoc servers: {e}"))?;
+    println!("Fetched adhoc servers from repo.");
+    Ok(adhoc_servers)
+}
+
+fn build(opt: &Args, adhoc_servers: &str) -> anyhow::Result<()> {
     let mut handlebars = handlebars::Handlebars::new();
 
-    // Let's fetch any needed HTTP documents.
-    let adhoc_servers = tokio::task::block_in_place(|| {
-        tokio::runtime::Handle::current()
-            .block_on(fetch::fetch_github_file(
-                "hrydgard/ppsspp",
-                "assets/adhoc-servers.json",
-            ))
-    })
-    .map_err(|e| anyhow!("fetch adhoc servers: {e}"))?;
-
-    let adhoc_servers_table = util::table_from_adhoc_servers(&adhoc_servers)?;
-    println!("Fetched adhoc servers from repo.");
+    let adhoc_servers_table = util::table_from_adhoc_servers(adhoc_servers)?;
      // Register templates.
 
     let templates = &[
@@ -299,7 +297,9 @@ async fn run() -> anyhow::Result<()> {
 
     let opt = Args::parse();
 
-    build(&opt).unwrap();
+    let adhoc_servers = fetch_adhoc_servers().await?;
+
+    build(&opt, &adhoc_servers).unwrap();
 
     if opt.skip_serve {
         println!("not serving.");
@@ -356,7 +356,7 @@ async fn run() -> anyhow::Result<()> {
             // TODO: Could make it more fine grained, but for now we just rebuild everything,
             // it's fast enough.
             println!("Detected changes, rebuilding!");
-            build(&opt).unwrap();
+            build(&opt, &adhoc_servers).unwrap();
         }
     }
     Ok(())

@@ -6,14 +6,14 @@
         {{!-- Slideshow container --}}
         <div class="slideshow-container">
             {{!-- Full-width images with number and caption text --}}
-            {{#each globals.screenshots}}
+            {{#each page_data.screenshots}}
             <div class="mySlides fade">
                 <button type="button" class="invisible-button" onclick="plusSlides(1)">
                     <img src="/static/img/screenshots/{{filename}}" alt="screenshot of {{description}}"
                             {{#if @first}} fetchpriority="high" {{else}} loading="lazy" {{/if}}>
                 </button>
                 <div class="slide-text">{{description}}</div>
-                {{!--<div class="slide-numbers">{{index}} / {{globals.screenshots.length}}</div>--}}
+                {{!--<div class="slide-numbers">{{index}} / {{page_data.screenshots.length}}</div>--}}
             </div>
             {{/each}}
 
@@ -29,7 +29,7 @@
         {{!-- The quick navigation dots/circles --}}
         <nav aria-label="Gallery pagination">
             <ul class="slideshow-quicknav">
-                {{#each globals.screenshots}}
+                {{#each page_data.screenshots}}
                 <li>
                     <button type="button" aria-label="Display screenshot {{index}}" class="slideshow-dot" onclick="currentSlide({{index}})"></button>
                 </li>

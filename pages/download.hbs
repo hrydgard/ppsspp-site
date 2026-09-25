@@ -11,7 +11,7 @@
 
         <section aria-label="Download options">
             <div class="row">
-                {{#each globals.platforms}}
+                {{#each page_data.platforms}}
                 <div class="col-4">
                     <article class="card">
                         <div class="card-title">
@@ -93,7 +93,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{ #each globals.version_downloads }}
+                    {{ #each page_data.version_downloads }}
                     <tr>
                         <td>{{version}}</td>
                         <td>

@@ -1,8 +1,5 @@
 use crate::{config::*, document::*, feed, util};
-use std::{
-    cmp::Ordering,
-    path::{Path, PathBuf},
-};
+use std::path::{Path, PathBuf};
 
 // Posts should be passed-in in reverse time order.
 fn generate_blog_sidebar(
@@ -95,12 +92,13 @@ pub fn generate_blog(
         documents.push(doc);
     }
 
+    // Newest first. Posts from the same day are ordered by slug, so the output doesn't depend on
+    // directory listing order.
     documents.sort_by(|a, b| {
-        a.meta
+        b.meta
             .date
-            .partial_cmp(&b.meta.date)
-            .unwrap_or(Ordering::Equal)
-            .reverse()
+            .cmp(&a.meta.date)
+            .then_with(|| a.meta.slug.cmp(&b.meta.slug))
     });
 
     // Reformat the tag data to a vector.
