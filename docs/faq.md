@@ -39,7 +39,7 @@ Do look into the [Vita3K](https://vita3k.org/) project though! They are making g
 
 ## How do I install game DLC?
 
-See [How to install DLC](/docs/reference/how-to-install-dlc).
+See [How to install DLC](/docs/getting-started/how-to-install-dlc).
 
 ## Do I need a BIOS file to run PPSSPP, like I would with PSX/PS1 and PS2 emulators?
 

@@ -4,7 +4,7 @@
 
 Not only achievements are supported, but also global leaderboards in games that have scores or times.
 
-RetroAchievements are supported from [PPSSPP version 1.16](1-16-release-announcement). The feature is not supported in 1.15.4 and older.
+RetroAchievements are supported from [PPSSPP version 1.16](/news/release-1.16). The feature is not supported in 1.15.4 and older.
 
 From 1.16.1, you can find RetroAchievements under Tools in settings, previously it was under System.
 

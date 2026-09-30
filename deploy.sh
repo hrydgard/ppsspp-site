@@ -10,7 +10,8 @@ rm -rf build
 
 echo Building...
 
-cargo run --release -- --skip-serve --$1
+# Used to use --release here, but now debug builds are fast and there's not much point.
+cargo run -- --skip-serve --$1
 
 echo deploying to www@main:/srv/www/ppsspp.org/$1
 

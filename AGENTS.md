@@ -17,7 +17,8 @@ Notes for AI agents (and humans) working on the ppsspp.org site. Keep this updat
 - `news/` → `gen_blog::generate_blog(config, "news", "News", …)` in `src/main.rs` `build()`. This is the site's only post feed. A separate `blog/` folder was merged into it on 2026-09-25, and nginx 301-redirects `/blog/*` to `/news/*` (see below).
   - Type tags: `releases` (changelogs), `news` (announcements, store/platform news), `blog` (long-form articles; former blog posts). Topic tags like `rendering-tricks` can be added on top of these.
   - The 3 newest posts feed `globals.latest_news` on the front page.
-  - Before the merge, major releases got a pair of posts: a changelog (`release-X.Y`) and a narrative post (`X-Y-release-announcement`). The old pairs stay as they are, but new releases get a single post.
+  - Release posts (`release-X.Y`, tag `releases`) have the narrative first, then a `<!-- more -->` marker, then `## Detailed changelog` (link to it with `#detailed-changelog`) with `### What's new in X.Y.Z` sections, newest first.
+  - 1.15–1.20.4 used to have a pair of posts each: a changelog (`release-X.Y`) and a narrative post (`X-Y-release-announcement`, or `progress-report-spring-2023` for 1.15). On 2026-09-30 each pair was merged into the `release-X.Y` post, and nginx redirects the old narrative URLs. `1-15-release-process` is a separate post, not part of a pair.
   - Images for posts live under `static/img/blog/...` (the path is historical; leave it).
 - Post filenames are `YYYY-MM-DD-name.md`; the date comes from the filename. Front matter: `slug`, `title`, `authors`, `tags: [a, b]` (parsed in `document.rs`). Missing slug → falls back to the filename remainder with a warning.
 - URL of a post: `/{folder}/{slug}`. Other outputs per folder:
