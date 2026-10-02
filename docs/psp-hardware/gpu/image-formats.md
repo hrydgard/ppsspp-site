@@ -1,3 +1,6 @@
+---
+position: 8
+---
 # Image formats and tricks
 
 The PSP supports a relatively wide range of image formats, and can freely "cast" between them. That means that it can render to a buffer in R5G6B5 format for example, and then texture from it as if it was a CLUT16 texture. This allows for a huge variety of crazy tricks - for the zaniest example I've seen so far, check out [this blog post](/news/lens-flare-burnout-dominator) about the lens flare in Burnout Dominator.
