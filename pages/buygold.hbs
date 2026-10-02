@@ -1,7 +1,7 @@
-{{> common_header this title="Buy PPSSPP Gold" description="Buy PPSSPP Gold" fastspring="true" noAds="true" }}
+{{>common_header this title="Buy PPSSPP Gold" description="Buy PPSSPP Gold" fastspring="true" noAds="true"}}
 
 <div class="container">
-    <h1>Buy PPSSPP Gold {{ globals.app_version }}</h1>
+    <h1>Buy PPSSPP Gold {{globals.app_version}}</h1>
 
     <div class="gold-only">
         <h2 class="center-vertical">Gold already!<img src="/static/img/platform/ppsspp-icon-gold.png"
@@ -22,7 +22,7 @@
             alt="" aria-hidden="true" width="36" height="36" class="icon sp-left"></h2>
 
     <p>Starting from 1.19, <a href="/buygold_ios">PPSSPP Gold for iOS</a> is an in-app purchase in the regular PPSSPP app,
-        so just download that and click the {{> buygold_inapp }} button!
+        so just download that and click the {{>buygold_inapp}} button!
     </p>
 
     <h2 class="center-vertical">Buy PPSSPP Gold for Windows/macOS<img src="/static/img/icons/windows.svg"
@@ -34,13 +34,13 @@
     <div class="alert alert-hidden" id="fastspring-error-alert"></div>
 
     <div class="row" id="product-cards">
-        {{> product_card title="Hangaround" description="A show of support." productId="ppsspp-gold-l1" }}
-        {{> product_card title="Supporter" description="This will help!" productId="ppsspp-gold-l2" }}
-        {{> product_card title="Fan" description="A strong statement." productId="ppsspp-gold-l3" }}
+        {{>product_card title="Hangaround" description="A show of support." productId="ppsspp-gold-l1"}}
+        {{>product_card title="Supporter" description="This will help!" productId="ppsspp-gold-l2"}}
+        {{>product_card title="Fan" description="A strong statement." productId="ppsspp-gold-l3"}}
 
-        {{> product_card title="Gamer" description="A real contribution." productId="ppsspp-gold-l4" }}
-        {{> product_card title="Powergamer" description="A love of emulation." productId="ppsspp-gold-l5" }}
-        {{> product_card title="Grandmaster" description="You totally rock!" productId="ppsspp-gold-l6" }}
+        {{>product_card title="Gamer" description="A real contribution." productId="ppsspp-gold-l4"}}
+        {{>product_card title="Powergamer" description="A love of emulation." productId="ppsspp-gold-l5"}}
+        {{>product_card title="Grandmaster" description="You totally rock!" productId="ppsspp-gold-l6"}}
     </div>
 
     <h2>Purchase information</h2>
@@ -62,4 +62,4 @@
             width="24" height="24" class="icon sp-left">.</p>
 </div>
 
-{{> common_footer this }}
+{{>common_footer this}}

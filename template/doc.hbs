@@ -1,9 +1,9 @@
-{{> common_header this }}
+{{>common_header this}}
 
 <div class="doc-container">
     <aside role="complementary" class="doc-sidebar" id="localSidebar">
         <nav aria-label="Documents list" class="nav-tree">
-            {{{ sidebar }}}
+            {{{sidebar}}}
         </nav>
     </aside>
 
@@ -26,31 +26,31 @@
         <article {{#if meta.slug}}aria-labelledby="{{meta.slug}}"{{/if}}>
             <h1 {{#if meta.slug}}id="{{meta.slug}}"{{/if}}>{{title}}</h1>
             {{#if toc}}{{{toc}}}{{/if}}
-            {{{ contents }}}
+            {{{contents}}}
         </article>
 
         {{#each tags}}
         <a class="tag-link">{{name}}</a>
         {{/each}}
 
-        {{> unit}}
+        {{>unit}}
 
         <nav aria-label="Pagination" class="nav-link-container">
-            {{ #if meta.prev }}
-            <a href="{{ meta.prev.url }}" class="nav-link">
+            {{#if meta.prev}}
+            <a href="{{meta.prev.url}}" class="nav-link">
                 <div class="direction">Prev</div>
                 <div class="title">&laquo;&nbsp;{{meta.prev.title}}</div>
             </a>
-            {{ /if }}
+            {{/if}}
 
-            {{ #if meta.next }}
-            <a href="{{ meta.next.url }}" class="nav-link next">
+            {{#if meta.next}}
+            <a href="{{meta.next.url}}" class="nav-link next">
                 <div class="direction">Next</div>
                 <div class="title">{{meta.next.title}}&nbsp;&raquo;</div>
             </a>
-            {{ /if }}
+            {{/if}}
         </nav>
     </div>
 </div>
 
-{{> common_footer this }}
+{{>common_footer this}}

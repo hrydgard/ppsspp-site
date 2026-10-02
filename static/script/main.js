@@ -1007,11 +1007,11 @@ async function loadAllBuilds() {
 
         const showAllButton = document.getElementById("showAllButton");
         if (showAllButton) {
-            showAllButton.style.display = "none";
+            showAllButton.disabled = true;
         }
         const showAllButton2 = document.getElementById("showAllButton2");
         if (showAllButton2) {
-            showAllButton2.style.display = "none";
+            showAllButton2.disabled = true;
         }
     }
 }
