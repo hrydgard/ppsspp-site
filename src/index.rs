@@ -1,7 +1,7 @@
 // Some ideas:
 // https://javascript.plainenglish.io/building-a-simple-in-browser-search-engine-d87c86ac3261
 
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 use crate::document::DocumentMeta;
 use markdown::mdast::Node;
@@ -10,7 +10,7 @@ use serde::Serialize;
 #[derive(Serialize)]
 pub struct Index {
     doc_meta: Vec<DocumentMeta>,
-    index: HashMap<String, Vec<u32>>,
+    index: BTreeMap<String, Vec<u32>>,
 }
 
 const PUNCTUATION: &[char] = &[',', '.', '!', ':', '?', '(', ')'];

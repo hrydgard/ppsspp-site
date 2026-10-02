@@ -109,21 +109,29 @@ pub struct Screenshot {
     #[serde(default)]
     index: i32, // 1-based, not read from file.
 }
-// This contains a bunch of stuff that various pages want to reference.
-// Little point in restricting certain data to certain pages since we're a static generator
-// so it'll be a grab bag of stuff. If we get performance problems one day, we'll split this up.
-#[derive(Debug, Deserialize, Serialize, Default)]
-pub struct GlobalMeta {
-    pub app_version: String,
+// Bulky data that only a few pages/*.hbs templates use, available there as `page_data`.
+// Kept out of GlobalMeta's serialization, since handlebars serializes the whole context on
+// every render and this is by far the biggest part of it (~180 KB of JSON).
+#[derive(Debug, Serialize, Default)]
+pub struct PageData {
     pub platforms: Vec<PlatformInfo>,
     pub version_downloads: Vec<VersionDownloads>,
+    pub screenshots: Vec<Screenshot>,
+}
+
+// This contains a bunch of stuff that various pages want to reference.
+// It's passed to every template render, so keep it small - put big things in PageData.
+#[derive(Debug, Serialize, Default)]
+pub struct GlobalMeta {
+    pub app_version: String,
     pub top_nav: Vec<DocLink>,
     pub prod: bool,
     pub authors: HashMap<String, Author>,
-    pub screenshots: Vec<Screenshot>,
     pub latest_news: Vec<DocLink>,
     pub replacements: BTreeMap<String, String>,
     pub build_year: i32,
+    #[serde(skip)]
+    pub page_data: PageData,
 }
 
 fn download_path(url_base: &str, version: &str, filename: &str) -> String {
@@ -211,10 +219,12 @@ impl GlobalMeta {
             },
             authors,
             prod: production,
-            platforms,
-            version_downloads,
             top_nav,
-            screenshots,
+            page_data: PageData {
+                platforms,
+                version_downloads,
+                screenshots,
+            },
             latest_news: vec![],
             build_year,
             replacements

@@ -1,5 +1,5 @@
 use crate::{
-    config::{Config, DocLink, GlobalMeta},
+    config::{Config, DocLink, GlobalMeta, PageData},
     post_process, util,
     markdown_renderer,
 };
@@ -77,6 +77,8 @@ pub struct PageContext<'a> {
     pub children: Vec<DocLink>,
     pub meta: Option<DocumentMeta>,
     pub globals: Option<&'a GlobalMeta>,
+    // Only set for pages/*.hbs, see PageData.
+    pub page_data: Option<&'a PageData>,
     pub tags: &'a [Tag],
     pub contains_code: bool,
     pub top_nav: Vec<DocLink>,
@@ -96,6 +98,7 @@ impl<'a> PageContext<'a> {
             children: vec![],
             meta: None,
             globals: Some(globals),
+            page_data: None,
             tags: &[],
             contains_code: false,
             top_nav: globals.top_nav.clone(),
@@ -112,6 +115,7 @@ impl<'a> PageContext<'a> {
             children: vec![],
             meta: Some(document.meta.clone()),
             globals: Some(globals),
+            page_data: None,
             tags: &[],
             contains_code: document.meta.contains_code,
             top_nav: globals.top_nav.clone(),
@@ -304,6 +308,7 @@ impl Document {
         let hbs = std::fs::read_to_string(hbs_path)?;
         let mut context = PageContext::new(None, None, globals);
         context.globals = Some(globals);
+        context.page_data = Some(&globals.page_data);
         let meta = DocumentMeta {
             url: format!("/{name}"),
             ..Default::default()
