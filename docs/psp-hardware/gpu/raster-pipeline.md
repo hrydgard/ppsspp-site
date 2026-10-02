@@ -5,7 +5,7 @@ position: 4
 
 This page picks up where the [vertex pipeline](/docs/psp-hardware/gpu/ge-vertex-pipeline) leaves off. There, vertices end up with screen X and Y in 12.4 fixed point (4 subpixel bits), a 16-bit Z, an 8-bit fog value, colors and texture coordinates. Here they become pixels.
 
-The rasterizer doesn't work like a PC GPU's, or like the PS2's edge walker. Nearly every value is interpolated with fixed-point planes set up with the GE's own reciprocal table. The arithmetic is described on the [GE arithmetic](/docs/psp-hardware/gpu/ge-arithmetic) page; this page describes what it's applied to. Everything here was measured on hardware with hand-built display lists, and PPSSPP's software renderer reproduces it bit for bit.
+The rasterizer doesn't work like a PC GPU's, or like the PS2's edge walker. Nearly every value is interpolated with fixed-point planes set up with the GE's own reciprocal table. The arithmetic is described on the [GE arithmetic](/docs/psp-hardware/gpu/arithmetic) page; this page describes what it's applied to. Everything here was measured on hardware with hand-built display lists, and PPSSPP's software renderer reproduces it bit for bit, mostly in [`GPU/Software/Rasterizer.cpp`](https://github.com/hrydgard/ppsspp/blob/master/GPU/Software/Rasterizer.cpp). The pspautotests in [`gpu/exact`](https://github.com/hrydgard/pspautotests/tree/master/tests/gpu/exact) replay a selection of those display lists and check the results.
 
 ## Triangle coverage
 
@@ -21,7 +21,7 @@ There's one coverage quirk. When a triangle's long edge (top vertex to bottom ve
 
 ### Walking order
 
-Pixels are drawn row by row. This only shows when a primitive textures from its own render target (see the [texture cache](/docs/psp-hardware/gpu/ge-texture-cache)):
+Pixels are drawn row by row. This only shows when a primitive textures from its own render target (see the [texture cache](/docs/psp-hardware/gpu/texture-cache)):
 
 - flat-top triangles are drawn top-down, and flat-bottom triangles bottom-up, whatever the vertex order and winding;
 - each row is walked right to left when the long edge is the triangle's right side, otherwise left to right.
@@ -37,7 +37,7 @@ Depth, Gouraud color, fog and texture coordinates all go through the same fixed-
 
 So depth isn't `z/w` per pixel. It's an affine function of screen position, rounded the same way for every pixel of a triangle. Depth, Gouraud color and fog are all screen-linear with no perspective correction. For color and fog, that's unlike a PC GPU.
 
-**Depth.** The plane's floored value is clamped to 0 below; it can't overflow at the top. This applies to the depth range test and the write, in through mode and transform mode, with either clamp setting. Frontier Gate Boost's sky has a seam without it.
+**Depth.** The plane's floored value is clamped to 0 below; it can't overflow at the top. This applies to the depth range test and the write, in through mode and transform mode, with either clamp setting. Frontier Gate Boost's sky ([#6531]) has a seam without it.
 
 **Colors.** The 8-bit channel values go into the planes directly. A Gouraud triangle in transform mode is screen-linear, exactly like through mode.
 
@@ -53,7 +53,7 @@ s = float24(u · q)
 t = float24(v · q)
 ```
 
-Then s, t and q of the three vertices become 15-bit integers, scaled to the largest exponent among the three values of each, and go through planes. Per pixel, `u = s · R(q)`, kept to 24 bits. That's the perspective correction, done with the same reciprocal as the perspective divide. See [texture coordinates per pixel](/docs/psp-hardware/gpu/ge-arithmetic#texture-coordinates-per-pixel) for the precision.
+Then s, t and q of the three vertices become 15-bit integers, scaled to the largest exponent among the three values of each, and go through planes. Per pixel, `u = s · R(q)`, kept to 24 bits. That's the perspective correction, done with the same reciprocal as the perspective divide. See [texture coordinates per pixel](/docs/psp-hardware/gpu/arithmetic#texture-coordinates-per-pixel) for the precision.
 
 With the texture matrix (UV generation mode 1), `q` is the matrix's q times `R(w)`. Projected textures on perspective triangles come out exact that way.
 
@@ -108,7 +108,7 @@ Here `o` is the pixel center's minor offset from the line in 1/16 pixel, `q` and
 
 ### Mip level selection
 
-The level of detail D is in 1/16 levels, from the [float-bits logarithm](/docs/psp-hardware/gpu/ge-arithmetic#a-float-bits-logarithm):
+The level of detail D is in 1/16 levels, from the [float-bits logarithm](/docs/psp-hardware/gpu/arithmetic#a-float-bits-logarithm):
 
 - **Auto:** `D = log16(g) - log16(q)`, where g is the largest of the four s and t plane gradients in texels per pixel, and q is the pixel's interpolated q.
 - **Slope:** `D = 16 + log16(slope) - log16(q) + bias`.
@@ -116,7 +116,7 @@ The level of detail D is in 1/16 levels, from the [float-bits logarithm](/docs/p
 
 D is clamped to 0..16·(max level). Mipmap linear blends level `D >> 4` with the next one by `D & 15`. Mipmap nearest takes level `(D + 8) >> 4`.
 
-The q isn't taken per pixel, and not per 2x2 quad either. Each row is cut into 4-pixel spans (x = 4k..4k+3), and every pixel of a span uses the q at the span's second pixel in walking order: 4k+1 left to right, 4k+2 right to left. When that pixel is outside the triangle, the span uses its first covered pixel instead.
+The q isn't taken per pixel, and not per 2x2 quad either like on modern GPUs. Each row is cut into 4-pixel spans (x = 4k..4k+3), and every pixel of a span uses the q at the span's second pixel in walking order: 4k+1 left to right, 4k+2 right to left. When that pixel is outside the triangle, the span uses its first covered pixel instead.
 
 With separate CLUTs per mip level (texture mode bit 8), level n offsets the CLUT index by n shifted above the index bits, wrapped to the CLUT.
 
@@ -128,10 +128,10 @@ With separate CLUTs per mip level (texture mode bit 8), level n offsets the CLUT
 
 ## Per-pixel operations
 
-These follow PPSSPP's existing model, which the probes confirmed. Write masks, color test, alpha test, every logic op, clear mode with every flag combination, dithering, and 565, 5551 and 4444 conversion are all exact. A few details are worth spelling out:
+These follow PPSSPP's existing model, which the probes confirmed. Write masks, color test, alpha test, every logic op, clear mode with every flag combination, dithering, and 565, 5551 and 4444 conversion were already all exact. A few details are worth spelling out:
 
 - **Stencil** compares `(ref & mask)` against `(stencil & mask)`, with the reference on the left of the comparison.
-- **Blending** is `((2c + 1)(2f + 1)) >> 10` for each term, then one clamp. The doubled inverse factors aren't clamped, so for α ≥ 128 their term is subtracted. Min, max and absolute difference use the raw colors. See the [arithmetic page](/docs/psp-hardware/gpu/ge-arithmetic#8-bit-color-products).
+- **Blending** is `((2c + 1)(2f + 1)) >> 10` for each term, then one clamp. The doubled inverse factors aren't clamped, so for α ≥ 128 their term is subtracted. Min, max and absolute difference use the raw colors. See the [arithmetic page](/docs/psp-hardware/gpu/arithmetic#8-bit-color-products).
 - **Fog** blends toward the fog color by the interpolated 8-bit factor.
 
 ### REGION1 is a translation
@@ -146,4 +146,4 @@ No game in the dump collection sets REGION1 to anything but 0, so PPSSPP ignores
 
 ### Drawing past the stride
 
-A pixel beyond the framebuffer's stride isn't clipped; it lands at the start of the next row, written in drawing order. Tokimeki Memorial's blur writes x = 128-129 into a 128-wide buffer, which on the PSP ends up at x = 0-1 of the next row.
+A pixel beyond the framebuffer's stride isn't clipped; it lands at the start of the next row, written in drawing order. Tokimeki Memorial 4's blur ([#6379]) writes x = 128-129 into a 128-wide buffer, which on the PSP ends up at x = 0-1 of the next row.

@@ -3,7 +3,7 @@ position: 7
 ---
 # GE arithmetic
 
-The GE doesn't compute with IEEE floats, or with any single format. Each stage of the pipeline has its own small set of operations, and each of them rounds in its own way, nearly always by truncating toward zero. This page collects those operations. The pages on the [vertex pipeline](/docs/psp-hardware/gpu/ge-vertex-pipeline), [lighting](/docs/psp-hardware/gpu/ge-lighting), [curves](/docs/psp-hardware/gpu/ge-curves) and the [raster pipeline](/docs/psp-hardware/gpu/ge-raster-pipeline) describe where they're used.
+The GE doesn't compute with IEEE floats, or with any single format. Each stage of the pipeline has its own small set of operations, and each of them rounds in its own way, nearly always by truncating toward zero. This page collects those operations. The pages on the [vertex pipeline](/docs/psp-hardware/gpu/ge-vertex-pipeline), [lighting](/docs/psp-hardware/gpu/lighting), [curves](/docs/psp-hardware/gpu/curves) and the [raster pipeline](/docs/psp-hardware/gpu/raster-pipeline) describe where they're used.
 
 Everything here was measured on a PSP with small hand-built display lists, reading results back from the framebuffer and the depth buffer, and is reproduced bit for bit by PPSSPP's software renderer. The reference implementation is `GPU/Software/GEMath.cpp` and `GEMath.h`, with unit tests in `unittest/TestGEMath.cpp`.
 
@@ -33,24 +33,28 @@ So adding a small value to a large one loses the small value's low bits, *both* 
 
 ## Products
 
-A product of two float24s is formed exactly, then truncated at a fixed bit weight: `2^(ea + eb - 15)`, where `ea` and `eb` are the operands' exponents. When the two significands multiply to 2 or more, the product keeps a 17th significant bit; below 2 it keeps 16. The product isn't renormalized to float24 on its own. It's kept on this grid until it's summed.
+A product of two float24s is formed exactly, then truncated at a fixed bit weight: `2^(ea + eb - 15)`, where `ea` and `eb` are the operands' exponents. When the two significands multiply to 2 or more, the product keeps a 17th significant bit; below 2 it keeps 16. The product isn't renormalized to float24 on its own: its lowest bit stays at that weight until it's summed.
 
 ## Row sums
 
 A matrix row `x·m0 + y·m1 + z·m2 + t` isn't a chain of additions. It's one multi-operand sum:
 
 1. Each product is formed as above. The translation `t` counts as a term with its lsb at `2^(ex(t) - 15)`.
-2. Every term is truncated to the grid of the term with the largest lsb.
+2. Every term is truncated to a multiple of the largest lsb among the terms, that is, to the precision of the largest term.
 3. The truncated terms are added exactly.
 4. The sum is truncated to float24.
 
-There is no evaluation order, and pairwise additions in any order don't reproduce the hardware. The same sum is used for:
+There is no evaluation order, and pairwise additions in any order don't reproduce the hardware.
+
+The VFPU's dot product (`vdot`) works on the same idea: its terms are aligned to the largest one, truncated, and summed exactly as integers, with no order between them. The VFPU's version is more careful, though. Its products keep two extra bits and a sticky bit (rounding to odd), so what the truncation drops still nudges the result, and the final sum is rounded to nearest rather than truncated. The GE does without all of that. See fp64's [`vfpu_dot_reference`](https://github.com/hrydgard/ppsspp/blob/a2f4ce214f224c6c26b3319409ec50205ff8253d/Core/MIPS/MIPSVFPUUtils.cpp#L763-L849) in PPSSPP, and [#21070].
+
+The same sum is used for:
 
 - the vertex transform (all four rows),
 - combining the world, view and projection matrices (each entry of `(W·V)·P` is a row sum),
 - dot products (a row sum without the translation): `N·L`, `N·H`, squared lengths,
 - the texture matrix,
-- the vector from a vertex to a light (see [lighting](/docs/psp-hardware/gpu/ge-lighting)),
+- the vector from a vertex to a light (see [lighting](/docs/psp-hardware/gpu/lighting)),
 - the cross product of Bezier tangents.
 
 ## The reciprocal
@@ -99,7 +103,7 @@ The rasterizer interpolates depth, color, fog and texture coordinates with fixed
 
 - A vertex value `v` and the vertices' screen positions (12.4 fixed point) give the plane's numerators `n` through the usual cross products.
 - The gradients are `floor(n · q / 2^(e + 2))`, with `q` and `e` from the setup reciprocal of the doubled area. That leaves 14 fraction bits per subpixel.
-- The plane is anchored at one vertex (see the [raster pipeline](/docs/psp-hardware/gpu/ge-raster-pipeline) for which), and a pixel's value is the floor of the plane at the pixel center.
+- The plane is anchored at one vertex (see the [raster pipeline](/docs/psp-hardware/gpu/raster-pipeline) for which), and a pixel's value is the floor of the plane at the pixel center.
 
 Lines interpolate color and depth the same way along their major axis, with the setup reciprocal of the major length.
 
@@ -163,7 +167,7 @@ The fog factor is computed per vertex, converted to 8 bits with `min(floor(256 �
 
 ## Curve lerps
 
-Bezier and spline tessellation uses yet another format: 16-bit fixed point at the larger operand's exponent, with 8-bit parameters. See [curves](/docs/psp-hardware/gpu/ge-curves).
+Bezier and spline tessellation uses yet another format: 16-bit fixed point at the larger operand's exponent, with 8-bit parameters. See [curves](/docs/psp-hardware/gpu/curves).
 
 ## Clipped vertex colors
 

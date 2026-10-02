@@ -5,7 +5,7 @@ position: 3
 
 The GE lights each vertex with up to four lights: directional, point or spot. Each light has ambient, diffuse and specular colors, and its "computation" is diffuse only, diffuse plus specular, or powered diffuse. The vertex gets two colors, primary and secondary (specular), which go on to the rasterizer.
 
-The model looks like the standard fixed-function one, but several details differ from OpenGL's, and from what PPSSPP did until 2026. Everything below was measured on hardware and is bit exact in PPSSPP's software renderer. The operations (row sums, the reciprocal square root, the pow, the 8-bit products) are described on the [GE arithmetic](/docs/psp-hardware/gpu/ge-arithmetic) page.
+The model looks like the standard fixed-function one, but several details differ from OpenGL's, and from what PPSSPP did until 2026. Everything below was measured on hardware and is bit exact in PPSSPP's software renderer. The operations (row sums, the reciprocal square root, the pow, the 8-bit products) are described on the [GE arithmetic](/docs/psp-hardware/gpu/arithmetic) page.
 
 ## Space
 
@@ -16,13 +16,13 @@ Lighting happens in **world space**:
 
 ## The light vector
 
-For a directional light, L is the light's position vector. For point and spot lights, the GE never forms a world-space vertex position. The vector from the vertex to the light is one [row sum](/docs/psp-hardware/gpu/ge-arithmetic#row-sums):
+For a directional light, L is the light's position vector. For point and spot lights, the GE never forms a world-space vertex position. The vector from the vertex to the light is one [row sum](/docs/psp-hardware/gpu/arithmetic#row-sums):
 
 ```text
 L_i = rowsum(lpos_i - T_i, -x · W_xi, -y · W_yi, -z · W_zi)
 ```
 
-The first term is the light position minus the world matrix translation, from the GE adder. The other terms are the model-space position times the world matrix. Forming the world position first and then subtracting, at any precision, doesn't match. (This was found through a single vertex in Syphon Filter, whose spot factor was 33 on the PSP and 32 in the emulator.)
+The first term is the light position minus the world matrix translation, from the GE adder. The other terms are the model-space position times the world matrix. Forming the world position first and then subtracting, at any precision, doesn't match. (This was found through a single vertex in Syphon Filter ([#13568]), whose spot factor was 33 on the PSP and 32 in the emulator.)
 
 L is then normalized with the GE's reciprocal square root. A zero-length L stays zero:
 
@@ -45,7 +45,7 @@ A zero normal gives no diffuse and no specular.
 
 ### The pow
 
-`pow` is the GE's [Mitchell approximation](/docs/psp-hardware/gpu/ge-arithmetic#the-lighting-pow). It's linear between powers of two, so highlights are tighter than a true pow would give: up to 10-30 steps darker through the falloff, with the same peak. Its exponent keeps only the top 4 bits of its mantissa, so an exponent of 5.1 acts as 5.0.
+`pow` is the GE's [Mitchell approximation](/docs/psp-hardware/gpu/arithmetic#the-lighting-pow). It's linear between powers of two, so highlights are tighter than a true pow would give: up to 10-30 steps darker through the falloff, with the same peak. Its exponent keeps only the top 4 bits of its mantissa, so an exponent of 5.1 acts as 5.0.
 
 ## Spot lights and attenuation
 
@@ -91,11 +91,11 @@ L' = normalize(directional ? lpos : L)       (zero staying zero)
 L' = normalize(L' + V)                      if that light is diffuse + specular
 ```
 
-The `+ 1` uses the GE adder, and `N·L'` is divided by the normal's length as in lighting. This doesn't depend on lighting or the light being enabled, the exponent, the spot cone, or the texture scale and offset. PPSSPP used the light position as a direction for every light type, never the half vector, and (0, 0, 1) for a zero vector, so the hair shine in iDOLM@STER SP came out wrong.
+The `+ 1` uses the GE adder, and `N·L'` is divided by the normal's length as in lighting. This doesn't depend on lighting or the light being enabled, the exponent, the spot cone, or the texture scale and offset. PPSSPP used the light position as a direction for every light type, never the half vector, and (0, 0, 1) for a zero vector, so the hair shine in iDOLM@STER SP ([#12376]) came out wrong.
 
 ## Normals from elsewhere
 
 - **Skinned normals** use the bone matrices like positions, without the translation (see the [vertex pipeline](/docs/psp-hardware/gpu/ge-vertex-pipeline#skinning)).
-- **Bezier and spline patches** ignore the vertex normals and use the cross product of the surface tangents (see [curves](/docs/psp-hardware/gpu/ge-curves)).
+- **Bezier and spline patches** ignore the vertex normals and use the cross product of the surface tangents (see [curves](/docs/psp-hardware/gpu/curves)).
 
-These tests in pspautotests cover this page: `gpu/lighting/specular` and `gpu/lighting/shademap`.
+PPSSPP's software renderer does all of this in [`GPU/Software/Lighting.cpp`](https://github.com/hrydgard/ppsspp/blob/master/GPU/Software/Lighting.cpp). These tests in pspautotests cover this page: [`gpu/lighting/specular` and `gpu/lighting/shademap`](https://github.com/hrydgard/pspautotests/tree/master/tests/gpu/lighting).

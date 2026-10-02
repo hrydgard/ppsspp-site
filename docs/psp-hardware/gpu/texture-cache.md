@@ -11,7 +11,7 @@ The cache isn't coherent with the GE's own framebuffer writes or with CPU writes
 
 A texture that fits in the cache, 8 KB or less, stays there until TEXFLUSH, across primitives and across draw calls. Re-drawing with the same texture address and no flush in between reads the *cached* contents, not what's in memory now.
 
-This was shown with a 16x16 4444 buffer (512 bytes) blurred onto itself three times. The result differs in 177 pixels with and without a TEXFLUSH between the passes, and both versions are reproduced exactly when the cache keeps its contents until the flush. Final Fantasy Type-0's blur depends on this.
+This was shown with a 16x16 4444 buffer (512 bytes) blurred onto itself three times. The result differs in 177 pixels with and without a TEXFLUSH between the passes, and both versions are reproduced exactly when the cache keeps its contents until the flush. Final Fantasy Type-0's blur ([#20104]) depends on this.
 
 ## Self-texturing
 
@@ -23,9 +23,9 @@ Mostly, the GE reads the pre-draw contents:
 
 - A primitive's texels come from data fetched before its own writes. So for most purposes, "the texture as it was before this primitive" is a good model. With that model, The 3rd Birthday's blur is exact, Burnout Dominator's glare is 98%, and Ridge Racer's blur is 94%.
 - What's left looks like lazy loading in 8-row blocks. The texture is fetched in lines 8 rows tall and 64-128+ texels wide, loaded the first time a primitive needs them, and never refreshed during that primitive. Rows that were written by earlier parts of the same primitive before their block was loaded *do* show the new data. A sprite drawn onto itself shifted down by 8 or 20 rows reads the rewritten rows, while one shifted by 1 row only does at block boundaries. In Ridge Racer, rows 9 and 17 of the blur show exactly this.
-- Pixel order matters for the same reason, and is described on the [raster pipeline](/docs/psp-hardware/gpu/ge-raster-pipeline#walking-order) page: flat-top triangles go top-down, flat-bottom ones bottom-up.
+- Pixel order matters for the same reason, and is described on the [raster pipeline](/docs/psp-hardware/gpu/raster-pipeline#walking-order) page: flat-top triangles go top-down, flat-bottom ones bottom-up.
 
-PPSSPP's software renderer now gives each primitive the texture as it was before it, and keeps a cache-sized texture until TEXFLUSH. The 8-row block loading isn't modeled yet.
+PPSSPP's software renderer now gives each primitive the texture as it was before it, and keeps a cache-sized texture until TEXFLUSH ([`GPU/Software/BinManager.cpp`](https://github.com/hrydgard/ppsspp/blob/master/GPU/Software/BinManager.cpp)). The 8-row block loading isn't modeled yet.
 
 ## Measuring it
 

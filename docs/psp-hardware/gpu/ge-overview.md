@@ -5,7 +5,7 @@ position: 1
 
 ## Overview
 
-At a first glance, the PSP GPU, known as the GE (graphics engine),  looks like a conventional small fixed-function GPU not unlike something like the original Geforce 256 (but without multitexturing support). In reality though, it's actually a quite strange and interesting little beast.
+At a first glance, the PSP GPU, known as the GE (graphics engine), looks like a conventional small fixed-function GPU not unlike something like the original Geforce 256 (but without multitexturing support). In reality though, it's actually a quite strange and interesting little beast.
 
 Unlike the PS2's GS which is a pure rasterizer, it has a T&L (transform and lighting) vertex pipeline, so you give it world, view and projection matrixes with the vertex data, and it'll automatically get transformed and lit, if enabled.
 
@@ -35,7 +35,7 @@ It has a normal set of blend factors and blend modes, with some additions, that 
 
 Stencil buffers are not stored separately, and are not interleaved with the depth buffer like on PC. Instead, the color alpha channel serves double duty as both stencil and alpha data. This means that if you specify that your framebuffer has the format R5G5B5A1, there really is only 1 bit of stencil, while with R4G4B4A4 you effectively have a 4-bit stencil buffer and with R8G8B8A8 your stencil buffer is the full 8 bits wide. And if you render using R5G6B5 format, there simply is no stencil buffer available.
 
-There's support for special "antialiasing lines", which compute a per-pixel alpha from the pixel's distance to the line. They're rarely used (echochrome is one game that does). See the [raster pipeline](/docs/psp-hardware/gpu/ge-raster-pipeline#antialiased-lines).
+There's support for special "antialiasing lines", which compute a per-pixel alpha from the pixel's distance to the line. They're rarely used (echochrome is one game that does). See the [raster pipeline](/docs/psp-hardware/gpu/raster-pipeline#antialiased-lines).
 
 ### Vertex transform & lighting
 
@@ -43,7 +43,7 @@ Unlike the PS2 it has a hardwired vertex transform and lighting unit. It support
 
 The viewport is specified by a scale/offset instead of a rectangle. This also implies that it doesn't affect the scissor.
 
-Parameters like matrices are specified by 24-bit floating point values, and it turns out that the GE computes at that precision internally too, with its own adder, multi-operand sums and table-based reciprocals, nearly always truncating. See [GE arithmetic](/docs/psp-hardware/gpu/ge-arithmetic) for the details, and [GE lighting](/docs/psp-hardware/gpu/ge-lighting) for the lighting model.
+Parameters like matrices are specified by 24-bit floating point values, and it turns out that the GE computes at that precision internally too, with its own adder, multi-operand sums and table-based reciprocals, nearly always truncating. See [GE arithmetic](/docs/psp-hardware/gpu/arithmetic) for the details, and [GE lighting](/docs/psp-hardware/gpu/lighting) for the lighting model.
 
 You can turn off the T&L pipeline and put it in "through mode". In this mode, vertex data just goes straight through from the vertex buffer to the rasterizer, without any clipping or transform.
 
@@ -81,13 +81,15 @@ The PSP supports the usual set of primitives: LINE, LINE_STRIP, TRIANGLE_LIST, T
 
 ### Curve rendering
 
-It's got a bezier/spline curve drawing unit! It can draw rectangular bezier patches and b-spline patches with knots, with some limitations. It's underused by games, mainly used by games with large landscape things like some snowboarding games, Test Drive, Pursuit Force and a few others. There are also some early games that use it for drawing simple 2D rectangles, for no good reason, like Puzzle Bobble. Additionally, Loco Roco uses it. How the GE evaluates patches, bit for bit, is described on the [curves](/docs/psp-hardware/gpu/ge-curves) page.
+It's got a bezier/spline curve drawing unit! It can draw rectangular bezier patches and b-spline patches with knots, with some limitations. It's underused by games, mainly used by games with large landscape things like some snowboarding games, Test Drive, Pursuit Force and a few others. There are also some early games that use it for drawing simple 2D rectangles, for no good reason, like Puzzle Bobble. Additionally, Loco Roco uses it. How the GE evaluates patches, bit for bit, is described on the [curves](/docs/psp-hardware/gpu/curves) page.
 
 ### Clipping
 
 The PSP does not have a full clipper unit. It does have a near plane clipper (that behaves a bit strangely) but the other sides of the view frustum need to be handled by software.
 
 Since the clipper only has one plane, it relies on guardbands for clipping on the sides. Unfortunately this guardband is not infinite - triangles that reach outside a virtual 4096x4096 viewport are discarded. And some games rely on that, so it must be emulated (notoriously, the TOCA racing games have horrible artifacts if you don't). Primitives entirely outside one of the X, Y or Z planes of the view volume are culled whole; see [the vertex pipeline](/docs/psp-hardware/gpu/ge-vertex-pipeline#cull).
+
+Also, triangles that are entirely outside the view frustum are culled, even on the sides.
 
 ### Raw display list access
 
@@ -98,9 +100,9 @@ Display list commands are all 32 bits in size, out of which the upper 8 bits is 
 ## Further reading
 
 - [The vertex pipeline](/docs/psp-hardware/gpu/ge-vertex-pipeline): transform, morphing, skinning, fog, culling, near-plane clipping, the viewport.
-- [Lighting](/docs/psp-hardware/gpu/ge-lighting): the light vector, specular, attenuation, spot lights, shade mapping.
-- [The raster pipeline](/docs/psp-hardware/gpu/ge-raster-pipeline): coverage, planes, sprites, lines, texturing, mip selection, per-pixel operations.
-- [Curves](/docs/psp-hardware/gpu/ge-curves): Bezier and spline tessellation.
-- [The texture cache and self-texturing](/docs/psp-hardware/gpu/ge-texture-cache).
-- [GE arithmetic](/docs/psp-hardware/gpu/ge-arithmetic): the number formats and operations the rest of the pipeline is built from.
+- [Lighting](/docs/psp-hardware/gpu/lighting): the light vector, specular, attenuation, spot lights, shade mapping.
+- [The raster pipeline](/docs/psp-hardware/gpu/raster-pipeline): coverage, planes, sprites, lines, texturing, mip selection, per-pixel operations.
+- [Curves](/docs/psp-hardware/gpu/curves): Bezier and spline tessellation.
+- [The texture cache and self-texturing](/docs/psp-hardware/gpu/texture-cache).
+- [GE arithmetic](/docs/psp-hardware/gpu/arithmetic): the number formats and operations the rest of the pipeline is built from.
 - [Image formats](/docs/psp-hardware/gpu/image-formats), including the depth buffer layout.

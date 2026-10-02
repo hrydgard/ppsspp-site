@@ -11,7 +11,7 @@ Vertex formats have a bit, "through mode", which if set, skips the entire T&L pi
 
 The clipper is positioned before the viewport transform. You'd think it would be after given how the viewport transform is defined, but not so.
 
-The transform pipeline uses 24-bit floats (32-bit floats with 8 bits cut off, so 1 sign bit, 8 exponent bits and 15 mantissa bits) for its inputs and nearly all of its internal calculations, with its own adder, multi-operand sums, reciprocal and reciprocal square root. Those are described on the [GE arithmetic](/docs/psp-hardware/gpu/ge-arithmetic) page; this page refers to them. Lighting has a page of its own, [GE lighting](/docs/psp-hardware/gpu/ge-lighting), and so do [curves](/docs/psp-hardware/gpu/ge-curves). What happens after the viewport is on the [raster pipeline](/docs/psp-hardware/gpu/ge-raster-pipeline) page.
+The transform pipeline uses 24-bit floats (32-bit floats with 8 bits cut off, so 1 sign bit, 8 exponent bits and 15 mantissa bits) for its inputs and nearly all of its internal calculations, with its own adder, multi-operand sums, reciprocal and reciprocal square root. Those are described on the [GE arithmetic](/docs/psp-hardware/gpu/arithmetic) page; this page refers to them. Lighting has a page of its own, [GE lighting](/docs/psp-hardware/gpu/lighting), and so do [curves](/docs/psp-hardware/gpu/curves). What happens after the viewport is on the [raster pipeline](/docs/psp-hardware/gpu/raster-pipeline) page.
 
 References: [LocoRoco2 Tropuca investigation by [unknown]](https://github.com/hrydgard/ppsspp/issues/12058#issuecomment-913225641)
 
@@ -24,19 +24,19 @@ We then proceed to the rasterizer directly.
 
 ## Transform mode
 
-Conceptually, XYZ from the vertex is transformed by first the world matrix, then the view matrix, and then the projection matrix, landing us in clip space. Lighting happens in world space along the way and produces the two output colors (see [GE lighting](/docs/psp-hardware/gpu/ge-lighting)). The clip space is OpenGL style, -1 to 1 on all four dimensions.
+Conceptually, XYZ from the vertex is transformed by first the world matrix, then the view matrix, and then the projection matrix, landing us in clip space. Lighting happens in world space along the way and produces the two output colors (see [GE lighting](/docs/psp-hardware/gpu/lighting)). The clip space is OpenGL style, -1 to 1 on all four dimensions.
 
 In practice the GE doesn't transform the vertex three times:
 
    * Vertex positions and matrix entries are float24s. 8- and 16-bit positions are divided by 128 and 32768, exactly.
-   * The three matrices are combined first, as `(W·V)·P`, with every entry of each product a [row sum](/docs/psp-hardware/gpu/ge-arithmetic#row-sums).
-   * The combined matrix is applied to the raw position, each row a row sum: the products exact on their own grid, all of them truncated to the grid of the largest term, summed exactly, and the sum truncated to float24.
+   * The three matrices are combined first, as `(W·V)·P`, with every entry of each product a [row sum](/docs/psp-hardware/gpu/arithmetic#row-sums).
+   * The combined matrix is applied to the raw position, each row a row sum: the products exact, all of them truncated to the precision of the largest term, summed exactly, and the sum truncated to float24.
 
 So a translation in one matrix and its negation in the next cancel exactly, where staged float math would lose the vertex's low bits.
 
 ### Morphing
 
-With morph weights, everything is morphed before anything else: position, normal, UV, color and even the skinning weights. The morphed position is the sum of `float24(w_k · p_k)` over the targets, accumulated left to right with the [GE adder](/docs/psp-hardware/gpu/ge-arithmetic#the-adder), each sum truncated to float24. UVs morph the same way. Colors morph per channel after expanding to 8 bits, and the sum is floored.
+With morph weights, everything is morphed before anything else: position, normal, UV, color and even the skinning weights. The morphed position is the sum of `float24(w_k · p_k)` over the targets, accumulated left to right with the [GE adder](/docs/psp-hardware/gpu/arithmetic#the-adder), each sum truncated to float24. UVs morph the same way. Colors morph per channel after expanding to 8 bits, and the sum is floored.
 
 ### Skinning
 
@@ -48,9 +48,9 @@ The skinned position then goes through the combined world, view and projection m
 
 * **UV mode 0** (scale and offset) computes `u' = GEAdd(float24(u · scale), offset)` per vertex. 8- and 16-bit texture coordinates are unsigned, divided by 128 and 32768.
 * **UV mode 1** (the texture matrix) computes `(s, t, q)` as the source times the 4x3 texture matrix, each component a row sum. The source is the position, the UV, the normal or the normalized normal. The normalized normal uses the GE's reciprocal square root.
-* **UV mode 2** (shade mapping) computes the coordinates from two lights; see [GE lighting](/docs/psp-hardware/gpu/ge-lighting#shade-mapping).
+* **UV mode 2** (shade mapping) computes the coordinates from two lights; see [GE lighting](/docs/psp-hardware/gpu/lighting#shade-mapping).
 
-In transform mode the coordinates are then divided by w per pixel, through planes. That's described on the [raster pipeline](/docs/psp-hardware/gpu/ge-raster-pipeline#texture-coordinates) page.
+In transform mode the coordinates are then divided by w per pixel, through planes. That's described on the [raster pipeline](/docs/psp-hardware/gpu/raster-pipeline#texture-coordinates) page.
 
 ## Fog
 
@@ -64,7 +64,7 @@ A vertex is "outside" a plane when |X| > W, |Y| > W or |Z| > W. The GE compares 
 
 Primitives where all corners are outside the same plane are culled here. This applies to every primitive type (points, lines, rectangles, triangles), with clipping and Z clamp enabled or not. Corners outside different planes, or on opposite sides of one (some beyond the far plane, the rest beyond the near one), don't cull. A primitive with only some corners outside is drawn (see below for what happens to the part beyond the plane).
 
-There are no X and Y clip planes, only this cull: a triangle that reaches beyond X = W is drawn in full, up to the guard band, the scissor and the drawing region. The X/Y cull only becomes visible when the viewport maps clip space beyond ±1 onto the screen: with a viewport scale of 10, a triangle at clip X = 1.25..2.5 lands on screen but isn't drawn. Normal viewports put everything that's culled off screen anyway.
+There are no X and Y clip planes, only this cull: a triangle that reaches beyond X = W is drawn in full, up to the guard band, the scissor and the drawing region. The X/Y cull only becomes visible when the viewport maps clip space beyond ±1 onto the screen: with a viewport scale of 10, a triangle at clip X = 1.25..2.5 lands on screen but isn't drawn. Normal viewports put everything that's culled off screen anyway. PPSSPP's software renderer does the cull in [`GPU/Software/Clipper.cpp`](https://github.com/hrydgard/ppsspp/blob/master/GPU/Software/Clipper.cpp), and the pspautotests test [`gpu/clipping/xycull`](https://github.com/hrydgard/pspautotests/tree/master/tests/gpu/clipping) checks it.
 
 ## Z Clipper
 
@@ -93,7 +93,7 @@ Nothing is clipped at the far plane: the part of a triangle beyond Z/W = 1 is ra
 - Clamp out-of-bounds screen space Z to 0..65535, per vertex, before interpolation. A pixel next to a clamped vertex gets a depth in between, not 65535. The clamp is always to 0..65535, whatever MinZ and MaxZ are: those then reject pixels as usual.
 - RECT primitives are clamped
 
-The clipped vertices are interpolated from the inside vertex, with the [GE's arithmetic](/docs/psp-hardware/gpu/ge-arithmetic):
+The clipped vertices are interpolated from the inside vertex, with the [GE's arithmetic](/docs/psp-hardware/gpu/arithmetic):
 
 ```
 dIn  = GEAdd(in.z, in.w)
@@ -121,12 +121,12 @@ The viewport transform is applied:
 
 Measured bit exact for X, Y and Z alike. Every value is a 24-bit float, and every rounding truncates toward zero:
 
-   * Clip space X, Y, Z and W come from the combined matrix's rows, each a [row sum](/docs/psp-hardware/gpu/ge-arithmetic#row-sums).
-   * NDC is `float24(clip * R(W))`, where R is the GE's own [reciprocal](/docs/psp-hardware/gpu/ge-arithmetic#the-reciprocal), not a divide and not the VFPU's `vrcp`.
-   * Screen is `GEAdd(float24(ndc * scale), offset)`, with the [guard-bit-less adder](/docs/psp-hardware/gpu/ge-arithmetic#the-adder).
+   * Clip space X, Y, Z and W come from the combined matrix's rows, each a [row sum](/docs/psp-hardware/gpu/arithmetic#row-sums).
+   * NDC is `float24(clip * R(W))`, where R is the GE's own [reciprocal](/docs/psp-hardware/gpu/arithmetic#the-reciprocal), not a divide and not the VFPU's `vrcp`.
+   * Screen is `GEAdd(float24(ndc * scale), offset)`, with the [guard-bit-less adder](/docs/psp-hardware/gpu/arithmetic#the-adder).
    * X and Y become 12.4 fixed point as `floor(X * 16)`. Z is floored, then goes through the cull and clamp rules above.
 
-PPSSPP's software renderer implements all of this (`GPU/Software/TransformUnit.cpp` and `GEMath.cpp`), and the pspautotests test `gpu/depth/transformprecision` checks the depth part.
+PPSSPP's software renderer implements all of this ([`GPU/Software/TransformUnit.cpp`](https://github.com/hrydgard/ppsspp/blob/master/GPU/Software/TransformUnit.cpp) and `GEMath.cpp`), and the pspautotests test [`gpu/depth/transformprecision`](https://github.com/hrydgard/pspautotests/tree/master/tests/gpu/depth) checks the depth part.
 
 We are now in screen space. X and Y are now 12.4 fixed point coordinates with four fractional bits, while Z is a 0.16 fixed point value.
 
@@ -152,7 +152,7 @@ W is preserved, and in the vertex shader we end by multiplying it back into X an
 
 MinZ and MaxZ are two GPU registers that configure a range of valid Z values. Pixels that produce a Z value outside this range are discarded. If MinZ > MaxZ, no pixels are produced.
 
-The per-pixel depth that's tested comes from the triangle's depth plane (see the [raster pipeline](/docs/psp-hardware/gpu/ge-raster-pipeline#planes)). A plane value below 0 is set to 0 for both the test and the write, in through and transform mode and whether clamping is on or not.
+The per-pixel depth that's tested comes from the triangle's depth plane (see the [raster pipeline](/docs/psp-hardware/gpu/raster-pipeline#planes)). A plane value below 0 is set to 0 for both the test and the write, in through and transform mode and whether clamping is on or not.
 
 ## Z Clamp
 
