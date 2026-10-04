@@ -126,14 +126,14 @@ function setDisplayMode(className, mode) {
 const tmplUserInfo = `
 <div>
 <p>{{it.name}}
-{{ @if (it.admin) }}
+{{@if (it.admin)}}
 <strong>&nbsp;(ADMIN)</strong>
-{{ /if }}
+{{/if}}
 </p>
 <p>E-mail: {{it.email}}</p>
-{{ @if (it.goldUser) }}
+{{@if (it.goldUser)}}
 <p class="center-vertical">Gold status!<img src="/static/img/platform/ppsspp-icon-gold.png" alt="" aria-hidden="true" width="24" height="24" class="icon sp-left"></p>
-{{ /if }}
+{{/if}}
 <p><a href="/changepassword">Change password</a></p>
 </div>
 `;
