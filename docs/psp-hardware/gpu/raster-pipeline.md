@@ -21,10 +21,11 @@ There's one coverage quirk. When a triangle's long edge (top vertex to bottom ve
 
 ### Walking order
 
-Pixels are drawn row by row. This only shows when a primitive textures from its own render target (see the [texture cache](/docs/psp-hardware/gpu/texture-cache)):
+Pixels are drawn row by row, never in tiles or quads, and every row of a primitive goes the same way. This only shows when a primitive textures from its own render target (see the [texture cache](/docs/psp-hardware/gpu/texture-cache)). Neither vertex order nor winding makes a difference.
 
-- flat-top triangles are drawn top-down, and flat-bottom triangles bottom-up, whatever the vertex order and winding;
-- each row is walked right to left when the long edge is the triangle's right side, otherwise left to right.
+- Sprites are drawn top to bottom, each row left to right.
+- A triangle's rows start at one end of its long edge (the edge from the top vertex to the bottom one): the end that is farther from the middle vertex in x. When two vertices share the top or bottom row, the left one counts as the top or bottom vertex. So flat-top triangles are drawn top-down, flat-bottom ones bottom-up, and other triangles either way.
+- Each row is walked from the long edge's side: right to left when the long edge is the triangle's right side, otherwise left to right.
 
 ## Planes
 

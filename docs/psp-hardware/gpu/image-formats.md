@@ -24,7 +24,7 @@ Textures can have these formats, in addition to the above:
 * DXT3 - same as modern BC2 compression
 * DXT5 - same as modern BC3 compression
 
-The DXT formats don't perform well, likely due to being expanded to full RGBA in the texture cache, so see little use. One note is that the data order is reversed from the PC one.
+The DXT formats don't perform well, and see little use. The [texture cache](/docs/psp-hardware/gpu/texture-cache) holds them decoded to 8888, so a DXT1 texture takes 8 times its size in the cache, and DXT3/5 4 times. One note is that the data order is reversed from the PC one.
 
 ## CLUT functionality
 

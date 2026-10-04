@@ -68,7 +68,7 @@ Always use CLUT4 or CLUT8 as needed. Never use 16-bit or 32-bit texture formats 
 
 ## Texture swizzling
 
-The PSP supports reading textures in a swizzled format, where textures are stored in rectangular blocks, 128 bits * 8 pixels (so the block width differs by texture format). Storing textures like this is critical for texture cache performance (unless you are rendering them 1:1 pixel mapped to the screen as sprites without rotation).
+The PSP supports reading textures in a swizzled format, where textures are stored in rectangular blocks, 128 bits * 8 pixels (so the block width differs by texture format). Storing textures like this is critical for texture cache performance (unless you are rendering them 1:1 pixel mapped to the screen as sprites without rotation): a swizzle block is exactly one [texture cache](/docs/psp-hardware/gpu/texture-cache) line, so loading one is a single contiguous read instead of eight.
 
 For obvious reasons, when texturing from color framebuffers, you can't use swizzling.
 
