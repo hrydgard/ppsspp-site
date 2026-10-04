@@ -791,7 +791,7 @@ const tmplShowSuccessfulPurchase = `
 <div class="alert alert-info">NOTE: If no e-mail arrives within a few minutes, please check your spam box.
 If it's not there or you want to use a different e-mail address for login,
 then <a href="mailto:hrydgard+ppssppgold@gmail.com">e-mail me</a> and I'll sort it out.</div>
-<p><a href="{{it.magicLink}}" class="download-button button-gold">Click here to log in!</a></p>
+<p><a href="{{it.magicLink}}" class="download-button">Click here to log in!</a></p>
 <p>Paid: {{it.totalDisplay}} ({{it.currency}})</p>
 `;
 
