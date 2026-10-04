@@ -31,7 +31,7 @@ The cache isn't coherent with anything. **TEXFLUSH** (0xCB) drops every line, an
 
 So whatever was loaded stays until the next flush, across primitives and draw calls. Final Fantasy Type-0's blur ([#20104]) draws a 16x16 4444 buffer onto itself three times. The result differs in 177 pixels with and without a TEXFLUSH between the passes, and both versions are reproduced exactly with the cache keeping its lines until the flush.
 
-**TEXSYNC** (0xCC) is about block transfers: a transfer runs alongside drawing, so texturing from its destination needs a TEXSYNC first, or lines can load before the transfer reaches them.
+**TEXSYNC** (0xCC) is about [block transfers](/docs/psp-hardware/gpu/block-transfers): a transfer runs alongside drawing, so texturing from its destination needs a TEXSYNC first, or lines can load before the transfer reaches them.
 
 ## Self-texturing
 

@@ -104,5 +104,6 @@ Display list commands are all 32 bits in size, out of which the upper 8 bits is 
 - [The raster pipeline](/docs/psp-hardware/gpu/raster-pipeline): coverage, planes, sprites, lines, texturing, mip selection, per-pixel operations.
 - [Curves](/docs/psp-hardware/gpu/curves): Bezier and spline tessellation.
 - [The texture cache and self-texturing](/docs/psp-hardware/gpu/texture-cache).
+- [Block transfers](/docs/psp-hardware/gpu/block-transfers), including what overlapping ones do.
 - [GE arithmetic](/docs/psp-hardware/gpu/arithmetic): the number formats and operations the rest of the pipeline is built from.
 - [Image formats](/docs/psp-hardware/gpu/image-formats), including the depth buffer layout.
