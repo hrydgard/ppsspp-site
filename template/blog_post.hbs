@@ -1,9 +1,9 @@
 <article class="article" {{#if meta.slug}}aria-labelledby="{{meta.slug}}"{{/if}}>
-    {{#if is_list_view}}
-    <h1 {{#if meta.slug}}id="{{meta.slug}}"{{/if}}><a href="{{meta.url}}">{{title}}</a></h1>
-    {{else}}
-    <h1 {{#if meta.slug}}id="{{meta.slug}}"{{/if}}>{{title}}</h1>
-    {{/if}}
+    <h1 {{#if meta.slug}}id="{{meta.slug}}"{{/if}}>
+        {{#if is_list_view}}<a href="{{meta.url}}">{{/if}}
+        {{title}}
+        {{#if is_list_view}}</a>{{/if}}
+    </h1>
 
     <ul class="article-infos">
         {{#with (lookup globals.authors meta.author)}}
