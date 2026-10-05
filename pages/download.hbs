@@ -13,12 +13,12 @@
             <div class="row">
                 {{#each page_data.platforms}}
                 <div class="col-4">
-                    <article class="card">
+                    <article {{#if platform_key}}aria-labelledby="{{platform_key}}"{{/if}} class="card">
                         <div class="card-title">
                             {{#if platform_badge}}
                             <img src="/static/img/icons/{{platform_badge}}" alt="" aria-hidden="true" width="36" height="36" class="icon">
                             {{/if}}
-                            <h2>{{title}}</h2>
+                            <h2 {{#if platform_key}}id="{{platform_key}}"{{/if}}>{{title}}</h2>
                         </div>
 
                         <div class="card-contents">
