@@ -5,17 +5,21 @@ authors: hrydgard
 tags: [blog]
 ---
 
+## Introduction
+
 After the [VFPU math functions](/news/vfpu-math-re) were cracked, I figured, let's try the same with the GE, the PSP's GPU. PPSSPP has a software renderer, mostly used as a reference, and for debugging. It's long been pretty close to accurate, but that isn't good enough for a reference, and some games really depend on the details: depth fighting in the distance, banding in fog, a seam in a sky box, a lens flare that reads back the depth buffer.
 
 So I pointed Claude at it again, with a real PSP hooked up over USB like the last time, and let it write its own test programs for the hardware. It ran a bit over 170 experiments on the PSP. When it was done testing and applying fixes, the software renderer reproduces 125 of a set of 132 frame dumps from various games, bit-exact pixel by pixel against the same dumps played back on a real PSP.
 
 Claude has extended my GE documentation with the findings from this project [GPU section of the docs](/docs/psp-hardware/gpu/ge-overview), starting with the new page on [GE arithmetic](/docs/psp-hardware/gpu/arithmetic).
 
+The whole thing was done over about 2 days, with long breaks.
+
 This is the [pull request](https://github.com/hrydgard/ppsspp/pull/22414) implementing all this.
 
 Below is Claude's own writeup.
 
-## Claude says
+## Claude says (AI-written below)
 
 The GE is a fixed-function GPU: transform and lighting, a clipper, a rasterizer, texturing and blending, all configured with a display list. That makes it a black box with a lot of inputs and only a few visible outputs, the color and depth buffers. The job was to explain every bit of those outputs, for any input.
 

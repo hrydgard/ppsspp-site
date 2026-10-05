@@ -117,6 +117,8 @@ The level of detail D is in 1/16 levels, from the [float-bits logarithm](/docs/p
 
 D is clamped to 0..16·(max level). Mipmap linear blends level `D >> 4` with the next one by `D & 15`. Mipmap nearest takes level `(D + 8) >> 4`.
 
+A level that isn't sampled isn't read, so its address doesn't have to be valid. Tactics Ogre draws its font from a mipmapped texture whose second level has an invalid address, at a constant level 0 (pspautotest `gpu/textures/mipinvalid`).
+
 The q isn't taken per pixel, and not per 2x2 quad either like on modern GPUs. Each row is cut into 4-pixel spans (x = 4k..4k+3), and every pixel of a span uses the q at the span's second pixel in walking order: 4k+1 left to right, 4k+2 right to left. When that pixel is outside the triangle, the span uses its first covered pixel instead.
 
 With separate CLUTs per mip level (texture mode bit 8), level n offsets the CLUT index by n shifted above the index bits, wrapped to the CLUT.

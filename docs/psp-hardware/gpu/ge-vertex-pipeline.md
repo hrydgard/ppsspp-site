@@ -52,6 +52,14 @@ The skinned position then goes through the combined world, view and projection m
 
 In transform mode the coordinates are then divided by w per pixel, through planes. That's described on the [raster pipeline](/docs/psp-hardware/gpu/raster-pipeline#texture-coordinates) page.
 
+### Vertex formats without UVs or a normal
+
+A draw whose vertex format has no texture coordinates uses the last ones read before it, from the last vertex drawn (in index order for an indexed draw) by any earlier draw. That holds across display lists, between through mode and transform mode, and whether or not the earlier draw was textured. The coordinates are kept as they were read, before scale and offset: the draw that uses them applies its own UV scale and offset.
+
+Normals are carried the same way. A draw without normals doesn't change the carried one.
+
+The pspautotest `gpu/vertices/carry` shows each of these.
+
 ## Fog
 
 The fog factor is computed per vertex from the view space Z: `f = (viewZ + fogEnd) * fogSlope`. Each vertex then converts it to 8 bits, `min(floor(256 * f), 255)`, with negative values going to 0 and values of 1 and up to 255 (infinities and NaNs follow their sign), and those 8-bit values are interpolated linearly in screen space, *not* perspective corrected (only texture coordinates are). So a triangle whose fog range crosses 0 or 1 gets a gradient between the clamped vertex values, not a plateau.
