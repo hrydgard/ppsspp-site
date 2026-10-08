@@ -41,11 +41,11 @@ V = normalize(third column of the view matrix)
 
 V is the viewer at infinity along view-space +z, expressed in world space. PPSSPP used to take V = (0, 0, 1) in world space, which is only right with an unrotated view matrix. A local viewer and lighting in view space were both ruled out.
 
-A zero normal gives no diffuse and no specular.
+A zero normal is a special case, see [below](#zero-normals).
 
 ### The pow
 
-`pow` is the GE's [Mitchell approximation](/docs/psp-hardware/gpu/arithmetic#the-lighting-pow). It's linear between powers of two, so highlights are tighter than a true pow would give: up to 10-30 steps darker through the falloff, with the same peak. Its exponent keeps only the top 4 bits of its mantissa, so an exponent of 5.1 acts as 5.0.
+`pow` is the GE's [Mitchell approximation](/docs/psp-hardware/gpu/arithmetic#the-lighting-pow). It's linear between powers of two, so highlights are tighter than a true pow would give: up to 10-30 steps darker through the falloff, with the same peak. Its exponent (specular or spot) keeps only the top 4 bits of its mantissa, so an exponent of 5.1 acts as 5.0, and it saturates below 512: 512 and up, infinity and NaN all act as 496. Negative exponents give 1.
 
 ## Spot lights and attenuation
 
@@ -97,5 +97,21 @@ The `+ 1` uses the GE adder, and `N·L'` is divided by the normal's length as in
 
 - **Skinned normals** use the bone matrices like positions, without the translation (see the [vertex pipeline](/docs/psp-hardware/gpu/ge-vertex-pipeline#skinning)).
 - **Bezier and spline patches** ignore the vertex normals and use the cross product of the surface tangents (see [curves](/docs/psp-hardware/gpu/curves)).
+- **A draw without normals** in its vertex format, with lighting or shade mapping on, uses the last normal the GE read, from an earlier draw if need be.
+
+## Zero normals
+
+A normal that is exactly (0, 0, 0) doesn't light as zero. It lights, and shade maps, as s·(1, 1, 1) in model space, before reverse normals flip it. s is a hidden sign that only Bezier patches set:
+
+- s is the sign of the z of the last Bezier patch's normal at the surface's last corner (u = 1, v = 1). That normal is du × dv, with du = P(nu−1, nv−1) − P(nu−2, nv−1) and dv = P(nu−1, nv−1) − P(nu−1, nv−2), from the control points in model space.
+- Patch facing = 1 negates it. A patch that faces sideways there, or a degenerate corner, sets s to 0, and then a zero normal gives no diffuse and no specular.
+- The last patch drawn wins. Tessellation, primitive type, matrices, the viewport, alpha test and whether the patch is visible at all don't matter. Splines didn't set it in the one case tested, and nothing else touches it.
+- It's not part of any saved GE context, and it outlives the program that set it. The power-on value is +1.
+
+So a zero normal is not "the previous normal": it depends only on the last Bezier patch. A draw without normals that carries over a zero normal takes s like any other zero normal.
+
+Why the hardware does this isn't known. One guess: the GE divides N·L by the normal's length, the division by zero saturates each component to ±1, and the sign comes from state the Bezier normal computation last left in that unit.
+
+Nayuta no Kiseki and Zettai Zetsumei Toshi 3 light zero normals this way, and Pursuit Force and SOCOM depend on the s their own patches leave. PPSSPP models it in the software renderer (not merged yet). The hardware renderers light a zero normal (and a draw without normals) as world +z, which only shows in a few reflections in OutRun.
 
 PPSSPP's software renderer does all of this in [`GPU/Software/Lighting.cpp`](https://github.com/hrydgard/ppsspp/blob/master/GPU/Software/Lighting.cpp). These tests in pspautotests cover this page: [`gpu/lighting/specular` and `gpu/lighting/shademap`](https://github.com/hrydgard/pspautotests/tree/master/tests/gpu/lighting).
