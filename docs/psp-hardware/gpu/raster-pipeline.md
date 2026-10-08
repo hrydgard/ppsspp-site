@@ -58,6 +58,8 @@ Then s, t and q of the three vertices become 15-bit integers, scaled to the larg
 
 With the texture matrix (UV generation mode 1), `q` is the matrix's q times `R(w)`. Projected textures on perspective triangles come out exact that way.
 
+Where the pixel's q isn't positive, there's no division at all: the GE samples the last texel in both u and v (texel 255, 255 of a 256x256 texture), whatever s and t are, positive, negative or zero, and in clamp and repeat modes alike. It behaves like a coordinate saturated to its maximum. q only goes negative with the texture matrix, behind a projected texture's projector, so this is what stops a projected shadow from appearing mirrored behind the light: the shadow texture's last texel is usually transparent. Fate/Extra relies on it. The pspautotests test [`gpu/texmtx/negq`](https://github.com/hrydgard/pspautotests/blob/master/tests/gpu/texmtx/negq.cpp) checks it.
+
 ### Consequences
 
 Because each primitive has its own planes, two triangles making up a rectangle don't sample the same texels as one sprite covering it:
