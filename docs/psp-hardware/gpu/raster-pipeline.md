@@ -66,6 +66,8 @@ Because each primitive has its own planes, two triangles making up a rectangle d
 
 - A 480x33 bar textured with 280x20 texels lands on texel row 10 in the triangle anchored at the bottom, and on row 9 in a sprite, which is anchored at the top.
 - A 1:1 bilinear sprite only samples texel centers when its area is a power of two. Others (49 or 15 pixels wide, for example) have a gradient that's just below 1 texel per pixel in fixed point, so they sample a little below the centers and blend their neighbors. Games show this: a track map drawn as three 1:1 sprites side by side is blurry in two of them on hardware.
+- It's the area that decides, not the width, even for u, which only runs horizontally. A sprite's u gradient is `Δu · Δy / (Δx · Δy)`, and the Δy only cancels on paper: the division is a multiply by the setup reciprocal of the whole area, which is exact only for a power of two. A 1:1 sprite 16 pixels wide but 272 tall blends its neighbors; a 64x64 one doesn't.
+- With nearest filtering, this decides which texel a sample that falls exactly on a texel edge reads. A plane value a hair below the edge truncates a whole unit of the 15-bit coordinate down, into the texel before. Games that read a 16-bit framebuffer as CLUT8 with u = 1 + 2x put every pixel center on a byte edge. SOCOM does it with 64x272 sprites: u at the center is just under 2x + 2, so each pixel reads its own high byte, 2x + 1. Syphon Filter: Logan's Shadow uses the same mapping with 64x128 sprites, where u is exactly 2x + 2, so it reads the next pixel's low byte. The texture's width doesn't change either case.
 
 ## Sprites (RECTANGLES)
 
