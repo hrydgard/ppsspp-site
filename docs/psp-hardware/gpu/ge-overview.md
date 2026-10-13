@@ -97,6 +97,8 @@ Games write display lists directly into RAM, generally using a SDK-provided libr
 
 Display list commands are all 32 bits in size, out of which the upper 8 bits is a command number, and the remaining 24 bits represent data. This means that commands that load floating point values such as matrix coefficients really can only specify 24 bits of payload and not full 32-bit floats for example. This is solved by simply chopping the lower 8 bits off of the mantissa of regular floats - usually, there's still enough precision. All transform matrices and most light parameters (except the ones that are 8-bit) are in this 24-bit float format.
 
+A list can jump, call subroutines (only two levels deep), and stop to interrupt the CPU. See [display list control](/docs/psp-hardware/gpu/display-lists).
+
 ## Further reading
 
 - [The vertex pipeline](/docs/psp-hardware/gpu/ge-vertex-pipeline): transform, morphing, skinning, fog, culling, near-plane clipping, the viewport.
@@ -107,3 +109,4 @@ Display list commands are all 32 bits in size, out of which the upper 8 bits is 
 - [Block transfers](/docs/psp-hardware/gpu/block-transfers), including what overlapping ones do.
 - [GE arithmetic](/docs/psp-hardware/gpu/arithmetic): the number formats and operations the rest of the pipeline is built from.
 - [Image formats](/docs/psp-hardware/gpu/image-formats), including the depth buffer layout.
+- [Display list control](/docs/psp-hardware/gpu/display-lists): addressing, jumps, CALL and its depth limit, signals.
