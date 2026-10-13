@@ -1,25 +1,55 @@
-# How to use the Rewind feature
+# Rewind
 
-## Enabling the Rewind feature
+Rewind lets you jump back a few seconds when you make a mistake. While it's on, PPSSPP quietly takes a snapshot (a save state kept in memory) every few seconds, and pressing Rewind loads the most recent one.
 
-You may have noticed that in the *Settings > Controls > “Control mapping”* screen, one of the actions to map a key or button to is called “*Rewind*”. It’s between *Pause* and *Save State* on the list, and it is set to `kbd.Backspace` by default. And if you press the key bound to this action while playing a game, the emulator will just give an error: “No rewind saves states available.” How can you get this feature to work?
+It's off by default, since it uses quite a bit of memory.
 
-The answer is to go to *Settings > System* and look in the *Emulation* section. There is an option “*Rewind snapshot frequency (mem hog)*”. By default it is set to *Off* (0), which is why the Rewind key does nothing. Changing the option to something other than 0 will enable the rewind feature, which periodically makes save states that you can rewind to.
+## Turning it on
 
-## Setting the “Rewind snapshot frequency”
+Go to *Settings > System*, and in the *Emulation* section, set *Rewind Snapshot Interval (mem hog)* to the number of seconds you want between snapshots (1 to 60). *Off* turns the feature off.
 
-From PPSSPP 1.15, this is easy - it's the number of seconds between each rewind snapshot. Set it to 0 to turn off the feature (and save the RAM it requires).
+The setting can be set per game, through a [game-specific config](/docs/reference/custom-game-configs), so you can keep it on only for the games where you want it.
 
-In older versions, as its editing interface shows, you can set a frame count from 0 to 1800, where 0 means that the feature is off. PSP games usually run at either 30 or 60 frames per second (you can tell by going to *Settings > Graphics > “Overlay information” section > “Show FPS counter”* and setting it to *FPS*). So if you set the option to 150 frames and then play a 30-FPS game, a save state will automatically be saved every 5 seconds.
+Until it's on, pressing Rewind only shows "No rewind save states available".
 
-## Using the Rewind key
+## Rewinding
 
-If you make a mistake while playing, you can press the Rewind key, and the emulator will load the last automatic save state it made. In the example above, this save state could have been made anywhere from 0 to 5 seconds ago. After pressing the key, you can try that section of the game again. If your mistake was further back than one rewind frequency, you can press Rewind repeatedly – each quick press takes you back to the previous automatic save state.
+There are three ways to rewind:
 
-To find out or change what key or button it is, go into Controls / Control Mapping and check or set it up.
+- Press the key or button mapped to *Rewind* in *Settings > Controls > Control mapping*. On a keyboard it's Backspace by default. Controllers have no default mapping, so map a button yourself if you want one.
+- Open the pause menu and press the *Rewind* button. It shows up when the feature is on, and is grayed out until the first snapshot has been taken.
+- On touch screens, add a custom button to the touch layout and set it to *Rewind*.
+
+PPSSPP shows how far back you went ("Rewind (4 seconds ago)"). Each snapshot can be anywhere between 0 and one interval old, so with a 5 second interval, the first rewind takes you back somewhere between 0 and 5 seconds.
+
+Pressing Rewind again takes you back another step. Rewinding uses up the snapshot, so you can't go forward again afterwards.
+
+## How far back you can go
+
+PPSSPP keeps the 20 most recent snapshots, so you can go back up to 20 steps, 20 times the interval. With a 5 second interval, that's a bit over a minute and a half. When a new snapshot is taken, the oldest one is dropped, so the memory used doesn't keep growing the longer you play.
+
+Due to how the snapshots are compressed (see below), the oldest few can sometimes become unusable, so count on about 17 steps rather than 20.
+
+Some other details:
+
+- The interval is measured in real time, not game time. Fast-forwarding doesn't make snapshots more frequent, and no snapshots are taken while the game is paused.
+- Saving or loading a regular save state restarts the countdown to the next snapshot.
+- All snapshots are thrown away when you exit the game. They're never written to disk, so they can't replace regular save states.
+
+## Limitations
+
+- Rewind is disabled in [RetroAchievements](/docs/reference/retro-achievements) hardcore mode, just like save states.
+- It's also disabled when playing online in modes where save states aren't allowed.
+- A snapshot is a save state, so it comes with the same caveats. It's taken at an arbitrary point, which in rare cases can be one where the game doesn't like being restored.
 
 ## Memory usage
 
-Enabling this feature causes PPSSPP to use up quite a bit more memory than normal, can be several hundred megabytes, depending on the game. So set the rewind snapshot interval back to 0 when you’re not using the rewind feature. And note that you will have to quit and relaunch the emulator to free the memory that was used when you enabled the feature.
+A full PSP save state is roughly 35-70 MB, mostly the PSP's RAM. Rather than store 20 of those, PPSSPP keeps two full snapshots and stores the others as differences against them, which are usually much smaller. Still, expect the feature to use somewhere between 100 and a few hundred MB, depending on the game. That's not a problem on most PCs, but on phones with little memory it's worth leaving off.
 
-The number of rewindable states the emulator saves is currently 20. That number means you can press Rewind up to 20 times in a row to go back, and after that, you can't go back any further.
+The memory is freed when you exit the game.
+
+## Older versions
+
+Before PPSSPP 1.15, the interval was set in frames (0 to 1800) instead of seconds. PSP games usually run at 30 or 60 FPS, so for example 150 frames meant a snapshot every 5 seconds in a 30 FPS game. The setting was called *Rewind snapshot frequency (mem hog)*.
+
+*Thanks to Rory O’Kane, whose [write-up](https://github.com/hrydgard/ppsspp/issues/8907) this page started from.*

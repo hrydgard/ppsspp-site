@@ -114,8 +114,9 @@ Sets whether to load a savestate automatically on game launch. Can be set to a s
 
 ### Rewind Snapshot Interval
 
-If you set a rewind snapshot interval, PPSSPP will make save states every X sections, where X is the value you
-chose. You can go back to the last savestate by pressing Backspace.
+If you set a rewind snapshot interval, PPSSPP will keep a snapshot in memory every X seconds, where X is the value you
+chose, and you can go back to them by pressing Rewind (Backspace by default on a keyboard, or the button in the pause menu).
+It's off by default, since it uses a fair amount of memory. See [Rewind](/docs/reference/rewind) for details.
 
 ## General
 

@@ -131,6 +131,10 @@ Usually, git builds are pretty stable and include all the recent fixes, but some
 
 Disabling save state backups will make save/load faster, but also disables save/load undo.
 
+## Pressing Rewind says "No rewind save states available". How do I use it?
+
+Rewind is off by default. Turn it on by setting *Rewind Snapshot Interval* in *Settings > System*. See [Rewind](/docs/reference/rewind) for how it works.
+
 <a name="memstick"></a>
 
 ## Where is the Memory Stick folder with my save data?
