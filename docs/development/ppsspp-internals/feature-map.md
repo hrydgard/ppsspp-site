@@ -8,7 +8,7 @@ This is a very incomplete list of games to test with if you want to debug a spec
 
 - MotoGP (single-language)
 - PES 2013 (single-language)
-- Metal Gear Solid: Portable Ops (see issue #21856)
+- Metal Gear Solid: Portable Ops (see issue [#21856])
 - Fifa 07 (manager mode, create profile and name it)
 - many more
 
@@ -195,9 +195,9 @@ Usually, for control, the mip level is controlled directly (instead of automatic
 
 This is used by the following games:
 
-* Macross series games (water effect, see #6357)
-* Misshitsu no Sacrifice (background animation, also see #6357)
-* Tactics Ogre: Let Us Cling Together (JAP/CN-patch) (font atlas, see #5350)
+* Macross series games (water effect, see [#6357])
+* Misshitsu no Sacrifice (background animation, also see [#6357])
+* Tactics Ogre: Let Us Cling Together (JAP/CN-patch) (font atlas, see [#5350])
 
 As far as I know, no other games use a "malformed" mip chain like this.
 

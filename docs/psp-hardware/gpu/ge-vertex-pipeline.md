@@ -76,7 +76,7 @@ There are no X and Y clip planes, only this cull: a triangle that reaches beyond
 
 ## Z Clipper
 
-If clipping is enabled, triangles that intersect the Z=-1 plane are clipped here. Note that this is *BEFORE* the viewport scale is applied! This was found in #12058. First I thought it was very strange that the clipper is here, but it's the same on PC, except that on PC the viewport can't then push the vertices outside the clip space again, which it can on the PSP! So the PSP has some extra behaviors here.
+If clipping is enabled, triangles that intersect the Z=-1 plane are clipped here. Note that this is *BEFORE* the viewport scale is applied! This was found in [#12058]. First I thought it was very strange that the clipper is here, but it's the same on PC, except that on PC the viewport can't then push the vertices outside the clip space again, which it can on the PSP! So the PSP has some extra behaviors here.
 
 Definitions:
 - "Z outside": |Z| > W, as in Z Cull above. Any Z/W with greater magnitude than 0x3F8000FF (1.0000304) (i.e. where its 24-bit truncation would be greater than 1.0) is outside. Same for negative.

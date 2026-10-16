@@ -46,7 +46,7 @@ This was measured on a PSP with lists that CALL 1 to 4 levels deep, with each le
 
 Soul Calibur's weapon trails are drawn with per-vertex colors, color doubling, and the texture function set to modulate. Before each trail is drawn, the game CALLs its effect setup, which CALLs a few small state blocks. One of them CALLs a third, shared block that turns lighting on and sets the material colors to white without taking them from the vertices.
 
-That third CALL is the one the GE skips. On a PSP, lighting stays off from the block before it, and the trail takes the colors in its vertices, which differ by weapon. An emulator with a deeper call stack runs the shared block too, and draws every trail white. PPSSPP did that for over a decade ([#7395](https://github.com/hrydgard/ppsspp/issues/7395)).
+That third CALL is the one the GE skips. On a PSP, lighting stays off from the block before it, and the trail takes the colors in its vertices, which differ by weapon. An emulator with a deeper call stack runs the shared block too, and draws every trail white. PPSSPP did that for over a decade ([#7395]).
 
 ## SIGNAL, FINISH and END
 

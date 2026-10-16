@@ -22,7 +22,7 @@ See [Ad hoc servers](/docs/multiplayer/adhoc-servers).
 
 ## Server-provided packet relay
 
-This is a new feature in PPSSPP 1.20, implemented by Kethen in #21116.
+This is a new feature in PPSSPP 1.20, implemented by Kethen in [#21116].
 
 It uses the `aemu_postoffice` [protocol](https://github.com/Kethen/aemu_postoffice/blob/main/design.md) to route packets in a more reliable way than the usual direct connections. A server implementation can be found [here](https://github.com/Kethen/aemu_postoffice/releases).
 

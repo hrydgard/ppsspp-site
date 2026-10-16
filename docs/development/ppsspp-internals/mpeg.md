@@ -18,7 +18,7 @@ Video (h.264 or "AVC") is decoded using the sceVideocodec library. Unlike sceAud
 
 `scePsmf` is a simple format parser, and `scePsmfPlayer` is a full-on player utility library that uses `scePsmf` and also delegates all the actual decoding work to sceMpeg.
 
-Since #20200 was merged, we simply allow games to load `scePsmf` and `scePsmfPlayer` from disc (they are only shipped with games, not present in the firmware) and just run them directly. That way, we don't need to emulate them, and they are completely accurate. They forward the task of actual decoding to sceMpeg, so remaining video playback problems are related to our sceMpeg emulation.
+Since [#20200] was merged, we simply allow games to load `scePsmf` and `scePsmfPlayer` from disc (they are only shipped with games, not present in the firmware) and just run them directly. That way, we don't need to emulate them, and they are completely accurate. They forward the task of actual decoding to sceMpeg, so remaining video playback problems are related to our sceMpeg emulation.
 
 ## Example game usage
 
