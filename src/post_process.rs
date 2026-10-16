@@ -84,9 +84,13 @@ pub fn preprocess_markdown(md: &str, doc_name: &str, config: &Config) -> anyhow:
         doc_name
     );
 
-    let issue_regex = regex::Regex::new(r"\[#(\d+)\]").unwrap();
+    // The optional "(" catches references that are already links, which are left alone.
+    let issue_regex = regex::Regex::new(r"\[#(\d+)\](\()?").unwrap();
     Ok(issue_regex
         .replace_all(md, |captures: &regex::Captures<'_>| {
+            if captures.get(2).is_some() {
+                return captures[0].to_string();
+            }
             let issue_number = captures.get(1).unwrap().as_str();
             format!("[#{}]({}{})", issue_number, config.github_url, issue_number)
             // Construct the replacement with the GitHub URL
