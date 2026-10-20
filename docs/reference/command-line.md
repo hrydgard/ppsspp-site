@@ -6,11 +6,13 @@ Some arguments, like the window management ones, have no effect on mobile or oth
 
 ## How to run PPSSPP with command line arguments on Android
 
-This can be useful from launchers and similar. Here's an example ADB command line, that causes PPSSPP to run in a mode where it exits directly from the pause menu:
+This can be useful from launchers and similar. Arguments go in the string extra `org.ppsspp.ppsspp.Args`. Here's an example ADB command line that boots a game and exits PPSSPP when the game ends. The URI is one copied with **Copy deep link** in the game's **...** menu:
 
 ```cmd
-adb shell am start -n org.ppsspp.ppsspp/org.ppsspp.ppsspp.PpssppActivity --es org.ppsspp.ppsspp.Args "--pause-menu-exit"`
+adb shell 'am start -S -n org.ppsspp.ppsspp/org.ppsspp.ppsspp.PpssppActivity -a android.intent.action.VIEW -d "content://com.android.externalstorage.documents/tree/primary%3APSP/document/primary%3APSP%2FRidge%20Racer.iso" --es org.ppsspp.ppsspp.Args --pause-menu-exit'
 ```
+
+See [Front end integration on Android](/docs/reference/front-end-integration) for launcher configuration, and which URIs work.
 
 ## Generally supported command line arguments
 
@@ -28,7 +30,7 @@ Sets the CPU backend to JIT, Interpreter, IR Interpreter or JIT IR, respectively
 
 ### --pause-menu-exit
 
-The "Exit to menu" choice on the pause menu is changed to just "Exit". This is most useful for frontends that also pass a file to launch.
+PPSSPP exits when the game ends, instead of going to its menu. The "Exit to menu" choice on the pause menu becomes "Exit", and quitting the game from inside it, or dismissing a load error, also exits. This is most useful for frontends that also pass a file to launch. Before PPSSPP 1.21, only the pause menu choice exited.
 
 ### --escape-exit
 
