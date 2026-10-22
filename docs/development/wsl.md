@@ -28,9 +28,9 @@ In your WSL directory where you checked out the PPSSPP git repo, from terminal, 
 code .
 ```
 
-PPSSPP now provides `.vscode/tasks.json` and `.vscode/launch.json` for your convenience, so debugging should "just work".
+PPSSPP provides example debug configurations in `.vscode/launch-example-wsl.json` (and `.vscode/launch-example.json` for Mac/Linux). Copy one to `.vscode/launch.json` (the `.vscode` files you create are ignored by git) and adjust the paths in it.
 
-The build task just runs a debug build, important to be aware of. Change it to `--release` or add an additional task if desired.
+The WSL example runs a build task called `Build PPSSPP (WSL debug)` before launching, which you need to add yourself in `.vscode/tasks.json`, for example running `./b.sh --debug`. Use `--release` instead, or add an additional task, if desired.
 
 ## Valgrind
 

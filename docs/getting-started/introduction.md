@@ -9,7 +9,9 @@ The PSP had multiple types of software.
 The two most common are native PSP games on UMD discs and downloadable games, that were stored in the directory `PSP/GAME` on the "Memory Stick" (aka "memstick" or "ms").
 
 But there were also [UMD Video](/docs/reference/umd-video) discs, and PS1 games that could run in a proprietary emulator.
-PPSSPP does not run those.
+PPSSPP 1.20 and earlier do not run those.
+From PPSSPP 1.21 (and current [development builds](/devbuilds)), PS1 games in the PSP's EBOOT format run through that same emulator from the PSP firmware (experimental, and it needs an installed firmware),
+and UMD Video discs can be played from the [XMB](/docs/getting-started/how-to-run-the-vsh).
 
 ## Installing PPSSPP
 

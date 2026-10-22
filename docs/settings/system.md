@@ -104,6 +104,10 @@ Overclocking can be useful to avoid framedrops that would happen on the real har
 If this is active, extra work will be done at save/load state time to provide "Undo Load" and "Undo Save" operations.
 Thus, saving and loading state is slower but safer.
 
+### Ask to confirm on load
+
+From PPSSPP 1.21 (and current [development builds](/devbuilds)). If this is checked, PPSSPP asks before loading a savestate, so you don't lose progress by pressing the load key by mistake.
+
 ### Savestate slot count
 
 From PPSSPP 1.20, you can configure the number of save state slots here, up to a maximum of 30.

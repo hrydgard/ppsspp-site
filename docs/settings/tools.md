@@ -24,3 +24,7 @@ A large amount of obscure settings and test screens that have been added over th
 ## Remote disc streaming
 
 Lets you play ISOs shared from another instance of PPSSPP running on the same network. Can be convenient for testing many games quickly on a mobile phone for example, without having to copy the games over to the device, which might fill it up unless you carefully manage storage.
+
+## PSP Firmware
+
+From PPSSPP 1.21 (and current [development builds](/devbuilds)). Shows the installed PSP firmware, installs one from an official update file, and launches the XMB. The option "Install or upgrade firmware from game discs" (on by default) installs the firmware updater that most game discs carry. See [How to run the XMB](/docs/getting-started/how-to-run-the-vsh).

@@ -7,7 +7,7 @@ position: 1
 
 ## About PPSSPP
 
-PPSSPP is a PSP emulator written in C++. It translates PSP CPU instructions directly into optimized x86, x64, ARM, ARM64 or RISC-V machine code, using JIT recompilers (dynarecs).
+PPSSPP is a PSP emulator written in C++. It translates PSP CPU instructions directly into optimized x86, x64, ARM, ARM64, RISC-V or LoongArch64 machine code, using JIT recompilers (dynarecs).
 
 PPSSPP can thus run on quite low-spec hardware, including stronger **ARM-based phones and tablets**, as long as there's OpenGL ES 2.0 support.
 
@@ -40,11 +40,13 @@ You may find yourself relying on the logs a lot to figure out what's really goin
 
 There's a headless (no display/audio) build, which is very useful when running the [pspautotests](https://github.com/hrydgard/pspautotests) through test.py - highly recommended way to find issues.
 
-The Windows port and the Qt build have interactive debuggers (Qt currently broken). This is not available for mobile platforms and "SDL" builds.
+The Windows port has its own interactive debugger. All builds also have the ImGui-based debugger, opened from "Debugger" in the in-game developer menu. Both PPSSPP and the headless build can be driven remotely through the WebSocket debugger (`--debugger=PORT`), see [docs/WebSocketDebugger.md](https://github.com/hrydgard/ppsspp/blob/master/docs/WebSocketDebugger.md).
 
 ### HLE
 
 PPSSPP is a HLE ("high level emulation") emulator, it simulates the PSP OS as seen by the game rather than the full hardware. A program running on the PSP OS can send raw display lists to the graphics chips, but can't access the flash controller or the Media Engine directly, instead it has to go through libraries and the PSP OS kernel. We simply simulate these. This is a lot of work though, the PSP OS is large and has plenty of functionality so achieving 100% compatibility is difficult bordering on the impossible. We can get close though.
+
+From 1.21 (and current [development builds](/devbuilds)), some real firmware code does run, if a firmware is installed: PS1 EBOOTs run through the firmware's own PS1 emulator on an emulated Media Engine, the XMB can be booted, and some firmware libraries (like sceFont and sceMpeg) run directly instead of being simulated.
 
 ### Automated Test Suite
 

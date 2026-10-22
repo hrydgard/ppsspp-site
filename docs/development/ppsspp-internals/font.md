@@ -4,6 +4,8 @@ Similar to the various upper level media decoders, sceFont is a user library tha
 
 There seem to be several different versions though, some that require functionality that we don't have yet, so that'll need to be solved somehow.
 
+From 1.21, we run the game's own sceFont instead of our HLE when a firmware with its fonts (`flash0:/font`) is installed. Without one, the HLE is used.
+
 Some Chinese translations use custom versions of sceFont, see issue [#19111]. Loading these can fix them in PPSSPP.
 
 ## sceReg

@@ -16,15 +16,12 @@ Otherwise, try turning off (in order):
 * Enable networking/WLAN (under Network)
 * Fast memory (under System)
 * Change CPU Clock speed (under System)
-* Retain changed textures (under Graphics)
-* Disable slow framebuffer effects (under Graphics - uncheck it to turn off disabling)
-* Anything under hacks in Audio or Graphics
+* Anything under Speed hacks (under Graphics)
 * Frameskipping (under Graphics)
-* Simulate block transfer effects (under Graphics - only if you have to)
 
 The first four are the most common causes, by far.
 
-If you had to turn off "Simulate block transfer effects", "Frameskipping", or "Fast memory" - you've found a bug.  The other settings can be unstable.
+If you had to turn off "Frameskipping" or "Fast memory" - you've found a bug.  The other settings can be unstable.
 
 ## Step 3: Check your disc file
 
@@ -76,25 +73,3 @@ If you're getting crashes on startup, before even launching a game, the best thi
 2. Restart your device
 3. PC only - [update your drivers](#step-4-update-your-drivers-pc-only), and uninstall drivers from all devices
 4. Linux only - check for platform bugs, often Mesa or driver issues are known
-5. Windows only - try switching to DirectSound (described below)
-
-### Switching to DirectSound on Windows
-
-In 2020, new crashes started occurring for some users which were found to be related to WASAPI.  It's possible as you're reading this, the bug may already have been found and fixed.  But it started causing mysterious startup crashes for users.
-
-A workaround is to switch from WASAPI to DirectSound, which performs worse but doesn't have the crash.
-
-To do this:
-
-1. If you unzipped PPSSPP, look for a folder "memstick" next to PPSSPPWindows64.
-2. If you installed PPSSPP, look under My Documents for PPSSPP.
-3. Inside the folder you found, open PSP and then SYSTEM inside that.  If these don't exist, create them.
-4. Look for a "ppsspp.ini" file.  It it doesn't exist, save one using Notepad - type `"ppsspp.ini"` as the filename, with quotes.
-5. Replace the contents of that file with:
-
-   ```ini
-   [Sound]
-   AudioBackend = 1
-   ```
-
-After this, you should be using DirectSound (that's what 1 means) for your audio.

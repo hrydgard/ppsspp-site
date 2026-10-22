@@ -19,6 +19,7 @@ We have implemented support for a few of the most common graphics APIs:
 * OpenGL: The compatibility option on Android, and available on a lot of other devices too.
 * D3D11: Windows-only. Good alternative to Vulkan if you're on Windows, very fast and high compatibility.
 * D3D9: Windows-only. Mainly useful on very old laptops with Intel GPUs. It's no longer available from PPSSPP 1.20.
+* Metal: Mac and iOS only, from PPSSPP 1.21 (and current [development builds](/devbuilds)). It's not the default yet.
 
 ### Device
 
@@ -47,7 +48,7 @@ Can be useful for development, or a small number of games and homebrew apps that
 
 ### Antialiasing (MSAA)
 
-This is the best quality antialiasing you can get in PPSSPP, but it's currently only implemented in the Vulkan backend, and only on desktop GPUs (this will change in the future). Use if if it's available, crank it up to 8x if your GPU can handle it for ultra smooth edges on things.
+This is the best quality antialiasing you can get in PPSSPP, but it's currently only implemented in the Vulkan backend (and in Metal, from PPSSPP 1.21 (and current [development builds](/devbuilds))). On most Android GPUs (ARM Mali, Qualcomm Adreno, PowerVR) the MSAA levels are marked with a warning icon. Use if if it's available, crank it up to 8x if your GPU can handle it for ultra smooth edges on things.
 
 ### Replace textures
 
@@ -91,7 +92,7 @@ Especially on mobile platforms, the graphics rendering can be the performance bo
 can be improved by simply skipping the rendering process on every other frame, or more. The drawback
 is of course that the framerate will decrease, and in some cases there can be flickering issues.
 
-The sub-setting Frame Skipping Type is generally not very useful.
+The sub-setting Frame Skipping Type, which was generally not very useful, was removed in PPSSPP 1.20.
 
 ### Auto frameskip
 
@@ -131,6 +132,8 @@ Similarly to the lens flare problem described above, some games use the CPU to r
 
 The PSP will cull triangles that are outside a 4096x4096 clipping box, and also triangles crossing the Z=1 plane if clipping is enabled. Some games rely on this, but there are a few games where we get this subtly wrong. It can be useful to experiment with turning this off if you see missing or flickering geometry.
 
+This setting is removed in PPSSPP 1.21 (and current [development builds](/devbuilds)), as no games are known to need it anymore.
+
 ### Vertex Cache
 
 As of 1.17, this setting no longer exists. Previously, we used hashing to try to avoid decoding the same vertex data over and over again. But I managed to optimize things enough that the benefit was very small or negative, and given the graphical glitches that this setting caused, I deleted it.
@@ -140,6 +143,8 @@ As of 1.17, this setting no longer exists. Previously, we used hashing to try to
 The PSP is capable of drawing curves using splines and bezier curves. This is not widely used but there are a few games out there that use it heavily, like Pursuit Force and Loco Roco.
 
 This setting allows reducing the visual quality of these curves for higher performance.
+
+This setting is removed in PPSSPP 1.21 (and current [development builds](/devbuilds)).
 
 ## Performance
 
@@ -155,9 +160,13 @@ How much latency is allowed between the CPU and GPU. A smaller value means that 
 
 Do not turn this setting off, unless you are doing it for debugging purposes. With this enabled, PPSSPP runs the vertex transform pipeline (lighting, transform etc) on the GPU. Turning it off is always slower.
 
+From PPSSPP 1.21 (and current [development builds](/devbuilds)), this setting is in Developer Tools instead.
+
 ### Software skinning
 
 Runs "skinning" on the CPU instead of the GPU, which does sound like it would be slower but it means that draw calls from the game can more easily be combined, which often improves things, especially on older devices. However, in some games, hardware (vertex shader) skinning can be faster on some devices so we keep the option around.
+
+From PPSSPP 1.21 (and current [development builds](/devbuilds)), software skinning is always on, and the setting is gone.
 
 ### Geometry shader culling
 
@@ -167,9 +176,13 @@ Modern PC GPUs lets us emulate these behaviors efficiently if they support clip 
 
 This option is not visible if the hardware has the sufficient clip and cull plane features.
 
+This option is removed in PPSSPP 1.21 (and current [development builds](/devbuilds)).
+
 ### Lazy texture caching
 
 PPSSPP needs to convert PSP-format textures to host GPU textures. To avoid doing this every frame, we cache them. This skips some checks that textures have changed before reusing textures from the cache. Enabling this setting may improve performance slightly, but may break some things like text rendering in certain games.
+
+This setting is removed in PPSSPP 1.21 (and current [development builds](/devbuilds)).
 
 ## Texture Scaling
 
@@ -183,14 +196,15 @@ some games are very much improved.
 There is generally no point in going beyond 4x texture scaling unless you are running at very high
 resolutions.
 
-If you are using the Vulkan backend, try the Texture Shader option for some GPU upscaling method,
+If you are using the Vulkan backend (or Metal, from PPSSPP 1.21 (and current [development builds](/devbuilds))), try the "GPU texture upscaler (fast)" option for some GPU upscaling method,
 than run without the performance penalty.
 
-Types of Upscale algorithms:
+Types of algorithms for the "CPU texture upscaler (slow)":
 
 * xBRZ - a sharpening upscale algorithm. [See here for examples](https://docs.libretro.com/shader/xbrz/).
 * Bicubic - a smooth look
 * Hybrid - uses bicubic for smooth areas. Can greatly improve sky textures over plain xBRZ.
+* Hybrid + Bicubic
 
 ## Texture Filtering
 
@@ -230,6 +244,10 @@ For more details, see [The Bloom Problem](/docs/troubleshooting/the-bloom-proble
 ### Show FPS Counter
 
 Shows FPS at the top right corner in-game.
+
+### Show Speed / Show Battery %
+
+Show the emulation speed, and on devices where it can be read, the battery level, in the same place.
 
 ### Debug overlay
 

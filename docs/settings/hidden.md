@@ -23,5 +23,5 @@ WindowWidth = 1296   # +16 to offset invisible window edges in Windows 10
 WindowHeight = 720
 
 [Recent]
-MaxRecent = 0   # hides the Recent tab
+MaxRecent = -1   # hides the Recent tab
 ```

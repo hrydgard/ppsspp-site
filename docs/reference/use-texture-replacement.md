@@ -18,6 +18,6 @@ You can also install manually. The place for textures are in PSP/TEXTURES, in su
 
 ## Using
 
-Make sure this setting is enabled: Settings > Tools > Development Tools > Replace textures
+Make sure this setting is enabled: Settings > Graphics > Replace textures (also found in Settings > Tools > Developer Tools)
 
 Then just start your game.

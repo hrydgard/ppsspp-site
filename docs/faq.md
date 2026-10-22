@@ -43,15 +43,15 @@ See [How to install DLC](/docs/getting-started/how-to-install-dlc).
 
 ## Do I need a BIOS file to run PPSSPP, like I would with PSX/PS1 and PS2 emulators?
 
-No. PPSSPP simulates the BIOS and the entire internal operating system. It does not currently emulate enough of the hardware for the actual PSP operating system to run inside of PPSSPP, so even if you have a copy of it, PPSSPP can't run it.
+No. PPSSPP simulates the BIOS and the entire internal operating system, so PSP games run without any firmware files.
 
-This is also why PPSSPP will not show the cross media bar (XMB) interface of the real PSP, it won't run.
+Starting with PPSSPP 1.21 (and current [development builds](/devbuilds)), PPSSPP can optionally use real PSP firmware too. It's not needed for PSP games, but it gets you the original system fonts, and it's needed to [run the XMB](/docs/getting-started/how-to-run-the-vsh) (the PSP's main menu) and to run PS1 games. You don't need to dump it from a PSP: almost every game disc carries a firmware update, and PPSSPP installs it automatically when you start a game. You can also install one from an official PSP update file in Settings / Tools / PSP Firmware.
 
 <a name="gold"></a>
 
 ## Can PPSSPP play PS1/PS2/PS3/PS4/PS5/Vita games? Can it play PSX EBOOTs? Can it play GTA 5? Can I play my old PC games?
 
-No. PSP games only.
+No, with one exception: PS1 games in the PSP's EBOOT format (PlayStation Store downloads, and EBOOTs converted with tools like popstation) run through the PS1 emulator built into the PSP firmware, starting with PPSSPP 1.21 (and current [development builds](/devbuilds)). This needs an installed firmware (see above), and is still experimental. Plain PS1 disc images (BIN/CUE and similar) won't run.
 
 ## Can I use my gamepad to control PPSSPP?
 

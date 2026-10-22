@@ -9,8 +9,8 @@ Things to check:
 * If on Android, can you navigate other apps with the connected gamepad? If not, troubleshoot that first.
 * Go to Settings/Tools/Developer Tools and open the Touchscreen Test. It's a bit of a misnomer since it
   can also be used to check other input. Push some buttons and see if any messages show up on screen.
-* If the above worked, you should be able to go to Settings/Controls/Control Mapping and use Auto mapping.
-* If Auto mapping didn't work, try manually mapping the inputs one by one. Click "O" and then press the
+* If the above worked, you should be able to go to Settings/Controls/Control Mapping and use Auto configure.
+* If Auto configure didn't work, try manually mapping the inputs one by one. Click "O" and then press the
   button you want to use for that, for example.
 
 ## It's difficult to rotate the stick on the touch screen or with a controller

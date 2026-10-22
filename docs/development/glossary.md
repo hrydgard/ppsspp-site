@@ -10,9 +10,11 @@ The [PSP's main CPU](/docs/psp-hardware/cpu/allegrex-overview). It's a 333MHz MI
 
 ## Media Engine
 
-The PSP's secondary CPU. This one is never directly accessed by commercial games, and PPSSPP thus does not emulate it directly. It's used in the implementation of platform libraries like sceMpeg, that PPSSPP catch and emulates through HLE instead. It has some unknown extensions to help with decoding h.264 and Atrac+.
+The PSP's secondary CPU. This one is never directly accessed by commercial games. It's used in the implementation of platform libraries like sceMpeg, that PPSSPP catch and emulates through HLE instead. It has some unknown extensions to help with decoding h.264 and Atrac+.
 
-A small number of homebrew apps for the PSP make use of this processor to run their own code. This includes later versions of the N64 emulator Daedalus, which thus won't run on the emulator. Additionally, it's believed that PopStation, Sony's PSX emulator, does the same thing, which is why it'll also not run.
+A small number of homebrew apps for the PSP make use of this processor to run their own code. This includes later versions of the N64 emulator Daedalus. Sony's PS1 emulator (POPS) also uses it, to play sound.
+
+From 1.21, PPSSPP emulates the Media Engine as a second CPU. PS1 EBOOTs always get it, since they now run through the firmware's own PS1 emulator (this needs an installed firmware, 6.00 to 6.61, or 3.95 and up for converted EBOOTs). For homebrew, it's off by default and can be turned on with the experimental "Enable ME emulation for homebrew" setting in Developer tools.
 
 ## CLUT
 

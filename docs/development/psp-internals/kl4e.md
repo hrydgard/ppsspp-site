@@ -64,8 +64,8 @@ Inside a `~PSP` module header (`Core/ELF/PrxDecrypter.h`), the relevant fields a
 | 0x2C | `psp_size` (u32) | compressed size |
 
 JPCSP names bit 9 `SCE_EXEC_FILE_KL4E_COMPRESSED = 0x200` but tests the whole `0xF00` nibble,
-which is the safer thing to copy. PPSSPP currently reads only bit 0 (`isGzip` at
-`sceKernelModule.cpp:1251`), which is why a KL4E module reaches the gzip path and fails there.
+which is the safer thing to copy. PPSSPP reads only bit 0 and then picks the scheme from the
+payload's magic (gzip, KL4E or KL3E) in `sceKernelModule.cpp`; the decoder is `Core/Util/KL4E.cpp`.
 
 ## The five-byte stream header
 
@@ -345,7 +345,7 @@ rather than reproduces them, since it runs this over a file the user was handed:
 
 **The match copy is not bounds-checked against the output buffer.** Only the literal path tests
 for it. A crafted stream can emit a match at the very end of the output and write up to 255 bytes
-past it. In the reference and in the existing PPSSPP port alike, that's a heap overflow.
+past it. In the reference, that's a heap overflow (PPSSPP's `Core/Util/KL4E.cpp` checks it).
 
 **`copyDistProbs` can be indexed out of range.** The distance bit-count walk can leave
 `copyDistBits` far larger than the 144-byte table allows, and the value decode reads it at

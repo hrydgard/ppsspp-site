@@ -12,8 +12,6 @@ Thin glitchy lines in the UI? These are usually an artifact of rendering at high
 
 Are you seeing cracks in the ground? Turn up the spline/bezier quality.
 
-Strange flickering here and there? Turn off vertex caching.
-
 Black screen, missing effects? Make sure "Skip buffer effects" isn't checked.
 
 Try turning off everything under "Speed hacks".
@@ -26,7 +24,6 @@ Otherwise, some settings to keep in mind (under Graphics):
 
 * The settings under "Speed hacks", as mentioned above - turn them off.
 * Backend - try a different one if you can
-* Mode - anything but "Buffered rendering" draws things wrong, black screens or missing things, broken effects
 * Frameskipping - sometimes results in glitches or flicker
 * Rendering resolution - some games have weird lines above 1x PSP
 * Texture upscale level - sometimes causes glitches and weird lines

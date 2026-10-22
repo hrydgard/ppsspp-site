@@ -13,7 +13,7 @@ Not into the save folders belonging to the game, but right alongside.
 If you can find instructions for how to install the DLC on a real PSP, those instructions should also work in PPSSPP.
 
 In the Android<img src="/static/img/icons/android.svg" alt="" aria-hidden="true" width="24" height="24" class="icon sp-left"> version of PPSSPP,
-the Memory Stick is simply the SD card or USB storage of your phone, PPSSPP will create a `PSP` folder in the root of that.
+the Memory Stick is simply the SD card or USB storage of your phone, PPSSPP will create a `PSP` folder in the root of that (on Android 11 and newer, it's the folder you picked, see [Save data and storage](/docs/getting-started/save-data-and-storage)).
 
 On Windows<img src="/static/img/icons/windows.svg" alt="" aria-hidden="true" width="24" height="24" class="icon sp-left">,
 you can find it easily in the emulator by navigating to <b class="inapp">Settings -> System -> PSP Memory Stick -> Show Memory Stick folder</b>.
@@ -23,4 +23,4 @@ it's in `/User/Documents/PSP/`.
 
 On Mac<img src="/static/img/icons/macos.svg" alt="" aria-hidden="true" width="24" height="24" class="icon sp-left">
 and Linux<img src="/static/img/icons/linux.svg" alt="" aria-hidden="true" width="24" height="24" class="icon sp-left">,
-it's in `~/.config/PPSSPP/`.
+it's in `~/.config/ppsspp/`.

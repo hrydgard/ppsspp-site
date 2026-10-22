@@ -19,6 +19,10 @@ Lets you set up deadzones and stuff to adjust the response of the analog stick.
 
 This sets at what "depth" that analog trigger inputs will count as clicks.
 
+### Analog stick threshold
+
+The same, but for analog stick directions mapped to buttons.
+
 ### Enable standard shortcut keys
 
 If this is checked, keys like the Windows key, alt key etc can be used as normal.
@@ -56,7 +60,7 @@ Just configures the look of the on-screen buttons.
 Used to change the opacity of buttons. An opacity of 0 is completely transparent.
 Opacity of 100 is fully opaque
 
-### Auto-hide buttons after seconds
+### Auto-hide buttons after delay
 
 After this number of seconds of inactivity, touch-screen buttons are hidden. This is
 nice when playing on the gamepad or watching long cutscenes.
@@ -64,6 +68,10 @@ nice when playing on the gamepad or watching long cutscenes.
 ### Keep first touched button pressed when dragging
 
 This is known as "touch gliding" in some other emulators. This lets you press multiple buttons with a single finger, by pressing the first one and then sliding over to other buttons - the first one will be kept held if this setting is on.
+
+### Sticky D-Pad
+
+Keeps the D-Pad pressed as long as your finger stays down, even if it slides off the D-Pad or across its center, which makes sweeping movements easier.
 
 ### Auto-centering analog stick
 

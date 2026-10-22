@@ -32,13 +32,19 @@ Recompiles blocks of MIPS instructions into a specially designed "intermediate r
 
 This takes the output from the IR interpreter and recompiles into native code. Theoretically, and also in practice most of the time, this can generate better code and thus runs faster than the Dynarec (JIT). However, it's not as well tested.
 
+From 1.21, every native JIT works this way, so this option is gone and Dynarec (JIT) is the IR-based JIT.
+
+### Enable ME emulation for homebrew
+
+From 1.21. Experimental, off by default. Emulates the PSP's second CPU, the [Media Engine](/docs/development/glossary#media-engine), for homebrew that runs its own code on it. PS1 games always get it, regardless of this setting.
+
 ### JIT debug tools
 
 Lets you selectively enable/disable different parts of the JIT. Useful for debugging, but checking these boxes will only make things slower, so not recommended for general use (like most of the things in developer tools).
 
-### Show developer menu
+### Show in-game developer menu
 
-This makes a "DevMenu" button show up during gameplay, which provides direct access to a bunch of handy tools. It's also the only way to access the JIT block viewer and the shader viewer.
+This makes a "DevMenu" button show up during gameplay, which provides direct access to a bunch of handy tools, including the ImGui-based debugger. It's also the only way to access the JIT block viewer and the shader viewer.
 
 ### Debug overlay
 
@@ -62,7 +68,7 @@ Not generally useful.
 
 ### Allow remote debugger
 
-Starts up a server that lets you connect to PPSSPP via websockets to debug things programmatically. This is very sparsely documented so far.
+Starts up a server that lets you connect to PPSSPP via websockets to debug things programmatically. The protocol is documented in [docs/WebSocketDebugger.md](https://github.com/hrydgard/ppsspp/blob/master/docs/WebSocketDebugger.md) in the source repository.
 
 ## Texture replacement
 

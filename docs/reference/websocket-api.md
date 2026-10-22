@@ -4,6 +4,8 @@ PPSSPP has a built-in WebSocket API that you can use to do various things.
 
 More information will be added here, but in the meantime, some links:
 
+[Protocol reference](https://github.com/hrydgard/ppsspp/blob/master/docs/WebSocketDebugger.md) (describes the current development version)
+
 [PPSSPP API samples](https://github.com/unknownbrackets/ppsspp-api-samples/tree/master/js)
 
 [The original pull request adding the API](https://github.com/hrydgard/ppsspp/pull/10909)

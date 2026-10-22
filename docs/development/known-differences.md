@@ -24,7 +24,9 @@ PPSSPP just pretends the caches are invisible, which they should be if games use
 
 The VFPU is a vector co-processor that is controlled with the same instruction stream as the main CPU. It has a lot of very complex instructions like cosines, square roots and so forth, and we haven't figured out the exact formulas behind these so instead we use approximations that are quick to compute. Additionally, dot products use a cool mantissa-aligning optimization, causing quite different results from a naive series of multiplications and adds. This means however there are sometimes some accuracy issues, especially in replays (such as the Ridge Racer built-in replays) that can go out of sync, and various physical and graphical problems such as shaking feet in Tekken 6 (since fixed).
 
-This has been improved greatly recently by fp64's work, but some functions are still a bit off, and replays in Ridge Racer still don't function correctly.
+This has been improved greatly by fp64's work, but in 1.20 and earlier some functions are still a bit off, and replays in Ridge Racer still don't function correctly.
+
+From 1.21 (and current [development builds](/devbuilds)), the VFPU's special functions (sin, cos, asin, exp2, log2, square roots and reciprocals) and its dot products are bit-exact on every CPU backend, computed from the formulas we [worked out](/news/vfpu-math-re) rather than from big correction tables.
 
 ## Media Engine (mpeg, atrac decoder) is rough
 
@@ -37,6 +39,8 @@ The PSP often renders at 16-bit color depth (either RGB555 or RGB565), but PPSSP
 ## The OS is simulated, not emulated
 
 All of the PSP operating systems, like file I/O, GPU display list submission, kernel APIs like threading, timer access, and so on, are simulated. We don't run the actual OS code. This simulation is of course not 100% correct, there are differences in timing, error handling etc. We try to make it as close as possible, but it isn't really possible to get to 100%.
+
+From 1.21, some firmware code does run for real when a firmware is installed: a few firmware libraries (sceFont, sceMpeg, sceMp4) instead of our simulations of them, PS1 games through the firmware's PS1 emulator, and the XMB. The kernel underneath is still simulated.
 
 ## And so much more...
 

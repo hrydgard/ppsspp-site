@@ -64,7 +64,7 @@ and follow the instructions, to transfer files from another device or computer o
 The iOS build is missing a few features:
 
 - Camera input
-- Microphone
+- Microphone (added in PPSSPP 1.21, and current [development builds](/devbuilds))
 
 ### Previously missing features
 

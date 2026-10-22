@@ -15,7 +15,7 @@ For reverse engineering purposes, psdevwiki has a [list of where modules are](ht
 
 ## Playback
 
-sceAudio is used for playback. We have it mostly implemented with some caveats - the built-in sample rate conversion (sceAudioSRCChReserve) doesn't seem to be implemented correctly.
+sceAudio is used for playback. We have it mostly implemented with some caveats. The built-in sample rate conversion (sceAudioSRCChReserve) didn't use to be implemented correctly, but from 1.21 the SRC channel resamples at the reserved frequency. How the output calls block and buffer is described in [docs/sceAudio.md](https://github.com/hrydgard/ppsspp/blob/master/docs/sceAudio.md) in the source repository.
 
 ## Emulation
 
@@ -26,3 +26,5 @@ However, I'm now looking into if we should go one or two levels down the stack.
 scePsmf/scePsmfPlayer should really not be emulated, instead we should run the implementations that are present on disc, and make sure that our sceMpeg is accurate enough to work with with them. In 1.19, we do this, eliminating a bunch of bugs.
 
 Additionally, sceAtrac/sceAac/sceMp3 should all be allowed to run when possible, and the underlying sceAudiocodec will take care of the actual decoding. This is partially working but not enabled yet - and many games load these libraries from the firmware, so we need a HLE fallback.
+
+From 1.21, sceMpeg and sceMp4 are run as real modules when they're available (sceMp4's are only in the firmware), falling back to HLE when they aren't. sceAtrac and sceMp3 are still HLE by default. Underneath them, sceVideocodec and sceAudiocodec are still HLE. The ME CPU itself is also emulated in 1.21, for PS1 games and (optionally) homebrew.

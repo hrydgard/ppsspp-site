@@ -22,9 +22,9 @@ That's about how good things will get, without delving into texture upscaling or
 If your device is struggling to keep up with the games, you might try the following:
 
 * Lower rendering resolution to 2x or even 1x
-* In some games, "Disable GPU readbacks" can fix severe slowdowns, but can also cause graphical issues.
+* In some games, "Skip GPU Readbacks" can fix severe slowdowns, but can also cause graphical issues.
 * Turn off any post-processing effects you have enabled in Display layout and Effects.
-* Experiment whether "Software skinning" helps or not, it can go either way depending on game and hardware.
+* Experiment whether "Software skinning" helps or not, it can go either way depending on game and hardware. From PPSSPP 1.21 (and current [development builds](/devbuilds)), it's always on.
 
 As a last resort if nothing else helps:
 

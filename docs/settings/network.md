@@ -18,9 +18,11 @@ This corresponds to the physical WLAN switch on the real PSP. Just turn it on if
 
 ### Send Discord "Rich Presence" information
 
-This setting is currently only available on Windows. It will send information to a Discord client running on the same Windows session, showing it as "currently playing" if you are currently sharing your status.
+This setting is currently only available on desktop (Windows, Mac and Linux). It will send information to a Discord client running on the same computer, showing it as "currently playing" if you are currently sharing your status.
 
 ### Change MAC address
+
+In newer builds, just "MAC address", with a Randomize button next to it.
 
 You can change the MAC address of the emulated PSP here. However, it's not recommended to change it once you have set it - since some games will lock savegames to the specific address, invalidating them if you change it!
 
@@ -50,6 +52,14 @@ Lets you set the Nickname setting of the emulated PSP. This is what shows up as 
 
 This is used for local play on LAN or Wi-Fi. See [How to play](/docs/multiplayer/how-to-play) for more information.
 
+### Connect to adhoc server using UDP (ENet) instead of TCP
+
+From PPSSPP 1.21 (and current [development builds](/devbuilds)). Try switching between TCP and UDP if you suffer frequent ad hoc server disconnects. Some network environments favor TCP and some UDP.
+
+### Reliable datagram packet delivery on packet relay in UDP mode
+
+From PPSSPP 1.21 (and current [development builds](/devbuilds)). Only used in UDP mode. When disabled, packet loss on datagram ad hoc sockets will be exposed to the game's netcode. Keep this enabled if you don't know what that means.
+
 ## Infrastructure
 
 This is the setup to use when playing on infrastructure revival servers.
@@ -70,7 +80,7 @@ This is used when playing ad hoc in the old P2P (non-relay) mode.
 
 ## Chat / Quick chat
 
-Configure multiplayer chat here.
+Configure multiplayer chat here. From PPSSPP 1.21 (and current [development builds](/devbuilds)), chat messages can also show timestamps.
 
 ## Miscellaneous
 

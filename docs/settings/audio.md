@@ -12,6 +12,10 @@ Here are several audio-related PPSSPP settings.
 
 Classic for the lowest latency, smooth for less glitches when running at speeds other than 100%.
 
+### Fill audio gaps
+
+Only available in Smooth mode. When the game can't keep up with audio output, this repeats a bit of recent audio instead of playing silence, which sounds smoother. On by default.
+
 ## Game volume
 
 ### Enable sound
@@ -29,6 +33,10 @@ Lets you separately control the volume of reverb and echo effects. PPSSPP's impl
 ### Alternate speed volume
 
 Audio isn't very clean when running at alternate speeds, especially when Playback mode is set to Classic, so if you don't like that, turn this down.
+
+### Achievement sound volume
+
+The volume of the sound played when you unlock a [RetroAchievements](/docs/reference/retro-achievements) achievement.
 
 ## UI sound
 

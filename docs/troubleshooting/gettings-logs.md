@@ -21,4 +21,4 @@ This is the traditional way. Maybe there's some newfangled Wi-Fi way, I don't kn
 
 ## Android bug reporting - alternative way of getting logs
 
-See [this article](thttps://academy.test.io/en/articles/2541912-crash-logs-on-mobile-devices) for instructions. This will collect a lot of irrelevant logs too, so it may be harder to read the output. The adb way is preferable.
+See [this article](https://academy.test.io/en/articles/2541912-crash-logs-on-mobile-devices) for instructions. This will collect a lot of irrelevant logs too, so it may be harder to read the output. The adb way is preferable.
