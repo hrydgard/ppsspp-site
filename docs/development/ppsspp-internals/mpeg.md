@@ -2,7 +2,7 @@
 
 The PSP supports playback of video encoded with a single video codec, AVC, or as it's more popularly known, H.264. I believe only "base profile" is supported (H.264 has a LOT of features).
 
-A lot of games use video clips for things like title screens and also cutscenes, some even as background for gameplay. Additionally, the PSP supports UMD video discs, basically tiny Blu-Rays, although PPSSPP 1.20 and earlier don't support playback of these (it's complicated). From 1.21, they can be played in the XMB, through the firmware's own video player.
+A lot of games use video clips for things like title screens and also cutscenes, some even as background for gameplay. Additionally, the PSP supports UMD video discs, basically tiny Blu-Rays.
 
 ## sceMpeg
 

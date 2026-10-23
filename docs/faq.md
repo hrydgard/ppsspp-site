@@ -93,7 +93,7 @@ No, this is unfortunately not possible.
 
 ## Can PPSSPP play UMD video discs?
 
-No. [More information here](/docs/reference/umd-video).
+Yes, finally - in 1.21, if you have a PSP firmware installed. [More information here](/docs/reference/umd-video).
 
 ## Why are many of the graphics settings disabled?
 

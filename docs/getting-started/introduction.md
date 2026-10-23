@@ -5,13 +5,10 @@ position: 1
 
 PPSSPP is a PSP emulator, which means that it can run games and other software that was originally made for the Sony PSP.
 
-The PSP had multiple types of software.
-The two most common are native PSP games on UMD discs and downloadable games, that were stored in the directory `PSP/GAME` on the "Memory Stick" (aka "memstick" or "ms").
+The PSP supports multiple types of software.
+The two most common are native PSP games on UMD discs and downloadable games, that are stored in the directory `PSP/GAME` on the "Memory Stick" (aka "memstick" or "ms").
 
-But there were also [UMD Video](/docs/reference/umd-video) discs, and PS1 games that could run in a proprietary emulator.
-PPSSPP 1.20 and earlier do not run those.
-From PPSSPP 1.21 (and current [development builds](/devbuilds)), PS1 games in the PSP's EBOOT format run through that same emulator from the PSP firmware (experimental, and it needs an installed firmware),
-and UMD Video discs can be played from the [XMB](/docs/getting-started/how-to-run-the-vsh).
+But there were also [UMD Video](/docs/reference/umd-video) discs, and PS1 games, packaged in an EBOOT format, that run in a proprietary emulator on the device. These will work from PPSSPP 1.21, if you have a firmware installed.
 
 ## Installing PPSSPP
 
