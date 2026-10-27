@@ -158,6 +158,18 @@ PTP uses the same kind of frame with protocol 2 and its own header.
 - `00:00:00:00:00:00` is not a broadcast address. `sceNetAdhocPdpSend` rejects it, like any other multicast
   address, with `INVALID_ADDR` (0x80410702).
 
+### Infrastructure and ad hoc exclude each other
+
+The radio is either on an access point or in an ad hoc network, never both, and whichever got there first
+keeps it (the `net/adhoc/apctl` test, with a phone hotspot as the access point):
+
+- `sceNetApctlConnect` while the console is in an ad hoc group returns 0, goes to JOINING, then falls
+  back to DISCONNECTED without associating. The ad hoc group carries on.
+- `sceNetAdhocctlCreate` while apctl has an IP returns 0, then the handler gets ERROR with 0x80410D01 (a
+  wlan driver error), and adhocctl stays DISCONNECTED. Apctl stays connected.
+
+Neither call fails up front; the failure only shows in the state or the handler.
+
 ### Talking to itself
 
 A console can send PDP datagrams and open PTP connections to its own MAC address, and they're delivered
@@ -180,10 +192,7 @@ Sony's sceNetAdhocMatching runs entirely over PDP. Its packet format is describe
 
 - How each peer's nickname reaches the others in a group. (A peer that leaves is dropped from the
   others' lists within a few seconds; how long one that just goes silent lasts hasn't been measured.)
-- Whether infrastructure and ad hoc can really be used at the same time. With an infrastructure profile
-  for a network that isn't in range, `sceNetApctlConnect` returns 0 while the console is in an ad hoc
-  group and apctl stays in JOINING, and `sceNetAdhocctlCreate` works while apctl is connecting; neither
-  side refuses the other. A reachable access point would show whether apctl ever gets further.
+- How long a peer that just goes silent stays in the others' peer lists.
 - The PTP protocol: its handshake, window, acknowledgements and retransmit timers.
 - How "Automatic" picks a channel.
 - Game mode's slot timing and maximum data size.

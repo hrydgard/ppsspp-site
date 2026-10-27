@@ -66,6 +66,10 @@ port, length); PPSSPP's order differs, which matters when a game passes several 
 - Up to 32 handlers instead of 4, and registering the same function again returns 0 instead of a new ID.
 - A second `sceNetAdhocctlInit` leaves adhocctl initialized; on the PSP it de-initializes it.
 - `GetPeerInfo` answers for the console's own MAC, which the PSP doesn't.
+- Infrastructure and ad hoc can be active at the same time; on the PSP each blocks the other (see
+  [On the PSP](/docs/development/adhoc/on-the-psp#infrastructure-and-ad-hoc-exclude-each-other)).
+  PPSSPP even relies on combining them for a few games, through `connect_adhoc_for_grouping`, so this
+  difference is deliberate there.
 
 ### Matching
 
@@ -135,8 +139,9 @@ Roughly in order of value:
    `adhocctl`, `matching`, `self`, `poll`, `gamemode`) in `tests_next`, plus two-console tests in
    `tests/net/adhoc/pair` (`basic`, `matching`), recorded with `pair/record.py`. Fixing the differences
    they show is the obvious next step. Running the pair tests on two PPSSPP instances needs harness work
-   (see Testing below). Still to cover: game mode between two consoles, scanning with several groups
-   around, and apctl together with a reachable access point.
+   (see Testing below). `apctl` (infrastructure and ad hoc together) needs an access point in profile 1,
+   so it isn't in `test.py`. Still to cover: game mode between two consoles, and scanning with several
+   groups around.
 2. **Matching retransmission and acknowledgement**, implemented so that it degrades gracefully against
    aemu clients (for example, resending JOIN and ACCEPT on the existing opcodes, and treating a peer's data
    ack as optional). This matters most in P2P mode.
