@@ -100,7 +100,7 @@ Starts the context's event and input threads; `opt` is the hello data a host or 
 Returns 0. Already running: `IS_RUNNING` (0x8041080A). All 15 possible contexts can run at once.
 
 `Start2` is `Start` with a memory partition for each thread, **after** its stack size. Partition 2 (user)
-works; 9 gives `INVALID_ARG` (0x80410807). Passing the partition where the stack size goes gives
+works; 9 gives `INVALID_ID` (0x80410807). Passing the partition where the stack size goes gives
 `STACKSIZE_TOO_SHORT` (0x80410815).
 
 **PPSSPP:** returns a thread ID instead of 0; starting again gives `PORT_IN_USE`. `Start2` takes the
