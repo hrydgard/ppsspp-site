@@ -86,6 +86,22 @@ PPSSPP passes sceNetInet straight to the host's sockets, which shows:
 - `sceNetAdhocPdpSend` with NULL data, `sceNetAdhocPdpRecv` with a NULL sender, and `sceNetAdhocPtpSend`
   with a NULL length pointer stopped the game with a memory exception. They're valid calls on a PSP.
 
+## Timing
+
+Measured with the same timing programs as the [Timing](/docs/development/adhoc/api/timing) page:
+
+- **Every blocking wait takes at least 16.5 ms** (a frame), where the PSP's shortest is about 0.4 ms.
+  A 1 ms receive timeout takes 16.5 ms, and round trips between two instances come out at 31 ms for
+  any size, against 4-33 ms on PSPs. This is the biggest timing difference.
+- **Events come at the wrong times:** CONNECT 2 s after Create (PSP 1.1 s) and 0.15 s after Join (PSP
+  0.53 s), SCAN after 0.13 s (PSP 1.0 s), DISCONNECT after 27 ms (PSP 105 ms), ExitGameMode's after
+  27 ms (PSP 0.64 s). Game mode members get GAMEMODE at different times; on the PSP all at once.
+- **Calls that block and shouldn't:** Create, Scan and Disconnect take 10-17 ms to return (PSP
+  20-30 µs), MatchingStart 30 ms (PSP 0.6 ms).
+- **Game mode replicas update every 0.65 ms**; on the PSP every 12 ms or so.
+- Several game-specific delays in the code exist to make up for these; with the PSP's timings
+  modelled, most should go.
+
 ## Structural issues
 
 - **Players are identified by IP address** in P2P mode. Two players behind one public address can't both
