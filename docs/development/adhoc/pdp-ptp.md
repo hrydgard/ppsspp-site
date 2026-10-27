@@ -1,5 +1,5 @@
 ---
-position: 4
+position: 5
 ---
 
 # PDP and PTP sockets
@@ -224,6 +224,8 @@ with `CONNECTION_REFUSED` within a second, and when one side closes, the other's
 `DISCONNECTED` and its state becomes CLOSED.
 
 ## How PPSSPP implements them (P2P mode)
+
+Games named in this section are the ones PPSSPP's code gives as the reason for a behaviour. That those games need it hasn't been rechecked.
 
 In P2P mode every PDP socket is a host UDP socket and every PTP socket a host TCP socket. In relay mode
 they're connections to the relay instead; see [The relay](/docs/development/adhoc/relay). Both modes share

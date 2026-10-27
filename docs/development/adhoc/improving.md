@@ -1,168 +1,128 @@
 ---
-position: 10
+position: 12
 ---
 
 # Known issues and improvements
 
-Where PPSSPP's ad hoc emulation differs from the PSP, and what could make it better. Some differences are
-deliberate and needed to make games work over the internet; others are simply not done yet. Changes to
-anything that goes on the wire have to stay compatible with the aemu plugin on PSPs and Vitas, and with
-older PPSSPP versions, since players mix them.
+Where PPSSPP's ad hoc and inet emulation differs from the PSP, measured by running the pspautotests
+recorded on PSPs (see [Testing](/docs/development/adhoc/testing)). Every function's own differences are
+listed in the [API reference](/docs/development/adhoc/api/conventions), under **PPSSPP**; this page groups
+them by kind, adds the structural issues, and suggests an order to fix them.
+
+Some differences are deliberate, to make games work over the internet. Changes to anything that goes on
+the wire have to stay compatible with the aemu plugin on PSPs and Vitas, and with older PPSSPP versions,
+since players mix them; the aemu connection part would keep using aemu_postoffice in any rewrite.
 
 ## What can't be the same
 
 - **No radio.** Real ad hoc traffic is encrypted and authenticated with console keys, and PCs and phones
-  can't send raw 802.11 IBSS frames anyway. Interoperating with unmodified PSPs is out of reach; the
-  common ground is the aemu protocols.
+  can't send raw 802.11 IBSS frames anyway. Interoperating with unmodified PSPs is out of reach; the common
+  ground is the aemu protocols.
 - **Latency.** Ad hoc was designed for consoles a few meters apart, with latencies around a millisecond.
-  Over the internet it's tens of milliseconds, and games with tight timing (game mode in particular, or PTP
-  connects with short timeouts) need slack. The hard-coded event delays, the minimum timeout setting, the
-  extra 500 ms on matching timeouts and the faked `last_recv` all exist for this.
-- **Savestates.** The other players' state can't be saved, so savestates while connected will never work.
+  Over the internet it's tens of milliseconds, and games with tight timing need slack. Some of PPSSPP's
+  differences (longer matching timeouts, the faked peer `last_recv`, PTP connects that keep retrying instead
+  of being refused) exist for that, and should stay, or become optional.
+- **Savestates.** The other players' state can't be saved.
 
-## Differences in the APIs
+## Argument checking and error codes
 
-### PDP
+The most widespread kind of difference, and the easiest to fix one function at a time. Typical cases:
 
-| | PSP | PPSSPP |
-|---|---|---|
-| Send to a NULL destination | `INVALID_ARG` | `INVALID_ADDR` |
-| Send flag bits other than `NONBLOCK` | `INVALID_ARG` | accepted |
-| Send to port 65535 | `INVALID_PORT` | accepted |
-| Datagram over 65523 bytes | `INVALID_DATALEN` | sent (if the host allows it) |
-| Multicast destination other than broadcast | `INVALID_ADDR` | treated as an unknown peer: returns 0, nothing sent |
-| Unknown destination MAC | sent into the air | returns 0, nothing sent |
-| Create with flag 1 | `INVALID_ARG` | accepted |
-| Create with `bufsize` 0 or negative | accepted | `INVALID_ARG` |
-| Create on port 65535 | `INVALID_PORT` | accepted |
-| Socket IDs | always increasing | lowest free slot |
-| Return value of Send and Recv | 0 | 0 (same) |
-| `PdpCreate` before joining a group | `INVALID_ADDR` | `INVALID_ADDR` (same) |
-| Sender receives its own broadcast | no | no (same) |
+- **Checks the PSP makes and PPSSPP doesn't:** PDP flags, port 65535, zero and multicast destinations, a
+  foreign local MAC (PDP and PTP); adhocctl's Init stack size, priority and ad hoc ID, its group name rules
+  and the 4-handler limit; matching's Create limits (`rxbuflen`, intervals, `init_count`, `rexmt_int`, the
+  15-context limit); game mode's minimum member count.
+- **Checks PPSSPP makes and the PSP doesn't:** PTP's zero sizes, backlog and broadcast destination; PDP's
+  `bufsize` 0 or negative.
+- **The wrong error code:** sceNetAdhoc codes where adhocctl ones belong (group names, game mode
+  timeouts), `INVALID_ADDR` for NULL pointers that should be `INVALID_ARG`, `BUSY` for a refused relay
+  connect.
+- **The wrong order:** PPSSPP often checks the socket ID or the group before NULL pointers and flags, so a
+  call with several bad arguments gets a different error.
+- **Calls that succeed when they should fail**, or the other way round: `GetParameter`, `GetPeerList`,
+  `GetGameModeInfo` and `GetHelloOpt` outside their state; `GetPeerInfo` and `GetNameByAddr` answering for
+  the console's own MAC; matching `Stop`/`Delete`/`CancelTarget` on unknown IDs or peers returning 0;
+  matching `Start` returning a thread ID.
 
-The PSP checks the arguments in a fixed order (stack, then argument/flag, initialized, socket ID, address,
-port, length); PPSSPP's order differs, which matters when a game passes several bad arguments at once.
+## Behaviour
 
-### PTP
+- **PDP:** PPSSPP receives its own broadcasts (the PSP never does), copies part of a datagram into a buffer
+  that's too small (the PSP copies nothing), holds about ten times more in a receive buffer, and can't send
+  65523-byte datagrams. Socket IDs are reused, and port 0 picks ports from 0x8000 up.
+- **PTP:** connects to a port nobody listens on aren't refused (and can even report success); unaccepted
+  connections don't show up in `GetPtpStat`; buffers are far larger, so a sender blocks much later.
+- **Polling:** most of the PSP's per-state events are missing (FLUSH never, DISCONNECT and
+  `EXCEPTION_EVENT` not for closed or refused sockets, INVALID not for bad IDs, ALERT never).
+- **adhocctl:** `sceNetAdhocctlInit` blocks for up to 5 seconds logging in to the server and returns `BUSY`
+  if it can't; a second Init doesn't break adhocctl as it does on the PSP. In the single-console test, the
+  CONNECT event after Create didn't arrive within 5 seconds. Two groups created with the same name merge.
+  The BSSID is the creator's MAC, not a random address.
+- **Matching:** no retransmission (JOIN and ACCEPT are sent once), DATA_ACK generated locally (so no
+  `DATA_BUSY` and no `DATA_TIMEOUT`), data events in reverse order (the event queue is a stack), a client
+  lists the host first in `GetMembers`, members that left can stay listed, and the timeout is
+  `(keepalive_int + rexmt_int) * init_count + 0.5 s` instead of about `keepalive_int * init_count`.
+- **Game mode:** with two instances, the test hangs at buffer setup; a master of size 0 is accepted.
+- **Discover:** a stub that never enters adhocctl's DISCOVER state.
+- **Leaving:** in relay mode, PTP connections aren't broken when a peer leaves the group.
+- **Infrastructure and ad hoc** can be used at the same time, which the PSP never allows. PPSSPP relies on
+  that for a few games (`connect_adhoc_for_grouping`), so it should stay.
 
-- P2P mode never returns `CONNECTION_REFUSED`; non-blocking connects return `WOULD_BLOCK` both while
-  connecting and after a refusal, and a blocking connect times out with `TIMEOUT`. On the PSP a refused
-  connect fails at once with `CONNECTION_REFUSED`. (Over the internet, "nobody is listening yet" and "the
-  packet hasn't arrived yet" look alike, which is why PPSSPP keeps retrying.)
-- `PtpOpen` and `PtpListen` reject 0 for `bufsize`, `rexmt_int`, `rexmt_cnt` and `backlog`, and `PtpOpen`
-  rejects the broadcast address; the PSP accepts all of these.
-- `PtpFlush` returns at once with 0.
-- `SYN_RCVD` is never reported, and the send buffer count in `GetPtpStat` is always 0.
-- The retransmit arguments only drive TCP keep-alive, and only in whole seconds, which usually rounds to 0.
+### sceNetInet
 
-### Adhocctl
+PPSSPP passes sceNetInet straight to the host's sockets, which shows:
 
-- Scan results carry the channel and mode from local settings, not the group's.
-- Peers that leave stay in the list (marked as gone), and live peers' `last_recv` is faked to be at most
-  10 ms old.
-- A dropped server connection isn't re-established until the game scans or creates a group again.
-- DISCOVER and WOL aren't implemented.
-- Event delays (1-2 s for CONNECT and GAME) are tuned, not measured.
-- Up to 32 handlers instead of 4, and registering the same function again returns 0 instead of a new ID.
-- A second `sceNetAdhocctlInit` leaves adhocctl initialized; on the PSP it de-initializes it.
-- `GetPeerInfo` answers for the console's own MAC, which the PSP doesn't.
-- Infrastructure and ad hoc can be active at the same time; on the PSP each blocks the other (see
-  [On the PSP](/docs/development/adhoc/on-the-psp#infrastructure-and-ad-hoc-exclude-each-other)).
-  PPSSPP even relies on combining them for a few games, through `connect_adhoc_for_grouping`, so this
-  difference is deliberate there.
+- **errno values are the host's** (macOS: ECONNREFUSED is 61, not 111), and several failures return the
+  errno value itself instead of -1.
+- **TCP over loopback doesn't work**: the connection is made but never accepted, which stops the `tcp` and
+  `blocking` tests.
+- **Socket options:** booleans, SO_NBIO and the timeouts aren't written back by `getsockopt`; timeouts are
+  host `timeval`s instead of the PSP's 4-byte microseconds; buffer sizes and limits are the host's.
+- **Rules that differ:** `listen` on an unbound socket succeeds, binding an address in use succeeds,
+  `shutdown` on an unconnected socket fails, descriptor numbers are reused, raw sockets are refused.
+- **Address parsing** only accepts dotted quads, and reads `010` as decimal.
 
-### Matching
+### Fixed
 
-The biggest gap. Compared with Sony's module:
-
-- **No retransmission.** JOIN and ACCEPT are sent once; on a lossy P2P link a lost packet stalls matching
-  until a timeout. (In relay mode the transport is reliable, so this mostly doesn't matter there.)
-- **No real data acknowledgement.** `DATA_ACK` fires locally right after `SendData`, and `DATA_TIMEOUT`
-  never fires.
-- **Argument checks differ.** The PSP requires `rxbuflen >= 6 * maxnum + 4` (PPSSPP: at least 1), in
-  HOST and P2P mode non-zero hello and keep-alive intervals (PPSSPP substitutes 2 s), a non-negative
-  `init_count` and a non-zero `rexmt_int` (PPSSPP checks neither).
-- **`Delete` and `Start` on a running context** give `IS_RUNNING` on the PSP; PPSSPP stops and deletes it,
-  or starts it again.
-- **`DATA_BUSY`**: on the PSP a second `SendData` before the peer has acknowledged the first gives
-  `DATA_BUSY`; PPSSPP clears its "sending" flag straight away, so it never does.
-- **Member order**: on the PSP a client lists itself first, then the host; PPSSPP lists the host first.
-- **`GetHelloOpt`** on the PSP copies at most the game's buffer size and leaves the length alone; PPSSPP
-  writes the full length and copies all of it.
-- **Timeouts** are `(keepalive_int + rexmt_int) * init_count + 500 ms` instead of about
-  `keepalive_int * init_count`, which is more forgiving.
-- **Event order**: the internal event and message queues are stacks (last in, first out), and the code
-  pushes pairs in reverse to compensate. A real queue would be simpler and race-free.
-- **`GetHelloOpt`** copies the hello data without checking the size of the game's buffer.
-- The hello send buffer is shared between all matching contexts.
-- A timed-out P2P peer can produce repeated TIMEOUT events, and cancelled peers linger in host mode.
-
-### Polling and alerts
-
-- A poll alert makes PPSSPP's `PollSocket` return `SOCKET_ALERTED`; the PSP returns `EXCEPTION_EVENT` with
-  ALERT in `revents`.
-- PPSSPP never reports FLUSH, which the PSP reports for every connected or listening PTP socket.
-
-### Game mode
-
-- No time slots or lockstep, no sequence numbers, no retransmission after start-up; replicas just see the
-  last datagram that arrived.
-- The firmware's timing synchronization isn't emulated.
-- `CreateEnterGameModeMin` ignores its minimum, and the joiner's GAME event doesn't wait for everyone.
+- `sceNetAdhocPdpSend` with NULL data, `sceNetAdhocPdpRecv` with a NULL sender, and `sceNetAdhocPtpSend`
+  with a NULL length pointer stopped the game with a memory exception. They're valid calls on a PSP.
 
 ## Structural issues
 
 - **Players are identified by IP address** in P2P mode. Two players behind one public address can't both
   play, and a DISCONNECT from the server (which only carries the IP) removes the wrong one. Relay mode with
   a relay-only server doesn't have this problem.
-- **Received ports with "UPnP use original port"**: sends to players on public addresses use no port offset,
-  but received source ports always have the offset subtracted, so those players' ports are reported wrong
-  by the offset.
+- **Received ports with "UPnP use original port"**: sends to players on public addresses use no port
+  offset, but received source ports always have the offset subtracted, so those players' ports are
+  reported wrong by the offset.
+- **The relay's PDP limit**: aemu_postoffice's client refuses PDP datagrams over 10 KiB, while a PSP
+  delivers up to about 16 KB across the air. Raising it needs a change in aemu_postoffice.
 - **Port offset in relay mode**: the relay doesn't need an offset, but PPSSPP applies one anyway, so all
-  players still have to agree on it, and a mismatch silently loses all traffic. Dropping it would need
-  coordinating with the aemu plugin and older PPSSPP versions.
-- **Relay detection** depends on the server list's `data_mode`: in Auto mode, a relay-capable server that
-  isn't in the list is used in P2P mode (and with a relay-only server, nothing connects). The relay
-  protocol has no way to ask a server what it supports.
-- **Thread safety**: the adhocctl state and busy flags, the game mode member list and parts of the peer list
-  are shared between `friendFinder` and the CPU thread without locks. The matching threads call HLE
+  players still have to agree on it, and a mismatch silently loses all traffic.
+- **Relay detection** depends on the server list's `data_mode`; the relay protocol has no way to ask a
+  server what it supports.
+- **Thread safety**: the adhocctl state and busy flags, the game mode member list and parts of the peer
+  list are shared between `friendFinder` and the CPU thread without locks. The matching threads call HLE
   functions (PDP send and receive) directly from host threads.
-- **Relay mode details**: `PollSocket` ignores its timeout and never reports ALERT; accepted relay sockets
-  get their internal ID from the listener's slot.
-- **Socket IDs** are the lowest free slot, up to 255; the firmware hands out increasing IDs.
 
 ## Where to go from here
 
 Roughly in order of value:
 
-1. **Hardware tests.** pspautotests has single-console tests in `tests/net/adhoc` (`pdp`, `ptp`,
-   `adhocctl`, `matching`, `self`, `poll`, `gamemode`) in `tests_next`, plus two-console tests in
-   `tests/net/adhoc/pair` (`basic`, `matching`), recorded with `pair/record.py`. Fixing the differences
-   they show is the obvious next step. Running the pair tests on two PPSSPP instances needs harness work
-   (see Testing below). `apctl` (infrastructure and ad hoc together) needs an access point in profile 1,
-   so it isn't in `test.py`. Still to cover: game mode between two consoles, and scanning with several
-   groups around.
-2. **Matching retransmission and acknowledgement**, implemented so that it degrades gracefully against
-   aemu clients (for example, resending JOIN and ACCEPT on the existing opcodes, and treating a peer's data
-   ack as optional). This matters most in P2P mode.
-3. **Fix the matching code smells**: real queues instead of stacks, the `GetHelloOpt` bounds check, the
-   shared hello buffer, the repeated P2P timeout.
-4. **Make `friendFinder` reconnect on its own** after losing the server, instead of waiting for the game to
-   scan or create a group.
-5. **Move host-thread HLE calls** (matching's PDP traffic) onto the CPU thread, and lock the shared adhocctl
-   state.
-6. **Game mode over the relay**: the relay already makes PDP reliable; adding a sequence number to game
-   mode datagrams would let replicas drop stale updates.
-7. **Fix the original-port receive bug** and the relay `PollSocket` timeout.
+1. **Make the single-console tests pass**, function by function, starting with the argument checks and
+   error codes. Each fix is small and the tests say exactly what's expected. Keep the deliberate
+   differences behind the internet-latency reasoning above.
+2. **Polling events**, since games use `PollSocket` to drive their state machines.
+3. **Matching**: a real event queue, real data acknowledgement (`DATA_ACK` only when the peer answers,
+   `DATA_BUSY`, `DATA_TIMEOUT`), and retransmission of JOIN and ACCEPT, degrading gracefully against aemu
+   clients that don't acknowledge.
+4. **sceNetInet**: translate errno values and the return convention, socket options, and fix TCP over
+   loopback.
+5. **Game mode**: make two instances get through buffer setup.
+6. **Make the two-console tests pass** on two instances, in both P2P and relay mode.
+7. The structural issues: thread safety, IP identity in P2P mode, the original-port bug.
 
 ## Testing
 
-- Two or more PPSSPP instances on one machine with the built-in server on `localhost` is the quickest
-  setup (see [Emulation details](/docs/development/adhoc/emulation#several-instances-on-one-machine)).
-- For relay mode, run [aemu_postoffice](https://github.com/Kethen/aemu_postoffice/releases) locally and point
-  PPSSPP at `127.0.0.1` with relay mode set to Yes.
+- Two or more PPSSPP instances on one machine: `Tools/adhoc_multi.py` (see
+  [Testing](/docs/development/adhoc/testing)).
 - `sceNet` logging at debug level shows every ad hoc call with its arguments and result.
-- The two-console pspautotests can't run through `test.py` yet. Running them on PPSSPP needs two
-  headless instances started together, each with its own instance number (so its own 127.0.0.*N* address
-  and MAC), one of them running the built-in server, and both running at real-time speed rather than
-  fast-forward, since the two sides wait for each other over the real network.

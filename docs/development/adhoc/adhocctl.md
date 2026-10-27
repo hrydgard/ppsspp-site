@@ -1,5 +1,5 @@
 ---
-position: 3
+position: 4
 ---
 
 # sceNetAdhocctl: groups and peers
@@ -84,7 +84,7 @@ runs, so a handler that checks `GetState` sees the new state.
 | 138 | 6 | padding / flags |
 | 144 | 8 | `last_recv`: time (in microseconds) the peer was last heard from |
 
-Games use `last_recv` to judge whether a peer is still alive.
+Games can use `last_recv` to judge whether a peer is still alive.
 
 `SceNetAdhocctlParameter` (148 bytes): channel (4), group name (8), nickname (128), BSSID (6), padding (2).
 
@@ -167,6 +167,8 @@ The parameters point to an `adhocparam` struct with the group name (8 bytes) and
 calls the adhocctl functions itself and finishes once the console is connected (or the user cancels).
 
 ## How PPSSPP emulates it
+
+Games named in this section are the ones PPSSPP's code gives as the reason for a behaviour. That those games need it hasn't been rechecked.
 
 There's no radio to scan, so everything adhocctl would learn from the air comes from the
 [adhoc server](/docs/development/adhoc/adhoc-server) instead. The pieces:

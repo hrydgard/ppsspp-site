@@ -10,7 +10,8 @@ aemu_postoffice relay. This page is the overview. The pages after it go into det
 
 | Page | Covers |
 |---|---|
-| [On the PSP](/docs/development/adhoc/on-the-psp) | The firmware modules, initialization, and what actually goes out on the air |
+| [Writing an ad hoc game](/docs/development/adhoc/writing-a-game) | How a game is structured for ad hoc: setup, the lobby screens, the game loop, noticing players leave |
+| [On the PSP](/docs/development/adhoc/on-the-psp) | The firmware modules, initialization, the network, and what goes out on the air |
 | [sceNetAdhocctl](/docs/development/adhoc/adhocctl) | Groups: scanning, creating, joining, peers, handlers, the netconf dialog |
 | [PDP and PTP](/docs/development/adhoc/pdp-ptp) | Datagram and stream sockets, and how PPSSPP maps them to UDP and TCP |
 | [Game mode](/docs/development/adhoc/game-mode) | The shared-memory "game mode" replication |
@@ -18,7 +19,9 @@ aemu_postoffice relay. This page is the overview. The pages after it go into det
 | [The adhoc server](/docs/development/adhoc/adhoc-server) | The aemu adhocctl server protocol, the built-in server, the server list |
 | [The relay (aemu_postoffice)](/docs/development/adhoc/relay) | Relayed PDP and PTP through a central server |
 | [Emulation details](/docs/development/adhoc/emulation) | Threads, blocking, timing, ports, UPnP, configuration, savestates |
-| [Known issues and improvements](/docs/development/adhoc/improving) | Where PPSSPP differs from the hardware, and what could be done better |
+| [Testing](/docs/development/adhoc/testing) | The pspautotests behind these pages, running them on PSPs and on PPSSPP, and how PPSSPP does |
+| [Known issues and improvements](/docs/development/adhoc/improving) | Where PPSSPP differs from the hardware, and what to fix first |
+| [API reference](/docs/development/adhoc/api/conventions) | Every function of sceNetAdhocctl, sceNetAdhoc, sceNetAdhocMatching, sceNetAdhocDiscover, sceNetInet, sceNetApctl and sceNetResolver, and all the error codes |
 
 For how to *play*, see [Ad hoc multiplayer](/docs/multiplayer/how-to-play) instead.
 

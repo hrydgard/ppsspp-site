@@ -1,14 +1,14 @@
 ---
-position: 5
+position: 6
 ---
 
 # Game mode
 
 Game mode is a special kind of ad hoc network for fast-paced games. The members don't exchange packets
 directly. Instead each one publishes a buffer, and the system keeps an up-to-date copy of every other
-member's buffer on each console. On the PSP the Wi-Fi chip sends the data in fixed time slots, so the
-game just reads "the latest version" whenever it likes. Few games use it; known users include Pocket Pool,
-Shaun White Snowboarding, Fading Shadows, BattleZone, Bomberman, and Star Wars: The Force Unleashed.
+member's buffer on each console, so the game just reads "the latest version" whenever it likes. Few games
+use it; PPSSPP's code mentions Pocket Pool, Shaun White Snowboarding, Fading Shadows, BattleZone, Bomberman
+and Star Wars: The Force Unleashed.
 
 ## API
 
@@ -59,6 +59,8 @@ Confirmed with the `net/adhoc/gamemode` test, on one console:
 - `GetGameModeInfo` outside game mode gives `NOT_ENTER_GAMEMODE` (0x80410B0C).
 
 ## How PPSSPP implements it
+
+Games named in this section are the ones PPSSPP's code gives as the reason for a behaviour. That those games need it hasn't been rechecked.
 
 PPSSPP follows the aemu plugin's design: the adhoc server sets up the group, and the buffers travel as PDP
 datagrams on port 31000 (plus the port offset).

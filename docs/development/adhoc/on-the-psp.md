@@ -1,5 +1,5 @@
 ---
-position: 2
+position: 3
 ---
 
 # Ad hoc on a real PSP
@@ -88,7 +88,8 @@ A group is an 802.11 IBSS ("independent BSS", the standard's name for ad hoc mod
   `PSP_AULUS10336_L_MyGroup`. The `PSP` prefix can be changed through the registry key
   `/CONFIG/NETWORK/ADHOC/ssid_prefix`, but never is in practice.
 - Beacons advertise 1, 2, 5.5 and 11 Mbps (802.11b rates). In game mode, the master's beacons also carry a
-  Sony vendor-specific element (OUI `00:04:1F`).
+  Sony vendor-specific element (OUI `00:04:1F`). (Both from JPCSP, which runs the real firmware against an
+  emulated Wi-Fi chip; not checked on hardware.)
 
 Scanning is an ordinary 802.11 scan for `PSP_` networks with the right type and product code.
 `sceNetAdhocctlConnect(name)` scans for a network with that group name and joins it if one exists, otherwise
@@ -116,8 +117,9 @@ part. This, more than anything, is why an emulator can't join a real ad hoc netw
 
 ### Data frames
 
-A data frame has a 32-byte crypto header after the sub-type, then a protocol header, then the payload,
-padded to a multiple of 16 bytes:
+These layouts come from the firmware's code rather than from captured frames. A data frame has a 32-byte
+crypto header after the sub-type, then a protocol header, then the payload, padded to a multiple of 16
+bytes:
 
 | Offset | Size | Field |
 |---|---|---|
@@ -187,7 +189,9 @@ process can't find each other, and a matching session always needs a second cons
 Game mode (see [Game mode](/docs/development/adhoc/game-mode)) uses its own network (`_G_` in the SSID) and
 its own frames (sub-type 0, encrypted with a session key). The Wi-Fi chip, not the CPU, sends the master's
 data in fixed time slots to a multicast address shared by the group, and each console receives the latest
-copy of every other member's data. The game only ever sees "the latest version of the master's buffer".
+copy of every other member's data (this part is from JPCSP, not checked on hardware). The game only ever
+sees "the latest version" of each member's buffer; between two consoles the buffers updated at least 20
+times a second.
 
 ## The matching protocol
 

@@ -1,5 +1,5 @@
 ---
-position: 9
+position: 10
 ---
 
 # Emulation details
@@ -87,6 +87,13 @@ For testing, several PPSSPP instances can play together on one computer:
    *N*.
 
 On macOS, only 127.0.0.1 exists by default; the others need adding (`sudo ifconfig lo0 alias 127.0.0.2 up`).
+
+In relay mode the instances don't bind per-instance addresses, so with a local aemu_postoffice server they
+can all share 127.0.0.1.
+
+PPSSPPHeadless has options for this, used by `Tools/adhoc_multi.py` to run the two-console pspautotests:
+`--instance=N` (which instance this is), `--realtime` (run at PSP speed; otherwise headless runs as fast as
+it can and the instances' clocks drift apart from the network's), and `--adhoc-server`.
 
 ## Settings
 

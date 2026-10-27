@@ -1,13 +1,13 @@
 ---
-position: 6
+position: 7
 ---
 
 # sceNetAdhocMatching
 
 The matching library is a ready-made lobby protocol on top of PDP. A host advertises itself, clients see
 the advertisement, ask to join, and are accepted or rejected; the library then keeps the member list alive
-and can send data to members. Plenty of games use it (Patapon 3, Gran Turismo, Dissidia 012, GTA: Vice
-City Stories, ...); others build their own lobby over PDP broadcasts.
+and can send data to members. Plenty of games use it (PPSSPP's code mentions Patapon 3, Gran Turismo,
+Dissidia 012 and GTA: Vice City Stories, among others); others build their own lobby over PDP broadcasts.
 
 ## API
 
@@ -103,8 +103,10 @@ What two PSPs actually do (the `net/adhoc/pair/matching` test, with the client c
 
 ## Sony's protocol
 
-The firmware's matching module sends these packets over PDP on the context's port. Every packet starts with
-a 4-byte header, and all integers are big-endian:
+The firmware's matching module sends these packets over PDP on the context's port. This layout comes from
+the module's code; nobody has captured it on the air. The tests confirm what follows from it at the API
+level: the timeout of about `keepalive_int * init_count`, a full host no longer advertising, and data acks
+that come from the peer. Every packet starts with a 4-byte header, and all integers are big-endian:
 
 | Offset | Size | Field |
 |---|---|---|
@@ -188,6 +190,8 @@ Differences from Sony's protocol:
   broadcast.
 
 ## How PPSSPP implements it
+
+Games named in this section are the ones PPSSPP's code gives as the reason for a behaviour. That those games need it hasn't been rechecked.
 
 ### Threads
 
