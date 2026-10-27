@@ -156,6 +156,10 @@ typedef struct {
 - `msg_name` NULL on receive is fine. `sendmsg` without an address on an unconnected socket gives
   EDESTADDRREQ (121); non-blocking with nothing waiting, EAGAIN; an invalid descriptor, EBADF.
 
+**PPSSPP:** `recvmsg` fails with EAGAIN even with a datagram waiting; `SocketAbort` fails and doesn't
+wake the blocked call (it times out with EAGAIN); errors return the errno value instead of -1, and errno
+values are the host's.
+
 **Between consoles on an access point** (both on a phone hotspot), TCP and UDP work as expected, with
 small losses for bursts of UDP. The first unicast datagrams to a new address can be lost while its ARP
 entry is resolved, and with a weak signal TCP can stall for several seconds.
@@ -246,6 +250,8 @@ List the console's TCP and UDP sockets (protocol control blocks), like `netstat`
   in the buffer, and is 0 in the last.
 - The local address is at offset 12 and the local port at offset 20, both in network byte order. The
   other fields aren't known.
+
+**PPSSPP:** neither is implemented; both return 0x8002013A.
 
 ## sceNetApctl
 

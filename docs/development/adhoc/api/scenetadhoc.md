@@ -336,6 +336,9 @@ int sceNetAdhocGetSocketAlert(int id, int *flags); // NID 0x4D2CE199
   with nothing left to send return 0 with their alerts set.
 - With the poll alert set, `PollSocket` returns `EXCEPTION_EVENT` (0x80410717) with ALERT (0x0400) in
   `revents`, for PTP sockets as for PDP.
+
+**PPSSPP:** the connect and flush alerts stop calls that would complete at once, and the poll alert sets
+IN (0x0001) in `revents` instead of ALERT.
 - Unknown ID: `INVALID_SOCKET_ID`. `GetSocketAlert` with NULL: `INVALID_ARG`.
 
 ## Game mode data
