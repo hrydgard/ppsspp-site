@@ -110,6 +110,13 @@ Confirmed with the `net/adhoc/adhocctl` test in pspautotests, on one console:
   `Disconnect` returns 0.
 - **`GetPeerInfo`** for the console's own MAC gives `NO_ENTRY`: the console isn't its own peer.
 - **`sceNetGetLocalEtherAddr`** fails with 0x80410180 until a scan or group operation has started.
+- **Between two consoles** (the `net/adhoc/pair/basic` test): the client's scan finds the host's group;
+  after joining, each lists the other in `GetPeerList` with its nickname and a non-zero `last_recv`, and
+  both report the same BSSID. `GetPeerInfo` with a buffer smaller than the struct gives `INVALID_BUFLEN`
+  (0x80410704). `GetNameByAddr` and `GetAddrByName` find the peer; `GetNameByAddr` for the console's own
+  MAC gives `NO_ENTRY`.
+- **When a peer leaves**, it disappears from the others' peer lists within a few seconds, without any
+  handler event.
 - Creating a group alone, scanning, connecting and disconnecting each raise their event once. Scanning
   with nobody around finds nothing, not even the group the console just left.
 

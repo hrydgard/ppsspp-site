@@ -80,6 +80,9 @@ The biggest gap. Compared with Sony's module:
   `init_count` and a non-zero `rexmt_int` (PPSSPP checks neither).
 - **`Delete` and `Start` on a running context** give `IS_RUNNING` on the PSP; PPSSPP stops and deletes it,
   or starts it again.
+- **`DATA_BUSY`**: on the PSP a second `SendData` before the peer has acknowledged the first gives
+  `DATA_BUSY`; PPSSPP clears its "sending" flag straight away, so it never does.
+- **Member order**: on the PSP a client lists itself first, then the host; PPSSPP lists the host first.
 - **`GetHelloOpt`** on the PSP copies at most the game's buffer size and leaves the length alone; PPSSPP
   writes the full length and copies all of it.
 - **Timeouts** are `(keepalive_int + rexmt_int) * init_count + 500 ms` instead of about
@@ -89,6 +92,12 @@ The biggest gap. Compared with Sony's module:
 - **`GetHelloOpt`** copies the hello data without checking the size of the game's buffer.
 - The hello send buffer is shared between all matching contexts.
 - A timed-out P2P peer can produce repeated TIMEOUT events, and cancelled peers linger in host mode.
+
+### Polling and alerts
+
+- A poll alert makes PPSSPP's `PollSocket` return `SOCKET_ALERTED`; the PSP returns `EXCEPTION_EVENT` with
+  ALERT in `revents`.
+- PPSSPP never reports FLUSH, which the PSP reports for every connected or listening PTP socket.
 
 ### Game mode
 
@@ -123,11 +132,11 @@ The biggest gap. Compared with Sony's module:
 Roughly in order of value:
 
 1. **Hardware tests.** pspautotests has single-console tests in `tests/net/adhoc` (`pdp`, `ptp`,
-   `adhocctl`, `matching`, `self`), in `tests_next` for now. Fixing the differences they show (argument
-   checks, socket IDs, handler limits) is the obvious next step. Still to cover: alerts and
-   `PollSocket`, game mode, and, with a second PSP, scanning for another console, peer lists, and a real
-   matching session with its event order. Whether apctl and adhocctl can be connected at the same time
-   (they're said not to be) is worth a test too.
+   `adhocctl`, `matching`, `self`, `poll`, `gamemode`) in `tests_next`, plus two-console tests in
+   `tests/net/adhoc/pair` (`basic`, `matching`), recorded with `pair/record.py`. Fixing the differences
+   they show is the obvious next step. Running the pair tests on two PPSSPP instances needs harness work
+   (see Testing below). Still to cover: game mode between two consoles, scanning with several groups
+   around, and apctl together with a reachable access point.
 2. **Matching retransmission and acknowledgement**, implemented so that it degrades gracefully against
    aemu clients (for example, resending JOIN and ACCEPT on the existing opcodes, and treating a peer's data
    ack as optional). This matters most in P2P mode.
@@ -148,3 +157,7 @@ Roughly in order of value:
 - For relay mode, run [aemu_postoffice](https://github.com/Kethen/aemu_postoffice/releases) locally and point
   PPSSPP at `127.0.0.1` with relay mode set to Yes.
 - `sceNet` logging at debug level shows every ad hoc call with its arguments and result.
+- The two-console pspautotests can't run through `test.py` yet. Running them on PPSSPP needs two
+  headless instances started together, each with its own instance number (so its own 127.0.0.*N* address
+  and MAC), one of them running the built-in server, and both running at real-time speed rather than
+  fast-forward, since the two sides wait for each other over the real network.

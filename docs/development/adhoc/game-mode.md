@@ -39,7 +39,24 @@ GAMEMODE (3).
 The `info` struct of `UpdateReplica` is `{ u32 length; u32 updated; u64 timestamp; }`: `updated` is
 non-zero if new data arrived since the last call, and `timestamp` says when.
 
-Outside game mode, these fail with `NOT_IN_GAMEMODE` (0x8041071B).
+Outside game mode, these fail with `NOT_IN_GAMEMODE` (0x8041071B), and the delete calls with
+`NOT_CREATED` (0x8041071C).
+
+### On the PSP
+
+Confirmed with the `net/adhoc/gamemode` test, on one console:
+
+- `CreateEnterGameMode` gives `INVALID_ARG` for a NULL or invalid group name, NULL members, a type other
+  than 1-3, fewer than 2 members, more than 4 members for type 1, or more than 16.
+- A member list whose first entry isn't the console's own MAC is accepted, then fails with an ERROR event
+  carrying `INVALID_ADDR`.
+- If the members don't all turn up within the timeout, the handler gets ERROR with the adhocctl `TIMEOUT`
+  (0x80410B05), and the state stays DISCONNECTED. The same goes for `JoinEnterGameMode` when the master
+  isn't there.
+- **A timeout of 0 waits forever**, and `ExitGameMode` returns `BUSY` while it does.
+- Entering game mode while in a normal group raises ERROR with `ALREADY_CONNECTED`; `ExitGameMode` there
+  gives `INVALID_IBSS` (0x80410B0B). Outside game mode it returns 0.
+- `GetGameModeInfo` outside game mode gives `NOT_ENTER_GAMEMODE` (0x80410B0C).
 
 ## How PPSSPP implements it
 

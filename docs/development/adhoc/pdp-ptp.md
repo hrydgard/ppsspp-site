@@ -39,6 +39,15 @@ thread blocked in a receive. `sceNetAdhocGetSocketAlert` reads the flags back.
 | 0x0100 | accept |
 | 0x0200 | flush |
 
+On the PSP (the `net/adhoc/poll` test):
+
+- Only these bits are kept; `GetSocketAlert` reads back `flags & 0x3F0`. Setting 0 clears them.
+- **Alerts persist.** Once set, every matching call fails with `SOCKET_ALERTED`, blocking or not, until
+  the flags are cleared.
+- Setting the receive alert on a socket another thread is blocked receiving on wakes that thread at once
+  with `SOCKET_ALERTED`. The send alert doesn't wake a receive.
+- Deleting a socket wakes a thread blocked on it with `SOCKET_DELETED`.
+
 ### Polling
 
 `sceNetAdhocPollSocket(sds, count, timeout, flag)` takes an array of
@@ -56,6 +65,23 @@ events, like `poll`:
 | 0x0200 | DELETE: the socket was deleted (reported, not requested) |
 | 0x0400 | ALERT: an alert fired |
 | 0x0800 | DISCONNECT: the PTP connection was closed (reported, not requested) |
+
+On the PSP:
+
+| Socket | `revents` |
+|---|---|
+| PDP, idle | SEND |
+| PDP, data waiting | SEND, RECV |
+| PTP listener, idle | SEND, FLUSH |
+| PTP listener, connection waiting | SEND, FLUSH, ACCEPT |
+| PTP, connected | SEND, CONNECT, FLUSH (and RECV once data is waiting) |
+| PTP, peer closed or connect refused | DISCONNECT, and the call returns `EXCEPTION_EVENT` (0x80410717), even with no events requested |
+| Unknown ID | INVALID, and the call returns `INVALID_SOCKET_ID` |
+| Poll alert set | ALERT, and the call returns `EXCEPTION_EVENT` |
+
+`revents` only holds the requested events, apart from DISCONNECT, INVALID and ALERT. A count of 0 or less,
+a NULL array, or a flag other than 0 or 1 gives `INVALID_ARG`. A blocking poll with nothing to report
+fails with `TIMEOUT`; a timeout of 0 waits forever.
 
 ### Error codes
 
@@ -130,6 +156,13 @@ Confirmed with the `net/adhoc/pdp` test in pspautotests:
 - **`sceNetAdhocTerm`** returns 0 even when called twice.
 - Delivery is not guaranteed and datagrams can arrive out of order.
 
+Between two consoles (the `net/adhoc/pair/basic` test, with the consoles 20 cm apart):
+
+- Datagrams of up to 16000 bytes arrive intact. 32000-byte ones are sent without error but never arrive.
+  Sending 65523 bytes sometimes fails with 0x80410001 (out of memory).
+- Of a burst of 50 small datagrams sent back to back, a few are usually lost; the rest arrive in order.
+- A broadcast reaches the other console. Sending to a port nobody has open succeeds.
+
 ## PTP
 
 ### Functions
@@ -185,6 +218,10 @@ Confirmed with the `net/adhoc/ptp` test in pspautotests, with the console connec
 - **Close**: twice gives `INVALID_SOCKET_ID`; a non-zero flag gives `INVALID_ARG`.
 - `PtpFlush` returns 0 once the data is sent.
 - Segments are at most 1444 bytes on the air.
+
+Between two consoles, a 20000-byte transfer arrives intact, a connect to a port nobody listens on fails
+with `CONNECTION_REFUSED` within a second, and when one side closes, the other's next receive gives
+`DISCONNECTED` and its state becomes CLOSED.
 
 ## How PPSSPP implements them (P2P mode)
 

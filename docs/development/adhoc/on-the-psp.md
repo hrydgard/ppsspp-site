@@ -178,8 +178,12 @@ Sony's sceNetAdhocMatching runs entirely over PDP. Its packet format is describe
 
 ## What isn't known
 
-- How each peer's nickname reaches the others in a group, and how long adhocctl waits before it drops a peer
-  that went silent.
+- How each peer's nickname reaches the others in a group. (A peer that leaves is dropped from the
+  others' lists within a few seconds; how long one that just goes silent lasts hasn't been measured.)
+- Whether infrastructure and ad hoc can really be used at the same time. With an infrastructure profile
+  for a network that isn't in range, `sceNetApctlConnect` returns 0 while the console is in an ad hoc
+  group and apctl stays in JOINING, and `sceNetAdhocctlCreate` works while apctl is connecting; neither
+  side refuses the other. A reachable access point would show whether apctl ever gets further.
 - The PTP protocol: its handshake, window, acknowledgements and retransmit timers.
 - How "Automatic" picks a channel.
 - Game mode's slot timing and maximum data size.

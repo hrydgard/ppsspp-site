@@ -68,6 +68,22 @@ The callback is `callback(int id, int event, u8 *mac, int optlen, void *opt)`:
   SendData / event DATA, both ways
 ```
 
+What two PSPs actually do (the `net/adhoc/pair/matching` test, with the client cancelling at the end):
+
+| Host's events | Client's events |
+|---|---|
+| REQUEST, with the client's `SelectTarget` opt | HELLO, with the host's hello data |
+| ESTABLISHED | ACCEPT, with the host's `SelectTarget` opt |
+| DATA_ACK, for its own `SendData` | ESTABLISHED |
+| DATA | DATA |
+| LEAVE, when the client cancels | DATA_ACK |
+| BYE, when the client stops | HELLO again, once it's no longer matched |
+
+- A second `SelectTarget` for the same peer gives `REQUEST_IN_PROGRESS`, on both sides.
+- A second `SendData` before the first is acknowledged gives `DATA_BUSY`.
+- `GetMembers` lists the console itself first, then the other, on both sides; after the cancel, each
+  lists only itself.
+
 ### Error codes
 
 | Code | Name | Code | Name |
