@@ -80,6 +80,9 @@ EPIPE while receiving still works; the peer's receive returns 0 once the data be
 
 **getpeername:** unconnected, ENOTCONN.
 
+**SocketAbort** makes a call blocked on the socket in another thread return at once with -1 and EINTR (4).
+The socket stays usable: later receives and sends work as before. An invalid descriptor gives EBADF.
+
 **GetPspError** returned 0 after the errors tested.
 
 **PPSSPP:** `listen` on an unbound socket succeeds; binding to an address in use succeeds; `shutdown` on
@@ -126,6 +129,32 @@ int sceNetInetRecvmsg(int s, void *msg, int flags);                             
 - With the default 16 KB buffers, a non-blocking sender to a reader that doesn't read sends 16-64 KB before
   EAGAIN.
 - After the peer closes: receive returns 0; the first send succeeds, the next fails with EPIPE.
+
+**sendmsg / recvmsg** take a BSD `msghdr`:
+
+```c
+typedef struct {
+	void *iov_base;
+	u32 iov_len;
+} SceNetInetIovec;
+
+typedef struct {
+	void *msg_name;            // address, or NULL
+	u32 msg_namelen;
+	SceNetInetIovec *msg_iov;
+	int msg_iovlen;
+	void *msg_control;
+	u32 msg_controllen;
+	int msg_flags;             // set by recvmsg
+} SceNetInetMsghdr;
+```
+
+- `sendmsg` gathers the parts into one datagram; `recvmsg` scatters it across its parts in order, sets
+  `msg_namelen` to 16 and fills in the sender. Both return the total length.
+- A datagram bigger than the parts is truncated, the rest discarded, and `msg_flags` gets `MSG_TRUNC`
+  (0x10); the return value is the length copied.
+- `msg_name` NULL on receive is fine. `sendmsg` without an address on an unconnected socket gives
+  EDESTADDRREQ (121); non-blocking with nothing waiting, EAGAIN; an invalid descriptor, EBADF.
 
 **Between consoles on an access point** (both on a phone hotspot), TCP and UDP work as expected, with
 small losses for bursts of UDP. The first unicast datagrams to a new address can be lost while its ARP
@@ -209,7 +238,14 @@ int sceNetInetGetTcpcbstat(int *size, void *buf); // NID 0xB3888AD4
 int sceNetInetGetUdpcbstat(int *size, void *buf); // NID 0x39B0C7D3
 ```
 
-Not tested yet.
+List the console's TCP and UDP sockets (protocol control blocks), like `netstat`. Both return 0.
+
+- With `buf` NULL, `*size` is set to the size needed: 24 bytes per UDP socket, 28 per TCP socket, 0 with
+  none. With a buffer, `*size` is the size of the whole list; a buffer too small for it returns 0 too.
+- The entries form a linked list, newest socket first: the first word of each points to the next entry
+  in the buffer, and is 0 in the last.
+- The local address is at offset 12 and the local port at offset 20, both in network byte order. The
+  other fields aren't known.
 
 ## sceNetApctl
 

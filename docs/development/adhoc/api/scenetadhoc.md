@@ -327,8 +327,15 @@ int sceNetAdhocGetSocketAlert(int id, int *flags); // NID 0x4D2CE199
 
 - Only these bits are kept (`flags & 0x3F0`); setting 0 clears them.
 - **Alerts persist**: every matching call fails, blocking or not, until cleared.
-- Setting the receive alert wakes a thread blocked receiving on the socket at once. The send alert
-  doesn't wake a receive.
+- Each flag only affects its own call: on a listening socket the receive alert doesn't stop `PtpAccept`,
+  and on a connection the flush alert doesn't stop `PtpSend` or `PtpRecv`.
+- **Setting an alert wakes a thread already blocked in that call** at once, with `SOCKET_ALERTED`: the
+  accept alert wakes a blocked `PtpAccept`, the receive alert a blocked `PtpRecv`. Other flags leave it
+  blocked.
+- A call that can complete straight away isn't stopped: `PtpConnect` on a connected socket and `PtpFlush`
+  with nothing left to send return 0 with their alerts set.
+- With the poll alert set, `PollSocket` returns `EXCEPTION_EVENT` (0x80410717) with ALERT (0x0400) in
+  `revents`, for PTP sockets as for PDP.
 - Unknown ID: `INVALID_SOCKET_ID`. `GetSocketAlert` with NULL: `INVALID_ARG`.
 
 ## Game mode data

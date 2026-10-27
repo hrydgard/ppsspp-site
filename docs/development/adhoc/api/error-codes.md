@@ -174,6 +174,7 @@ newlib, not Linux or BSD:
 
 | errno | Name | Seen |
 |---|---|---|
+| 4 | EINTR | the call was cut short by `sceNetInetSocketAbort` |
 | 9 | EBADF | invalid or closed descriptor |
 | 11 | EAGAIN | non-blocking call that can't complete; `MSG_WAITALL` timing out |
 | 22 | EINVAL | bad lengths; bind twice; listen on an unbound socket; accept on a non-listener; connect after a refusal |

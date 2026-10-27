@@ -155,6 +155,9 @@ Sends data to an established peer, which gets DATA. When the peer acknowledges i
 DATA_ACK. **A second `SendData` to the same peer before the first is acknowledged gives `DATA_BUSY`
 (0x80410818).** Not running: `NOT_RUNNING`; not a peer: `UNKNOWN_TARGET`.
 
+Data to a peer that has left the network without ending the matching session (it's already gone from
+adhocctl's peer list) is accepted (0), and DATA_TIMEOUT arrives 1-2 seconds later.
+
 `AbortSendData` stops waiting for the acknowledgement (no DATA_ACK comes), so the next `SendData` is
 accepted at once. The aborted data still arrives. Returns 0, also with nothing pending; an unknown peer
 gives `UNKNOWN_TARGET`.

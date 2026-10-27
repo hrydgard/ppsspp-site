@@ -19,6 +19,7 @@ else):
 | `adhocctl` | Init, handlers, group names, create/connect/scan/disconnect, events, parameters |
 | `matching` | matching Init and Create limits, calls on stopped and started contexts, hello data |
 | `poll` | `PollSocket` events per socket state, socket alerts, waking blocked calls |
+| `alerts` | which alert flag stops which PTP call, and waking threads already blocked |
 | `gamemode` | game mode entry checks, members not turning up, the data calls outside game mode |
 | `discover` | the sceNetAdhocDiscover sequence with nobody around |
 | `self` | what one console can't do with itself (broadcasts, two matching contexts) |
@@ -27,7 +28,10 @@ else):
 | `apctl` | infrastructure and ad hoc at once; needs an access point in profile 1 (not for `test.py`) |
 
 Single console, sceNetInet over loopback (`tests/net/inet`): `errors`, `options`, `addr`, `udp`, `tcp`,
-`bind`, `blocking`, `poll`.
+`bind`, `blocking`, `poll`, `stats` (the control block lists, `SocketAbort`, `sendmsg`/`recvmsg`).
+
+Every test links `tests/net/net-imports.S`, which declares every known function of the networking
+libraries, so a new test can call any of them.
 
 Two consoles (`tests/net/adhoc/pair`, `tests/net/inet/pair`), each a `_host` and `_client` program:
 
@@ -36,7 +40,7 @@ Two consoles (`tests/net/adhoc/pair`, `tests/net/inet/pair`), each a `_host` and
 | `basic` | scanning and joining, peer list and lookups, PDP sizes and loss, broadcast, PTP transfer, leaving |
 | `matching` | a full matching session: hello, join, accept, data and acks, cancel, bye |
 | `matching2` | reject with opt, cancel before accept, hello changes, a full host, kicking, P2P, aborting data |
-| `vanish` | a peer leaving the group with connections open |
+| `vanish` | a peer leaving the group with connections and a matching session open |
 | `lifecycle` | the group outliving its creator, rejoining, two groups with the same name |
 | `flow` | PTP buffering with a reader that doesn't read, PDP receive buffer sizes |
 | `gamemode` | game mode between two consoles: entering, members, replicas updating |
