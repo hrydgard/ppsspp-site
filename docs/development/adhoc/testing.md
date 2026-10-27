@@ -73,6 +73,7 @@ As of October 2026, lines that differ from the PSP's output (or where the run st
 | `adhoc/adhocctl` | stops after the Init checks: Init blocks for the server and returns BUSY |
 | `adhoc/matching` | 52 of 100 lines: Create checks, Start's return value, hello data |
 | `adhoc/poll` | 14 of 65: most of the per-state events |
+| `adhoc/alerts` | 3 of 31: connect and flush alerts, the poll alert's `revents` |
 | `adhoc/gamemode` | stops in game mode, stuck BUSY |
 | `adhoc/discover` | 9 of 29: it's a stub |
 | `adhoc/self` | 3 of 27: Start's return value |
@@ -83,6 +84,7 @@ As of October 2026, lines that differ from the PSP's output (or where the run st
 | `inet/addr` | 10 of 33: only dotted quads parsed |
 | `inet/udp` | 3 of 61 |
 | `inet/tcp` | stops at the first TCP connection over loopback |
+| `inet/stats` | the control block lists aren't implemented; `recvmsg` and `SocketAbort` fail |
 
 The two-console tests, run on two PPSSPPs in relay mode, all fail; the differences are listed under
 [Known issues](/docs/development/adhoc/improving).
