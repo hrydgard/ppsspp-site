@@ -84,8 +84,8 @@ A game sees ad hoc as four libraries, loaded together with `sceUtilityLoadNetMod
 1. `sceNetAdhocctlAddHandler()` to register a handler function.
 2. `sceNetAdhocctlScan()` to start a scan. When the scan finishes (or fails), the handler is called with
    the SCAN event (or ERROR).
-3. `sceNetAdhocctlGetScanInfo()` to fetch the list of groups found, each with its name, BSSID (the MAC of the
-   console that created it) and channel.
+3. `sceNetAdhocctlGetScanInfo()` to fetch the list of groups found, each with its name, BSSID (an address
+   identifying the network) and channel.
 
 ### Joining a group with peers
 

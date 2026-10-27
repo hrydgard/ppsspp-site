@@ -26,15 +26,19 @@ older PPSSPP versions, since players mix them.
 
 | | PSP | PPSSPP |
 |---|---|---|
-| Destination `NULL` | `INVALID_ARG` | `INVALID_ADDR` |
-| Flag bits other than `NONBLOCK` | `INVALID_ARG` | accepted |
-| Destination port 65535 | `INVALID_PORT` | accepted |
+| Send to a NULL destination | `INVALID_ARG` | `INVALID_ADDR` |
+| Send flag bits other than `NONBLOCK` | `INVALID_ARG` | accepted |
+| Send to port 65535 | `INVALID_PORT` | accepted |
 | Datagram over 65523 bytes | `INVALID_DATALEN` | sent (if the host allows it) |
 | Multicast destination other than broadcast | `INVALID_ADDR` | treated as an unknown peer: returns 0, nothing sent |
 | Unknown destination MAC | sent into the air | returns 0, nothing sent |
-| Return value of Send and Recv | not checked against hardware | 0 (games break when it's the length) |
-| `PdpCreate` before joining a group | not checked against hardware | `INVALID_ADDR` |
-| Sender receives its own broadcast | not checked against hardware | no |
+| Create with flag 1 | `INVALID_ARG` | accepted |
+| Create with `bufsize` 0 or negative | accepted | `INVALID_ARG` |
+| Create on port 65535 | `INVALID_PORT` | accepted |
+| Socket IDs | always increasing | lowest free slot |
+| Return value of Send and Recv | 0 | 0 (same) |
+| `PdpCreate` before joining a group | `INVALID_ADDR` | `INVALID_ADDR` (same) |
+| Sender receives its own broadcast | no | no (same) |
 
 The PSP checks the arguments in a fixed order (stack, then argument/flag, initialized, socket ID, address,
 port, length); PPSSPP's order differs, which matters when a game passes several bad arguments at once.
@@ -42,7 +46,11 @@ port, length); PPSSPP's order differs, which matters when a game passes several 
 ### PTP
 
 - P2P mode never returns `CONNECTION_REFUSED`; non-blocking connects return `WOULD_BLOCK` both while
-  connecting and after a refusal, and a blocking connect times out with `TIMEOUT`.
+  connecting and after a refusal, and a blocking connect times out with `TIMEOUT`. On the PSP a refused
+  connect fails at once with `CONNECTION_REFUSED`. (Over the internet, "nobody is listening yet" and "the
+  packet hasn't arrived yet" look alike, which is why PPSSPP keeps retrying.)
+- `PtpOpen` and `PtpListen` reject 0 for `bufsize`, `rexmt_int`, `rexmt_cnt` and `backlog`, and `PtpOpen`
+  rejects the broadcast address; the PSP accepts all of these.
 - `PtpFlush` returns at once with 0.
 - `SYN_RCVD` is never reported, and the send buffer count in `GetPtpStat` is always 0.
 - The retransmit arguments only drive TCP keep-alive, and only in whole seconds, which usually rounds to 0.
@@ -55,6 +63,9 @@ port, length); PPSSPP's order differs, which matters when a game passes several 
 - A dropped server connection isn't re-established until the game scans or creates a group again.
 - DISCOVER and WOL aren't implemented.
 - Event delays (1-2 s for CONNECT and GAME) are tuned, not measured.
+- Up to 32 handlers instead of 4, and registering the same function again returns 0 instead of a new ID.
+- A second `sceNetAdhocctlInit` leaves adhocctl initialized; on the PSP it de-initializes it.
+- `GetPeerInfo` answers for the console's own MAC, which the PSP doesn't.
 
 ### Matching
 
@@ -64,8 +75,13 @@ The biggest gap. Compared with Sony's module:
   until a timeout. (In relay mode the transport is reliable, so this mostly doesn't matter there.)
 - **No real data acknowledgement.** `DATA_ACK` fires locally right after `SendData`, and `DATA_TIMEOUT`
   never fires.
-- **Argument checks differ.** The PSP requires `rxbuflen >= 6 * maxnum + 4` (PPSSPP: at least 1), and in
-  HOST and P2P mode non-zero hello and keep-alive intervals (PPSSPP substitutes 2 s).
+- **Argument checks differ.** The PSP requires `rxbuflen >= 6 * maxnum + 4` (PPSSPP: at least 1), in
+  HOST and P2P mode non-zero hello and keep-alive intervals (PPSSPP substitutes 2 s), a non-negative
+  `init_count` and a non-zero `rexmt_int` (PPSSPP checks neither).
+- **`Delete` and `Start` on a running context** give `IS_RUNNING` on the PSP; PPSSPP stops and deletes it,
+  or starts it again.
+- **`GetHelloOpt`** on the PSP copies at most the game's buffer size and leaves the length alone; PPSSPP
+  writes the full length and copies all of it.
 - **Timeouts** are `(keepalive_int + rexmt_int) * init_count + 500 ms` instead of about
   `keepalive_int * init_count`, which is more forgiving.
 - **Event order**: the internal event and message queues are stacks (last in, first out), and the code
@@ -106,11 +122,12 @@ The biggest gap. Compared with Sony's module:
 
 Roughly in order of value:
 
-1. **Hardware tests.** pspautotests has no ad hoc tests yet. A lot of the API can be tested on one PSP:
-   argument checking and error codes for PDP, PTP, adhocctl and matching (`Create` in particular), alerts,
-   `GetPdpStat`/`GetPtpStat` layouts, the order of checks. A second PSP would allow testing return values of
-   PDP send and receive, broadcast loopback, PTP refusal timing, and the event order of a matching session.
-   Each confirmed behaviour makes a game fix safer.
+1. **Hardware tests.** pspautotests has single-console tests in `tests/net/adhoc` (`pdp`, `ptp`,
+   `adhocctl`, `matching`, `self`), in `tests_next` for now. Fixing the differences they show (argument
+   checks, socket IDs, handler limits) is the obvious next step. Still to cover: alerts and
+   `PollSocket`, game mode, and, with a second PSP, scanning for another console, peer lists, and a real
+   matching session with its event order. Whether apctl and adhocctl can be connected at the same time
+   (they're said not to be) is worth a test too.
 2. **Matching retransmission and acknowledgement**, implemented so that it degrades gracefully against
    aemu clients (for example, resending JOIN and ACCEPT on the existing opcodes, and treating a peer's data
    ack as optional). This matters most in P2P mode.

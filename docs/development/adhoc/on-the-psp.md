@@ -73,8 +73,10 @@ A group is an 802.11 IBSS ("independent BSS", the standard's name for ad hoc mod
 
 - **Channel**: 1, 6 or 11. The system setting "Ad Hoc Mode Channel" (system parameter `ADHOC_CHANNEL`)
   picks one of those or "Automatic" (0).
-- **BSSID**: the MAC address of the console that created the network. `sceNetAdhocctlGetScanInfo` and
-  `sceNetAdhocctlGetParameter` report it, and games often use it to tell who is the host.
+- **BSSID**: a random, locally administered address (the low two bits of the first byte are `10`), as
+  802.11 prescribes for an IBSS. It is *not* the creator's MAC address. `sceNetAdhocctlGetScanInfo` and
+  `sceNetAdhocctlGetParameter` report it. (The adhoc server protocol, and so PPSSPP, use the creator's MAC
+  instead, which games can't tell apart.)
 - **SSID**: built from the ad hoc type, the product code, the mode and the group name:
 
   ```
@@ -155,6 +157,12 @@ PTP uses the same kind of frame with protocol 2 and its own header.
   group.
 - `00:00:00:00:00:00` is not a broadcast address. `sceNetAdhocPdpSend` rejects it, like any other multicast
   address, with `INVALID_ADDR` (0x80410702).
+
+### Talking to itself
+
+A console can send PDP datagrams and open PTP connections to its own MAC address, and they're delivered
+locally. Its broadcasts, though, never reach any of its own sockets. So two matching contexts in one
+process can't find each other, and a matching session always needs a second console.
 
 ## Game mode on the air
 

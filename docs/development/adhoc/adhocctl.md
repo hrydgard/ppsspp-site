@@ -70,7 +70,7 @@ runs, so a handler that checks `GetState` sees the new state.
 | 0 | 4 | `next` (pointer to the next entry) |
 | 4 | 4 | channel |
 | 8 | 8 | group name |
-| 16 | 6 | BSSID (the creator's MAC) |
+| 16 | 6 | BSSID |
 | 22 | 2 | padding |
 | 24 | 4 | mode: 0 = normal, 1 = game mode |
 
@@ -87,6 +87,31 @@ runs, so a handler that checks `GetState` sees the new state.
 Games use `last_recv` to judge whether a peer is still alive.
 
 `SceNetAdhocctlParameter` (148 bytes): channel (4), group name (8), nickname (128), BSSID (6), padding (2).
+
+### Behaviour on the PSP
+
+Confirmed with the `net/adhoc/adhocctl` test in pspautotests, on one console:
+
+- **Init**: the stack size must be at least 0xC00 (`STACKSIZE_TOO_SHORT` below that); a priority outside
+  the thread priority range fails with the kernel's illegal-priority error (0x80020193); a NULL ad hoc ID
+  or a type above 2 gives `INVALID_ARG`. The product code isn't checked.
+- **A second Init** returns `ALREADY_INITIALIZED`, *and* leaves adhocctl uninitialized. After that, Init
+  fails with 0x80410601 (the auth module's ALREADY_INITIALIZED) until the modules are reloaded.
+- **Term** returns 0 even when not initialized. It returns before adhocctl's thread has stopped, so an
+  Init right after it can be undone.
+- **Handlers**: at most 4 (`TOO_MANY_HANDLERS` after that). The same function can be registered more than
+  once, under a new ID, and is then called once per registration. NULL gives `INVALID_ARG`; deleting an
+  unknown ID gives `ID_NOT_FOUND`.
+- **Group names**: letters and digits only (a dash, space or underscore gives `INVALID_ARG`). A NULL name is
+  accepted.
+- **While connected**, Create, Connect and Scan all return 0, then call the handler with ERROR and
+  `ALREADY_CONNECTED`.
+- **While disconnected**, `GetParameter` gives `DISCONNECTED`, `GetPeerList` gives 0x80410682, and
+  `Disconnect` returns 0.
+- **`GetPeerInfo`** for the console's own MAC gives `NO_ENTRY`: the console isn't its own peer.
+- **`sceNetGetLocalEtherAddr`** fails with 0x80410180 until a scan or group operation has started.
+- Creating a group alone, scanning, connecting and disconnecting each raise their event once. Scanning
+  with nobody around finds nothing, not even the group the console just left.
 
 ### Limits
 

@@ -109,11 +109,30 @@ a 4-byte header, and all integers are big-endian:
 | 10 | Data | Session ID, sequence number, then the data |
 | 11 | Data acknowledgement | Echoes the sequence number. Raises DATA_ACK. |
 
+### Argument checks
+
+Confirmed with the `net/adhoc/matching` test in pspautotests:
+
+- **`Create`**:
+  - Mode 1-3 (`INVALID_MODE`) and `maxnum` 2-16 (`INVALID_MAXNUM`), in every mode.
+  - `rxbuflen` at least `6 * maxnum + 4` (`RXBUF_TOO_SHORT`): 28 for a `maxnum` of 4, 16 for 2.
+  - In HOST and P2P mode, non-zero `hello_int` and `keepalive_int`; a client may pass 0 for both.
+  - `init_count` not negative, `rexmt_int` non-zero (`INVALID_ARG`).
+  - Port 0, an `init_count` of 0 and a NULL handler are accepted. No defaults are filled in.
+  - Two contexts on one port give `PORT_IN_USE`.
+  - Before `Init` it gives `NOT_INITIALIZED`.
+- **`Init`** twice gives `ALREADY_INITIALIZED`; `Term` returns 0 even when not initialized.
+- **Not started**: `SelectTarget`, `CancelTarget`, `SendData`, `SetHelloOpt`, `GetHelloOpt` and
+  `GetMembers` give `NOT_RUNNING`; `Stop` returns 0.
+- **Started**: `Start` again and `Delete` both give `IS_RUNNING`; the context must be stopped first.
+  Targets that aren't peers give `UNKNOWN_TARGET`.
+- **`GetHelloOpt`** copies at most the buffer size the game passes in `optlen`, and leaves `optlen` as it
+  was.
+- **`GetMembers`** on a host with nobody else around reports one member (12 bytes): itself.
+- An unknown context ID gives `INVALID_ID`.
+
 ### Timers
 
-- `Create` checks: mode 1-3, `maxnum` 2-16 (a client always uses 2), `rxbuflen` at least
-  `6 * maxnum + 4`, and in HOST and P2P mode non-zero `hello_int` and `keepalive_int`; `rexmt_int` must be
-  non-zero and `init_count` not negative. No defaults are filled in.
 - Each established peer has a counter, reset to `init_count` whenever anything arrives from it and
   decremented every `keepalive_int`. When it reaches 0 the peer is sent a cancel and the game gets
   TIMEOUT. So a peer times out after about `keepalive_int * init_count` of silence.

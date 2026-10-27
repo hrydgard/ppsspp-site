@@ -95,15 +95,39 @@ receive buffer (4).
 
 ### Rules on the PSP
 
-- **Destination**: `00:00:00:00:00:00` and multicast addresses other than `FF:FF:FF:FF:FF:FF` give
-  `INVALID_ADDR`. Ports 0 and 65535 give `INVALID_PORT`.
-- **Size**: datagrams of 0 to 65523 bytes. Longer ones give `INVALID_DATALEN`. Anything over 1444 bytes
-  is fragmented on the air (see [On the PSP](/docs/development/adhoc/on-the-psp#sizes)).
+Confirmed with the `net/adhoc/pdp` test in pspautotests:
+
+- **Create**:
+  - Only works once the console is in a group; before that it gives `INVALID_ADDR` even for the
+    console's own MAC.
+  - The MAC must be the console's own (`INVALID_ADDR` otherwise, `INVALID_ARG` for NULL).
+  - Port 0 picks a free port; 65535 gives `INVALID_PORT`; a port in use gives `PORT_IN_USE`.
+  - Any `bufsize` is accepted, even 0 or negative.
+  - The flag must be 0 (`INVALID_ARG` for anything else, including 1).
+- **Send**:
+  - Returns **0** on success, not the length.
+  - A NULL destination or a flag other than 0 or 1 gives `INVALID_ARG`, before the socket ID is checked.
+  - `00:00:00:00:00:00` and multicast addresses other than `FF:FF:FF:FF:FF:FF` give `INVALID_ADDR`.
+  - Ports 0 and 65535 give `INVALID_PORT`.
+  - Lengths of 0 to 65523 bytes are accepted (0 even with NULL data); longer, negative, or non-zero with
+    NULL data gives `INVALID_DATALEN`. Anything over 1444 bytes is fragmented on the air (see
+    [On the PSP](/docs/development/adhoc/on-the-psp#sizes)).
+  - Sending to a MAC nobody has succeeds.
+  - Sending to the console's own MAC is delivered locally; its own broadcasts are not.
 - **Send queue full**: non-blocking sends return `WOULD_BLOCK`; blocking ones wait until there's room or
   the timeout.
-- **Receive buffer too small**: `NOT_ENOUGH_SPACE`, with `len` set to the datagram's size and the
-  datagram left queued so the game can retry with a bigger buffer. (This is what aemu and PPSSPP do; it
-  hasn't been checked on hardware.)
+- **Recv**:
+  - Returns **0** on success, with `len` set to the datagram's size and the sender's MAC and port filled
+    in.
+  - NULL MAC and port pointers are allowed; a NULL buffer or length pointer, or a flag other than 0 or 1,
+    gives `INVALID_ARG`.
+  - Nothing waiting: `WOULD_BLOCK` (non-blocking) or `TIMEOUT` (blocking), with `len` left alone.
+  - Buffer too small: `NOT_ENOUGH_SPACE` (0x80400706), with `len` set to the datagram's size and the
+    sender filled in. Nothing is copied, and the datagram stays queued for the next call.
+- **Delete**: the flag must be 0; deleting twice gives `INVALID_SOCKET_ID`.
+- **Socket IDs** keep increasing rather than reusing freed ones, and creates that fail on the address,
+  port or port-in-use checks use up an ID too.
+- **`sceNetAdhocTerm`** returns 0 even when called twice.
 - Delivery is not guaranteed and datagrams can arrive out of order.
 
 ## PTP
@@ -135,12 +159,31 @@ buffer, bytes in the receive buffer, and the state:
 
 ### Rules on the PSP
 
-- `bufsize`, `rexmt_int` and `rexmt_cnt` (and `backlog` for Listen) must all be above 0, else `INVALID_ARG`.
-- The destination of Open can't be the broadcast or zero address (`INVALID_ADDR`).
-- A connect to a port nobody is listening on is expected to fail with `CONNECTION_REFUSED`; the exact
-  timing on hardware isn't known.
-- Send and receive on a socket that isn't connected give `NOT_CONNECTED`; once the peer has gone, they give
-  `DISCONNECTED`.
+Confirmed with the `net/adhoc/ptp` test in pspautotests, with the console connecting to itself:
+
+- **Open and Listen**:
+  - The local MAC must be the console's own (`INVALID_ADDR`; `INVALID_ARG` for NULL).
+  - `bufsize`, `rexmt_int`, `rexmt_cnt` and `backlog` aren't checked: 0 is accepted for all of them.
+  - Open rejects a NULL destination (`INVALID_ARG`), a zero destination (`INVALID_ADDR`) and destination
+    ports 0 and 65535 (`INVALID_PORT`), but accepts the broadcast address.
+  - The flag must be 0 (`INVALID_ARG`).
+- **Connecting**:
+  - The connection is made in the background by Open. A connection to a listener on the same console is
+    ESTABLISHED by the time Open returns, and `PtpConnect` then returns 0, also when called again.
+  - Until it's accepted, the incoming connection shows up in `GetPtpStat` with ID -1.
+  - A connect to a port nobody is listening on fails at once with `CONNECTION_REFUSED`, blocking or not.
+- **Accept**: nothing waiting gives `WOULD_BLOCK` or `TIMEOUT`; on a socket that isn't listening,
+  `NOT_LISTENED` (0x8040070E). The accepted socket reports the connecting socket's MAC and port.
+- **Send and Recv**:
+  - Both return 0 on success. Recv returns whatever is buffered, up to `len` (100 bytes sent, read as 30
+    then 70).
+  - On a listener they give `NOT_CONNECTED`.
+  - Send with NULL data or a negative length gives `INVALID_DATALEN`, a NULL length pointer `INVALID_ARG`;
+    a length of 0 is accepted.
+- **When the peer closes**, Send and Recv give `DISCONNECTED`, the socket's state becomes CLOSED, and the
+  closed peer's socket disappears from `GetPtpStat`.
+- **Close**: twice gives `INVALID_SOCKET_ID`; a non-zero flag gives `INVALID_ARG`.
+- `PtpFlush` returns 0 once the data is sent.
 - Segments are at most 1444 bytes on the air.
 
 ## How PPSSPP implements them (P2P mode)
