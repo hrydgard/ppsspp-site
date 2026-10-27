@@ -12,6 +12,9 @@ Nowadays, this isn't used much in the original sense, but in PPSSPP, we can redi
 
 There are some issues with this though, as you will see when you read the guide, but in many games it can be made to work reasonably well.
 
+For how it works under the hood, see the [ad hoc networking](/docs/development/adhoc/overview) developer
+documentation.
+
 ## How to play - quickstart!
 
 See the [Multiplayer quickstart](/docs/multiplayer/quickstart) page for instructions!
