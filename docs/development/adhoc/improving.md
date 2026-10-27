@@ -88,19 +88,36 @@ PPSSPP passes sceNetInet straight to the host's sockets, which shows:
 
 ## Timing
 
-Measured with the same timing programs as the [Timing](/docs/development/adhoc/api/timing) page:
+Measured with the same timing programs as the [Timing](/docs/development/adhoc/api/timing) page, on
+PPSSPPHeadless (the pairs over a local aemu_postoffice relay). Internet latency can justify PPSSPP being
+*slower* than the PSP, and some of the differences are that, on purpose. The rest go the other way, or
+have nothing to do with the network.
 
-- **Every blocking wait takes at least 16.5 ms** (a frame), where the PSP's shortest is about 0.4 ms.
-  A 1 ms receive timeout takes 16.5 ms, and round trips between two instances come out at 31 ms for
-  any size, against 4-33 ms on PSPs. This is the biggest timing difference.
-- **Events come at the wrong times:** CONNECT 2 s after Create (PSP 1.1 s) and 0.15 s after Join (PSP
-  0.53 s), SCAN after 0.13 s (PSP 1.0 s), DISCONNECT after 27 ms (PSP 105 ms), ExitGameMode's after
-  27 ms (PSP 0.64 s). Game mode members get GAMEMODE at different times; on the PSP all at once.
+Allowances for latency:
+
+- Matching timeouts get 500 ms extra, peers' `last_recv` is faked as fresh, PTP connects that would be
+  refused retry with WOULD_BLOCK, and "Forced first connect" makes the first PtpConnect block. The
+  minimum socket timeout setting is another, but it defaults to 0.
+- A joiner's CONNECT waits until the server has reported a peer (or a timeout passes).
+- **Blocking timeouts are measured on the host clock**, while the checks are scheduled in emulated time,
+  which advances in bursts against it. Short timeouts get rounded up: in headless every blocking wait
+  takes at least 16.5 ms, where the PSP's shortest is about 0.4 ms, and round trips between two
+  instances come out at 31 ms for any size, against 4-33 ms on PSPs. Timing network waits against real
+  time is right; the rounding isn't.
+
+Not explained by latency:
+
+- **CONNECT comes 2 s after Create** (PSP 1.1 s), a fixed delay tuned for Dissidia 012 and GTA: VCS.
+- **Events come earlier than on the PSP:** SCAN after 0.13 s (PSP 1.0 s), Join's CONNECT after 0.15 s
+  (PSP 0.53 s), DISCONNECT after 27 ms (PSP 105 ms), ExitGameMode's after 27 ms (PSP 0.64 s). Game mode
+  members get GAMEMODE at different times; on the PSP all at once.
 - **Calls that block and shouldn't:** Create, Scan and Disconnect take 10-17 ms to return (PSP
-  20-30 µs), MatchingStart 30 ms (PSP 0.6 ms).
-- **Game mode replicas update every 0.65 ms**; on the PSP every 12 ms or so.
-- Several game-specific delays in the code exist to make up for these; with the PSP's timings
-  modelled, most should go.
+  20-30 µs), MatchingStart 30 ms (PSP 0.6 ms). The server round trips already happen on another thread.
+- **Game mode replicas update every 0.65 ms**; on the PSP every 12 ms or so. That's 25 times the traffic.
+
+The PSP's timings are the floor to model: nothing should arrive sooner than on a PSP, and the network's
+latency adds to that. Several game-specific delays in the code exist to make up for these differences;
+with the PSP's timings modelled, most should go.
 
 ## Structural issues
 
