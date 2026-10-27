@@ -170,6 +170,12 @@ keeps it (the `net/adhoc/apctl` test, with a phone hotspot as the access point):
 
 Neither call fails up front; the failure only shows in the state or the handler.
 
+Consoles differ in how strict this is. On one of the two tested (firmware 6.61), apctl can't join an
+access point at all while adhocctl is initialized, even with no group: it goes from JOINING back to
+DISCONNECTED with an ERROR event carrying 0x80410D09. On the other (6.60) it joins normally until a group
+actually exists. A game that wants both should call `sceNetAdhocctlTerm` before connecting to an access
+point.
+
 ### Talking to itself
 
 A console can send PDP datagrams and open PTP connections to its own MAC address, and they're delivered
