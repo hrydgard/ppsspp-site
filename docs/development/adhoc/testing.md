@@ -28,7 +28,10 @@ else):
 | `apctl` | infrastructure and ad hoc at once; needs an access point in profile 1 (not for `test.py`) |
 
 Single console, sceNetInet over loopback (`tests/net/inet`): `errors`, `options`, `addr`, `udp`, `tcp`,
-`bind`, `blocking`, `poll`, `stats` (the control block lists, `SocketAbort`, `sendmsg`/`recvmsg`).
+`bind`, `blocking`, `poll`, `stats` (the control block lists, `SocketAbort`, `sendmsg`/`recvmsg`), and
+`offline`: the sceNet utilities, apctl with no access point (handlers, scanning, missing profiles) and the
+resolver with no network. `offline`'s scan finds whatever access points are around, so it only prints
+whether there were any.
 
 Every test links `tests/net/net-imports.S`, which declares every known function of the networking
 libraries, so a new test can call any of them.
@@ -84,6 +87,7 @@ As of October 2026, lines that differ from the PSP's output (or where the run st
 | `inet/addr` | 10 of 33: only dotted quads parsed |
 | `inet/udp` | 3 of 61 |
 | `inet/tcp` | stops at the first TCP connection over loopback |
+| `inet/offline` | most lines: apctl and resolver error codes, limits, `ThreadAbort` |
 | `inet/stats` | the control block lists aren't implemented; `recvmsg` and `SocketAbort` fail |
 
 The two-console tests, run on two PPSSPPs in relay mode, all fail; the differences are listed under

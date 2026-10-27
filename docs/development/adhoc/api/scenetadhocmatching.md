@@ -92,14 +92,20 @@ Timing, from the two-console tests: a peer that goes silent times out after abou
 ```c
 int sceNetAdhocMatchingStart(int id, int evthPrio, int evthStack, int inthPrio, int inthStack,
 	int optlen, const void *opt); // NID 0x93EF3843
-int sceNetAdhocMatchingStart2(int id, int evthPrio, int evthPart, int evthStack, int inthPrio,
-	int inthPart, int inthStack, int optlen, const void *opt); // NID 0xE8454C65
+int sceNetAdhocMatchingStart2(int id, int evthPrio, int evthStack, int evthPart, int inthPrio,
+	int inthStack, int inthPart, int optlen, const void *opt); // NID 0xE8454C65
 ```
 
 Starts the context's event and input threads; `opt` is the hello data a host or P2P context advertises.
-Returns 0. (Only `Start` was tested; `Start2` adds memory partitions for the two threads.) Already running: `IS_RUNNING` (0x8041080A). All 15 possible contexts can run at once.
+Returns 0. Already running: `IS_RUNNING` (0x8041080A). All 15 possible contexts can run at once.
 
-**PPSSPP:** returns a thread ID instead of 0; starting again gives `PORT_IN_USE`.
+`Start2` is `Start` with a memory partition for each thread, **after** its stack size. Partition 2 (user)
+works; 9 gives `INVALID_ARG` (0x80410807). Passing the partition where the stack size goes gives
+`STACKSIZE_TOO_SHORT` (0x80410815).
+
+**PPSSPP:** returns a thread ID instead of 0; starting again gives `PORT_IN_USE`. `Start2` takes the
+partition before the stack size, so the PSP's argument order fails with `PORT_IN_USE` on a fresh context,
+and a bad partition isn't checked.
 
 ## sceNetAdhocMatchingStop / Delete
 

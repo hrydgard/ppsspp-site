@@ -76,6 +76,58 @@ int sceWlanGetSwitchState(void); // NID 0xD7763699, library sceWlanDrv
 1 if the WLAN switch is on, 0 if off. Ad hoc needs it on; what each call does with it off hasn't been
 tested.
 
+## sceWlanDevIsPowerOn
+
+```c
+int sceWlanDevIsPowerOn(void); // NID 0x93440B11, library sceWlanDrv
+```
+
+1 while the Wi-Fi chip is powered (it was, with the switch on and the net modules loaded).
+
+## sceNetEtherNtostr / sceNetEtherStrton
+
+```c
+void sceNetEtherNtostr(const SceNetEtherAddr *mac, char *str); // NID 0x89360950
+void sceNetEtherStrton(const char *str, SceNetEtherAddr *mac); // NID 0xD27961C9
+```
+
+`Ntostr` writes lower-case hex with colons (`00:1a:2b:c3:d4:ff`) and a terminating zero. `Strton` reads
+six two-digit hex bytes, either case, with any single separator (`-` works as well as `:`). It doesn't
+validate: one-digit bytes, a short string or non-hex characters give garbage bytes, not an error.
+
+**PPSSPP:** malformed strings give different garbage (it stops at the end of the string, leaving the rest
+of the address alone).
+
+## sceNetGetMallocStat
+
+```c
+typedef struct {
+	u32 pool;    // the pool size given to sceNetInit, less 32 bytes
+	u32 maximum; // the most ever in use
+	u32 free;
+} SceNetMallocStat;
+
+int sceNetGetMallocStat(SceNetMallocStat *stat); // NID 0xCC393E48
+```
+
+Returns 0; NULL gives 0x80410103. With `sceNetInit(0x20000, ...)`, `pool` is 0x1FFE0.
+
+**PPSSPP:** NULL returns 0.
+
+## sceNetThreadAbort / sceNetFreeThreadinfo
+
+```c
+int sceNetThreadAbort(int thid);     // NID 0xAD6844C6
+int sceNetFreeThreadinfo(int thid);  // NID 0x50647530
+```
+
+`ThreadAbort` makes the networking call the thread is blocked in return at once, with EINTR for sceNetInet
+calls (a blocked `sceNetInetRecv` was tested), like `sceNetInetSocketAbort` does for one socket. What
+`FreeThreadinfo` frees wasn't tested. Both return 0 for any existing thread (also the current one, or one
+that has ended), and 0x80410104 for 0 or an ID that isn't a thread.
+
+**PPSSPP:** both return 0 for anything, and `ThreadAbort` doesn't wake the thread.
+
 ## The netconf dialog
 
 ```c

@@ -11,6 +11,8 @@ All the error codes the networking libraries return, with when they were seen on
 | Code | Name | Seen |
 |---|---|---|
 | 0x80410001 | NO_SPACE (out of memory) | a 65523-byte PDP send, now and then |
+| 0x80410103 | (invalid argument) | `sceNetGetMallocStat(NULL)` |
+| 0x80410104 | (no such thread) | `sceNetThreadAbort` and `sceNetFreeThreadinfo` with 0 or a bad ID |
 | 0x80410180 | (no ether address yet) | `sceNetGetLocalEtherAddr` before a scan or group operation |
 
 ## sceNetAdhoc (0x804107xx)
@@ -140,7 +142,12 @@ These only arrive through handler events.
 | 0x80410A09 | INVALID_ID |
 | 0x80410A0A | WLAN_SUSPENDED |
 | 0x80410A0B | TIMEOUT |
-| 0x80110601 | (netparam) BAD_NETCONF: `sceNetApctlConnect` with no profile in that slot |
+| 0x80410A0D | (seen) apctl not initialized, from `GetState` |
+| 0x80410A0F | (seen) too many handlers (the limit is 2) |
+| 0x80410A80 | (seen) busy: `Connect` or `ScanUser` while one is in progress |
+| 0x80410A82 | (seen) an ID that was never valid, in `DelHandler` and `GetBSSDescEntryUser` |
+| 0x80110601 | (netparam) BAD_NETCONF: `sceNetApctlConnect` with no profile in that slot, or a slot out of range |
+| 0x80110602 | (netparam, seen) `sceNetApctlConnect(-1)` |
 
 ## sceNetResolver (0x804104xx)
 
@@ -166,6 +173,10 @@ These only arrive through handler events.
 | 0x80410412 | RES_PACKET_FORMAT |
 | 0x80410413 | RES_SERVER_FAILURE |
 | 0x80410414 | INVALID_HOST (seen: a name that doesn't exist) |
+| 0x80410418 | (seen) an empty host name |
+| 0x80410419 | (seen) `PollAsync` with NULL |
+| 0x8041041A | (seen) `PollAsync`/`WaitAsync` with no lookup pending |
+| 0x80000020 | (seen) `sceNetResolverInit` twice |
 
 ## sceNetInet errno values
 

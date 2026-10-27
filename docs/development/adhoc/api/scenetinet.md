@@ -263,7 +263,15 @@ int sceNetApctlDisconnect(void);                                     // NID 0x24
 int sceNetApctlGetState(int *state);                                 // NID 0x5DEAC81B
 int sceNetApctlGetInfo(int code, void *info);                        // NID 0x2BEFDF23
 int sceNetApctlAddHandler(void (*h)(int oldState, int newState, int event, int error, void *arg), void *arg); // NID 0x8ABADD51
+int sceNetApctlDelHandler(int id);                                   // NID 0x5963991B
+int sceNetApctlScanUser(void);                                       // NID 0xE9B2E5E6
+int sceNetApctlGetBSSDescIDListUser(int *size, void *buf);           // NID 0x6BDDCB8C
+int sceNetApctlGetBSSDescEntryUser(int id, int code, void *info);    // NID 0x04776994
 ```
+
+`sceNetApctlScan` (0xB3CF6849), `GetBSSDescIDList` (0x0C7FFA5C) and `GetBSSDescEntry` (0x96BEB231) aren't
+available to games on firmware 6.60 and 6.61: imports of them stay unlinked and return 0x8002013A. Use the
+`User` versions.
 
 States: 0 DISCONNECTED, 1 SCANNING, 2 JOINING, 3 GETTING_IP, 4 GOT_IP, 5 EAP_AUTH, 6 KEY_EXCHANGE.
 
@@ -275,12 +283,28 @@ States: 0 DISCONNECTED, 1 SCANNING, 2 JOINING, 3 GETTING_IP, 4 GOT_IP, 5 EAP_AUT
   falls back to DISCONNECTED. Creating an ad hoc group while apctl has an IP fails with a 0x80410D01 ERROR
   event. On one of the two consoles tested, apctl couldn't join at all while adhocctl was merely
   initialized. Terminate one before starting the other.
+- Before `Init` (and after `Term`), `GetState` gives 0x80410A0D. `Init` twice: `ALREADY_INITIALIZED`;
+  `Term` twice returns 0. `GetState(NULL)`: 0x80410A03.
+- While disconnected, `GetInfo` gives `NOT_IN_BSS` (0x80410A05) for every code, checked before the code.
+- **Only two handlers** can be registered; the third gives 0x80410A0F, also for a NULL handler. Removing
+  one frees its ID for reuse. `DelHandler` on a removed ID gives `INVALID_ID` (0x80410A09); on an ID that
+  was never valid (100, -1), 0x80410A82.
+- `Connect` to a profile slot out of range (10, 11, 100) gives 0x80110601, and to -1, 0x80110602, at once
+  and without events. Slot 0 doesn't fail: it starts connecting. `Disconnect` while disconnected returns 0.
+  A second `Connect` or `ScanUser` while one is in progress: 0x80410A80.
+- **Scanning:** `ScanUser` returns 0, and the handler sees 0 → 1 (SCANNING, event 1) and 1 → 0 (event 2)
+  within 1-3 seconds. `GetBSSDescIDListUser(&size, NULL)` then sets `size` (a multiple of 8);
+  with a buffer it fills a linked list of 8-byte entries (`next` pointer, then the ID, starting at 1).
+  `GetBSSDescEntryUser` takes such an ID and a code; codes 0-5 work and 6 gives `INVALID_CODE`, as does
+  100; an unknown ID gives 0x80410A82. NULL `size`: 0x80410A03. What each code returns wasn't checked.
 - `GetInfo` codes: 0 profile name, 1 BSSID, 2 SSID, 3 SSID length, 4 security type (0 none), 5 strength
   (1-100), 6 channel, 7 power save, 8 IP, 9 subnet mask, 10 gateway, 11 primary DNS, 12 secondary DNS,
   13-15 proxy, 16 EAP type, 17 start browser, 18 WISP. The addresses are strings. Codes 0, 2-6 and 8-11
   were checked; the rest are from the SDK's headers. Code 19: `INVALID_CODE` (0x80410A02).
 
 **PPSSPP:** the connection is simulated (the host is already online), and doesn't exclude ad hoc.
+`GetState` and `GetInfo` work before `Init` and while disconnected; there's no handler limit; errors are
+-1 instead of codes; `Scan` and its lists are linked (and fake a scan).
 
 ## sceNetResolver
 
@@ -296,6 +320,19 @@ int sceNetResolverStop(int rid);                                                
 
 Plus `StartNtoAAsync` (0x14C17EF9), `StartAtoNAsync` (0xAAC09184), `WaitAsync` (0x12748EB9) and `PollAsync`
 (0x4EE99358).
+
+- `Create` works even before `Init`. NULL `rid` or buffer: `INVALID_PTR` (0x80410403); a buffer of 0
+  bytes: `INVALID_BUFLEN` (0x80410404), while 1 byte is accepted. 20 resolvers could exist at once.
+  `Init` twice: 0x80000020; `Term` twice returns 0.
+- An unknown ID: `BAD_ID` (0x80410408) for every call.
+- **With no network** (apctl not connected), every lookup fails at once with `NO_DNS_SERVER`
+  (0x80410402), even a dotted IP string like `127.0.0.1`, and reverse lookups too. An empty name gives
+  0x80410418, checked first; NULL name or address, `INVALID_PTR`.
+- **Async:** `StartNtoAAsync` and `StartAtoNAsync` return 0, and the lookup's result comes back as the
+  return value of `PollAsync` or `WaitAsync` (the `status` argument wasn't written in these cases). Once
+  collected, both give 0x8041041A (nothing pending). Starting another lookup while one is pending:
+  `CTX_BUSY` (0x80410409). `PollAsync(rid, NULL)`: 0x80410419.
+- `Stop` with nothing running: `ALREADY_STOPPED` (0x8041040A).
 
 Over an access point with internet access: `StartNtoA` resolves a real name (returns 0 with the address); a
 name that doesn't exist gives `INVALID_HOST` (0x80410414); a dotted IP string resolves to itself. (The
