@@ -117,9 +117,8 @@ part. This, more than anything, is why an emulator can't join a real ad hoc netw
 
 ### Data frames
 
-These layouts come from the firmware's code rather than from captured frames. A data frame has a 32-byte
-crypto header after the sub-type, then a protocol header, then the payload, padded to a multiple of 16
-bytes:
+These layouts are confirmed by captured frames. A data frame has a 32-byte crypto header after the
+sub-type, then a protocol header, then the payload, padded to a multiple of 16 bytes:
 
 | Offset | Size | Field |
 |---|---|---|
@@ -128,6 +127,12 @@ bytes:
 | 16 | 32 | crypto header |
 | 48 | 12 | protocol header (PDP: below) |
 | 60 | n | payload |
+
+The crypto header is a 16-byte block counter (little-endian, counting the 16-byte blocks sent in this
+direction) followed by a 16-byte authentication tag. The payload is encrypted with a keystream derived
+from that counter and an ephemeral session key, so the same plaintext never produces the same ciphertext
+twice, and tampering is caught by the tag. The session key is set up by the control-frame certificate
+exchange and lasts only as long as the console's membership in the group.
 
 The PDP header (all fields big-endian):
 
@@ -141,7 +146,33 @@ The PDP header (all fields big-endian):
 | 8 | 2 | datagram sequence number |
 | 10 | 2 | offset of this fragment in the datagram |
 
-PTP uses the same kind of frame with protocol 2 and its own header.
+PTP uses the same kind of frame with protocol 2 and a TCP-like header (all fields big-endian):
+
+| Offset | Size | Field |
+|---|---|---|
+| 0 | 1 | protocol: 2 = PTP |
+| 1 | 1 | flags (below) |
+| 2 | 2 | length of the PTP header and payload |
+| 4 | 2 | source port |
+| 6 | 2 | destination port |
+| 8 | 4 | sequence number |
+| 12 | 4 | acknowledgement / advertised receive window (control frames only; a data frame's payload starts here) |
+
+The flags byte marks the frame's role, like TCP:
+
+| Flags | Role |
+|---|---|
+| 1 | SYN (open a connection) |
+| 2 | SYN-ACK (the other side's reply) |
+| 3 | ACK (completes the three-way handshake) |
+| 4 | data segment |
+| 5 | acknowledgement with a window update |
+
+So PTP is a reliable ordered stream: a three-way handshake opens it, each side numbers its bytes with a
+32-bit sequence, and the receiver advertises a window that falls as unread data piles up in its receive
+buffer and recovers as the game reads it. In the `net/adhoc/pair/flow` test, with the receiver not
+reading, the advertised window stepped down by one segment's worth per segment until the sender stalled,
+then opened back up once the receiver drained it.
 
 ### Sizes
 
@@ -203,6 +234,7 @@ Sony's sceNetAdhocMatching runs entirely over PDP. Its packet format is describe
 - How each peer's nickname reaches the others in a group. (A peer that leaves is dropped from the
   others' lists within a few seconds; how long one that just goes silent lasts hasn't been measured.)
 - How long a peer that just goes silent stays in the others' peer lists.
-- The PTP protocol: its handshake, window, acknowledgements and retransmit timers.
+- PTP's retransmit timers and exactly when it decides a segment was lost. (The handshake, sequence
+  numbers and window are known, above; the timing isn't measured.)
 - How "Automatic" picks a channel.
 - Game mode's slot timing and maximum data size.

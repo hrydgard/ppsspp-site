@@ -19,13 +19,15 @@ delivers an event much sooner or later, or blocks where the PSP returns, breaks 
 | `sceNetAdhocctlInit` | 14 ms | |
 | `sceNetAdhocctlCreate` | 30 µs | CONNECT after 1.1 s |
 | `sceNetAdhocctlJoin` | | CONNECT after 0.53 s; the creator is in the peer list after about 1.2 s |
+| `sceNetAdhocctlConnect` | 20 µs | CONNECT after 3.3-3.8 s to an existing group, about 4.0 s (3.8-4.4) when it creates one |
 | `sceNetAdhocctlScan` | 30 µs | SCAN after 1.0 s, with or without groups around |
 | `sceNetAdhocctlDisconnect` | 20 µs | DISCONNECT after 105 ms |
 | `sceNetAdhocctlCreateEnterGameMode`, `JoinEnterGameMode` | | GAMEMODE on all members at the same moment, once the last one has joined (3-4 s after a join a second after the create) |
 | `sceNetAdhocctlExitGameMode` | | after 0.64 s |
 | `sceNetAdhocctlTerm` | 0.25 ms | |
 
-The state (`GetState`) changes when the event is delivered, not before. **`sceNetAdhocctlGetParameter`
+The state (`GetState`) changes when the event is delivered, not before, except that Scan goes to
+SCANNING at once (right after Init, a moment later). **`sceNetAdhocctlGetParameter`
 takes about 14 ms in a group**, every call; `GetState` takes 0.4 µs, `GetPeerList` and `GetScanInfo`
 2-6 µs.
 

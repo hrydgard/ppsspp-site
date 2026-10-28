@@ -100,6 +100,10 @@ modules are reloaded.
 **Term followed straight by Init** can be undone by Term finishing in the background; wait a little
 (100 ms is enough) between them.
 
+**Requests right after Init work.** A Create, Connect or Scan straight after Init returns 0 and gets
+its event, and a Disconnect gets DISCONNECT. One request at a time, though: a second Create, or a Scan,
+before the first one's event returns `BUSY` (0x80410B10).
+
 **PPSSPP:** checks none of these. A second Init leaves adhocctl initialized. Init also logs in to the ad
 hoc server and blocks for up to 5 seconds while it does, returning `BUSY` if it can't.
 
@@ -176,7 +180,8 @@ Joins the network described by a scan result. CONNECT follows; the BSSID is the 
 int sceNetAdhocctlDisconnect(void); // NID 0x34401D65
 ```
 
-Leaves the group. Returns 0 at once; DISCONNECT follows. Returns 0 when not in a group too.
+Leaves the group. Returns 0 at once; DISCONNECT follows. Not in a group, it returns 0 and DISCONNECT
+still follows, also right after Init.
 
 - The group lives on without its creator: the others stay CONNECTED with the same BSSID and get no
   event; they just see the peer leave their peer lists within a few seconds.
@@ -219,7 +224,8 @@ int sceNetAdhocctlGetParameter(SceNetAdhocctlParameter *param); // NID 0xDED9D28
 
 The channel, group name, own nickname and BSSID. While not in a group: `DISCONNECTED` (0x80410B09).
 
-**PPSSPP:** returns 0 with an empty group name while not in a group. The BSSID is the group creator's MAC.
+**PPSSPP:** returns 0 with an empty group name while not in a group. With an ad hoc server other than the
+built-in one, the BSSID is the group creator's MAC.
 
 ## sceNetAdhocctlGetPeerList
 
@@ -243,8 +249,6 @@ int sceNetAdhocctlGetPeerInfo(const SceNetEtherAddr *mac, int size, SceNetAdhocc
 One peer's entry. A MAC that isn't a peer, **including the console's own**, gives `NO_ENTRY`
 (0x80410716). A `size` smaller than the struct gives `INVALID_BUFLEN` (0x80410704).
 
-**PPSSPP:** answers for the console's own MAC; a small size gives the adhocctl `INVALID_ARG`.
-
 ## sceNetAdhocctlGetNameByAddr
 
 ```c
@@ -253,8 +257,6 @@ int sceNetAdhocctlGetNameByAddr(const SceNetEtherAddr *mac, char *nickname); // 
 
 A peer's nickname (128 bytes). The console's own MAC, or any other non-peer, gives `NO_ENTRY`.
 
-**PPSSPP:** answers for the console's own MAC.
-
 ## sceNetAdhocctlGetAddrByName
 
 ```c
@@ -262,8 +264,6 @@ int sceNetAdhocctlGetAddrByName(const char *nickname, int *size, SceNetAdhocctlP
 ```
 
 The peers with that nickname, as peer list entries.
-
-**PPSSPP:** also includes the console itself if its nickname matches.
 
 ## sceNetAdhocctlGetAdhocId
 

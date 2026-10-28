@@ -139,6 +139,12 @@ int sceNetAdhocGetPdpStat(int *size, SceNetAdhocPdpStat *buf); // NID 0xC7C1FC57
 All PDP sockets, 20 bytes each. NULL `buf`: `*size` = bytes needed. NULL `size`: `INVALID_ARG`. A `*size`
 too small for one entry returns 0 with `*size` 0.
 
+The socket's `bufsize` caps what waits to be read; datagrams that don't fit are dropped. Ten 1000-byte
+datagrams sent in a burst all arrive with a 32 KB buffer, only some with 2 KB, and none with a buffer of 0.
+
+**PPSSPP:** nothing is dropped. The relay delivers in bursts that the radio spreads out, so enforcing the
+limit would lose more than a PSP does.
+
 ## PTP
 
 ```c
@@ -188,9 +194,12 @@ Waits for (or, non-blocking, checks) the connection Open started. 0 once establi
 again. **A port nobody listens on: `CONNECTION_REFUSED` (0x80410718) at once**, blocking or not, within a
 second across the air too.
 
+A socket whose connect was refused stays refused: connecting it again gives `CONNECTION_REFUSED` even once
+the peer listens. A connect made a second before the peer starts listening is refused the same way.
+
 **PPSSPP:** connecting to a port nobody listens on can report success (it did between two sockets of one
-instance); non-blocking calls otherwise return `WOULD_BLOCK` instead of `CONNECTION_REFUSED`; in relay
-mode a refused connect gives `BUSY`.
+instance); non-blocking calls otherwise return `WOULD_BLOCK` instead of `CONNECTION_REFUSED`. Over the
+relay, a connect waits for a listener to appear, so it succeeds or times out instead of being refused.
 
 ### sceNetAdhocPtpListen
 
@@ -201,6 +210,13 @@ int sceNetAdhocPtpListen(const SceNetEtherAddr *mac, u16 port, int bufsize, u32 
 
 A listening socket. As for Open: the MAC must be the console's own, `flag` 0, and the sizes and
 `backlog` aren't checked. Until accepted, an incoming connection shows up in `GetPtpStat` with ID -1.
+
+The backlog is how many connections can wait to be accepted. Their connects complete at once, before any
+Accept. With backlog 1 and nobody accepting, a first connect succeeds and further ones get
+`CONNECTION_REFUSED` after 1-2 seconds; only the first is accepted afterwards.
+
+**PPSSPP:** over the relay, a connect completes only when the peer accepts it, and the backlog isn't
+enforced.
 
 ### sceNetAdhocPtpAccept
 
@@ -228,11 +244,20 @@ Both return 0 on success, with `*len` the bytes sent or received. Recv returns w
   fine.
 - On a listener: `NOT_CONNECTED` (0x8041070B).
 - After the peer closes, or leaves the group: `DISCONNECTED` (0x8041070C), and the state becomes CLOSED.
+  Data the peer sent before closing is still received first. A blocking Recv is woken by the close, with
+  `DISCONNECTED`.
 - Buffers full: `WOULD_BLOCK`, or `TIMEOUT` for a blocking call.
+
+Flow control: each side holds up to its `bufsize`. With 8 KB buffers on both sides and a receiver that
+doesn't read, the sender gets 8-16 KB out before `WOULD_BLOCK`. The receiver's GetPtpStat then shows 8-16 KB
+waiting and the sender's shows 8-16 KB not yet sent, and a blocking send times out. Once the receiver
+reads, sending works again.
 
 **PPSSPP:** NULL `data`, a length of 0 and a negative length all give `INVALID_ARG`; after the peer
 closed, send gives `NOT_CONNECTED`. Buffers are much larger (a full sender queues 64 KB or more), so
-`WOULD_BLOCK` comes far later. In relay mode, a peer leaving the group isn't noticed.
+`WOULD_BLOCK` comes far later. Over the relay, data still buffered when the peer closes is lost: Recv
+gives `DISCONNECTED` at once. Flow control over the relay can't be fixed in the emulator alone: the sender would
+have to hear from the receiver how much its game has read, and the relay protocol has no message for that.
 
 ### sceNetAdhocPtpFlush
 

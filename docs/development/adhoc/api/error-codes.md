@@ -75,7 +75,7 @@ The three in bold really are `0x8040...`.
 | 0x80410B0D | CHANNEL_NOT_AVAILABLE | |
 | 0x80410B0E | WLAN_BEACON_LOST | |
 | 0x80410B0F | WLAN_SUSPENDED | |
-| 0x80410B10 | BUSY | while game mode is waiting forever for members |
+| 0x80410B10 | BUSY | a request (Create, Connect, Scan) before the previous one's event; while game mode is waiting forever for members |
 | 0x80410B11 | CHANNEL_NOT_MATCH | |
 | 0x80410B12 | TOO_MANY_HANDLERS | a fifth handler |
 | 0x80410B13 | STACKSIZE_TOO_SHORT | `sceNetAdhocctlInit` with a stack below 0xC00 |

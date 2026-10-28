@@ -103,9 +103,6 @@ Returns 0. Already running: `IS_RUNNING` (0x8041080A). All 15 possible contexts 
 works; 9 gives `INVALID_ID` (0x80410807). Passing the partition where the stack size goes gives
 `STACKSIZE_TOO_SHORT` (0x80410815).
 
-**PPSSPP:** returns a thread ID instead of 0; starting again gives `PORT_IN_USE`. `Start2` takes the
-partition before the stack size, so the PSP's argument order fails with `PORT_IN_USE` on a fresh context,
-and a bad partition isn't checked.
 
 ## sceNetAdhocMatchingStop / Delete
 
@@ -132,10 +129,12 @@ A client: ask to join this host (the host gets REQUEST with `opt`). A host: acce
 - A second call for the same peer: `REQUEST_IN_PROGRESS` (0x8041080F), on both sides.
 - A host accepting a request the client already cancelled: `TARGET_NOT_READY` (0x8041080D).
 - A full host (`maxnum - 1` clients) stops advertising.
-- **The first join request after a host changes its hello data (`SetHelloOpt`) never reaches the host**,
-  even if the client has seen the new hello. Later requests work.
-
-**PPSSPP:** the second call gives `ALREADY_ESTABLISHED`; the first request after `SetHelloOpt` works.
+- **The first join request after a host changes its hello data (`SetHelloOpt`) never reaches the host**
+  when it comes from a client the host hasn't heard from yet, even if the client has seen the new hello.
+  The host still knows the client: it can reject it with `CancelTarget`. A client the host has already
+  denied gets through, and later requests work.
+- After a DENY, the client keeps getting the host's hellos, gets no TIMEOUT, and can ask again. The same
+  goes for P2P.
 
 ## sceNetAdhocMatchingCancelTarget / CancelTargetWithOpt
 
@@ -147,6 +146,8 @@ int sceNetAdhocMatchingCancelTargetWithOpt(int id, const SceNetEtherAddr *peer, 
 A host rejecting a request (the client gets DENY, with `opt`), a client withdrawing its request (the host
 gets CANCEL), or either side ending an established match (the other gets LEAVE). Not running:
 `NOT_RUNNING`; not a peer: `UNKNOWN_TARGET`.
+
+A client whose match ended still says BYE to the host when it stops.
 
 **PPSSPP:** an unknown peer returns 0.
 
@@ -168,8 +169,7 @@ adhocctl's peer list) is accepted (0), and DATA_TIMEOUT arrives 1-2 seconds late
 accepted at once. The aborted data still arrives. Returns 0, also with nothing pending; an unknown peer
 gives `UNKNOWN_TARGET`.
 
-**PPSSPP:** DATA_ACK is generated locally right away, so `DATA_BUSY` never happens; data events can arrive
-in reverse order.
+**PPSSPP:** DATA_ACK doesn't come from the peer, so it arrives even if the data is lost.
 
 ## sceNetAdhocMatchingSetHelloOpt / GetHelloOpt
 
@@ -194,8 +194,6 @@ int sceNetAdhocMatchingGetMembers(int id, int *size, SceNetAdhocMatchingMember *
 
 The members, 12 bytes each: **the console itself first**, then the others. A lone host reports one member,
 itself. After a member leaves, it's gone from the list. Not running: `NOT_RUNNING`.
-
-**PPSSPP:** a client lists the host first; a member that left can stay listed.
 
 ## sceNetAdhocMatchingGetPoolStat / GetPoolMaxAlloc
 
