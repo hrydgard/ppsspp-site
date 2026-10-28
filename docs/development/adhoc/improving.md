@@ -144,15 +144,24 @@ Roughly in order of value:
 1. **Make the single-console tests pass**, function by function, starting with the argument checks and
    error codes. Each fix is small and the tests say exactly what's expected. Keep the deliberate
    differences behind the internet-latency reasoning above.
-2. **Polling events**, since games use `PollSocket` to drive their state machines.
-3. **Matching**: a real event queue, real data acknowledgement (`DATA_ACK` only when the peer answers,
+2. **Run the adhocctl client on the CPU thread.** Replace the `friendFinder` thread with a CoreTiming
+   event that polls the server connection (fetching events doesn't block) and owns the adhocctl state,
+   the peer list and the game mode member list, so they're no longer shared without locks. Events are
+   then scheduled in emulated time at the PSP's delays (see [Timing](/docs/development/adhoc/api/timing))
+   instead of whenever a host thread wakes up, which replaces the tuned per-game delays. Connecting and
+   logging in to the server can take seconds, so that stays on a worker thread: `sceNetAdhocctlInit`
+   starts it and returns at once, and the poll event picks up the session when it's ready. Pings keep
+   their interval in real time, so slow emulation doesn't get the player dropped. The built-in server and
+   relay stay host threads, since they serve other machines.
+3. **Polling events**, since games use `PollSocket` to drive their state machines.
+4. **Matching**: a real event queue, real data acknowledgement (`DATA_ACK` only when the peer answers,
    `DATA_BUSY`, `DATA_TIMEOUT`), and retransmission of JOIN and ACCEPT, degrading gracefully against aemu
    clients that don't acknowledge.
-4. **sceNetInet**: translate errno values and the return convention, socket options, and fix TCP over
+5. **sceNetInet**: translate errno values and the return convention, socket options, and fix TCP over
    loopback.
-5. **Game mode**: make two instances get through buffer setup.
-6. **Make the two-console tests pass** on two instances, in both P2P and relay mode.
-7. The structural issues: thread safety, IP identity in P2P mode, the original-port bug.
+6. **Game mode**: make two instances get through buffer setup.
+7. **Make the two-console tests pass** on two instances, in both P2P and relay mode.
+8. The structural issues: thread safety (what step 2 doesn't cover), IP identity in P2P mode, the original-port bug.
 
 ## Testing
 
