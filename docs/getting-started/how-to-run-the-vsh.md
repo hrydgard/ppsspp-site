@@ -31,3 +31,45 @@ The XMB is part of the PSP's firmware. If you're running 1.21 and have tried som
 Save states don't work while the XMB is running.
 
 NOTE: None of this will work on PPSSPP versions before 1.21, except late development builds before it.
+
+## File locations on the memory stick
+
+If you want to use the XMB as a media player, you can, although it doesn't make too much sense to do so on modern hardware, unless you really like the PSP's music visualizer, for example.
+
+NOTE: Folders directly under the root is only possible on Android if your memstick directory is NOT named PSP.
+Otherwise the PSP directory is the PSP directory inside the memstick, so you can't place stuff outside (it's a bit complicated for legacy reasons).
+
+### Music
+
+Put your MP3 and other music files in any of these memstick locations:
+
+* `/PSP/MUSIC`
+* `/MUSIC`
+
+### Video
+
+* `/VIDEO`
+
+Possibly more directories work. Must be an MP4 file, base profile, or MJPEG. So not that many video will actually work.
+
+Thumbnails: JPEGs with filenames corresponding to video and with .THM extension (e.g. output.mp4 - output.thm), dimensions 160x120.
+
+Encoding examples by Ahayri:
+
+```ffmpeg -i "input.mp4" -c:v libx264 -profile:v main -level 3.0 -pix_fmt yuv420p -x264-params "ref=3:bframes=1:b-pyramid=none" -b:v 700k -vf "scale=480:272" -c:a aac -b:a 128k -movflags +faststart -f psp output.mp4```
+
+With thumb:
+
+```ffmpeg -i "input.mp4" -c:v libx264 -profile:v main -level 3.0 -pix_fmt yuv420p -x264-params "ref=3:bframes=1:b-pyramid=none" -vf "scale=480:272" -movflags +faststart -f psp output.mp4 -ss 00:01:00 -vframes 1 -s 160x120 -f image2 -c:v mjpeg output.thm```
+
+Tweaked by mavemvl:
+
+```ffmpeg -i a538c7824a94b9a64ec0dc85086614c6.mp4 -c:v libx264 -profile:v main -level 3.0 -pix_fmt yuv420p -x264-params "ref=3:bframes=1:b-pyramid=none" -vf "scale=480:272" -movflags +faststart -f psp output.mp4 -vf "thumbnail,scale=160:120" -f image2 -c:v mjpeg output.thm```
+
+### Pictures
+
+* `/PICTURE`
+
+## Encoding video
+
+If you want to encode video for playback,
