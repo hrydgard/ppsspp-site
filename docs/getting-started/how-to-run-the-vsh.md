@@ -46,6 +46,11 @@ Put your MP3 and other music files in any of these memstick locations:
 * `/PSP/MUSIC`
 * `/MUSIC`
 
+### Pictures
+
+* `/PICTURE`
+* `/PSP/PHOTO`
+
 ### Video
 
 * `/VIDEO`
@@ -54,7 +59,11 @@ Possibly more directories work. Must be an MP4 file, base profile, or MJPEG. So 
 
 Thumbnails: JPEGs with filenames corresponding to video and with .THM extension (e.g. output.mp4 - output.thm), dimensions 160x120.
 
-Encoding examples by Ahayri:
+#### Encoding video
+
+If you want to encode video for playback in PPSSPP and on the PSP, use these ffmpeg command lines.
+
+Encoding example by Ahayri:
 
 ```ffmpeg -i "input.mp4" -c:v libx264 -profile:v main -level 3.0 -pix_fmt yuv420p -x264-params "ref=3:bframes=1:b-pyramid=none" -b:v 700k -vf "scale=480:272" -c:a aac -b:a 128k -movflags +faststart -f psp output.mp4```
 
@@ -62,14 +71,6 @@ With thumb:
 
 ```ffmpeg -i "input.mp4" -c:v libx264 -profile:v main -level 3.0 -pix_fmt yuv420p -x264-params "ref=3:bframes=1:b-pyramid=none" -vf "scale=480:272" -movflags +faststart -f psp output.mp4 -ss 00:01:00 -vframes 1 -s 160x120 -f image2 -c:v mjpeg output.thm```
 
-Tweaked by mavemvl:
+Tweaked by mavemvl, also generates a thumbnail:
 
-```ffmpeg -i a538c7824a94b9a64ec0dc85086614c6.mp4 -c:v libx264 -profile:v main -level 3.0 -pix_fmt yuv420p -x264-params "ref=3:bframes=1:b-pyramid=none" -vf "scale=480:272" -movflags +faststart -f psp output.mp4 -vf "thumbnail,scale=160:120" -f image2 -c:v mjpeg output.thm```
-
-### Pictures
-
-* `/PICTURE`
-
-## Encoding video
-
-If you want to encode video for playback,
+```ffmpeg -i a538c7824a94b9a64ec0dc85086614c6.mp4 -c:v libx264 -profile:v main -level 3.0 -pix_fmt yuv420p -x264-params "ref=3:bframes=1:b-pyramid=none" -vf "scale=480:272" -movflags +faststart -f psp output.mp4 -vf "thumbnail,scale=160:120" -frames:v 1 -f image2 -c:v mjpeg output.thm```
