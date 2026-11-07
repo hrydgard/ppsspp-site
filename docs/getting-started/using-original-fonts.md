@@ -12,7 +12,7 @@ From PPSSPP 1.21, you normally don't need to do anything. Almost every PSP game 
 
 You can also install a firmware yourself from an official PSP update file, in Settings / Tools / PSP Firmware. That screen also shows how many fonts you have. The firmware, fonts included, is stored in `/PSP/NAND/flash0` in your memstick directory.
 
-See [How to run the XMB](/docs/getting-started/how-to-run-the-vsh) for more about installing firmware.
+See [How to run the XMB](/docs/getting-started/how-to-run-the-xmb) for more about installing firmware.
 
 ## Placing them manually
 

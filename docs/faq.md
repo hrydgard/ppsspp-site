@@ -45,7 +45,7 @@ See [How to install DLC](/docs/getting-started/how-to-install-dlc).
 
 No. PPSSPP simulates the BIOS and the entire internal operating system, so PSP games run without any firmware files.
 
-Starting with PPSSPP 1.21 (and current [development builds](/devbuilds)), PPSSPP can optionally use real PSP firmware too. It's not needed for PSP games, but it gets you the original system fonts, and it's needed to [run the XMB](/docs/getting-started/how-to-run-the-vsh) (the PSP's main menu) and to run PS1 games. You don't need to dump it from a PSP: almost every game disc carries a firmware update, and PPSSPP installs it automatically when you start a game. You can also install one from an official PSP update file in Settings / Tools / PSP Firmware.
+Starting with PPSSPP 1.21 (and current [development builds](/devbuilds)), PPSSPP can optionally use real PSP firmware too. It's not needed for PSP games, but it gets you the original system fonts, and it's needed to [run the XMB](/docs/getting-started/how-to-run-the-xmb) (the PSP's main menu) and to run PS1 games. You don't need to dump it from a PSP: almost every game disc carries a firmware update, and PPSSPP installs it automatically when you start a game. You can also install one from an official PSP update file in Settings / Tools / PSP Firmware.
 
 <a name="gold"></a>
 

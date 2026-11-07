@@ -4,7 +4,7 @@ VSH is the "Visual Shell", or the [Xross Media Bar](https://en.wikipedia.org/wik
 
 This article is about some technical details of the VSH.
 
-If you just want to know how to run it in PPSSPP, see [here](/docs/getting-started/how-to-run-the-vsh).
+If you just want to know how to run it in PPSSPP, see [here](/docs/getting-started/how-to-run-the-xmb).
 
 AI Disclaimer: Claude was used for some of the research and implementation. Not the writing of this article though - it's 100% human, though using some of the AI's research.
 

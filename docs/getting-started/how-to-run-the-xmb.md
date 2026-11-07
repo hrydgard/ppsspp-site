@@ -1,4 +1,4 @@
-# How to run the XMB (VSH)
+# How to run the XMB
 
 The **Xross Media Bar**, or **Visual Shell (VSH)** is the PSP's main UI.
 
@@ -11,7 +11,7 @@ The **Xross Media Bar**, or **Visual Shell (VSH)** is the PSP's main UI.
 
 <div class="alert alert-warning">This functionality will be available in PPSSPP 1.21, which is NOT out yet!</div>
 
-From version 1.21, PPSSPP will support running the VSH.
+From version 1.21, PPSSPP will support running the XMB, or VSH (Visual Shell) as it's known internally.
 
 You can also download the latest [development build](/devbuilds), which does include this functionality.
 
@@ -38,6 +38,10 @@ If you want to use the XMB as a media player, you can, although it doesn't make 
 
 NOTE: Folders directly under the root is only possible on Android if your memstick directory is NOT named PSP.
 Otherwise the PSP directory is the PSP directory inside the memstick, so you can't place stuff outside (it's a bit complicated for legacy reasons).
+
+## Downloadable apps
+
+The app download mechanism isn't currently working, but you can for example install SensMe (obtained separately) to the memory stick the normal way (put its two files, EBOOT.PBP and SENSME.DAT in `PSP/APP/NPIA00013`), and it will launch, both from the XMB and from the Homebrew and Demos tab in PPSSPP.
 
 ### Music
 

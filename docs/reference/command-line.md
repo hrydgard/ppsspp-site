@@ -57,7 +57,7 @@ From PPSSPP 1.21 (and current [development builds](/devbuilds)), all platforms s
 * `--memstick=DIR` - use DIR as the memory stick.
 * `--resolution-scale=N`, `--msaa=N` - override the rendering resolution and MSAA level (0 = off, 1 = 2x, 2 = 4x, 3 = 8x) for this run.
 * `--cpu-mhz=N` - lock the emulated CPU clock (0 = let the game set it).
-* `--vsh` - boot the [XMB](/docs/getting-started/how-to-run-the-vsh).
+* `--vsh` - boot the [XMB](/docs/getting-started/how-to-run-the-xmb).
 * `--debugger=PORT` - enable the [WebSocket debugger](/docs/reference/websocket-api) on this port.
 
 ## Development arguments
