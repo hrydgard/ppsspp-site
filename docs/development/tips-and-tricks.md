@@ -10,6 +10,12 @@ Then run:
 adb install android/build/outputs/apk/normal/optimized/android-normal-optimized.apk
 ```
 
+## Strange crashes in the Windows build after update
+
+It's some dependency tracking bug during multithreaded builds in Visual Studio. Sometimes a header change doesn't cause a C++ file that used some struct from the header to rebuild. so then different files get different view of the same struct, and mayhem ensues.  The Common project is affected the most.
+
+Workaround: When it happens, just do a "Rebuild All".
+
 ## Build performance on WSL
 
 ./b.sh --debug can take a surprising amount of time before it starts running. This is because pkgconfig goes through everything in PATH. So to not import all your Windows paths, disable WSL's Windows PATH import globally by adding to `/etc/wsl.conf`:
