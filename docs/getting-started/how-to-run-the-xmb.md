@@ -71,12 +71,15 @@ Thumbnails are JPEGs with filenames corresponding to video and with .THM extensi
 
 #### Encoding video
 If you want to encode a video to AVI format with PPSSPP playback, use this ffmpeg command line:
+
 Encoding example by mavemvl with thumbnail:
 
 ```ffmpeg -i input.mp4 -c:v mjpeg -c:a pcm_s16le -s 480x272 output.avi -vf "thumbnail,scale=160:120" -c:v mjpeg -frames:v 1 -f image2 output.thm```
 
 Without:
+
 ```ffmpeg -i input.mp4 -c:v mjpeg -c:a pcm_s16le -s 480x272 output.avi```
+
 
 
 If you want to encode video for playback in PPSSPP and on the PSP, use these ffmpeg command lines.
