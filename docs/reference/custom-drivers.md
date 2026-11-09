@@ -41,6 +41,12 @@ It supports more features and extensions than the official driver. Performance v
 
 These are official, proprietary drivers from Qualcomm, the company making Adreno GPUs. Sometimes bugs can be worked around by picking a different version of this driver. Note that many of these can have problems on certain devices, and I generally do not recommend using these unless they specifically say that they're suitable for your device.
 
+### Mali: MaliSX2 drivers
+
+These are custom built for the ARMSX2 PS2 emulator, but they [seem to work fine with PPSSPP](https://github.com/bmdhacks/malisx2).
+
+See [MaliSX2 drivers](https://github.com/bmdhacks/malisx2)
+
 ### Mali: PanVK drivers
 
 Mesa is the Linux project that maintains most open-source GPU drivers. PanVK is the Mali Vulkan driver in this suite of drivers, for some generations of Mali GPUs.
