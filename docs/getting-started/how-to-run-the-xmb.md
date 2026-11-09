@@ -99,5 +99,5 @@ Tweaked by mavemvl, also generates a thumbnail:
 ## Themes
 You can customize your VSH with custom themes made by community.
 Simply put them in `/PSP/THEME/` and select them in the **Theme Settings** in the VSH.
-<div class="alert alert-warning>If you are running devbuild earlier than 4555, you <b>NEED</b> to create (yes, just to create) a folder <code>flash1/vsh/theme</code> in your firmware folder.</div>
+<div class="alert alert-warning">If you are running devbuild earlier than 4555, you <b>NEED</b> to create (yes, just to create) a folder <code>flash1/vsh/theme</code> in your firmware folder.</div>
 The only supported format is PTF because CTF requires custom firmware to work and PPSSPP doesnt support that yet.
