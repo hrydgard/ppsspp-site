@@ -59,13 +59,31 @@ Put your MP3 and other music files in any of these memstick locations:
 
 * `/VIDEO`
 
-Possibly more directories work. Must be an MP4 file, base profile, or MJPEG. So not that many video will actually work.
+Possibly more directories work. Files must have dimensions lower or equal to 720x480. Must be an:
 
-Thumbnails: JPEGs with filenames corresponding to video and with .THM extension (e.g. output.mp4 - output.thm), dimensions 160x120.
+* MP4 H.264 Baseline/Main with AAC audio
+* AVI MJPEG with μ-Law(mulaw) or LPCM audio
+* MP4 MPEG-4 Part 2 Simple Profile (Not tested!), AAC audio
+
+So not that many video will actually work.
+
+Thumbnails are JPEGs with filenames corresponding to video and with .THM extension instead of .JPG (e.g. output.mp4 - output.thm), dimensions 160x120.
 
 #### Encoding video
+If you want to encode a video to AVI format with PPSSPP playback, use this ffmpeg command line:
+
+Encoding example by mavemvl with thumbnail:
+
+```ffmpeg -i input.mp4 -c:v mjpeg -c:a pcm_s16le -s 480x272 output.avi -vf "thumbnail,scale=160:120" -c:v mjpeg -frames:v 1 -f image2 output.thm```
+
+Without:
+
+```ffmpeg -i input.mp4 -c:v mjpeg -c:a pcm_s16le -s 480x272 output.avi```
+
+
 
 If you want to encode video for playback in PPSSPP and on the PSP, use these ffmpeg command lines.
+
 
 Encoding example by Ahayri:
 
@@ -77,4 +95,9 @@ With thumb:
 
 Tweaked by mavemvl, also generates a thumbnail:
 
-```ffmpeg -i a538c7824a94b9a64ec0dc85086614c6.mp4 -c:v libx264 -profile:v main -level 3.0 -pix_fmt yuv420p -x264-params "ref=3:bframes=1:b-pyramid=none" -vf "scale=480:272" -movflags +faststart -f psp output.mp4 -vf "thumbnail,scale=160:120" -frames:v 1 -f image2 -c:v mjpeg output.thm```
+```ffmpeg -i input.mp4 -c:v libx264 -profile:v main -level 3.0 -pix_fmt yuv420p -x264-params "ref=3:bframes=1:b-pyramid=none" -vf "scale=480:272" -movflags +faststart -f psp output.mp4 -vf "thumbnail,scale=160:120" -frames:v 1 -f image2 -c:v mjpeg output.thm```
+## Themes
+You can customize your VSH with custom themes made by community.
+Simply put them in `/PSP/THEME/` and select them in the **Theme Settings** in the VSH.
+<div class="alert alert-warning">If you are running devbuild earlier than 4555, you <b>NEED</b> to create (yes, just to create) a folder <code>flash1/vsh/theme</code> in your firmware folder.</div>
+The only supported format is PTF because CTF requires custom firmware to work and PPSSPP doesnt support that yet.
