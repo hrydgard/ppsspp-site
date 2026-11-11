@@ -39,7 +39,6 @@ Additional reports:
 
 - Traxxpad
 
-
 Homebrew apps, possibly good for testing microphone functionality:
 
 - [Audio Mechanica Kai](https://www.gamebrew.org/wiki/Audio_Mechanica_kai_PSP) ([video](https://www.youtube.com/watch?v=cvHWNBR9vNo))
@@ -57,12 +56,27 @@ Needs the PSP-290 GPS USB attachment.
 - MapThis! (homebrew)
 - Maplus Portable GPS
 
-## OS features
-
 ### Multiple modules
 
 - Actually, (almost) every game that uses scePsmf since that's now loaded as a real module
 - Splinter Cell
+
+### Installed data
+
+Some games lets you install data to memory stick to bypass the very slow read speed of UMD discs.
+
+- Metal Gear Solid: Peace Walker — Required for full voice acting and codec audio during radio calls.
+- Kingdom Hearts: Birth by Sleep — Uses a large data install (approx. 600 MB) to reduce load times.
+- Monster Hunter Freedom Unite — Allows data installation to significantly cut down frequent hunting area loading screens.
+- Dissidia: Final Fantasy & Dissidia 012 [duodecim] Final Fantasy — Lets you choose different install sizes (e.g., 243 MB up to 814 -B) to speed up battle transitions.
+- Persona 3 Portable — Offers optional data installation for smoother room-to-room navigation and battle loading.
+- Final Fantasy Type-0 — Requires data installation across its multi-disc/large package structure (up to ~865 MB–1.2 GB per part).
+- Crisis Core: Final Fantasy VII — Features a heavy data install option (around 1.5 GB).
+- Phantasy Star Portable — Supports optional memory stick data caching to speed up hub and field loading.
+- The 3rd Birthday — Utilizes an install of roughly 214 MB.
+- Final Fantasy IV: The Complete Collection — Uses a 317 MB data install.
+- Mana Khemia: Student Alliance — One of the early adoptors of the partial data install feature on PSP.
+- Gran Turismo (GTPSP) — Includes an optional install option to improve asset streaming from the disc.
 
 ## Audio features
 
