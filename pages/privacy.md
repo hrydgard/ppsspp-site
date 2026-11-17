@@ -1,5 +1,6 @@
 ---
-title: Privacy policy - PPSSPP
+title: Privacy policy
+description: What data PPSSPP and ppsspp.org collect, including analytics, ads, logins and purchases.
 ---
 
 <!-- markdownlint-disable MD024 -->
@@ -36,16 +37,43 @@ anonymously only when manually enabled, and no personal data is ever collected o
 
 ### Information collection and use
 
-#### Cookies
+#### Analytics
 
-Cookies are used only to manage logins.
+The site uses Google Analytics to count visits and see which pages are used, so the site can be
+improved. Google Analytics sets cookies and receives information such as your IP address, browser
+and the pages you visit.
 
-#### Purchase Data
+#### Advertising
 
-PPSSPP Gold for Windows/macOS can be purchased here. All purchase data is handled by Fastspring.com.
-Username and e-mail are stored too, for the purposes of allowing logins and download of new
+The site shows ads from Google AdSense, which helps pay for PPSSPP's development. Google and its
+partners use cookies and similar technologies to show ads, to measure them, and, depending on your
+choices, to personalize them based on your visits to this and other websites. Where the law
+requires it (for example in the EEA, the UK and Switzerland), you'll be asked for consent first.
+
+- [How Google uses information from sites that use its services](https://policies.google.com/technologies/partner-sites)
+- [Google ad settings](https://adssettings.google.com/), where you can turn off personalized ads
+- [www.aboutads.info](https://www.aboutads.info/choices/), to opt out of personalized ads from other vendors
+
+Logged-in PPSSPP Gold users don't see ads on the site.
+
+#### Local storage
+
+The site stores a few things in your browser's local storage: your login state (user name, e-mail
+and whether you have PPSSPP Gold), so you stay logged in between pages, and your choice of light or
+dark theme. A cookie is used to manage your login session. None of this is shared with anyone.
+
+#### Purchase data
+
+PPSSPP Gold for Windows/macOS can be purchased here. All payment data is handled by
+[FastSpring](https://fastspring.com/privacy/), and we never see your card details.
+Your user name and e-mail are stored too, for the purposes of allowing logins and download of new
 versions of PPSSPP Gold in the future. Your e-mail address is kept private and will never be
 exposed in any way or used for any kind of marketing.
+
+#### Hosting
+
+The site is served through Cloudflare, and like most web servers, ours keeps standard access logs
+(including IP addresses) for operating and securing the site.
 
 ### Security
 
