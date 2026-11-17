@@ -1,7 +1,7 @@
-{{>common_header this title="How to get games" description="How to get games"}}
+{{>common_header this title="How to get games on iOS" description="How to get PSP games into PPSSPP on iPhone and iPad: upload ISO files over Wi-Fi, or copy them from a Mac or PC."}}
 
 <div class="container">
-    <h1>How to get games for PPSSPP</h1>
+    <h1>How to get games for PPSSPP on iOS</h1>
 
     <h2>What are they?</h2>
 
@@ -13,10 +13,19 @@
         <a href="/docs/getting-started/dumping-games">instructions on dumping games</a>.
     </p>
     <p>PSP games that have been downloaded from PSN onto a real PSP can be copied off the PSP and played directly.</p>
+    <p>There are also free <a href="/gethomebrew">demos and homebrew games</a> you can download.</p>
 
-    <h2>How do I get them on my device?</h2>
+    <h2>How do I get them on my iPhone or iPad?</h2>
 
-    <h3>Mac instructions</h3>
+    <h3>Over Wi-Fi (easiest, no computer needed)</h3>
+    <p>From PPSSPP 1.20, you can upload games from any computer, tablet or phone on the same Wi-Fi network:</p>
+    <ol>
+        <li>On the <b class="inapp">Games</b> tab, go to the folder where you want to put your games.</li>
+        <li>Click the Upload icon (a folder with an up arrow).</li>
+        <li>Open the address PPSSPP shows in a web browser on the other device, and upload your ISO files there.</li>
+    </ol>
+
+    <h3>From a Mac, over USB</h3>
     <ol>
         <li>Connect your iOS device (iPhone or iPad) via USB to your Mac.</li>
         <li>On your Mac, open the device in Finder. Click the <b class="inapp">Files</b> tab, then you should see PPSSPP listed.</li>
@@ -25,7 +34,13 @@
 
     <p>After this, the ISO files will be located on the virtual "Memory Stick". Just pick them from the
         <b class="inapp">Games</b> tab (click the Home icon if you can't find the files).</p>
-    <p>That's it!</p>
+    <h3>From a Windows PC, over USB</h3>
+    <p>Install Apple's <a href="https://apps.microsoft.com/detail/9np83lwlpz9k">Apple Devices app</a>,
+        connect your iPhone or iPad, and copy the ISO files into PPSSPP under <b class="inapp">Files</b>.</p>
+
+    <p><a href="/docs/getting-started/installing-games-android#ios">More details</a>.</p>
+
+    {{>unit}}
 </div>
 
 {{>common_footer this}}

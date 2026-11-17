@@ -1,4 +1,4 @@
-{{>common_header this title="How to get games" description="How to get games"}}
+{{>common_header this title="How to get games" description="How to get PSP games into PPSSPP: dump your own discs, then copy the ISO files to your device over Wi-Fi or USB."}}
 
 <div class="container">
     <h1>How to get games for PPSSPP</h1>
@@ -13,16 +13,26 @@
         <a href="/docs/getting-started/dumping-games">instructions on dumping games</a>.
     </p>
     <p>PSP games that have been downloaded from PSN onto a real PSP can be copied off the PSP and played directly.</p>
+    <p>There are also free <a href="/gethomebrew">demos and homebrew games</a> you can download.</p>
 
     <h2>How do I get them on my device?</h2>
+
+    <h3>Any device, over Wi-Fi (easiest)</h3>
+    <p>From PPSSPP 1.20, you can upload games from any computer or phone on the same Wi-Fi network:</p>
+    <ol>
+        <li>On the <b class="inapp">Games</b> tab, go to the folder where you want to put your games.</li>
+        <li>Click the Upload icon (a folder with an up arrow).</li>
+        <li>Open the address PPSSPP shows in a web browser on the other device, and upload your ISO files there.</li>
+    </ol>
 
     <h3>Windows/macOS</h3>
     <p>If you are running the Windows or macOS version of PPSSPP and you have the game you want to run as an ISO or CSO file,
         just do File-&gt;Load, or use the <b class="inapp">Games</b> tab to navigate to your game.
-        Clicking "<b class="inapp">..</b>" moves up a directory level.</p>
+        The Up Arrow icon moves up a directory level, and <b class="inapp">Browse...</b> opens your
+        system's file browser.</p>
 
-    <h3>Android</h3>
-    <p>If you want to play on your Android device (or other portable), then follow these steps:</p>
+    <h3>Android, over USB</h3>
+    <p>If you prefer a cable on Android (or another portable):</p>
     <ul>
         <li>Install PPSSPP on your device</li>
         <li>Connect the device to your PC where you are storing the ISO or CSO file. Android devices can be easily
@@ -34,8 +44,10 @@
         <li>The game should now start.</li>
     </ul>
 
-    <h3>iOS</h3>
-    <p>For iOS instructions and more details, <a href="/docs/getting-started/installing-games-android">click here</a>.</p>
+    <p><a href="/docs/getting-started/installing-games-android#android">More details for Android</a>.</p>
+
+    <h3>iPhone and iPad</h3>
+    <p>See the <a href="/getgames_ios">iOS instructions</a>.</p>
 
     {{>unit}}
 </div>
