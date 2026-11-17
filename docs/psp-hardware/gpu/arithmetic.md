@@ -67,7 +67,7 @@ x = i & 255         (position within the segment)
 q = (64 · B[s] + 63 + M[s] · x) >> 7      (1 / 1.i in units of 2^-16)
 ```
 
-B runs from 131072 (1.0) down to 65793 and M from -254 to -64. M is the chord slope rounded in 124 of the 128 segments, and B is within a couple of half-ulps of the exact value at the segment start. There's no simple generating rule, so it's a stored table (`geRecipSegments` in GEMath.cpp). It's also not the VFPU's `vrcp`, which interpolates quadratically (see the [VFPU blog post](/blog/vfpu-math-re)).
+B runs from 131072 (1.0) down to 65793 and M from -254 to -64. M is the chord slope rounded in 124 of the 128 segments, and B is within a couple of half-ulps of the exact value at the segment start. There's no simple generating rule, so it's a stored table (`geRecipSegments` in GEMath.cpp). It's also not the VFPU's `vrcp`, which interpolates quadratically (see the [VFPU blog post](/news/vfpu-math-re/)).
 
 The same R serves the perspective divide of X, Y and Z, perspective-correct texture coordinates, the near-plane clipper's interpolation factor, and point-light attenuation.
 

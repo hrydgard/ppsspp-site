@@ -4,6 +4,52 @@ use std::fs;
 use std::io::Write;
 use std::path::{Path, PathBuf};
 use serde_json::Value;
+use std::sync::LazyLock;
+
+pub const SITE_URL: &str = "https://www.ppsspp.org";
+
+// The canonical form of a site path: with a trailing slash, since every page is a folder
+// with an index.html and nginx 301-redirects the slashless form. "/index" is the front page.
+pub fn canonical_path(url: &str) -> String {
+    let url = url.trim_end_matches('/');
+    if url.is_empty() || url == "/index" {
+        "/".to_string()
+    } else {
+        format!("{url}/")
+    }
+}
+
+// Rewrites internal links like href="/download" or href="/news/foo#bar" to the slashed
+// form, to save visitors (and crawlers) a redirect. Leaves alone files, protocol-relative
+// and external URLs, and /api/.
+// "/static/x.mp4" and "/news/atom.xml" are files, "/news/release-1.20.4" is a page:
+// a file extension is short, alphanumeric, and contains a letter.
+fn is_file_path(path: &str) -> bool {
+    let last_segment = path.rsplit('/').next().unwrap_or_default();
+    match last_segment.rsplit_once('.') {
+        Some((_, ext)) => {
+            (1..=5).contains(&ext.len())
+                && ext.chars().all(|c| c.is_ascii_alphanumeric())
+                && ext.chars().any(|c| c.is_ascii_alphabetic())
+        }
+        None => false,
+    }
+}
+
+pub fn add_trailing_slashes(html: &str) -> String {
+    static HREF: LazyLock<regex::Regex> =
+        LazyLock::new(|| regex::Regex::new(r#"href="(/[^"?#]*)([?#][^"]*)?""#).unwrap());
+    HREF.replace_all(html, |caps: &regex::Captures<'_>| {
+        let path = &caps[1];
+        let rest = caps.get(2).map_or("", |m| m.as_str());
+        if path.ends_with('/') || path.starts_with("//") || path.starts_with("/api/") || is_file_path(path) {
+            caps[0].to_string()
+        } else {
+            format!("href=\"{path}/{rest}\"")
+        }
+    })
+    .into_owned()
+}
 
 pub fn strip_extension(str: OsString) -> String {
     let mut x = PathBuf::from(str);
@@ -90,8 +136,13 @@ pub fn write_file_as_folder_with_index(
 
     let _ = std::fs::create_dir_all(&extensionless);
     let file_path = extensionless.join("index.html");
-    let mut file = std::fs::File::create(file_path).context("create_file_as_dir")?;
-    file.write_all(contents.as_bytes())?;
+    write_html(&file_path, &contents)
+}
+
+// All generated HTML pages should be written through this.
+pub fn write_html(file_path: &Path, contents: &str) -> anyhow::Result<()> {
+    let mut file = std::fs::File::create(file_path).context("write_html")?;
+    file.write_all(add_trailing_slashes(contents).as_bytes())?;
     Ok(())
 }
 

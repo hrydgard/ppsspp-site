@@ -18,13 +18,33 @@ fn recurse_text_join(nodes: &[Node], str: &mut String) {
     }
 }
 
+// Cuts at a char boundary (byte slicing could panic on non-ASCII text).
 fn truncate_string(str: String, max_length: usize) -> String {
     if str.len() <= max_length {
         str
     } else {
+        let mut end = max_length;
+        while !str.is_char_boundary(end) {
+            end -= 1;
+        }
         // TODO: cut at whole words.
-        format!("{}...", &str[0..max_length])
+        format!("{}...", &str[0..end])
     }
+}
+
+// Collapses whitespace and cuts at a word boundary, for <meta name="description">.
+fn make_description(text: &str) -> String {
+    const MAX_DESCRIPTION_CHARS: usize = 155;
+    let text = text.split_whitespace().collect::<Vec<_>>().join(" ");
+    if text.chars().count() <= MAX_DESCRIPTION_CHARS {
+        return text;
+    }
+    let cut: String = text.chars().take(MAX_DESCRIPTION_CHARS).collect();
+    let cut = match cut.rfind(' ') {
+        Some(pos) if pos > MAX_DESCRIPTION_CHARS / 2 => &cut[..pos],
+        _ => cut.as_str(),
+    };
+    format!("{}…", cut.trim_end_matches(|c: char| c.is_ascii_punctuation() || c == ' '))
 }
 
 #[allow(clippy::single_match)]
@@ -51,6 +71,9 @@ fn markdown_summary_recurse(nodes: &[Node], meta: &mut DocumentMeta) -> anyhow::
                     let mut summary = String::new();
                     if let Some(children) = node.children() {
                         recurse_text_join(children, &mut summary);
+                    }
+                    if meta.description.is_none() && !summary.trim().is_empty() {
+                        meta.description = Some(make_description(&summary));
                     }
                     meta.summary = Some(truncate_string(summary, MAX_SUMMARY_CHARS));
                 }

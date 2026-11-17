@@ -21,6 +21,10 @@ pub struct DocumentMeta {
     pub title: String,
     #[serde(default)]
     pub summary: Option<String>,
+    // For <meta name="description">: `description:` in the front matter, else the start of
+    // the first paragraph (see post_process.rs).
+    #[serde(default)]
+    pub description: Option<String>,
     #[serde(default)]
     pub date: String,
     #[serde(default)]
@@ -105,6 +109,10 @@ pub struct PageContext<'a> {
     // In list view: true if only an excerpt of the post is shown.
     pub truncated: bool,
     pub pagination: Option<Pagination>,
+    // Absolute URL for <link rel="canonical"> and og:url. Filled in by render().
+    pub canonical_url: Option<String>,
+    // Open Graph type: "article" for news posts, else "website". Filled in by render().
+    pub og_type: &'static str,
 }
 
 static DEFAULT_DESCRIPTION: &str = "Play PSP games in HD on Android, iOS, Windows, macOS, and more with enhanced graphics and customizable controls! Free and open source. Download now!";
@@ -127,6 +135,8 @@ impl<'a> PageContext<'a> {
             is_list_view: false,
             truncated: false,
             pagination: None,
+            canonical_url: None,
+            og_type: "website",
         }
     }
     pub fn from_document(document: &Document, globals: &'a GlobalMeta) -> Self {
@@ -134,7 +144,13 @@ impl<'a> PageContext<'a> {
             title: Some(document.meta.title.clone()),
             contents: Some(document.html.clone()),
             toc: document.toc.clone(),
-            description: Some(DEFAULT_DESCRIPTION.to_string()),
+            description: Some(
+                document
+                    .meta
+                    .description
+                    .clone()
+                    .unwrap_or_else(|| DEFAULT_DESCRIPTION.to_string()),
+            ),
             sidebar: None,
             children: vec![],
             meta: Some(document.meta.clone()),
@@ -146,6 +162,8 @@ impl<'a> PageContext<'a> {
             is_list_view: false,
             truncated: false,
             pagination: None,
+            canonical_url: None,
+            og_type: "website",
         }
     }
     pub fn render(
@@ -167,6 +185,13 @@ impl<'a> PageContext<'a> {
 
     fn update_selected(&mut self) {
         if let Some(meta) = &self.meta {
+            if !meta.url.is_empty() {
+                self.canonical_url =
+                    Some(format!("{}{}", util::SITE_URL, util::canonical_path(&meta.url)));
+            }
+            if meta.url.starts_with("/news/") && !meta.date.is_empty() {
+                self.og_type = "article";
+            }
             let self_url = &meta.url;
             for link in &mut self.top_nav {
                 if self_url.starts_with(&link.url) {
@@ -233,6 +258,7 @@ impl Document {
                     match key {
                         "title" => meta.title = value,
                         "slug" => meta.slug = value,
+                        "description" => meta.description = Some(value),
                         "authors" => meta.author = value,
                         "tags" => meta.tags = split_bracketed_list(&value),
                         "position" => meta.position = str::parse(&value).unwrap_or_default(),

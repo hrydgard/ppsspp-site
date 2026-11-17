@@ -156,6 +156,15 @@ async fn fetch_adhoc_servers() -> anyhow::Result<String> {
 
 fn build(opt: &Args, adhoc_servers: &str) -> anyhow::Result<()> {
     let mut handlebars = handlebars::Handlebars::new();
+    // <title> suffix, skipped when the title already names the site ("PPSSPP 1.20 is out!").
+    handlebars::handlebars_helper!(page_title: |title: str| {
+        if title.contains("PPSSPP") {
+            title.to_string()
+        } else {
+            format!("{title} – PPSSPP")
+        }
+    });
+    handlebars.register_helper("page_title", Box::new(page_title));
 
     let adhoc_servers_table = util::table_from_adhoc_servers(adhoc_servers)?;
      // Register templates.
@@ -175,6 +184,7 @@ fn build(opt: &Args, adhoc_servers: &str) -> anyhow::Result<()> {
         "feed_rss",
         "feed_atom",
         "sitemap_xml",
+        "software_ld",
     ];
     for tmpl in templates {
         handlebars.register_template_file(tmpl, &format!("template/{tmpl}.hbs")).context("register_template")?;
@@ -285,10 +295,25 @@ fn build(opt: &Args, adhoc_servers: &str) -> anyhow::Result<()> {
 
     let pages = gen_pages::generate_pages(&config, "pages", &mut handlebars)?;
 
+    // Pages that shouldn't be in search results.
+    const NOT_IN_SITEMAP: &[&str] = &[
+        "/notfound",
+        "/thankyou",
+        "/login",
+        "/changepassword",
+        "/recoverpassword",
+    ];
     let mut sitemap = gen_sitemap::SitemapGenerator::new();
-    sitemap.add(&docs, 0.8);
-    sitemap.add(&news, 0.9);
-    sitemap.add(&pages, 1.0);
+    sitemap.add(
+        &pages
+            .into_iter()
+            .filter(|p| !NOT_IN_SITEMAP.contains(&p.meta.url.as_str()))
+            .collect::<Vec<_>>(),
+    );
+    sitemap.add_url("/news", "");
+    sitemap.add_url("/news/archive", "");
+    sitemap.add(&news);
+    sitemap.add(&docs);
     sitemap.generate(&config, &mut handlebars)?;
 
     Ok(())

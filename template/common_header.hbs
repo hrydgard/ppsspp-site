@@ -3,12 +3,31 @@
 <html lang="en" data-theme="dark">
 
 <head>
-    <title>{{title}} &ndash; PPSSPP</title>
-
     <meta charset="UTF-8">
+    {{!-- Apply the saved theme before anything renders, to avoid a dark flash for light-theme users.
+         main.js (switchTheme) writes it. --}}
+    <script>try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) { }</script>
+
+    {{!-- page_title (src/main.rs) appends " – PPSSPP" unless the title already has it. --}}
+    <title>{{page_title title}}</title>
+
     <meta name="description" content="{{description}}">
     <meta name="keywords" content="PSP, emulator">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{#if noIndex}}
+    <meta name="robots" content="noindex">
+    {{else if canonical_url}}
+    <link rel="canonical" href="{{canonical_url}}">
+    {{/if}}
+
+    <meta property="og:site_name" content="PPSSPP">
+    <meta property="og:title" content="{{title}}">
+    <meta property="og:description" content="{{description}}">
+    <meta property="og:type" content="{{og_type}}">
+    {{#unless noIndex}}{{#if canonical_url}}<meta property="og:url" content="{{canonical_url}}">{{/if}}{{/unless}}
+    {{!-- TODO: a 1200x630 share image, then switch twitter:card to summary_large_image. --}}
+    <meta property="og:image" content="https://www.ppsspp.org/icon-512.png">
+    <meta name="twitter:card" content="summary">
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PEQLDV0155"></script>
     <script>

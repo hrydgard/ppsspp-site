@@ -12,6 +12,7 @@ use serde::Serialize;
 struct Item {
     title: String,
     link: String,
+    guid: String,
     pubDate: String,
     category: String,
     description: String,
@@ -81,7 +82,10 @@ pub fn write_feed(
                 .iter()
                 .map(|x| Item {
                     title: x.meta.title.clone(),
-                    link: format!("{base_path}/{}", x.meta.slug),
+                    link: format!("{base_path}/{}/", x.meta.slug),
+                    // Unchanged from before links got a trailing slash, so feed readers
+                    // don't see every post as new.
+                    guid: format!("{base_path}/{}", x.meta.slug),
                     description: x
                         .meta
                         .summary

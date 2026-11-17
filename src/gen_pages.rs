@@ -1,7 +1,5 @@
 use crate::document::{Document, PageContext};
 use crate::{config::*, util};
-use anyhow::Context;
-use std::io::Write;
 use std::path::PathBuf;
 
 pub fn generate_pages(
@@ -16,6 +14,7 @@ pub fn generate_pages(
     // pages are generated directly into the root.
     let out_root_folder = &config.out_dir;
 
+    let mut documents = vec![];
     let listing = root_folder.read_dir()?;
     for entry in listing {
         let entry = entry?;
@@ -26,7 +25,7 @@ pub fn generate_pages(
             continue;
         };
         let name = util::strip_extension(entry.file_name());
-        let (document, apply_doc_template) = match os_str.to_str().unwrap() {
+        let (mut document, apply_doc_template) = match os_str.to_str().unwrap() {
             "md" => {
                 file_name.set_extension("html");
                 (Document::from_md(&path, config)?, true)
@@ -50,31 +49,28 @@ pub fn generate_pages(
 
         let target_path = out_root_folder.join(file_name);
         let fname = util::filename_to_string(&entry.file_name());
+        document.meta.url = format!("/{name}");
 
         let html = if apply_doc_template {
             let mut context = PageContext::from_document(&document, &config.global_meta);
             context.globals = Some(&config.global_meta);
-            if let Some(ref mut meta) = &mut context.meta {
-                meta.url = format!(
-                    "/{}",
-                    fname.as_str().strip_suffix(".hbs").unwrap_or_default()
-                );
-            }
             context.render("page", handlebars)?
         } else {
-            document.html
+            std::mem::take(&mut document.html)
         };
 
         if fname == "index.hbs" {
             println!("index.html special case");
             // Just write it plain.
-            let mut file = std::fs::File::create(&target_path).context("create_file_as_dir")?;
-            file.write_all(html.as_bytes())?;
+            util::write_html(&target_path, &html)?;
         } else {
             // Otherwise, get rid of the extension by putting it in a subdirectory.
             util::write_file_as_folder_with_index(&target_path, html, true)?;
         }
+        documents.push(document);
     }
     println!("Wrote pages from '{}'", folder);
-    Ok(vec![])
+    // Deterministic order (read_dir isn't), for the sitemap.
+    documents.sort_by(|a, b| a.meta.url.cmp(&b.meta.url));
+    Ok(documents)
 }

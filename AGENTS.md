@@ -43,8 +43,17 @@ Notes for AI agents (and humans) working on the ppsspp.org site. Keep this updat
 
 - Root-level files (`robots.txt`, `ads.txt`) live in `static/` and are copied to the build root in `src/main.rs`. Some root paths on www are served by nginx from `/srv/www/ppsspp.org/pub` instead of `build` (`/favicon.ico`, `/files/`, `/help/`, `/.well-known/`, …, and `/ads.txt` until that nginx rule is removed), so check the server config before assuming a file in `build/` is live.
 - Ads: AdSense (`template/unit.hbs`, script loaded in `common_header.hbs`, skipped for Gold users via the `ppsspp-auth` localStorage cache). Google Analytics is the gtag snippet at the top of `common_header.hbs`.
-- `feed.rs` hardcodes `https://www.ppsspp.org/{folder}` in feed links.
-- `gen_sitemap.rs` collects entries but actually writing `sitemap.xml` is commented out.
+- `feed.rs` hardcodes `https://www.ppsspp.org/{folder}` in feed links. Item links have a trailing slash, but the Atom `<id>`/RSS `<guid>` deliberately don't (that's how they were before; changing them makes readers re-show every post).
+
+## URLs and SEO
+
+- Canonical URLs end in a slash (every page is `foo/index.html`; nginx 301s `/foo` to `/foo/`). Internally `meta.url` stays slashless (`/news/foo`, `/index` for the front page); `util::canonical_path` converts.
+- Every HTML page is written through `util::write_html`, which rewrites internal `href="/foo"` to `href="/foo/"` (`add_trailing_slashes`). So templates and Markdown can link either way. Files (extension containing a letter, e.g. `.mp4`, `.xml`; not `release-1.20.4`) and `/api/` are left alone. Links built in JS (`main.js`) and the search index URLs (`index.json`) are not rewritten.
+- `PageContext.render()` fills `canonical_url` and `og_type` (`article` for dated `/news/` posts). `common_header.hbs` emits canonical, Open Graph and Twitter tags; `noIndex="true"` (used by notfound) emits `robots noindex` instead of canonical.
+- `<title>` uses the `page_title` helper (registered in `main.rs` `build()`), which appends " – PPSSPP" unless the title already contains "PPSSPP".
+- `<meta name="description">`: `description:` front matter, else the first paragraph of the Markdown cut to ~155 chars (`post_process::make_description`), else `DEFAULT_DESCRIPTION`. `.hbs` pages pass `description=` to `common_header`.
+- `sitemap.xml` is written by `gen_sitemap.rs`: pages (minus `NOT_IN_SITEMAP` in `main.rs`), news listing/archive, posts, docs. `static/robots.txt` points to it.
+- `template/software_ld.hbs`: SoftwareApplication JSON-LD on the front and download pages.
 - `main.rs` top-of-file checklist tracks planned work ("Merge the two blogs", "Blog feed pagination", …).
 - No headless browser is installed locally, so visual checks have to be done by the user.
 
