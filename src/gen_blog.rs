@@ -107,6 +107,9 @@ pub fn generate_blog(
         assert!(!doc.meta.slug.is_empty());
         doc.meta.url = format!("/{folder}/{}", &doc.meta.slug);
         doc.path = out_root_folder.join(&doc.meta.slug);
+        if doc.meta.image.is_none() {
+            doc.meta.image = first_share_image(&doc.html);
+        }
 
         for tag in &doc.meta.tags {
             tag_lookup
@@ -308,6 +311,9 @@ fn generate_listing(
             PageContext::new(Some(page_title), Some(post_html), &config.global_meta);
         context.sidebar = Some(sidebar.clone());
         context.tags = all_tags;
+        // Later listing pages only repeat posts (and shift whenever one is added), so keep
+        // them out of search results. Links on them are still followed.
+        context.no_index = page > 1;
         context.meta = Some(DocumentMeta {
             url: page_url(base_url, page),
             section: folder.to_string(),

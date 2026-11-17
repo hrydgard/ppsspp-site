@@ -25,6 +25,10 @@ pub struct DocumentMeta {
     // the first paragraph (see post_process.rs).
     #[serde(default)]
     pub description: Option<String>,
+    // Link preview image (og:image): `image:` in the front matter, else for news posts the first
+    // PNG/JPG/WebP/GIF in the content (social sites don't show SVGs). Default: the site banner.
+    #[serde(default)]
+    pub image: Option<String>,
     #[serde(default)]
     pub date: String,
     #[serde(default)]
@@ -113,6 +117,12 @@ pub struct PageContext<'a> {
     pub canonical_url: Option<String>,
     // Open Graph type: "article" for news posts, else "website". Filled in by render().
     pub og_type: &'static str,
+    // <meta name="robots" content="noindex"> instead of a canonical link. Pages from .hbs
+    // set it with noIndex="true" on common_header instead.
+    #[serde(rename = "noIndex")]
+    pub no_index: bool,
+    // Absolute URL of a page-specific og:image. None means the default share image.
+    pub share_image: Option<String>,
 }
 
 static DEFAULT_DESCRIPTION: &str = "Play PSP games in HD on Android, iOS, Windows, macOS, and more with enhanced graphics and customizable controls! Free and open source. Download now!";
@@ -137,10 +147,20 @@ impl<'a> PageContext<'a> {
             pagination: None,
             canonical_url: None,
             og_type: "website",
+            no_index: false,
+            share_image: None,
         }
     }
     pub fn from_document(document: &Document, globals: &'a GlobalMeta) -> Self {
+        let share_image = document.meta.image.as_ref().map(|image| {
+            if image.starts_with('/') {
+                format!("{}{image}", util::SITE_URL)
+            } else {
+                image.clone()
+            }
+        });
         Self {
+            share_image,
             title: Some(document.meta.title.clone()),
             contents: Some(document.html.clone()),
             toc: document.toc.clone(),
@@ -164,6 +184,7 @@ impl<'a> PageContext<'a> {
             pagination: None,
             canonical_url: None,
             og_type: "website",
+            no_index: false,
         }
     }
     pub fn render(
@@ -200,6 +221,17 @@ impl<'a> PageContext<'a> {
             }
         }
     }
+}
+
+// The first local raster image in a page's content, skipping UI icons. Used as og:image for
+// news posts (gen_blog.rs). Not for docs, whose images are mostly tall phone screenshots.
+pub fn first_share_image(html: &str) -> Option<String> {
+    static IMG: std::sync::LazyLock<regex::Regex> = std::sync::LazyLock::new(|| {
+        regex::Regex::new(r#"<img[^>]+src="(/static/img/[^"]+\.(?:png|jpe?g|webp|gif))""#).unwrap()
+    });
+    IMG.captures_iter(html)
+        .map(|c| c[1].to_string())
+        .find(|src| !src.starts_with("/static/img/icons/") && !src.starts_with("/static/img/platform/"))
 }
 
 fn postprocess_html(md: String) -> String {
@@ -259,6 +291,7 @@ impl Document {
                         "title" => meta.title = value,
                         "slug" => meta.slug = value,
                         "description" => meta.description = Some(value),
+                        "image" => meta.image = Some(value),
                         "authors" => meta.author = value,
                         "tags" => meta.tags = split_bracketed_list(&value),
                         "position" => meta.position = str::parse(&value).unwrap_or_default(),

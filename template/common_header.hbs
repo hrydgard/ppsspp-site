@@ -28,11 +28,16 @@
     <meta property="og:description" content="{{description}}">
     <meta property="og:type" content="{{og_type}}">
     {{#unless noIndex}}{{#if canonical_url}}<meta property="og:url" content="{{canonical_url}}">{{/if}}{{/unless}}
-    {{!-- Link preview image (same as the GitHub repo's social preview). --}}
+    {{!-- Link preview image: the page's own (share_image, see DocumentMeta.image), else the default
+         banner (same as the GitHub repo's social preview). --}}
+    {{#if share_image}}
+    <meta property="og:image" content="{{share_image}}">
+    {{else}}
     <meta property="og:image" content="https://www.ppsspp.org/static/img/share.png">
     <meta property="og:image:width" content="1280">
     <meta property="og:image:height" content="640">
     <meta property="og:image:alt" content="PPSSPP - a PSP emulator - www.ppsspp.org">
+    {{/if}}
     <meta name="twitter:card" content="summary_large_image">
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PEQLDV0155"></script>

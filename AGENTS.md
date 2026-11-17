@@ -55,6 +55,10 @@ Notes for AI agents (and humans) working on the ppsspp.org site. Keep this updat
 - `<meta name="description">`: `description:` front matter, else the first paragraph of the Markdown cut to ~155 chars (`post_process::make_description`), else `DEFAULT_DESCRIPTION`. `.hbs` pages pass `description=` to `common_header`.
 - `sitemap.xml` is written by `gen_sitemap.rs`: pages (minus `NOT_IN_SITEMAP` in `main.rs`), news listing/archive, posts, docs. `static/robots.txt` points to it.
 - `template/software_ld.hbs`: SoftwareApplication JSON-LD on the front and download pages.
+- Link previews: `og:image` is `static/img/share.png` (1280x640, same as the GitHub repo's social preview) with `twitter:card=summary_large_image`. A post or doc can set `image: /static/img/...` in its front matter. News posts without one use their first PNG/JPG/WebP/GIF (`first_share_image`); docs don't, since their images are mostly tall phone screenshots.
+- News listing pages after the first (`/news/page/N`, `/news/tags/x/page/N`) are `noindex` (`PageContext.no_index`).
+- Markdown links must be absolute (`/docs/...`), external, `mailto:` or `#anchor`. The build fails on relative links (`post_process::preprocess_markdown`), since pages are folders and relative links resolve under them.
+- Search Console traffic is seasonal: it peaks in summer and falls through autumn. Compare year over year before reading anything into a decline.
 
 ## Static assets and caching
 

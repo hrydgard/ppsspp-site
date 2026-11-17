@@ -134,7 +134,7 @@ const tmplUserInfo = `
 {{@if (it.goldUser)}}
 <p class="center-vertical">Gold status!<img src="/static/img/platform/ppsspp-icon-gold.png" alt="" aria-hidden="true" width="24" height="24" class="icon sp-left"></p>
 {{/if}}
-<p><a href="/changepassword">Change password</a></p>
+<p><a href="/changepassword/">Change password</a></p>
 </div>
 `;
 
@@ -920,7 +920,7 @@ const tmplBuildbotStatus = `
 {{#else}}
 <p>Unknown</p>
 {{/if}}
-{{@if(it.historyText)}}<p>{{it.historyText}} Downloads are on the <a href="/devbuilds">development builds</a> page.</p>{{/if}}
+{{@if(it.historyText)}}<p>{{it.historyText}} Downloads are on the <a href="/devbuilds/">development builds</a> page.</p>{{/if}}
 </div>
 </div>
 `;
@@ -1110,7 +1110,7 @@ function onFSPopupClosed(orderReference) {
         console.log("Order completed - redirecting!");
         console.log(orderReference.reference);
         fastspring.builder.reset();
-        var url = "/thankyou?orderId=" + orderReference.reference;
+        var url = "/thankyou/?orderId=" + orderReference.reference;
         try { window.location.replace(url); }
         catch (e) { window.location = url; }
     } else {
