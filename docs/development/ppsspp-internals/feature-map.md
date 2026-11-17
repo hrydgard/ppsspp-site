@@ -216,3 +216,27 @@ This is used by the following games:
 As far as I know, no other games use a "malformed" mip chain like this.
 
 In Tactics Ogre it's to fit a lot of characters in a single font texture (for no good reason, really). In this case, every two successive mipmaps points to the same texture page, for a total of four. Not sure why it's done this way.
+
+## sceUtility dialogs
+
+### sceUtilityScreenshot
+
+* NARUTO SHIPPUDEN: Ultimate Ninja Impact
+* Shepherd's Crossing 2
+* 初音ミク -Project DIVA- extend
+* LocoRoco™ 2
+* Project Diva
+* Kenka Bancho: Badass Rumble
+* Petz® Dogz® Family
+* MotorStorm®: Arctic Edge
+* AMNESIA CROWD
+
+## Odd adhoc libraries
+
+`sceNetAdhocctlCreateEnterGameMode`
+
+* Def Jam® Fight For NY™: The Takeover
+* The King Of Fighters - The Orochi Saga
+* METAL SLUG Anthology
+* ボンバーマン　ポータブル
+* BOMBERMAN
