@@ -47,7 +47,7 @@ There may be others.
 ## Transferring files
 
 First, make sure you have your games as ISO (or CSO or CHD) files.
-See [How to get games](how-to-get-games) and [How to dump games](dumping-games).
+See [How to get games](/docs/getting-started/how-to-get-games) and [How to dump games](/docs/getting-started/dumping-games).
 
 Connect your device via USB to a Mac and use Finder to copy over games and savedata directly to the app.
 After this, they will be located on the virtual Memory Stick.

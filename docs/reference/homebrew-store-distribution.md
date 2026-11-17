@@ -8,7 +8,7 @@ This page was added at the request of Apple. To the Apple App Store reviewer, pl
 
 ## Homebrew
 
-Traditionally, homebrew apps (unofficial games and apps, created for game consoles by garage enthusiasts) are simply released for free with no distribution restrictions. Since source code is generally not released, and most PSP homebrew was released many years ago, all of it simply for free download, there are no explicit licenses. Homebrew software is distributed freely by many legit websites, such as [DCEmu](www.dcemu.co.uk), [Brewology](https://www.brewology.com/).
+Traditionally, homebrew apps (unofficial games and apps, created for game consoles by garage enthusiasts) are simply released for free with no distribution restrictions. Since source code is generally not released, and most PSP homebrew was released many years ago, all of it simply for free download, there are no explicit licenses. Homebrew software is distributed freely by many legit websites, such as [DCEmu](https://www.dcemu.co.uk/), [Brewology](https://www.brewology.com/).
 
 <a name="demoscenes"></a>
 

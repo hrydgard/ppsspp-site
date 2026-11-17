@@ -20,7 +20,7 @@ different table layouts and a different token grammar.
 - **VSH modules.** `paf.prx` and `pafmini.prx`, which matters because they are on the critical
   path for booting the real XMB.
 - **PSAR archives.** `Core/Util/PSARUnpack.cpp` sniffs for it, though across the 43 firmware
-  versions surveyed in [PsarFileFormat.md](PsarFileFormat.md) every archive entry turned out to
+  versions surveyed in [PsarFileFormat.md](https://github.com/hrydgard/ppsspp/blob/master/docs/PsarFileFormat.md) every archive entry turned out to
   be zlib. The KL4E in a firmware updater is a layer deeper, inside the PRXes it carries.
 - **As a service.** `sysmem.prx` exports the decompressor as `UtilsForKernel_6C6887EE`, so
   anything running on the PSP can call it:

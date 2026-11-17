@@ -9,7 +9,7 @@ Quick answers to questions that are frequently asked.
 
 You need to have your PSP games as .ISO or .CSO files. I do not have the right to distribute those with the app, so you'll have to provide them on your own.
 
-To convert your real PSP games for use with PPSSPP, see [this article](docs/getting-started/dumping-games).
+To convert your real PSP games for use with PPSSPP, see [this article](/docs/getting-started/dumping-games).
 
 ## PPSSPP is awesome! How do I donate to the project?
 

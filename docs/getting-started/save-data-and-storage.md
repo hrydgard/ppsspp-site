@@ -13,7 +13,7 @@ The real PSP stores savedata and downloaded game demos and similar on something 
 
 To simulate this storage, PPSSPP uses a regular folder on your file system.
 
-On Android, traditionally PPSSPP has simply used the root of what's called "External storage", the storage you can [access directly via USB](docs/getting-started/installing-games-android).
+On Android, traditionally PPSSPP has simply used the root of what's called "External storage", the storage you can [access directly via USB](/docs/getting-started/installing-games-android).
 
 In Android 11, 12 and later, PPSSPP (like other apps) is no longer able to just ask for wide permission to read/write to your device external storage.
 Instead, it has to ask for your permission to write to a folder on a per-folder basis.

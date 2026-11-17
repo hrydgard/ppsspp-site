@@ -18,7 +18,7 @@ Lets you temporarily switch the function of the analog stick and the d-pad. This
 
 ## RightAn.Left/Right/Up/Down
 
-These are controller bindings for the right analog stick. The PSP doesn't actually have one, but support for one can be added via [plugins](docs/reference/plugins). A few plugins are available currently.
+These are controller bindings for the right analog stick. The PSP doesn't actually have one, but support for one can be added via [plugins](/docs/reference/plugins). A few plugins are available currently.
 
 ## Hold
 

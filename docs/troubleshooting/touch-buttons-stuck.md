@@ -7,4 +7,4 @@ Turn everything like that off.
 Typical ones:
 
 * Three-finger Screenshot and similar
-* (If you find another one, [let me know!](hrydgard+ppsspp@gmail.com))
+* (If you find another one, [let me know!](mailto:hrydgard+ppsspp@gmail.com))

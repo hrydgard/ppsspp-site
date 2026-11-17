@@ -2,7 +2,7 @@
 
 ## Reasons to install
 
-There are many things you might want to do on a PSP that requires installing custom firmware, also known as CFW. For example, to [turn your UMD files into ISO files](docs/getting-started/dumping-games) that can be loaded in PPSSPP.
+There are many things you might want to do on a PSP that requires installing custom firmware, also known as CFW. For example, to [turn your UMD files into ISO files](/docs/getting-started/dumping-games) that can be loaded in PPSSPP.
 
 Custom firmware is also important when reverse-engineering the PSP in order to fix bugs and implement new features in PPSSPP. It lets you run psp-link, that lets you load homebrew apps over USB, which is useful for running hardware tests.
 

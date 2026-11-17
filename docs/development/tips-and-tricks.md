@@ -41,7 +41,7 @@ To automate this, use: `git config --global submodule.recurse true` before the b
 
 Tell your agent to read AGENTS.md.
 
-Note the [AI policy](docs/development/ai-policy) - if you make pull requests, you need to mention what AI you used, if any.
+Note the [AI policy](/docs/development/ai-policy) - if you make pull requests, you need to mention what AI you used, if any.
 
 ## Better ADB logs
 

@@ -107,6 +107,21 @@ pub fn preprocess_markdown(md: &str, doc_name: &str, config: &Config) -> anyhow:
         doc_name
     );
 
+    // Relative links break: every page is served as a folder (/docs/a/b/), so "c" or "docs/c"
+    // resolves to /docs/a/b/c. Links must be absolute (/docs/...), external, mailto: or #anchors.
+    let link_regex = regex::Regex::new(r"\]\(([^)\s]+)").unwrap();
+    for captures in link_regex.captures_iter(md) {
+        let target = &captures[1];
+        anyhow::ensure!(
+            ["/", "#", "http://", "https://", "mailto:"]
+                .iter()
+                .any(|prefix| target.starts_with(prefix)),
+            "Markdown {} has a relative link '{}', use an absolute path like /docs/... instead",
+            doc_name,
+            target
+        );
+    }
+
     // The optional "(" catches references that are already links, which are left alone.
     let issue_regex = regex::Regex::new(r"\[#(\d+)\](\()?").unwrap();
     Ok(issue_regex

@@ -4,7 +4,7 @@ position: 5
 # How to transfer PSP games to your mobile device
 
 First, make sure you have your games as ISO (or CSO or CHD) files.
-See [How to get games](how-to-get-games) and [How to dump games](dumping-games).
+See [How to get games](/docs/getting-started/how-to-get-games) and [How to dump games](/docs/getting-started/dumping-games).
 
 The following instructions apply identically for PPSSPP and PPSSPP Gold.
 
