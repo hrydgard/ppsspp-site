@@ -41,6 +41,8 @@ Notes for AI agents (and humans) working on the ppsspp.org site. Keep this updat
 
 ## Gotchas found so far
 
+- Root-level files (`robots.txt`, `ads.txt`) live in `static/` and are copied to the build root in `src/main.rs`. Some root paths on www are served by nginx from `/srv/www/ppsspp.org/pub` instead of `build` (`/favicon.ico`, `/files/`, `/help/`, `/.well-known/`, …, and `/ads.txt` until that nginx rule is removed), so check the server config before assuming a file in `build/` is live.
+- Ads: AdSense (`template/unit.hbs`, script loaded in `common_header.hbs`, skipped for Gold users via the `ppsspp-auth` localStorage cache). Google Analytics is the gtag snippet at the top of `common_header.hbs`.
 - `feed.rs` hardcodes `https://www.ppsspp.org/{folder}` in feed links.
 - `gen_sitemap.rs` collects entries but actually writing `sitemap.xml` is commented out.
 - `main.rs` top-of-file checklist tracks planned work ("Merge the two blogs", "Blog feed pagination", …).

@@ -1,10 +1,15 @@
-{{!-- adsbygoogle.js is linked in common_header. --}}
-<ins class="adsbygoogle"
-    style="display:block"
-    data-full-width-responsive="true"
-    data-ad-client="ca-pub-3281131109267988"
-    data-ad-slot="6642932432"
-    data-ad-format="auto"></ins>
-<script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+{{!-- adsbygoogle.js is loaded from common_header (skipped for Gold users and noAds pages).
+     The wrapper reserves space so the page doesn't jump when the ad loads (CLS),
+     and labels the ad so it can't be mistaken for site content like download buttons. --}}
+<aside class="ad-slot" aria-label="Advertisement">
+    <div class="ad-label">Advertisement</div>
+    <ins class="adsbygoogle"
+        style="display:block"
+        data-full-width-responsive="true"
+        data-ad-client="ca-pub-3281131109267988"
+        data-ad-slot="6642932432"
+        data-ad-format="auto"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</aside>

@@ -243,11 +243,14 @@ fn build(opt: &Args, adhoc_servers: &str) -> anyhow::Result<()> {
             .context("copy favicons")
     })?;
 
-    // Move the robots.txt.
-    std::fs::copy(
-        config.in_dir.join("static/robots.txt"),
-        config.out_dir.join("robots.txt"),
-    ).context("copy robots.txt")?;
+    // Files that must live at the site root.
+    for name in ["robots.txt", "ads.txt"] {
+        std::fs::copy(
+            config.in_dir.join("static").join(name),
+            config.out_dir.join(name),
+        )
+        .with_context(|| format!("copy {name}"))?;
+    }
 
     // Concat the CSS files.
     util::concat_files(

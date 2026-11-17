@@ -15,6 +15,27 @@
     display: none;
 }
 
+/* Ad slots (template/unit.hbs). min-height reserves room for a typical
+   responsive unit so content below doesn't jump when it fills. */
+.ad-slot {
+    margin: 2em 0;
+    min-height: 280px;
+}
+
+.ad-label {
+    font-size: 0.75em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.6;
+    margin-bottom: 0.25em;
+}
+
+/* Gold users, noAds pages, and units AdSense couldn't fill. */
+.no-ads .ad-slot,
+.ad-slot:has(ins.adsbygoogle[data-ad-status="unfilled"]) {
+    display: none;
+}
+
 /* Links and buttons */
 .button-block {
     display: block;

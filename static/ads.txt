@@ -1,0 +1,5 @@
+# Authorized sellers of ad space on ppsspp.org (https://iabtechlab.com/ads-txt/).
+# Deployed to the site root by the generator (src/main.rs).
+google.com, pub-3281131109267988, DIRECT, f08c47fec0942fa0
+# Unknown origin, carried over in the "Legacy" section of Publift's ads.txt (2020). Remove if not ours.
+google.com, pub-9633199213148546, DIRECT, f08c47fec0942fa0
