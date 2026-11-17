@@ -35,12 +35,12 @@ pub fn canonical_path(url: &str) -> String {
 // form, to save visitors (and crawlers) a redirect. Leaves alone files, protocol-relative
 // and external URLs, and /api/.
 // "/static/x.mp4" and "/news/atom.xml" are files, "/news/release-1.20.4" is a page:
-// a file extension is short, alphanumeric, and contains a letter.
+// a file extension is alphanumeric, contains a letter, and isn't too long ("webmanifest" is 11).
 fn is_file_path(path: &str) -> bool {
     let last_segment = path.rsplit('/').next().unwrap_or_default();
     match last_segment.rsplit_once('.') {
         Some((_, ext)) => {
-            (1..=5).contains(&ext.len())
+            (1..=12).contains(&ext.len())
                 && ext.chars().all(|c| c.is_ascii_alphanumeric())
                 && ext.chars().any(|c| c.is_ascii_alphabetic())
         }
@@ -240,4 +240,39 @@ pub fn json_to_markdown_table(
     }
 
     Ok(table)
+}
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn trailing_slashes() {
+        let cases = [
+            (r#"<a href="/download">"#, r#"<a href="/download/">"#),
+            (r#"<a href="/">"#, r#"<a href="/">"#),
+            (r#"<a href="/news/release-1.20">"#, r#"<a href="/news/release-1.20/">"#),
+            (r#"<a href="/news/release-1.20.4#x">"#, r#"<a href="/news/release-1.20.4/#x">"#),
+            (r#"<a href="/news/coming-soon-0.9-3">"#, r#"<a href="/news/coming-soon-0.9-3/">"#),
+            (r#"<a href="/login?Forward=download">"#, r#"<a href="/login/?Forward=download">"#),
+            (r#"<link rel="manifest" href="/manifest.webmanifest">"#, r#"<link rel="manifest" href="/manifest.webmanifest">"#),
+            (r#"<a href="/news/rss.xml">"#, r#"<a href="/news/rss.xml">"#),
+            (r#"<a href="/video/vshdemo.mp4">"#, r#"<a href="/video/vshdemo.mp4">"#),
+            (r#"<a href="/static/x/eu-short.at3">"#, r#"<a href="/static/x/eu-short.at3">"#),
+            (r#"<link href="/static/css/all.css?v=abc">"#, r#"<link href="/static/css/all.css?v=abc">"#),
+            (r#"<a href="/api/login">"#, r#"<a href="/api/login">"#),
+            (r#"<a href="//example.com/x">"#, r#"<a href="//example.com/x">"#),
+            (r#"<a href="https://example.com/x">"#, r#"<a href="https://example.com/x">"#),
+        ];
+        for (input, expected) in cases {
+            assert_eq!(add_trailing_slashes(input), expected, "input: {input}");
+        }
+    }
+
+    #[test]
+    fn canonical_paths() {
+        assert_eq!(canonical_path("/index"), "/");
+        assert_eq!(canonical_path("/"), "/");
+        assert_eq!(canonical_path("/news/foo"), "/news/foo/");
+        assert_eq!(canonical_path("/news/foo/"), "/news/foo/");
+    }
 }
