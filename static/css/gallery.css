@@ -1,135 +1,145 @@
-/* Slideshow container */
-.slideshow-container {
-    display: flex;
-    position: relative;
-    aspect-ratio: 1920 / 1088;
-}
+/* Screenshot gallery on the media page: a grid of thumbnails, and a full-screen viewer. */
 
-.slideshow-container img {
-    max-width: 100%;
-    max-height: 100%;
-}
-
-/* Hide the images by default */
-.slideshow-container .mySlides {
-    display: none;
-}
-
-.invisible-button {
-    background: none;
-    border: none;
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    list-style: none;
     padding: 0;
-    margin: 0;
-    cursor: pointer;
+    margin: 1rem 0 2rem;
 }
 
-/* Next & previous buttons */
-.slideshow-container .prev,
-.slideshow-container .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    margin-top: -22px;
-    padding: 16px;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.2s ease;
-    background: transparent;
+@media (min-width: 700px) {
+    .gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+}
+
+.gallery-grid a {
+    display: block;
+    overflow: hidden;
+    border-radius: var(--default-border-radius);
+    background-color: var(--background-surface-color);
+}
+
+.gallery-grid img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 480 / 272;
+    object-fit: cover;
+    transition: transform 0.2s ease;
+}
+
+.gallery-grid a:hover img,
+.gallery-grid a:focus-visible img {
+    transform: scale(1.05);
+}
+
+/* The viewer. Always dark, regardless of theme. */
+html.lightbox-open {
+    overflow: hidden;
+}
+
+.lightbox {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
     border: 0;
-    border-radius: 0 3px 3px 0;
+    background: rgba(0, 0, 0, 0.92);
+    color: #ddd;
+    overscroll-behavior: contain;
+}
+
+.lightbox::backdrop {
+    background: transparent;
+}
+
+.lightbox[open] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* All screenshots are close to the PSP's 480:272, so size the image box from that. That way the
+   thumbnail shown while the full image loads already has the final size. */
+.lightbox-img {
+    display: block;
+    width: min(100vw, calc((100dvh - 3.5rem) * 480 / 272));
+    height: auto;
+    aspect-ratio: 480 / 272;
+    object-fit: contain;
     user-select: none;
 }
 
-/* Position the "next button" to the right */
-.slideshow-container .next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-}
-
-/* On hover, add a black background color with a little bit see-through */
-.slideshow-container .prev:hover,
-.slideshow-container .next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
-/* Caption text */
-.slideshow-container .slide-text {
-    color: #f2f2f2;
-    background-color: rgba(0, 0, 0, 0.5);
-    font-size: 15px;
-    padding: 8px 12px;
-    position: absolute;
-    bottom: 16px;
-    width: 100%;
+.lightbox-caption {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    gap: 0 1em;
+    padding: 0.5rem 1rem 0;
+    min-height: 3rem;
     text-align: center;
 }
 
-/* Number text (1/3 etc) */
-.slideshow-container .slide-numbers {
-    color: #f2f2f2;
-    font-size: 12px;
-    padding: 8px 12px;
+.lightbox-title {
+    color: #fff;
+}
+
+.lightbox-author,
+.lightbox-count {
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+.lightbox-button {
     position: absolute;
-    bottom: 16px;
-    right: 0;
-}
-
-/* The quick navigation dots/bullets */
-.slideshow-quicknav {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    list-style: none;
+    width: 48px;
+    height: 48px;
     padding: 0;
-    margin-top: 20px;
-}
-
-.slideshow-dot {
-    height: 18px;
-    width: 18px;
-    margin: 0.5ch;
-    background-color: var(--dotnav-color);
-    border: none;
+    border: 0;
     border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.2s ease;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-size: 20px;
+    line-height: 48px;
+    text-align: center;
     cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
-.slideshow-dot:hover {
-    background-color: var(--button-background-color);
+.lightbox-button:hover,
+.lightbox-button:focus-visible {
+    background: rgba(255, 255, 255, 0.25);
 }
 
-.slideshow-dot.active {
-    background-color: var(--button-background-color-active);
-    transform: translateY(-2px);
+.lightbox-close {
+    top: 10px;
+    right: 10px;
 }
 
-@media (pointer: coarse) {
-    /* Extra size for touchscreen */
-    .slideshow-dot {
-        height: 24px;
-        width: 24px;
-        margin: 1ch;
-    }
+.lightbox-prev,
+.lightbox-next {
+    top: 50%;
+    margin-top: -24px;
 }
 
-/* Fading animation */
-.slideshow-container .fade {
-    animation-name: fade;
-    animation-duration: 1.5s;
+.lightbox-prev {
+    left: 10px;
 }
 
-@keyframes fade {
-    from {
-        opacity: .4
-    }
-
-    to {
-        opacity: 1
-    }
+.lightbox-next {
+    right: 10px;
 }

@@ -1,41 +1,19 @@
-{{>common_header this title="Media" description="Screenshots and videos"}}
+{{>common_header this title="Media" description="Screenshots and videos of PSP games running in PPSSPP"}}
 
 <div class="container">
     <section aria-labelledby="screenshots">
         <h1 id="screenshots">Screenshots</h1>
-        {{!-- Slideshow container --}}
-        <div class="slideshow-container">
-            {{!-- Full-width images with number and caption text --}}
-            {{#each page_data.screenshots}}
-            <div class="mySlides fade">
-                <button type="button" class="invisible-button" onclick="plusSlides(1)">
-                    <img src="/static/img/screenshots/{{filename}}" alt="screenshot of {{description}}"
-                            {{#if @first}} fetchpriority="high" {{else}} loading="lazy" {{/if}}>
-                </button>
-                <div class="slide-text">{{description}}</div>
-                {{!--<div class="slide-numbers">{{index}} / {{page_data.screenshots.length}}</div>--}}
-            </div>
+        <p>PSP games running in PPSSPP, captured by our users.</p>
+        {{!-- Without JS, the links just open the full-size image. With JS, they open the viewer below. --}}
+        <ul class="gallery-grid">
+            {{#each page_data.gallery}}
+            <li>
+                <a href="/static/img/gallery/full/{{name}}.webp" title="{{title}}" data-name="{{name}}" data-title="{{title}}" data-author="{{author}}">
+                    <img src="/static/img/gallery/thumb/{{name}}.webp" width="480" height="272" alt="{{title}}" loading="lazy" decoding="async">
+                </a>
+            </li>
             {{/each}}
-
-            {{!-- Next and previous buttons --}}
-            <button type="button" aria-label="Previous screenshot" class="prev" onclick="plusSlides(-1)">
-                <span aria-hidden="false">&#10094;</span>
-            </button>
-            <button type="button" aria-label="Next screenshot" class="next" onclick="plusSlides(1)">
-                <span aria-hidden="true">&#10095;</span>
-            </button>
-        </div>
-
-        {{!-- The quick navigation dots/circles --}}
-        <nav aria-label="Gallery pagination">
-            <ul class="slideshow-quicknav">
-                {{#each page_data.screenshots}}
-                <li>
-                    <button type="button" aria-label="Display screenshot {{index}}" class="slideshow-dot" onclick="currentSlide({{index}})"></button>
-                </li>
-                {{/each}}
-            </ul>
-        </nav>
+        </ul>
     </section>
 
     <section aria-labelledby="videos">
@@ -47,35 +25,147 @@
     </section>
 </div>
 
+<dialog class="lightbox" aria-label="Screenshot viewer">
+    <figure class="lightbox-figure">
+        <img class="lightbox-img" alt="">
+        <figcaption class="lightbox-caption">
+            <span class="lightbox-title"></span>
+            <span class="lightbox-author"></span>
+            <span class="lightbox-count"></span>
+        </figcaption>
+    </figure>
+    <button type="button" class="lightbox-button lightbox-close" aria-label="Close">&#10005;</button>
+    <button type="button" class="lightbox-button lightbox-prev" aria-label="Previous screenshot">&#10094;</button>
+    <button type="button" class="lightbox-button lightbox-next" aria-label="Next screenshot">&#10095;</button>
+</dialog>
+
 <script>
-    let slideIndex = 1;
-    showSlides(slideIndex);
+(function () {
+    const links = Array.from(document.querySelectorAll('.gallery-grid a'));
+    const dialog = document.querySelector('.lightbox');
+    const img = dialog.querySelector('.lightbox-img');
+    const titleEl = dialog.querySelector('.lightbox-title');
+    const authorEl = dialog.querySelector('.lightbox-author');
+    const countEl = dialog.querySelector('.lightbox-count');
+    let index = -1;
+    // Whether opening the viewer added a history entry, so that the back button closes it.
+    let pushed = false;
 
-    // Next/previous controls
-    function plusSlides(n) {
-        showSlides(slideIndex += n);
-    }
-
-    // Thumbnail image controls
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
-    }
-
-    function showSlides(n) {
-        let i;
-        let slides = document.getElementsByClassName("mySlides");
-        let dots = document.getElementsByClassName("slideshow-dot");
-        if (n > slides.length) { slideIndex = 1 }
-        if (n < 1) { slideIndex = slides.length }
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
+    function show(i) {
+        index = (i + links.length) % links.length;
+        const a = links[index];
+        // Show the (already loaded) thumbnail scaled up right away, then swap in the full image.
+        img.src = a.querySelector('img').src;
+        img.alt = a.dataset.title;
+        titleEl.textContent = a.dataset.title;
+        authorEl.textContent = 'Screenshot by ' + a.dataset.author;
+        countEl.textContent = (index + 1) + ' / ' + links.length;
+        const full = new Image();
+        const shown = index;
+        full.onload = () => { if (index === shown) img.src = a.href; };
+        full.src = a.href;
+        // Preload the neighbors.
+        for (const d of [1, -1]) {
+            new Image().src = links[(index + d + links.length) % links.length].href;
         }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].classList.remove("active");
-        }
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].classList.add("active");
     }
+
+    function open(i, push) {
+        show(i);
+        const hash = '#' + links[index].dataset.name;
+        if (!dialog.open) {
+            if (push) {
+                history.pushState({ lightbox: true }, '', hash);
+                pushed = true;
+            }
+            document.documentElement.classList.add('lightbox-open');
+            dialog.showModal();
+        } else {
+            history.replaceState(history.state, '', hash);
+        }
+    }
+
+    function hide() {
+        if (!dialog.open) return;
+        dialog.close();
+        document.documentElement.classList.remove('lightbox-open');
+        if (index >= 0) links[index].scrollIntoView({ block: 'nearest' });
+    }
+
+    function close() {
+        if (pushed) {
+            pushed = false;
+            history.back();  // popstate below hides the viewer.
+        } else {
+            history.replaceState(history.state, '', location.pathname + location.search);
+            hide();
+        }
+    }
+
+    function step(d) {
+        open(index + d, false);
+    }
+
+    links.forEach((a, i) => a.addEventListener('click', (e) => {
+        if (e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return;  // New tab etc.
+        e.preventDefault();
+        open(i, true);
+    }));
+
+    dialog.querySelector('.lightbox-close').addEventListener('click', close);
+    dialog.querySelector('.lightbox-prev').addEventListener('click', () => step(-1));
+    dialog.querySelector('.lightbox-next').addEventListener('click', () => step(1));
+
+    // Clicking anywhere except the image or a button closes.
+    dialog.addEventListener('click', (e) => {
+        if (e.target !== img && !e.target.closest('button')) close();
+    });
+
+    // Escape: go through close() so the history entry is removed too.
+    dialog.addEventListener('cancel', (e) => { e.preventDefault(); close(); });
+
+    dialog.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') { step(-1); e.preventDefault(); }
+        else if (e.key === 'ArrowRight') { step(1); e.preventDefault(); }
+    });
+
+    // Swipe left/right to change image, down to close.
+    let touchX = null, touchY = null;
+    dialog.addEventListener('touchstart', (e) => {
+        if (e.touches.length !== 1) { touchX = null; return; }
+        touchX = e.touches[0].clientX;
+        touchY = e.touches[0].clientY;
+    }, { passive: true });
+    dialog.addEventListener('touchend', (e) => {
+        if (touchX === null) return;
+        const dx = e.changedTouches[0].clientX - touchX;
+        const dy = e.changedTouches[0].clientY - touchY;
+        touchX = null;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) step(dx < 0 ? 1 : -1);
+        else if (dy > 80 && dy > Math.abs(dx)) close();
+    });
+
+    function fromHash() {
+        const name = decodeURIComponent(location.hash.slice(1));
+        return links.findIndex((a) => a.dataset.name === name);
+    }
+
+    window.addEventListener('popstate', () => {
+        const i = fromHash();
+        if (i >= 0) {
+            // Forward into a viewer entry.
+            pushed = true;
+            open(i, false);
+        } else {
+            pushed = false;
+            hide();
+        }
+    });
+
+    // Direct link to a screenshot (/media/#ULUS10466_00004_Ectoplasm).
+    const initial = fromHash();
+    if (initial >= 0) open(initial, false);
+})();
 </script>
 
 {{>common_footer this}}
