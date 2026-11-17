@@ -254,7 +254,7 @@ fn build(opt: &Args, adhoc_servers: &str) -> anyhow::Result<()> {
     })?;
 
     // Files that must live at the site root.
-    for name in ["robots.txt", "ads.txt"] {
+    for name in ["robots.txt", "ads.txt", "favicon.svg", "manifest.webmanifest"] {
         std::fs::copy(
             config.in_dir.join("static").join(name),
             config.out_dir.join(name),
@@ -282,6 +282,15 @@ fn build(opt: &Args, adhoc_servers: &str) -> anyhow::Result<()> {
         &config.out_dir.join("static/css/all.css"),
         !opt.minify,
     )?;
+
+    // Hash the output files (after minification), so the ?v= changes exactly when they do.
+    let out_static = config.out_dir.join("static");
+    config.global_meta.asset_v = config::AssetVersions {
+        all_css: util::file_version(&out_static.join("css/all.css"))?,
+        main_js: util::file_version(&out_static.join("script/main.js"))?,
+        squirrelly_js: util::file_version(&out_static.join("script/squirrelly.min.js"))?,
+        highlight_js: util::file_version(&out_static.join("script/highlight.min.js"))?,
+    };
 
     let docs = gen_doctree::generate_doctree(&config, "docs", &mut handlebars)?;
 

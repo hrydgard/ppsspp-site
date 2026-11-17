@@ -1129,12 +1129,13 @@ function onFSError(code, string) {
 
 // change the mode by adding the attribute 'data-theme' on the element <html>. It also creates a cookie to record the mode selected by the user.
 function switchTheme() {
-    if (document.documentElement.getAttribute('data-theme') === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'light');
-        localStorage.setItem("theme", "light");
-    } else {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem("theme", "dark");
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem("theme", theme);
+    // Browser UI color, matching the header (see common_header.hbs).
+    const themeColor = document.querySelector('meta[name=theme-color]');
+    if (themeColor) {
+        themeColor.content = theme === 'light' ? '#ffffff' : '#000000';
     }
 }
 

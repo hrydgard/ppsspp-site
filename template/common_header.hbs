@@ -4,9 +4,12 @@
 
 <head>
     <meta charset="UTF-8">
+    {{!-- Browser UI color = header color (--color-header-footer-background in vars.css). It follows the
+         site theme, not prefers-color-scheme, since the site is dark unless you pick light. --}}
+    <meta name="theme-color" content="#000000">
     {{!-- Apply the saved theme before anything renders, to avoid a dark flash for light-theme users.
-         main.js (switchTheme) writes it. --}}
-    <script>try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) { }</script>
+         main.js (switchTheme) writes it and keeps theme-color in sync. --}}
+    <script>try { var t = localStorage.getItem('theme'); if (t) { document.documentElement.dataset.theme = t; if (t === 'light') document.querySelector('meta[name=theme-color]').content = '#ffffff'; } } catch (e) { }</script>
 
     {{!-- page_title (src/main.rs) appends " – PPSSPP" unless the title already has it. --}}
     <title>{{page_title title}}</title>
@@ -37,19 +40,22 @@
         gtag('config', 'G-PEQLDV0155');
     </script>
 
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="icon" sizes="16x16 32x32" href="/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+    <link rel="manifest" href="/manifest.webmanifest">
 
-    <link rel="stylesheet" type="text/css" href="/static/css/all.css">
+
+    <link rel="stylesheet" type="text/css" href="/static/css/all.css?v={{globals.asset_v.all_css}}">
     <link rel="alternate" type="application/rss+xml" href="/news/rss.xml" title="PPSSPP RSS Feed">
     <link rel="alternate" type="application/atom+xml" href="/news/atom.xml" title="PPSSPP Atom Feed">
     {{#if pagination.newer_url}}<link rel="prev" href="{{pagination.newer_url}}">{{/if}}
     {{#if pagination.older_url}}<link rel="next" href="{{pagination.older_url}}">{{/if}}
 
-    <script src="/static/script/squirrelly.min.js" defer></script>
-    <script src="/static/script/main.js" defer></script>
+    <script src="/static/script/squirrelly.min.js?v={{globals.asset_v.squirrelly_js}}" defer></script>
+    <script src="/static/script/main.js?v={{globals.asset_v.main_js}}" defer></script>
 
     {{#unless noAds}}
     {{!-- No ads for Gold users. Login state is cached in localStorage by main.js
@@ -92,7 +98,7 @@
     {{/if}}
 
     {{#if contains_code}}
-    <script src="/static/script/highlight.min.js" defer></script>
+    <script src="/static/script/highlight.min.js?v={{globals.asset_v.highlight_js}}" defer></script>
     {{/if}}
 </head>
 

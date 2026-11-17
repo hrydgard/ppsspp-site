@@ -6,6 +6,18 @@ use std::path::{Path, PathBuf};
 use serde_json::Value;
 use std::sync::LazyLock;
 
+// Short content hash of a file, for ?v= cache busting. FNV-1a, so it's stable across
+// Rust versions and builds (std's DefaultHasher isn't guaranteed to be).
+pub fn file_version(path: &Path) -> anyhow::Result<String> {
+    let bytes = fs::read(path).with_context(|| format!("file_version {}", path.display()))?;
+    let mut hash: u64 = 0xcbf29ce484222325;
+    for b in bytes {
+        hash ^= b as u64;
+        hash = hash.wrapping_mul(0x100000001b3);
+    }
+    Ok(format!("{hash:016x}")[..10].to_string())
+}
+
 pub const SITE_URL: &str = "https://www.ppsspp.org";
 
 // The canonical form of a site path: with a trailing slash, since every page is a folder

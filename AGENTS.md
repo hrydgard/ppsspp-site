@@ -54,6 +54,12 @@ Notes for AI agents (and humans) working on the ppsspp.org site. Keep this updat
 - `<meta name="description">`: `description:` front matter, else the first paragraph of the Markdown cut to ~155 chars (`post_process::make_description`), else `DEFAULT_DESCRIPTION`. `.hbs` pages pass `description=` to `common_header`.
 - `sitemap.xml` is written by `gen_sitemap.rs`: pages (minus `NOT_IN_SITEMAP` in `main.rs`), news listing/archive, posts, docs. `static/robots.txt` points to it.
 - `template/software_ld.hbs`: SoftwareApplication JSON-LD on the front and download pages.
+
+## Static assets and caching
+
+- CSS/JS references carry a content hash: `/static/css/all.css?v={{globals.asset_v.all_css}}` (`AssetVersions` in `config.rs`, computed in `main.rs` from the *output* files with FNV-1a, `util::file_version`). nginx serves `?v=` requests as `immutable` for a year, and others for 1 h, so a new `<script>`/`<link>` to a file under `/static/` should get a `?v=` too (add a field to `AssetVersions`). Query strings rather than hashed file names because `deploy.sh` deletes old files while cached HTML may still reference them.
+- `static/favicon.svg` (cleaned up from the 2020 Inkscape icon) and `static/manifest.webmanifest` are copied to the root with robots.txt/ads.txt. The manifest uses `display: browser` on purpose: no "install as app" prompt, the real app is native.
+- `theme-color` follows the site theme (dark unless the visitor picked light), not `prefers-color-scheme`. Set in the inline script at the top of `common_header.hbs` and in `switchTheme()` in `main.js`.
 - `main.rs` top-of-file checklist tracks planned work ("Merge the two blogs", "Blog feed pagination", …).
 - No headless browser is installed locally, so visual checks have to be done by the user.
 

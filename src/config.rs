@@ -119,6 +119,16 @@ pub struct PageData {
     pub screenshots: Vec<Screenshot>,
 }
 
+// Content hashes of the CSS/JS files the templates reference, used as /static/...?v=<hash>.
+// nginx caches ?v= requests as immutable, so every reference must carry the current hash.
+#[derive(Debug, Serialize, Default)]
+pub struct AssetVersions {
+    pub all_css: String,
+    pub main_js: String,
+    pub squirrelly_js: String,
+    pub highlight_js: String,
+}
+
 // This contains a bunch of stuff that various pages want to reference.
 // It's passed to every template render, so keep it small - put big things in PageData.
 #[derive(Debug, Serialize, Default)]
@@ -130,6 +140,8 @@ pub struct GlobalMeta {
     pub latest_news: Vec<DocLink>,
     pub replacements: BTreeMap<String, String>,
     pub build_year: i32,
+    // Content hashes of CSS/JS, for ?v= cache busting. Filled in by main.rs build().
+    pub asset_v: AssetVersions,
     #[serde(skip)]
     pub page_data: PageData,
 }
@@ -226,6 +238,7 @@ impl GlobalMeta {
                 screenshots,
             },
             latest_news: vec![],
+            asset_v: AssetVersions::default(),
             build_year,
             replacements
         })
