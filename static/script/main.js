@@ -558,7 +558,6 @@ async function handleUpdateUserName(event) {
 }
 
 function processLoginData(loginData) {
-    console.log(loginData);
     const userData = {
         'loggedIn': true,
         'goldUser': loginData.goldUser,
@@ -567,9 +566,6 @@ function processLoginData(loginData) {
         'email': loginData.email,
         'loginType': loginData.loginType,
     };
-
-    console.log("Setting user data: ");
-    console.log(userData);
 
     g_userData = userData;
 
@@ -601,7 +597,6 @@ async function handleLoginForm(event) {
         'password': password,
         'key': "",
     };
-    console.log(credentials);
     const loginData = await jsonFetch("login", credentials);
     if (loginData) {
         console.log("[auth] Login succeeded");
@@ -724,7 +719,7 @@ function loadCredentials() {
         const userDataFromCookie = JSON.parse(cookie);
         if (userDataFromCookie) {
             g_userData = userDataFromCookie;
-            console.log("[auth] Loaded cached session for user " + g_userData.email + " (loggedIn=" + g_userData.loggedIn + ")");
+            console.log("[auth] Loaded cached session (loggedIn=" + g_userData.loggedIn + ")");
         }
     } else {
         console.log("[auth] No cached credentials, not logged in");
@@ -771,10 +766,27 @@ function translateForward(forward, reason) {
             forward = "download";
             break;
     }
+    if (forward && !isSameSitePath(forward)) {
+        console.log("Ignoring off-site forward, reason = " + reason);
+        forward = null;
+    }
     if (forward) {
         console.log("query forward after translation: " + forward + " reason = " + reason);
     }
     return forward;
+}
+
+// Forward values are paths without the leading slash, used as "/" + forward.
+// Reject anything that would leave the site (open redirect), like "/evil.example" -> "//evil.example".
+function isSameSitePath(forward) {
+    if (/^[\\/]/.test(forward) || forward.includes("//") || forward.includes(":")) {
+        return false;
+    }
+    try {
+        return new URL("/" + forward, location.origin).origin === location.origin;
+    } catch (e) {
+        return false;
+    }
 }
 
 // Fastspring thankyou globals.
