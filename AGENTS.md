@@ -10,6 +10,7 @@ Notes for AI agents (and humans) working on the ppsspp.org site. Keep this updat
 - `build/` is not cleaned by `cargo run`, so stale output from removed/renamed posts (and `page/N` folders past the current last page) stays around locally. `deploy.sh` does `rm -rf build` first, then rsyncs with `--delete-after` to `/srv/www/ppsspp.org/{dev,prod}`.
 - The backend (`/api`, accounts, purchases) is closed source. Client-side login state lives in `static/script/account.js`.
 - `drafts/` is never published.
+- Line endings: `.gitattributes` has `* text=auto eol=lf`, so text files are LF in the repo and in every checkout (normalized 2026-11-18).
 - The app links to some pages directly (`UI/MainScreen.cpp` in the ppsspp repo): `/getgames`, `/getgames_ios`, `/gethomebrew(_ios)`, `/buygold(_ios)`, `/download`, `/privacy`, and `/getgames.html` from the disc-swap screen. `getgames` and `getgames_ios` are the most common landing pages. Don't rename them, and keep them short and current.
 
 ## Content layout
