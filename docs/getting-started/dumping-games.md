@@ -21,6 +21,10 @@ To read a game disc into an ISO is called "dumping" for historical reasons - it'
    To copy the game to your PC, simply drag this file to somewhere on your hard drive and the copy will start.
 1. When the copy is done, rename the file to the name of the game, and it's ready for use.
 
+## Getting the game on your device
+
+If you're playing on a mobile device, the easiest way is the new Upload button, which is available from 1.20. Click it, and it will tell you a URL to go to on another device on the same network. From that device you can then upload games to the device.
+
 ## Compressed ISO formats
 
 PPSSPP can play files directly from these formats without decompressing them first, which makes them much more practical than keeping your ISO files inside ZIP or RAR archives.

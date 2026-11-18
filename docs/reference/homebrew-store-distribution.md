@@ -20,7 +20,7 @@ For some background on the demoscene, [read up here](https://en.wikipedia.org/wi
 
 ## List of entries
 
-List currently incomplete.
+(List currently incomplete).
 
 <a name="cavestory"></a>
 
