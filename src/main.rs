@@ -311,6 +311,7 @@ fn build(opt: &Args, adhoc_servers: &str) -> anyhow::Result<()> {
         "/login",
         "/changepassword",
         "/recoverpassword",
+        "/stats",
     ];
     let mut sitemap = gen_sitemap::SitemapGenerator::new();
     sitemap.add(

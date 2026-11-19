@@ -140,6 +140,8 @@ const tmplUserInfo = `
 
 // Not really secret panel, even if you know what this can do you can't do anything :P
 const tmplAdminPanel = `
+<div class="col-12"><p><a href="/stats/">Stats</a></p></div>
+
 <div class="col-6">
 
 <div class="card">
@@ -1071,6 +1073,9 @@ function onLoadPage() {
         console.log("Buildbot page detected")
         window.setTimeout(loadDownloads, 1);
     }
+    if (g_adminDataPage) {
+        window.setTimeout(loadAdminData, 1);
+    }
     if (g_downloadPage) {
         console.log("Download page detected")
         if (g_userData.loggedIn) {
@@ -1101,6 +1106,61 @@ function burgerClick() {
     var contentDiv = document.getElementById('rootSidebar');
     contentDiv.classList.toggle('hidden');
     console.log("clicked the burger");
+}
+
+// Admin data page (/stats). Renders whatever tables the server returns, generically:
+// {generated, tables: [{title, note, columns, rows}]}. Text only (no HTML from the server).
+async function loadAdminData() {
+    const target = document.getElementById("adminData");
+    if (!target || !g_userData.loggedIn) {
+        return;
+    }
+    if (!g_userData.admin) {
+        target.textContent = "Not available.";
+        return;
+    }
+    target.textContent = "Loading...";
+    const response = await fetch('/api/admindata', { method: 'POST' });
+    if (response.status != 200) {
+        target.textContent = "Not available (" + response.status + ").";
+        return;
+    }
+    const data = await response.json();
+    target.textContent = "";
+    for (const table of data.tables || []) {
+        const card = document.createElement("div");
+        card.className = "card";
+        const title = document.createElement("h2");
+        title.textContent = table.title;
+        card.appendChild(title);
+        if (table.note) {
+            const note = document.createElement("p");
+            note.textContent = table.note;
+            card.appendChild(note);
+        }
+        const tableElem = document.createElement("table");
+        tableElem.className = "nice-table";
+        const headRow = tableElem.createTHead().insertRow();
+        for (const column of table.columns || []) {
+            const th = document.createElement("th");
+            th.textContent = column;
+            headRow.appendChild(th);
+        }
+        const body = tableElem.createTBody();
+        for (const row of table.rows || []) {
+            const tr = body.insertRow();
+            for (const value of row) {
+                tr.insertCell().textContent = value;
+            }
+        }
+        card.appendChild(tableElem);
+        target.appendChild(card);
+    }
+    if (data.generated) {
+        const footer = document.createElement("p");
+        footer.textContent = "Generated " + data.generated;
+        target.appendChild(footer);
+    }
 }
 
 // Fastspring stuff

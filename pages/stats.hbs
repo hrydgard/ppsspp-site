@@ -1,0 +1,20 @@
+{{>common_header this title="Stats" description="Stats" noIndex="true" noAds="true"}}
+
+{{!-- Admin only. The tables come from /api/admindata and are rendered generically by
+     loadAdminData() in main.js, so what they contain is decided by the backend. --}}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Stats</h1>
+            <div id="adminData">
+                <p class="not-logged-in-only">Not logged in. <a href="/login">Login</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    g_adminDataPage = true;
+</script>
+
+{{>common_footer this}}
