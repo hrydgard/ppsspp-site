@@ -25,7 +25,7 @@ The Allegrex is a simple in-order CPU that issues at most one instruction per cy
 | using a loaded value in the next instruction | +2 |
 | a store right after a store, or a load right after a store | +about 2 |
 | dependent FPU or VFPU operation | 5, or 7 for `vdot` and the special functions |
-| moving a value between the GPRs, FPU and VFPU | 3 to 5 each way |
+| moving a value between the GPRs, FPU and VFPU | 3 to 8 each way |
 | integer divide | 19 to 35, in the background |
 | `div.s` / `sqrt.s` | ~30, blocking the FPU |
 | D-cache or I-cache miss | ~55 to 70 from RAM, ~40 from VRAM |

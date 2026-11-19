@@ -14,19 +14,27 @@ The latency here is how many cycles after a producer a consumer of its result ca
 | producer | consumer | latency |
 |---|---|---|
 | integer ALU op, including `clz`, `ext`, `ins`, `min`, `max`, `seb`, `wsbh`, `bitrev`, `movz` | anything, including a load or store address or a branch | 1 |
-| `lw`, `lh`, `lb`, `lbu` | integer use, load address | 3 |
+| `lw`, `lh`, `lb`, `lbu` | integer use, load address, branch compare | 3 |
+| `lw` | `sw` of the loaded value | 1 (a store takes its data late) |
 | `lwl` + `lwr` | integer use | 3 after the `lwr` |
 | `mult`, `multu` | `mflo`, `mfhi` | 3 |
+| `madd`, `msub` | `mflo`, `mfhi` | 3 |
 | `mflo` | integer use | 1 |
 | `lwc1` | FPU op, `mfc1` | 4 |
 | `mtc1` | FPU op | 4 |
 | `mfc1` | integer use | 3 |
 | FPU op (`add.s`, `mul.s`, `cvt.w.s`...) | FPU op, `mfc1`, `swc1`, `c.lt.s` | 5 |
 | `c.cond.s` | `bc1t`, `bc1f` | 1 |
-| `lv.s`, `lv.q` | VFPU op | 5 |
-| VFPU `vadd`, `vmul` and similar | VFPU op | 5 |
+| `lv.s`, `lv.q`, `mtv` | VFPU op | 5 |
+| `lv.s` | `mfv` | 3 |
+| VFPU `vadd`, `vmul` and similar | VFPU op, `vcmp`, `mfv`, `sv.q` | 5 |
 | `vmov` | VFPU op | 3 |
 | `vdot`, `vhdp`, `vrcp`, `vsin` and the other special functions | VFPU op | 7 |
+| `vmmul.q` | VFPU op | ~21 |
+| `vcmp` | `bvt`, `bvf` | ~9 |
+| `mfv` | integer use | ~8 (and `mfv` itself takes ~6 cycles) |
+
+A VFPU consumer placed directly after its producer gets the result about a cycle early (`vadd.s` then a dependent `vadd.s` costs 5 cycles for the pair, not 6), but with one to three instructions in between it waits for the full latency.
 
 **A taken branch's two lost cycles count towards a latency.** A load in a taken branch's delay slot whose value is used at the branch target doesn't stall at all, and an FPU operation there stalls 2 cycles less. Compilers put loads in delay slots often, so this matters for modelling real code.
 
@@ -56,7 +64,7 @@ All ALU operations, including the Allegrex additions (`ext`, `ins`, `min`, `max`
 |---|---|
 | `mult`, `multu` | issue every cycle; the product is ready 3 cycles later |
 | dependent `mult` → `mflo` → `mult` chain | 4 per multiply |
-| `madd`, `msub`, back to back | ~3.6 each |
+| `madd`, `msub`, back to back | ~3.6 each, also with up to 3 instructions between them |
 | `mtlo` + `mflo` | ~2.9 |
 | `div`, `divu`, large dividend (`0x7FFFFFF0 / 7`) | 35 |
 | `div`, `divu`, small dividend (`100 / 7`) | 19 |
@@ -71,7 +79,8 @@ All ALU operations, including the Allegrex additions (`ext`, `ins`, `min`, `max`
 - A load that hits the D-cache issues in one cycle. Its value is ready 3 cycles later.
 - **A store keeps the memory unit busy for about 3 cycles.** Back-to-back `sw`, `sb` or `swc1` cost about 2.9 cycles each. One ALU instruction between two stores still costs 2.9 for the pair, and two hide it completely.
 - **A load right after a store waits about 2 cycles**, whatever address it reads: the same word, the same line or somewhere else entirely.
-- `sv.s` costs about 6.9 and `sv.q` about 6.75 back to back. `lv.q` can issue every ~3.4 cycles.
+- `lv.s` and `lv.q` issue every cycle. `sv.s` costs about 6.9 and `sv.q` about 6.75 back to back.
+- `lvl.q` and `lvr.q` take a cycle each, so an unaligned `ulv.q` takes 2. `svl.q` + `svr.q` cost about 13.75, like two `sv.q`.
 - `swl` + `swr` cost 5.75 per pair, `ll` + `sc` 3.75.
 - A miss or an uncached access stalls the whole CPU at the load or store itself, whether its value is used or not. See [Memory](/docs/psp-hardware/cpu/memory).
 
@@ -102,15 +111,16 @@ The vector width (`.s`, `.p`, `.t`, `.q`) doesn't change any of these.
 | `vdiv.s` | ~17 | ~13 |
 | `vcrsp.t` | ~9 | ~3 |
 | `vqmul.q`, `vtfm4.q` | ~10 | ~4 |
-| `vmmul.q` | ~16 | ~15 |
+| `vmmul.q` | ~21 to use its result | ~15 |
 | `vmmov.q`, `vmscl.q` | ~4 | ~4 |
-| `lv.q` | 5 to a VFPU op | ~3.4 |
+| `lv.q` | 5 to a VFPU op | 1 |
 | `sv.q` | | ~6.75 |
 
 - **The special functions are fully pipelined.** A `vsin.s` or `vrsq.s` can start every cycle, like a `vadd`.
-- A prefix (`vpfxs`, `vpfxt` or `vpfxd`) costs one cycle of issue and adds no latency.
+- **Prefixes cost a cycle each.** `vpfxs`, `vpfxt` and `vpfxd` each take one cycle of issue and add no latency, so an operation with all three costs 4 cycles.
+- More issue costs: `vzero`, `vcst`, `vsrt1`, `vbfy1` and `vf2h` take 1 cycle, `vrot.q` ~1.9, `vfad.q` ~2.1, `vrndf1.s` ~2.5. `mfv` takes about 6, and an `mfvc` + `mtvc` pair about 9.
 - `vdiv.s` holds up the VFPU while it runs, the way `div.s` holds up the FPU. The two divides don't hold each other up, and an FPU divide doesn't stall VFPU work.
-- `vcmp` + `vcmovt`: ~5.4. `vcmp` + `bvt` + delay slot: 10.
+- `vcmp` + `vcmovt`: ~5.4. A `bvt` can issue only about 9 cycles after the `vcmp` it tests (six instructions in between still didn't hide it), so `vcmp` + `bvt` + delay slot costs 10.
 - Matrix operations cost about as much as the vector operations they're made of: `vmmul.q` is four `vtfm4.q`.
 
 ## Moving values between units
