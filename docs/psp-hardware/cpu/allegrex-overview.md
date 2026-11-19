@@ -16,4 +16,4 @@ It also has the VFPU, a very unusual vector processor. Unlike the VU units on th
 
 It does not have an MMU but still allows for limited memory protection, enough to separate the kernel and user memory space from each other. There's also some rather unusually explicit control of the cache, which is useful when interacting with the GPU - the GPU cannot read out of the CPU cache, so you must manually make sure that all data you feed it has been "written back" to RAM/VRAM.
 
-To be continued...
+For the caches' layout, what each cache operation does, and how long instructions and memory accesses take, see [CPU timing](/docs/psp-hardware/cpu/timing).
