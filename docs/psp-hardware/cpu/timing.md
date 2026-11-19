@@ -12,15 +12,17 @@ All the figures are CPU cycles at the default 222 MHz CPU / 111 MHz bus clock un
 The Allegrex issues one instruction per cycle, in order.
 
 - **Integer ALU operations** take one cycle, and their results can be used by the next instruction. That includes the Allegrex's own additions: `ext`, `ins`, `min`, `max`, `seb`, `seh`, `wsbh`, `wsbw`, `bitrev`, `clz`, `clo`, `rotr`, `movz` and `movn`.
-- **Taken branches cost 2 extra cycles**, forward or backward, branch-likely or not. Not-taken branches are free (an annulled branch-likely delay slot still costs its cycle). **There's no dynamic branch prediction**: a branch following a random direction pattern costs exactly the same as one following a regular pattern with the same number of taken branches. A `jal` to a function that immediately does `jr $ra` (four instructions with the delay slots) takes 6 cycles.
-- **Loads** have a latency of 3: an instruction that uses a loaded value right away stalls for 2 cycles. `lwl`+`lwr` take 4 to use. A store followed by a load from the same address takes 4.
-- **Stores** cost a cycle on their own, but back-to-back stores only go out about every 2.75 cycles.
-- **Multiply:** `mult` can start every cycle; `mflo`/`mfhi` gets the product 4 cycles after the `mult`. Chained `madd`/`msub` about 4 each.
-- **Divide:** `div`/`divu` take about 35 cycles with a large dividend and about 19 with a small one, so the time depends on the data. They run in the background: other integer work before the `mflo` is free.
+- **Taken branches cost 2 extra cycles**, forward or backward, branch-likely or not. Not-taken branches are free (an annulled branch-likely delay slot still costs its cycle). **There's no dynamic branch prediction**: a branch following a random direction pattern costs exactly the same as one following a regular pattern with the same number of taken branches.
+- **Jumps cost less than branches:** `j`, `jal`, `jr` and `jalr` cost 1 extra cycle. A call to a function that immediately returns takes 6 cycles, delay slots included. Where a branch lands within a cache line makes no difference.
+- **A taken branch's two lost cycles hide latency.** A load in the delay slot, used at the branch target, doesn't stall at all.
+- **Loads** have a latency of 3: an instruction that uses a loaded value right away stalls for 2 cycles, and two instructions in between hide it.
+- **Stores keep the memory unit busy for about 3 cycles.** Back-to-back stores go out about every 2.9 cycles, and a load right after a store waits about 2 cycles, whatever address it reads. Two other instructions between stores hide it.
+- **Multiply:** `mult` can start every cycle; `mflo`/`mfhi` can read the product 3 cycles later. Chained `madd`/`msub` about 4 each.
+- **Divide:** `div`/`divu` take about 35 cycles with a large dividend and about 19 with a small one, so the time depends on the data. They run in the background: other integer work before the `mflo` is free. A new `div` or `mult` cancels a divide that's still running.
 
 ### FPU
 
-`add.s`, `sub.s`, `mul.s`, `abs.s`, `neg.s`, `mov.s` and the conversions have a latency of 5 cycles and can start every cycle. `div.s` (about 31 cycles) and `sqrt.s` (about 29) aren't pipelined. Integer work overlaps them, but further FPU arithmetic waits until they're done. A compare followed by `bc1t`/`bc1f` costs nothing extra.
+`add.s`, `sub.s`, `mul.s`, `abs.s`, `neg.s`, `mov.s` and the conversions have a latency of 5 cycles and can start every cycle. `div.s` (about 31 cycles) and `sqrt.s` (about 29) aren't pipelined. Integer work overlaps them, but every further FPU instruction waits until they're done, whether it needs the result or not. A compare followed by `bc1t`/`bc1f` costs nothing extra. A value loaded with `lwc1` or moved in with `mtc1` can be used 4 cycles later, and an FPU result can be moved out with `mfc1` 6 cycles after the operation.
 
 ### VFPU
 
@@ -40,7 +42,7 @@ The vector width (`.s`, `.p`, `.t`, `.q`) doesn't change the timing.
 | `lv.q` | ~5 to use | ~3.5 |
 | `sv.q` | | ~7 |
 
-The special functions (`vsin`, `vrsq` and friends) are fully pipelined, just like additions. A prefix instruction (`vpfxs` and friends) costs one cycle of issue and adds no latency.
+The special functions (`vsin`, `vrsq` and friends) are fully pipelined, just like additions. A prefix instruction (`vpfxs` and friends) costs one cycle of issue and adds no latency. Values loaded with `lv.s`/`lv.q` can be used 5 cycles later. `vdiv.s` holds up the VFPU while it runs, but not the FPU, and an FPU divide doesn't hold up the VFPU.
 
 ### Moving values between units
 
@@ -78,10 +80,13 @@ The D-cache is **write-back and write-allocate**:
 | uncached store | ~6.4 | ~8.4 | ~8.3 |
 | running uncached code, per instruction | ~40 | ~32 | ~14.5 |
 
-- **Main RAM rewards locality**: cache misses on consecutive lines are cheaper than scattered ones.
+- **Main RAM has rows of about 1 KB.** Accesses that stay within 1 KB of the previous one are about 16 cycles cheaper than ones that jump further. VRAM has no such effect.
+- **There's no early restart.** A miss costs the same whichever word of the line is wanted, and another access to the same line right after the miss waits about 9 more cycles for the rest of it.
+- **Uncached accesses are one word at a time.** `lb`, `lh` and `lw` all cost the same, and an uncached `lv.q` costs four uncached loads.
 - **A dirty line that gets evicted** adds about 48 cycles.
 - **An I-cache miss** costs about 55 cycles, so straight-line code that misses on every line runs at about 4.5 cycles per instruction.
-- **Uncached stores go through a write buffer** that absorbs about four of them at full speed and drains at roughly 6.3 cycles per word to RAM. A load waits for the buffer to drain first, so each pending store adds about 6.3 cycles to a following uncached load.
+- **Uncached stores go through a write buffer** that absorbs about four of them at full speed and drains at roughly 6 cycles per word to RAM. It doesn't combine stores. A load waits for the buffer to drain first, so each pending store adds about 6 cycles to a following uncached load.
+- **Copying data that's in the cache** with `lv.q`/`sv.q` is twice as fast as with `lw`/`sw`: 64 bytes in about 30 cycles instead of 62.
 
 ### The scratchpad
 
@@ -99,6 +104,11 @@ The 16 KB scratchpad is simply a small block of faster memory on the bus, not a 
 | `0x1A` | D-cache hit writeback (the line stays) | 6, ~19 if dirty |
 | `0x1B` | D-cache hit writeback-invalidate | 6, ~19 if dirty |
 | `0x1E` | D-cache fill (prefetch). Stalls like a miss | ~60, ~8 if present |
+| `0x0B` / `0x1F` | I-cache / D-cache fill and lock: the line stays when the rest of its set is replaced | |
+| `0x1C` | D-cache create dirty exclusive and lock | |
+| `0x06` / `0x16` | I-cache / D-cache index unlock | |
+
+The index operation `0x14` cleans the least recently used line of the set, and a second one at the same index cleans the other. A locked D-cache line is still removed by `0x14`, `0x19` and `sceKernelDcacheWritebackInvalidateAll`.
 
 The kernel's maintenance functions cost:
 
@@ -158,6 +168,8 @@ From user mode:
 | switching to another thread and back through semaphores | ~6,300 |
 
 ## What it adds up to
+
+These figures predict compiled code well. A bitwise CRC32 over 4 KB, for example, comes to 77 cycles per byte by counting the instructions, taken branches and stalls above: 315,392 cycles. The PSP took 315,370.
 
 A tight loop that stays in the cache and rarely branches runs at close to one instruction per cycle. Typical game code doesn't. The cycles mostly go to:
 
