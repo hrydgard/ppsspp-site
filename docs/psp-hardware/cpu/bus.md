@@ -3,7 +3,7 @@ position: 6
 ---
 # DMA, the GE and the kernel
 
-The CPU shares main RAM and VRAM with the GE, the DMA controller and the Media Engine. When they're busy, the CPU's memory accesses get slower, and the CPU slows them down in return. This page covers how much, along with the cost of calling into the kernel.
+The CPU shares main RAM and VRAM with the GE, the DMA controller and the Media Engine. When they're busy, the CPU's memory accesses get slower, and the CPU slows them down in return. This page covers how much, along with the cost of interrupts and of calling into the kernel.
 
 ## DMA
 
@@ -66,6 +66,24 @@ While the GE draws, the CPU's accesses slow down (cycles, idle → GE busy):
 The GE is slowed down in turn: CPU traffic to VRAM makes fills take 2.1 to 2.7 times as long (and texturing from VRAM 2 to 2.4 times), and CPU traffic to RAM makes texturing from RAM take 1.4 to 2.2 times as long. CPU traffic to RAM doesn't slow down fills at all.
 
 So **RAM and the scratchpad are on one path and VRAM is on another**. Anything that reads main RAM heavily (the CPU missing in its cache, DMA, the GE fetching textures from RAM, the Media Engine decoding video) slows everything else that uses RAM. This is the likely cause of games whose video playback drops to 30 fps when the GE is busy: the decoder, the CPU and the GE all compete for RAM.
+
+## Interrupts
+
+Measured with a loop that reads the CPU's cycle counter every 24 cycles and records every gap, while handlers stamp the counter on entry and exit. So each figure here is accurate to within about 24 cycles. A PSP running PSPLink, at 222 MHz:
+
+| | cycles |
+|---|---|
+| interrupts on an idle system, nothing of our own registered | two per frame, ~10,000 each: 0.55% of the CPU's time |
+| a whole VBlank interrupt, with a minimal VBlank sub-interrupt handler of our own | ~12,500 (56 µs) |
+| from the VBlank interrupt to our sub-interrupt handler | ~4,600 (4,456 at least) |
+| from our VBlank handler's return to the interrupted code | ~7,600 |
+| a whole alarm (`sceKernelSetAlarm`) interrupt, minimal handler | ~1,500 (6.7 µs), ~3,400 the first time |
+| from the system timer interrupt to the alarm handler | ~770-930 |
+| from the alarm handler's return to the interrupted code | ~620 |
+
+- **The VBlank interrupt is expensive** because the kernel runs every registered sub-interrupt handler (the display and controller drivers among them), before and after ours. Anything that registers more, like a plugin, makes it longer.
+- **Interrupts leave the caches colder.** Each of the idle system's interrupts cost about 88 I-cache misses and 10 D-cache misses, about a third of its time. An alarm handler that runs often stays mostly in the cache: about 7 more I-cache misses each.
+- These are kernel paths, so they depend on the firmware version and what's loaded.
 
 ## Syscalls and threads
 

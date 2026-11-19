@@ -12,7 +12,7 @@ All figures are CPU cycles at the default 222 MHz CPU / 111 MHz bus clock unless
 | [Pipeline and instructions](/docs/psp-hardware/cpu/pipeline) | issue, branches, every latency between units, multiply and divide, the FPU and the VFPU |
 | [Caches](/docs/psp-hardware/cpu/caches) | geometry and policies, coherency with the GE and for new code, the `cache` instruction, line locking, the kernel's maintenance calls |
 | [Memory](/docs/psp-hardware/cpu/memory) | RAM, VRAM and the scratchpad: miss and uncached costs, DRAM rows, the write buffer, copying, clock speeds |
-| [DMA, the GE and the kernel](/docs/psp-hardware/cpu/bus) | DMA rates, how the GE and DMA slow the CPU down and the other way around, syscalls and thread switches |
+| [DMA, the GE and the kernel](/docs/psp-hardware/cpu/bus) | DMA rates, how the GE and DMA slow the CPU down and the other way around, interrupts, syscalls and thread switches |
 | [How it was measured](/docs/psp-hardware/cpu/measuring) | the CPU's hardware profiler, the test setup, and what to avoid |
 
 ## The short version
@@ -31,6 +31,7 @@ The Allegrex is a simple in-order CPU that issues at most one instruction per cy
 | D-cache or I-cache miss | ~55 to 70 from RAM, ~40 from VRAM |
 | uncached load | ~40 from RAM, ~34 from VRAM, ~13 from the scratchpad |
 | syscall | ~176 |
+| interrupt, from the interrupt to a handler and back | ~1,500 (an alarm) to ~12,500 (VBlank) |
 | switching threads | ~3,100 |
 
 There's no branch prediction, no out-of-order execution, and a cache miss stalls everything until the line has arrived. Memory costs go up, sometimes by a factor of two or three, while DMA or the GE is busy with the same memory.
@@ -61,4 +62,4 @@ Steps 1 to 3 account for most of the cycles in code that stays in the cache, and
 ## What isn't covered yet
 
 - How much the Media Engine slows the main CPU down while it decodes video or audio. It uses main RAM, so it's likely to behave like DMA, but it hasn't been measured.
-- How long the CPU takes to enter and leave an interrupt or exception.
+- The CPU's own exception entry, apart from the kernel's handling around it.
