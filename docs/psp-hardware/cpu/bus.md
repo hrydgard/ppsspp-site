@@ -81,7 +81,7 @@ Measured with a loop that reads the CPU's cycle counter every 24 cycles and reco
 | from the system timer interrupt to the alarm handler | ~770-930 |
 | from the alarm handler's return to the interrupted code | ~620 |
 
-- **The VBlank interrupt is expensive** because the kernel runs every registered sub-interrupt handler (the display and controller drivers among them), before and after ours. Anything that registers more, like a plugin, makes it longer.
+- **The VBlank interrupt is expensive** because the kernel runs every registered sub-interrupt handler, before and after ours. Anything that registers more, like a plugin, makes it longer.
 - **Interrupts leave the caches colder.** Each of the idle system's interrupts cost about 88 I-cache misses and 10 D-cache misses, about a third of its time. An alarm handler that runs often stays mostly in the cache: about 7 more I-cache misses each.
 - These are kernel paths, so they depend on the firmware version and what's loaded.
 
