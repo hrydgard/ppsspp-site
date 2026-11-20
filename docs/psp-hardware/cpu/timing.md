@@ -32,7 +32,7 @@ The Allegrex is a simple in-order CPU that issues at most one instruction per cy
 | uncached load | ~40 from RAM, ~34 from VRAM, ~13 from the scratchpad |
 | syscall | ~176 |
 | interrupt, from the interrupt to a handler and back | ~1,500 (an alarm) to ~13,000 (VBlank) |
-| switching threads | ~3,100 |
+| switching threads | ~2,900 |
 
 There's no branch prediction, no out-of-order execution, and a cache miss stalls everything until the line has arrived. Memory costs go up, sometimes by a factor of two or three, while DMA or the GE is busy with the same memory.
 

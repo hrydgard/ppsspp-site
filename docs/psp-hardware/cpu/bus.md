@@ -87,15 +87,15 @@ Measured with a loop that reads the CPU's cycle counter every 24 cycles and reco
 
 ## Syscalls and threads
 
-From user mode:
+From user mode, with no plugins loaded (with the JpcspTrace plugin, thread switches took about 8% longer):
 
 | | cycles |
 |---|---|
 | a simple syscall, like `sceKernelGetSystemTimeLow` or `sceKernelGetThreadId` | ~176 |
 | `sceKernelCpuSuspendIntr` + `sceKernelCpuResumeIntr` | ~34 |
-| `sceKernelRotateThreadReadyQueue` with no other thread ready | ~268 |
+| `sceKernelRotateThreadReadyQueue` with no other thread ready | ~264 |
 | `sceKernelDcacheWritebackRange` on one line | ~157 |
-| `sceKernelDelayThread(0)` | ~22,000 (~100 µs) |
-| switching to another thread and back through semaphores | ~6,300 (~3,100 per switch) |
+| `sceKernelDelayThread(0)` | ~20,700 (~93 µs) |
+| switching to another thread and back through semaphores | ~5,800 (~2,900 per switch) |
 
 `sceKernelCpuSuspendIntr` and `sceKernelCpuResumeIntr` cost far less than one syscall, so they can't be going through one. `sceKernelDelayThread(0)` doesn't return right away: it still takes about 100 µs.
