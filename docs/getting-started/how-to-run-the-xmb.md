@@ -39,7 +39,7 @@ If you want to use the XMB as a media player, you can, although it doesn't make 
 NOTE: Folders directly under the root is only possible on Android if your memstick directory is NOT named PSP.
 Otherwise the PSP directory is the PSP directory inside the memstick, so you can't place stuff outside (it's a bit complicated for legacy reasons).
 
-## Downloadable apps
+### Downloadable apps
 
 The app download mechanism isn't currently working, but you can for example install SensMe (obtained separately) to the memory stick the normal way (put its two files, EBOOT.PBP and SENSME.DAT in `PSP/APP/NPIA00013`), and it will launch, both from the XMB and from the Homebrew and Demos tab in PPSSPP.
 
@@ -50,10 +50,25 @@ Put your MP3 and other music files in any of these memstick locations:
 * `/PSP/MUSIC`
 * `/MUSIC`
 
+The supoorted formats are:
+
+* MP3 
+* MP4 (AAC)
+* WAVE (LPCM)
+* WMA (only when activated)
+
 ### Pictures
 
 * `/PICTURE`
 * `/PSP/PHOTO`
+
+Photos/pictures/images must be in 24-bit depth.
+The supported formats are:
+* JPEG (DCF 2.0 / Exif 2.21)
+* TIFF
+* GIF
+* PNG
+* BMP
 
 ### Video
 
@@ -70,7 +85,7 @@ So not that many video will actually work.
 Thumbnails are JPEGs with filenames corresponding to video and with .THM extension instead of .JPG (e.g. output.mp4 - output.thm), dimensions 160x120.
 
 #### Encoding video
-If you want to encode a video to AVI format with PPSSPP playback, use this ffmpeg command line:
+If you want to encode a video to **AVI** format with PPSSPP playback, use this ffmpeg command line:
 
 Encoding example by mavemvl with thumbnail:
 
@@ -82,7 +97,7 @@ Without:
 
 
 
-If you want to encode video for playback in PPSSPP and on the PSP, use these ffmpeg command lines.
+If you want to encode video to **AVC** for playback in PPSSPP and on the PSP, use these ffmpeg command lines.
 
 
 Encoding example by Ahayri:
@@ -95,9 +110,9 @@ With thumb:
 
 Tweaked by mavemvl, also generates a thumbnail:
 
-```ffmpeg -i input.mp4 -c:v libx264 -profile:v main -level 3.0 -pix_fmt yuv420p -x264-params "ref=3:bframes=1:b-pyramid=none" -vf "scale=480:272" -movflags +faststart -f psp output.mp4 -vf "thumbnail,scale=160:120" -frames:v 1 -f image2 -c:v mjpeg output.thm```
-## Themes
+```ffmpeg -i input.mp4 -c:v libx264 -profile:v main -level 3.0 -bf 1 -s 480x272 -movflags +faststart -f psp output.mp4 -vf "thumbnail,scale=160:120" -frames:v 1 -f image2 -c:v mjpeg output.thm```
+### Themes
 You can customize your VSH with custom themes made by community.
 Simply put them in `/PSP/THEME/` and select them in the **Theme Settings** in the VSH.
 <div class="alert alert-warning">If you are running devbuild earlier than 4555, you <b>NEED</b> to create (yes, just to create) a folder <code>flash1/vsh/theme</code> in your firmware folder.</div>
-The only supported format is PTF because CTF requires custom firmware to work and PPSSPP doesnt support that yet.
+Because of the latest addition of CFW, CTF files may work because of the CXMB plugin. We do not say that it will 100% run smoothly.
