@@ -10,6 +10,9 @@ fn recurse_text_join(nodes: &[Node], str: &mut String) {
             Node::Text(text) => {
                 *str += &text.value;
             }
+            Node::InlineCode(code) => {
+                *str += &code.value;
+            }
             _ => {}
         }
         if let Some(children) = node.children() {
@@ -33,7 +36,7 @@ fn truncate_string(str: String, max_length: usize) -> String {
 }
 
 // Collapses whitespace and cuts at a word boundary, for <meta name="description">.
-fn make_description(text: &str) -> String {
+pub fn make_description(text: &str) -> String {
     const MAX_DESCRIPTION_CHARS: usize = 155;
     let text = text.split_whitespace().collect::<Vec<_>>().join(" ");
     if text.chars().count() <= MAX_DESCRIPTION_CHARS {
@@ -68,14 +71,11 @@ fn markdown_summary_recurse(nodes: &[Node], meta: &mut DocumentMeta) -> anyhow::
             }
             Node::Paragraph(_) => {
                 if meta.summary.is_none() {
-                    let mut summary = String::new();
-                    if let Some(children) = node.children() {
-                        recurse_text_join(children, &mut summary);
+                    let summary = paragraph_text(node);
+                    // Skip paragraphs without text, like a lone image.
+                    if !summary.trim().is_empty() {
+                        meta.summary = Some(truncate_string(summary, MAX_SUMMARY_CHARS));
                     }
-                    if meta.description.is_none() && !summary.trim().is_empty() {
-                        meta.description = Some(make_description(&summary));
-                    }
-                    meta.summary = Some(truncate_string(summary, MAX_SUMMARY_CHARS));
                 }
             }
             _ => {
@@ -95,8 +95,51 @@ pub fn add_meta_from_markdown(
 ) -> anyhow::Result<()> {
     // If no dash-meta, grab the title string.
     let tree = markdown::to_mdast(markdown, &config.markdown_options.parse).unwrap();
-    markdown_summary_recurse(&[tree], meta)?;
+    markdown_summary_recurse(std::slice::from_ref(&tree), meta)?;
+    if meta.description.is_none() {
+        meta.description = description_from_paragraphs(&tree);
+    }
     Ok(())
+}
+
+fn paragraph_text(node: &Node) -> String {
+    let mut text = String::new();
+    if let Some(children) = node.children() {
+        recurse_text_join(children, &mut text);
+    }
+    text
+}
+
+// For <meta name="description"> without `description:` front matter: the text of the first
+// top-level paragraphs, enough of them to say something ("1.20.4 is out!" alone doesn't).
+// Paragraphs without text (a lone image) are skipped.
+fn description_from_paragraphs(tree: &Node) -> Option<String> {
+    const MIN_DESCRIPTION_CHARS: usize = 110;
+    const MAX_PARAGRAPHS: usize = 3;
+    let mut text = String::new();
+    let paragraphs = tree
+        .children()?
+        .iter()
+        .filter(|node| matches!(node, Node::Paragraph(_)))
+        .map(paragraph_text)
+        .filter(|t| !t.trim().is_empty())
+        .take(MAX_PARAGRAPHS);
+    for paragraph in paragraphs {
+        // A paragraph ending in ':' introduces a list or code block, which isn't included,
+        // so stop before it (unless it's the first).
+        let paragraph = paragraph.trim();
+        if !text.is_empty() {
+            if paragraph.ends_with(':') {
+                break;
+            }
+            text.push(' ');
+        }
+        text += paragraph;
+        if text.ends_with(':') || text.chars().count() >= MIN_DESCRIPTION_CHARS {
+            break;
+        }
+    }
+    (!text.is_empty()).then(|| make_description(&text))
 }
 
 // Markdown pre-processing. This is for linking GitHub issues.

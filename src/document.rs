@@ -565,6 +565,21 @@ impl Category {
         let path = folder.to_path_buf();
         meta.url = cleanup_path(&path).unwrap();
         meta.summary = Some(summary);
+        if meta.description.is_none() {
+            // No text in _category_.md (or no such file): list what's in the category.
+            let titles = sub_categories
+                .iter()
+                .map(|c| c.meta.title.as_str())
+                .chain(documents.iter().map(|d| d.meta.title.as_str()))
+                .collect::<Vec<_>>()
+                .join(", ");
+            let prefix = if meta.url == "/docs" {
+                "PPSSPP documentation".to_string()
+            } else {
+                format!("{} - PPSSPP documentation", meta.title)
+            };
+            meta.description = Some(post_process::make_description(&format!("{prefix}: {titles}.")));
+        }
 
         Ok(Self {
             meta,

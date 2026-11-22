@@ -200,6 +200,7 @@ pub fn generate_blog(
         title,
         title,
         &format!("/{folder}"),
+        "News, release notes and development articles from the PPSSPP team, newest first.",
         &out_root_folder,
         &tags,
         handlebars,
@@ -223,6 +224,7 @@ pub fn generate_blog(
             title,
             &format!("{title}: {}", tag.name),
             &format!("/{folder}/tags/{}", tag.name),
+            &tag_description(&tag.name),
             &out_root_folder.join("tags").join(&tag.name),
             &tags_with_selection,
             handlebars,
@@ -234,6 +236,15 @@ pub fn generate_blog(
     println!("Wrote blog '{}'", folder);
 
     Ok(documents)
+}
+
+fn tag_description(tag: &str) -> String {
+    match tag {
+        "releases" => "PPSSPP release announcements and changelogs, newest first.".to_string(),
+        "news" => "PPSSPP announcements: app store and platform news and project updates.".to_string(),
+        "blog" => "Articles about PPSSPP development and how the PSP hardware works.".to_string(),
+        _ => format!("PPSSPP posts tagged \"{tag}\", newest first."),
+    }
 }
 
 fn page_url(base_url: &str, page: usize) -> String {
@@ -278,6 +289,7 @@ fn generate_listing(
     title: &str,
     page_title: &str,
     base_url: &str,
+    description: &str,
     out_path: &Path,
     all_tags: &[Tag],
     handlebars: &mut handlebars::Handlebars<'_>,
@@ -310,6 +322,7 @@ fn generate_listing(
         let mut context =
             PageContext::new(Some(page_title), Some(post_html), &config.global_meta);
         context.sidebar = Some(sidebar.clone());
+        context.description = Some(description.to_string());
         context.tags = all_tags;
         // Later listing pages only repeat posts (and shift whenever one is added), so keep
         // them out of search results. Links on them are still followed.
@@ -387,6 +400,9 @@ fn generate_archive(
     let url = format!("/{folder}/archive");
     let mut context = PageContext::new(Some(archive_title), Some(contents), &config.global_meta);
     context.sidebar = Some(generate_blog_sidebar(title, &url, &format!("/{folder}"), posts, handlebars)?);
+    context.description = Some(
+        "Every PPSSPP news post, release announcement and development article, listed by year.".to_string(),
+    );
     context.meta = Some(DocumentMeta {
         url,
         section: folder.to_string(),
