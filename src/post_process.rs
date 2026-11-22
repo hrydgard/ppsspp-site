@@ -120,6 +120,13 @@ pub fn preprocess_markdown(md: &str, doc_name: &str, config: &Config) -> anyhow:
             doc_name,
             target
         );
+        // "/docs//x" is served as a duplicate page under another URL.
+        anyhow::ensure!(
+            !(target.starts_with('/') && target.contains("//")),
+            "Markdown {} has a link with a double slash: '{}'",
+            doc_name,
+            target
+        );
     }
 
     // The optional "(" catches references that are already links, which are left alone.

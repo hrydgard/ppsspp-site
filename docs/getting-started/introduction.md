@@ -75,7 +75,7 @@ This will not touch your save data.
 Similarly on Mac, just download the new version and install it on top of the old one.
 Your data will not be lost.
 
-See [Updating PPSSPP](/docs//reference/how-to-update) for a more detailed explanation.
+See [Updating PPSSPP](/docs/reference/how-to-update) for a more detailed explanation.
 
 ## Save data
 
