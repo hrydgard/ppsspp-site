@@ -276,3 +276,103 @@ mod tests {
         assert_eq!(canonical_path("/news/foo/"), "/news/foo/");
     }
 }
+
+// Width and height of a PNG, JPEG, GIF, WebP or SVG file, read from its header.
+pub fn image_size(path: &Path) -> Option<(u32, u32)> {
+    let data = std::fs::read(path).ok()?;
+    let be16 = |i: usize| Some(u16::from_be_bytes([*data.get(i)?, *data.get(i + 1)?]) as u32);
+    let le16 = |i: usize| Some(u16::from_le_bytes([*data.get(i)?, *data.get(i + 1)?]) as u32);
+    let le24 = |i: usize| Some(le16(i)? | (*data.get(i + 2)? as u32) << 16);
+    if data.starts_with(b"\x89PNG\r\n\x1a\n") {
+        let w = u32::from_be_bytes(data.get(16..20)?.try_into().ok()?);
+        let h = u32::from_be_bytes(data.get(20..24)?.try_into().ok()?);
+        return Some((w, h));
+    }
+    if data.starts_with(b"GIF8") {
+        return Some((le16(6)?, le16(8)?));
+    }
+    if data.starts_with(b"RIFF") && data.get(8..12)? == b"WEBP" {
+        return match data.get(12..16)? {
+            b"VP8 " => Some((le16(26)? & 0x3fff, le16(28)? & 0x3fff)),
+            b"VP8L" => {
+                let b = u32::from_le_bytes(data.get(21..25)?.try_into().ok()?);
+                Some(((b & 0x3fff) + 1, ((b >> 14) & 0x3fff) + 1))
+            }
+            b"VP8X" => Some((le24(24)? + 1, le24(27)? + 1)),
+            _ => None,
+        };
+    }
+    if data.starts_with(&[0xff, 0xd8]) {
+        // Walk the JPEG segments to the first start-of-frame.
+        let mut i = 2;
+        while i + 9 < data.len() {
+            if data[i] != 0xff {
+                return None;
+            }
+            let marker = data[i + 1];
+            if marker == 0xff {
+                i += 1;
+                continue;
+            }
+            let is_sof = (0xc0..=0xcf).contains(&marker) && ![0xc4, 0xc8, 0xcc].contains(&marker);
+            if is_sof {
+                return Some((be16(i + 7)?, be16(i + 5)?));
+            }
+            i += 2 + be16(i + 2)? as usize;
+        }
+        return None;
+    }
+    let text = std::str::from_utf8(&data).ok()?;
+    if text.contains("<svg") {
+        static SVG_TAG: LazyLock<regex::Regex> = LazyLock::new(|| regex::Regex::new(r"(?s)<svg\b[^>]*>").unwrap());
+        static NUM_ATTR: LazyLock<regex::Regex> =
+            LazyLock::new(|| regex::Regex::new(r#"\s(width|height|viewBox)="([^"]*)""#).unwrap());
+        let tag = SVG_TAG.find(text)?.as_str();
+        let (mut w, mut h, mut view_box) = (None, None, None);
+        for caps in NUM_ATTR.captures_iter(tag) {
+            let value = caps[2].trim();
+            let number = value.strip_suffix("px").unwrap_or(value).parse::<f64>().ok();
+            match &caps[1] {
+                "width" => w = number,
+                "height" => h = number,
+                _ => view_box = Some(value.to_string()),
+            }
+        }
+        if let (Some(w), Some(h)) = (w, h) {
+            return Some((w.round() as u32, h.round() as u32));
+        }
+        let parts = view_box?
+            .split(|c: char| c == ' ' || c == ',')
+            .filter(|s| !s.is_empty())
+            .map(|s| s.parse::<f64>().ok())
+            .collect::<Option<Vec<_>>>()?;
+        if parts.len() == 4 {
+            return Some((parts[2].round() as u32, parts[3].round() as u32));
+        }
+    }
+    None
+}
+
+// Adds width/height to local content images that have no size, class or style, so the browser
+// can reserve their space before they load (no layout shift). CSS (.doc-contents img) scales them
+// with max-width: 100%; height: auto, so they look the same.
+pub fn add_image_sizes(html: &str, root: &Path) -> String {
+    static IMG: LazyLock<regex::Regex> =
+        LazyLock::new(|| regex::Regex::new(r#"<img\s[^>]*src="(/static/[^"?#]+)"[^>]*>"#).unwrap());
+    static SIZED: LazyLock<regex::Regex> =
+        LazyLock::new(|| regex::Regex::new(r#"\s(width|height|class|style)="#).unwrap());
+    IMG.replace_all(html, |caps: &regex::Captures<'_>| {
+        let tag = &caps[0];
+        if SIZED.is_match(tag) {
+            return tag.to_string();
+        }
+        match image_size(&root.join(caps[1].trim_start_matches('/'))) {
+            Some((w, h)) if w > 0 && h > 0 => {
+                let end = if tag.ends_with("/>") { tag.len() - 2 } else { tag.len() - 1 };
+                format!("{} width=\"{w}\" height=\"{h}\"{}", tag[..end].trim_end(), &tag[end..])
+            }
+            _ => tag.to_string(),
+        }
+    })
+    .into_owned()
+}

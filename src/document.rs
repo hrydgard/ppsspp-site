@@ -382,7 +382,7 @@ impl Document {
             &render_params,
         )
             .map_err(anyhow::Error::msg)?;
-        let html = postprocess_html(rendered.content);
+        let html = util::add_image_sizes(&postprocess_html(rendered.content), &config.in_dir);
 
         Ok(Self {
             path,
