@@ -106,6 +106,12 @@
         data-popup-closed="onFSPopupClosed" data-error-callback="onFSError" {{#unless globals.prod}}data-debug=true{{/unless}}></script>
     {{/if}}
 
+    {{#if json_ld}}
+    <script type="application/ld+json">
+{{{json_ld}}}
+    </script>
+    {{/if}}
+
     {{#if contains_code}}
     <script src="/static/script/highlight.min.js?v={{globals.asset_v.highlight_js}}" defer></script>
     {{/if}}

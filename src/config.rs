@@ -12,8 +12,8 @@ pub struct File {
 
 #[derive(Debug, Deserialize, Serialize, Clone, Default)]
 pub struct Author {
-    name: String,
-    url: String,
+    pub name: String,
+    pub url: String,
     image_url: String,
     title: String,
     twitter_url: String,

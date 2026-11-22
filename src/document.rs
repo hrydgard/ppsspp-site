@@ -123,6 +123,14 @@ pub struct PageContext<'a> {
     pub no_index: bool,
     // Absolute URL of a page-specific og:image. None means the default share image.
     pub share_image: Option<String>,
+    // schema.org JSON-LD for this page, emitted as-is in <head> (see json_ld_script).
+    pub json_ld: Option<String>,
+}
+
+// Serializes schema.org data for a <script type="application/ld+json"> block. "</" is escaped
+// so that text like "</script>" in a title can't end the script element.
+pub fn json_ld_script(value: &serde_json::Value) -> String {
+    serde_json::to_string_pretty(value).unwrap().replace("</", "<\\/")
 }
 
 static DEFAULT_DESCRIPTION: &str = "Play PSP games in HD on Android, iOS, Windows, macOS, and more with enhanced graphics and customizable controls! Free and open source. Download now!";
@@ -149,6 +157,7 @@ impl<'a> PageContext<'a> {
             og_type: "website",
             no_index: false,
             share_image: None,
+            json_ld: None,
         }
     }
     pub fn from_document(document: &Document, globals: &'a GlobalMeta) -> Self {
@@ -185,6 +194,7 @@ impl<'a> PageContext<'a> {
             canonical_url: None,
             og_type: "website",
             no_index: false,
+            json_ld: None,
         }
     }
     pub fn render(

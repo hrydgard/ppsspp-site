@@ -79,5 +79,29 @@
 </div>
 
 {{>software_ld}}
+{{!-- Site name and logo for search results. --}}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "WebSite",
+            "name": "PPSSPP",
+            "url": "https://www.ppsspp.org/"
+        },
+        {
+            "@type": "Organization",
+            "name": "PPSSPP",
+            "url": "https://www.ppsspp.org/",
+            "logo": "https://www.ppsspp.org/icon-512.png",
+            "sameAs": [
+                "https://github.com/hrydgard/ppsspp",
+                "https://x.com/PPSSPP_emu",
+                "https://forums.ppsspp.org/"
+            ]
+        }
+    ]
+}
+</script>
 
 {{>common_footer this}}

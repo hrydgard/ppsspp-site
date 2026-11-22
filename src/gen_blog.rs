@@ -164,6 +164,7 @@ pub fn generate_blog(
         // Now, use that as contents and render into a doc template.
         context.contents = Some(post_html);
         context.sidebar = Some(sidebar);
+        context.json_ld = Some(blog_posting_ld(doc, &context, config));
         //println!("{:#?}", context.meta);
         let html = context.render("blog_page", handlebars)?;
 
@@ -236,6 +237,39 @@ pub fn generate_blog(
     println!("Wrote blog '{}'", folder);
 
     Ok(documents)
+}
+
+// schema.org BlogPosting for a post page (lets search engines show the date and author).
+fn blog_posting_ld(doc: &Document, context: &PageContext<'_>, config: &Config) -> String {
+    let url = format!("{}{}", util::SITE_URL, util::canonical_path(&doc.meta.url));
+    let image = context
+        .share_image
+        .clone()
+        .unwrap_or_else(|| format!("{}/static/img/share.png", util::SITE_URL));
+    let mut ld = serde_json::json!({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": doc.meta.title,
+        "description": context.description,
+        "datePublished": doc.meta.date,
+        "url": url,
+        "mainEntityOfPage": url,
+        "image": image,
+        "publisher": {
+            "@type": "Organization",
+            "name": "PPSSPP",
+            "url": format!("{}/", util::SITE_URL),
+            "logo": format!("{}/icon-512.png", util::SITE_URL),
+        },
+    });
+    if let Some(author) = config.global_meta.authors.get(&doc.meta.author) {
+        ld["author"] = serde_json::json!({
+            "@type": "Person",
+            "name": author.name,
+            "url": author.url,
+        });
+    }
+    json_ld_script(&ld)
 }
 
 fn tag_description(tag: &str) -> String {
