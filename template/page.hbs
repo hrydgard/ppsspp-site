@@ -3,6 +3,8 @@
 <div class="doc-container">
     <div class="doc-contents">
 
+        {{!-- The Markdown's own "# Title" is skipped by the renderer, like in doc.hbs. --}}
+        <h1>{{title}}</h1>
         {{{contents}}}
 
     </div>

@@ -16,8 +16,9 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1 id="banner-title" class="hero-title">PPSSPP <small>{{globals.app_version}}</small></h1>
-                <p class="hero-subtitle">A PSP emulator</p>
+                {{!-- The subtitle is part of the h1, so the main heading says what PPSSPP is. --}}
+                <h1 id="banner-title" class="hero-title">PPSSPP <small>{{globals.app_version}}</small>
+                    <span class="hero-subtitle">A PSP emulator</span></h1>
             </div>
             <div class="col-4">
                 <a href="/download" class="hero-button download-button button-block">

@@ -27,7 +27,10 @@ img.hero-bg {
 }
 
 .hero-subtitle {
+  display: block;
   font-size: 20pt;
+  font-weight: normal;
+  line-height: 1.6;
   padding-bottom: 5px;
 }
 

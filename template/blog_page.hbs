@@ -9,6 +9,9 @@
     </aside>
 
     <div class="doc-contents">
+        {{!-- Listing pages: post titles are h2s, so the page needs its own h1 (for screen readers
+             and search engines; the tag bar already shows where you are). --}}
+        {{#if is_list_view}}<h1 class="visually-hidden">{{title}}</h1>{{/if}}
         {{#if tags}}
         <nav aria-labelledby="doc-tags" class="doc-tagbar">
             <span id="doc-tags">Tags:</span>

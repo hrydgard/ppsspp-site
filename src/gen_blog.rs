@@ -356,6 +356,7 @@ fn generate_listing(
         let mut context =
             PageContext::new(Some(page_title), Some(post_html), &config.global_meta);
         context.sidebar = Some(sidebar.clone());
+        context.is_list_view = true;
         context.description = Some(description.to_string());
         context.tags = all_tags;
         // Later listing pages only repeat posts (and shift whenever one is added), so keep

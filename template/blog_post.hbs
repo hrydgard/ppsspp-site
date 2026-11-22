@@ -1,9 +1,14 @@
 <article class="article" {{#if meta.slug}}aria-labelledby="{{meta.slug}}"{{/if}}>
+    {{!-- In listings each post title is an h2 (one h1 per page), styled like an h1. --}}
+    {{#if is_list_view}}
+    <h2 {{#if meta.slug}}id="{{meta.slug}}"{{/if}} class="h1-style">
+        <a href="{{meta.url}}">{{title}}</a>
+    </h2>
+    {{else}}
     <h1 {{#if meta.slug}}id="{{meta.slug}}"{{/if}}>
-        {{#if is_list_view}}<a href="{{meta.url}}">{{/if}}
         {{title}}
-        {{#if is_list_view}}</a>{{/if}}
     </h1>
+    {{/if}}
 
     <ul class="article-infos">
         {{#with (lookup globals.authors meta.author)}}
