@@ -305,6 +305,7 @@ fn build(opt: &Args, adhoc_servers: &str) -> anyhow::Result<()> {
     let pages = gen_pages::generate_pages(&config, "pages", &mut handlebars)?;
 
     // Pages that shouldn't be in search results.
+    // Pages that are noindex (account, status) or not canonical.
     const NOT_IN_SITEMAP: &[&str] = &[
         "/notfound",
         "/thankyou",
@@ -312,6 +313,7 @@ fn build(opt: &Args, adhoc_servers: &str) -> anyhow::Result<()> {
         "/changepassword",
         "/recoverpassword",
         "/stats",
+        "/buildbotstatus",
         // Its canonical is /gethomebrew (same text).
         "/gethomebrew_ios",
     ];
