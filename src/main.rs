@@ -312,6 +312,8 @@ fn build(opt: &Args, adhoc_servers: &str) -> anyhow::Result<()> {
         "/changepassword",
         "/recoverpassword",
         "/stats",
+        // Its canonical is /gethomebrew (same text).
+        "/gethomebrew_ios",
     ];
     let mut sitemap = gen_sitemap::SitemapGenerator::new();
     sitemap.add(

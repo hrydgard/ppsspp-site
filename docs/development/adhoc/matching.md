@@ -2,7 +2,7 @@
 position: 7
 ---
 
-# sceNetAdhocMatching
+# sceNetAdhocMatching: lobbies and matchmaking
 
 The matching library is a ready-made lobby protocol on top of PDP. A host advertises itself, clients see
 the advertisement, ask to join, and are accepted or rejected; the library then keeps the member list alive
