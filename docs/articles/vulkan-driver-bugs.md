@@ -244,3 +244,31 @@ if (majorVersion < 15) {
     // Affected by bug
 }
 ```
+
+### EQUAL depth test fails on blended draws
+
+A common technique redraws geometry that's already in the depth buffer with `VK_COMPARE_OP_EQUAL`, depth writes off, to
+add lighting or other effects onto exactly the visible surfaces. On PowerVR, when such a draw also blends with the
+destination (additive `ONE`/`ONE`, or `VK_BLEND_OP_SUBTRACT`), most of its fragments fail the depth test, even though
+the vertex shader produces the same depth as the draw that wrote it. With blending off, or with a blend that doesn't
+read the destination (`ONE`/`ZERO`), the same draws pass. Depth writes, the stencil test and the color write mask make
+no difference, and neither do snapping the vertex positions or quantizing the fragment depth.
+
+`VK_COMPARE_OP_GREATER_OR_EQUAL` passes the same fragments, so the depth values really are equal; with
+`VK_COMPARE_OP_LESS_OR_EQUAL` they fail like EQUAL, as if the tested depth came out a hair higher than the stored one
+(about a hundredth to a twentieth of 1/65536 of the depth range).
+
+Seen in PPSSPP in the flashlight lighting of Silent Hill: Origins and Silent Hill: Shattered Memories, which redraw the
+scene with EQUAL and blend the light on (adding) and shadows off (subtracting).
+
+#### Workaround
+
+None that's exact. Testing with `GREATER_OR_EQUAL` (optionally with the redrawn geometry's Z raised a little) fixes
+redraws of identical geometry, but also lets through any EQUAL-tested geometry that is in front of the stored depth,
+which a real EQUAL test would reject. Switching only some of the blended EQUAL draws in a pass to
+`GREATER_OR_EQUAL` didn't help consistently, so the behavior seems to depend on the other draws in the tile.
+
+#### Affected hardware
+
+PowerVR Rogue GE8320, Vulkan 1.1.131 (driver build 1.13@5776728, Android 11, Redmi 9A). OpenGL ES on the same device
+is not affected.
