@@ -1,6 +1,6 @@
-# Vulkan Driver Bugs
+# Graphics Driver Bugs
 
-A few years ago, I meant to start a website that documented Vulkan driver bugs. Never got around to it, but I did some writing for it, which I've collected here.
+A few years ago, I meant to start a website that documented Vulkan driver bugs. Never got around to it, but I did some writing for it, which I've collected here. It has since grown an OpenGL ES section too.
 
 I've updated it slightly but there's more to be done.
 
@@ -11,7 +11,7 @@ Vulkan is the present and future of graphics, at least on some platforms. But cl
 In the spirit of Vulkan, this site is meant to receive contributions from the community. If you have a bug that is not listed on this site,
 feel free to open a pull request against this website [here](https://github.com/hrydgard/ppsspp-site/).
 
-## Bugs
+## Vulkan bugs
 
 ### Fragment discard broken when stencil test on, depth off
 
@@ -272,3 +272,29 @@ which a real EQUAL test would reject. Switching only some of the blended EQUAL d
 
 PowerVR Rogue GE8320, Vulkan 1.1.131 (driver build 1.13@5776728, Android 11, Redmi 9A). OpenGL ES on the same device
 is not affected.
+
+## OpenGL ES bugs
+
+### Depth copied by drawing it isn't exact
+
+A common way to copy depth from one framebuffer to another is to bind the source depth buffer as a texture and draw a
+quad that writes what it samples to `gl_FragDepth`. On some GPUs the copy comes out slightly off from the original,
+even with `highp` everywhere. That's invisible until something tests depth with `GL_EQUAL` against the copy, for
+example a lighting pass that redraws the scene's geometry: then most fragments fail. Testing the same pass with
+`GL_LEQUAL` and `GL_GEQUAL` gives exactly complementary stripes along the depth contours, so the copy is rounded by
+part of a step, up in some places and down in others.
+
+Seen in PPSSPP in Colin McRae Rally (the shading it multiplies onto its ground went missing) and in Silent Hill:
+Origins (the flashlight lost its shadows, after the depth was carried over into a wider buffer).
+
+Strictly speaking the spec may not promise that a 24-bit depth value survives the trip through a float sample and back,
+but other GPUs, and Vulkan on the same Mali, copy it exactly.
+
+#### Workaround
+
+Copy depth with `glBlitFramebuffer(..., GL_DEPTH_BUFFER_BIT, GL_NEAREST)`, which is exact.
+
+#### Affected hardware
+
+* Qualcomm Adreno 630 and 506
+* ARM Mali-G57, OpenGL ES 3.2 v1.r54p1 (Android 16)
