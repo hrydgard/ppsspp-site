@@ -261,12 +261,20 @@ no difference, and neither do snapping the vertex positions or quantizing the fr
 Seen in PPSSPP in the flashlight lighting of Silent Hill: Origins and Silent Hill: Shattered Memories, which redraw the
 scene with EQUAL and blend the light on (adding) and shadows off (subtracting).
 
+It isn't limited to the blended draws, either: in a pass that mixes blended and unblended EQUAL redraws, switching
+only the blended ones to `GREATER_OR_EQUAL` (or only some of them) fixed part of the image at best. The behavior
+seems to depend on the other draws in the tile.
+
 #### Workaround
 
-None that's exact. Testing with `GREATER_OR_EQUAL` (optionally with the redrawn geometry's Z raised a little) fixes
-redraws of identical geometry, but also lets through any EQUAL-tested geometry that is in front of the stored depth,
-which a real EQUAL test would reject. Switching only some of the blended EQUAL draws in a pass to
-`GREATER_OR_EQUAL` didn't help consistently, so the behavior seems to depend on the other draws in the tile.
+Test every EQUAL draw with `GREATER_OR_EQUAL`, and do the other half of the test in the fragment shader: copy the
+depth buffer (`vkCmdCopyImage`, which is exact), bind the copy as a texture, and discard fragments that are more
+than a small tolerance in front of the depth it holds. Draws that test EQUAL don't change the depth (or write the
+same values), so one copy can serve a whole run of them.
+
+`GREATER_OR_EQUAL` alone, optionally with the redrawn geometry's Z raised a little, fixes redraws of identical
+geometry, but also lets through EQUAL-tested geometry that is in front of the stored depth, which a real EQUAL
+test rejects.
 
 #### Affected hardware
 
