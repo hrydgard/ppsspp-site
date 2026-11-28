@@ -1,0 +1,21 @@
+# PPSSPP
+
+> PPSSPP is a PSP emulator, which means that it can run games and other software that was originally made for the Sony PSP.
+
+## Documentation
+
+- [Introduction to PPSSPP](/docs/getting-started/introduction/): PPSSPP is a PSP emulator, which means that it can run games and other software that was originally made for the Sony PSP.
+- [How to get games for PPSSPP](/docs/getting-started/how-to-get-games/): PSP games are games originally created for the Sony PlayStation Portable, or PSP for short. They are normally sold as either small plastic "UMD" discs or as downloadable content from the PlayStation Store through PlayStation Network.
+- [Dumping UMD games](/docs/getting-started/dumping-games/): To read a game disc into an ISO is called "dumping" for historical reasons - it's old computer lingo for copying every single bit of a medium to a file, for archival storage or other use.
+- [Save data and storage on Android](/docs/getting-started/save-data-and-storage/): PSP save data storage on Android 11+ with PPSSPP 1.12+ is a bit more complicated than it used to be, due to the new Android restrictions that we have to abide by.
+- [FAQ - Frequently Asked Questions](/docs/faq/): Quick answers to questions that are frequently asked.
+- [I get a black screen!](/docs/troubleshooting/game-wont-load/): Or, your game won't load for one reason or other. Try these basic steps!
+- [PPSSPP keeps crashing!](/docs/troubleshooting/ppsspp-keeps-crashing/): There are still some games that just don't work yet in PPSSPP, and we're always fixing bugs.
+- [The graphics don't look right, what to do?](/docs/troubleshooting/graphics-dont-look-right/): We're always working on improving graphics, but a lot of games look great already. It's often just settings.
+- [Quickstart guide](/docs/multiplayer/quickstart/): The PSP supports two fundamentally different methods of multiplayer - **infrastructure** and **ad hoc**. *Infrastructure* means that games connect to PSN or other servers, working much like most modern multiplayer games. *Ad hoc* is peer-to-peer, and was meant to be used between player in the same room, much like say the Game Boy link cable, but wireless.
+- [Ad hoc multiplayer](/docs/multiplayer/how-to-play/): Ad hoc, in PSP parlance, refers to local Wi-Fi networks created by PSP systems, for local multiplayer in the room.
+- [Command Line arguments](/docs/reference/command-line/): PPSSPP has a bunch of command line arguments, that are not documented very well elsewhere, so let's do it here.
+- [Plugins in PPSSPP](/docs/reference/plugins/): PPSSPP doesn't support traditional PSP plugins, because those often have a far too tight relationship to the PSP OS kernel to work in an emulator that only pretends the kernel is there.
+- [Creating texture replacement packs](/docs/reference/texture-replacement/): You can create texture replacement packs in PPSSPP to replace textures.
+- [Front end integration on Android](/docs/reference/front-end-integration/): If you need this you know what it is, most others won't need to bother. This is here to be google-able.
+- [WebSocket API](/docs/reference/websocket-api/): PPSSPP has a built-in WebSocket API that you can use to do various things.
